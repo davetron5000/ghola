@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+usage() {
+  echo "usage: $0 [-h]"
+}
+
+while getopts ":h" opt "${@}"; do
+  case ${opt} in
+    h)
+      usage
+      exit 0
+      ;;
+    \?)
+      echo "Unknown flag: ${OPTARG}"
+      usage
+      exit 1
+      ;;
+  esac
+done
+
+npx http-server serve/dev -p 8888 -c-1

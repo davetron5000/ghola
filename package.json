@@ -1,0 +1,19 @@
+{
+  "name": "ghola",
+  "version": "1.0.0",
+  "description": "Color Chooser for Developers",
+  "main": "index.js",
+  "author": "David Copeland",
+  "license": "Hippocratic-2.1",
+  "dependencies": {
+    "brutaljs": "file:../brutaljs",
+    "chroma-js": "^2.4.2",
+    "hex-color-to-color-name": "^1.0.2",
+    "melange-css": "^1.0.0-alpha9"
+  },
+  "devDependencies": {
+    "chokidar-cli": "^3.0.0",
+    "esbuild": "^0.19.2",
+    "http-server": "^14.1.1"
+  }
+}

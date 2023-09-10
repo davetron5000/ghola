@@ -1,0 +1,42 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = "help" ] || [ "$1" = "-h" ]; then
+  echo "usage: $0 [dev|test|prod]"
+  exit 0
+fi
+
+ENV=$1
+if [ -z "${ENV}" ]; then
+  ENV=dev
+fi
+
+
+APP_VERSION=init
+
+if [ "${ENV}" = "dev" ]; then
+  echo "Building JavaScript"
+  npx esbuild  \
+    --bundle  \
+    --define:ENV=\"dev\" \
+    --define:APP_VERSION=\"${APP_VERSION}\" \
+    --keep-names \
+    --outfile=serve/dev/main.js \
+    --sourcemap \
+    src/js/index.js
+  echo "Building CSS"
+
+  npx esbuild \
+    --sourcemap \
+    --bundle \
+    --outfile=serve/dev/main.css \
+    src/css/index.css
+
+  echo "Copying HTML"
+  cp src/html/index.html serve/dev
+
+else
+  echo "Not implemented"
+  exit 1
+fi

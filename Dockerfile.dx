@@ -1,0 +1,11 @@
+FROM node:20.6
+
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get -y update && \
+    npm install -g npm@latest
+
+ENV EDITOR=vim
+RUN apt-get install -y vim && \
+    echo "set -o vi" >> /root/.bashrc
+
+COPY dx/show-help-in-app-container-then-wait.sh /root

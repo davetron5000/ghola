@@ -1,0 +1,5 @@
+# Obviously we don't need this
+node_modules
+
+# This is where the site is served up for local dev
+serve

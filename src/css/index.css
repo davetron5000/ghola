@@ -1,0 +1,13 @@
+@import "melange-css/melange.css";
+
+:root {
+  --mg-ff-sans: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
+}
+
+input::-webkit-color-swatch-wrapper {
+  margin: 0;
+  padding: 0;
+}
+input::-webkit-color-swatch {
+  border-radius: 0;
+}
