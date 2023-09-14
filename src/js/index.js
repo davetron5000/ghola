@@ -1,18 +1,33 @@
 /*
  * TODO:
  *
- * - allow choosing more than one color
- * - better choices for dark/light
+ * - show contrast for black, white, light, dark
+ * - ColorWheels
+ *   - ForceSaturation
+ *   - Rectangle (based on two colors)
+ *   - ???
+ * - ColorScales
+ *   - darkest/lightest that still has the color
+ *   - least dark/light that satisfies contrast needs
+ *
  * - take chosen color and categorize it as level, then build around it
+ * - allow choosing more than one color
+ * - allow control over the view:
+ *   - show names
+ *   - size of swatches
+ *   - show contrast values or no
+ * - export
+ *   - CSS variables
+ *   - ability to name each level
  * - category names for colors
  * - debounce events
  */
 
-import { Body, Component, EventManager } from "brutaljs"
+import { Body } from "brutaljs"
 
 import PageState from "./components/PageState"
-import Form from "./components/Form"
-import Palette from "./components/Palette"
+import Form      from "./components/Form"
+import Palette   from "./components/Palette"
 
 document.addEventListener("DOMContentLoaded", () => {
   const pageState = new PageState(window,{
