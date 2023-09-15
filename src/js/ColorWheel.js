@@ -1,10 +1,12 @@
-export default class ColorWheel {
+import Color         from "./Color"
+import ColorCategory from "./ColorCategory"
+
+class ColorWheelBase {
   static normalizeNumColors(numColors) {
     if (numColors <= 6) {
       return 6
     }
     else {
-      return 12
       return 12
     }
   }
@@ -12,6 +14,51 @@ export default class ColorWheel {
     this.numColors = this.constructor.normalizeNumColors(numColors)
     this.baseColor = baseColors[0]
     this.gray = this.baseColor.gray()
+    this.colors = []
+  }
+
+  eachColor(f) {
+    this.colors.forEach(f)
+    f(this.gray)
+  }
+}
+
+class NuancedHueBasedColorWheel extends ColorWheelBase {
+  constructor({numColors,baseColors}) {
+    super({numColors,baseColors})
+    const hue = this.baseColor.hue()
+    const map = numColors == 6 ? ColorCategory.sixColorMap : ColorCategory.twelveColorMap
+    const [ baseColorName, range ] = map.find( ([name,range]) => {
+      if (range.isWithin(hue)) {
+        return [ name, range ]
+      }
+    })
+    if (!baseColorName) {
+      throw `WTF: ${baseColor} with ${hue} isn't in any range?!??!`
+    }
+    const percent = range.percent(hue)
+    this.colors = map.filter( ([color, range]) => {
+      if (color == "red2") {
+        return false
+      }
+      if (baseColorName == color) {
+        return false
+      }
+      else if (baseColorName == "red2" && color == "red") {
+        return false
+      }
+      return true
+    }).map( ([color, range]) => {
+      const thisHue = range.valueAtPercent(percent)
+      return this.baseColor.atHue(thisHue)
+    })
+    this.colors.unshift(this.baseColor)
+  }
+}
+
+class EqualHueBasedColorWheel extends ColorWheelBase {
+  constructor({numColors,baseColors}) {
+    super({numColors,baseColors})
     this.colors = [ this.baseColor ]
     const degrees = 360 / numColors
 
@@ -21,10 +68,20 @@ export default class ColorWheel {
       this.colors.push(newColor)
     }
   }
+}
 
-  eachColor(f) {
-    this.colors.forEach(f)
-    f(this.gray)
+export default class ColorWheel extends ColorWheelBase {
+  static wheel(name) {
+    if (name == "EqualHueBased") {
+      return EqualHueBasedColorWheel
+    }
+    if (name == "NuancedHueBased") {
+      return NuancedHueBasedColorWheel
+    }
+    else {
+      throw `No such wheel ${name}`
+    }
   }
+
 }
 

@@ -31,87 +31,169 @@
       <h2 class="f-5 fw-5 mv-2">The color picker for developers</h2>
     </header>
     <main>
-      <form action="#" class="flex items-baseline bg-gray-light black-ish">
+      <form action="#" data-palette-config class="flex items-center bg-gray-light black-ish">
+        <div>
         <label class="mh-3 f-3 fw-6 flex items-center">
-          <span class="mr-2">
-          Base Color:
+          <span class="mr-2 w-70 flex items-center">
+            <span class="f-1 fw-3 mr-1">&#9432;</span> Base Color:
           </span>
           <input type="color" name="color" class="h-4 w-5" class="pointer" value="#ff0000">
+          <div class="w-4">&nbsp;</div>
         </label>
-        <div class="flex items-center pa-3">
-          <label class="mr-3 f-3 fw-6">
-            Number of Colors
-          </label>
-          <input id="num-colors-6" type="radio" name="num-colors" value="6" checked />
-          <label for="num-colors-6" class="flex items-center pr-3">
-            <span class="mh-1 f-3">6</span>
-            <div class="w-3 h-2" style="background-color: #ff0000;"></div>
-            <div class="w-3 h-2" style="background-color: #ff8800;"></div>
-            <div class="w-3 h-2" style="background-color: #ffff00;"></div>
-            <div class="w-3 h-2" style="background-color: #00ff00;"></div>
-            <div class="w-3 h-2" style="background-color: #0000ff;"></div>
-            <div class="w-3 h-2" style="background-color: #ff00ff;"></div>
-          </label>
-          <input id="num-colors-12" type="radio" name="num-colors" value="12" />
-          <label for="num-colors-12" class="flex items-center pr-3">
-            <span class="mh-1 f-3">12</span>
-            <div class="w-2 h-2" style="background-color: #ff0000;"></div>
-            <div class="w-2 h-2" style="background-color: #ff4400;"></div>
-            <div class="w-2 h-2" style="background-color: #ff8800;"></div>
-            <div class="w-2 h-2" style="background-color: #ffcc00;"></div>
-            <div class="w-2 h-2" style="background-color: #ffff00;"></div>
-            <div class="w-2 h-2" style="background-color: #88ff00;"></div>
-            <div class="w-2 h-2" style="background-color: #00ff00;"></div>
-            <div class="w-2 h-2" style="background-color: #008888;"></div>
-            <div class="w-2 h-2" style="background-color: #0000ff;"></div>
-            <div class="w-2 h-2" style="background-color: #8800ff;"></div>
-            <div class="w-2 h-2" style="background-color: #ff00ff;"></div>
-            <div class="w-2 h-2" style="background-color: #ff0088;"></div>
-          </label>
+        <label class="mh-3 f-3 fw-6 flex items-center">
+          <span class="mr-2 w-70 flex items-center">
+            <span class="f-1 fw-3 mr-1">&#9432;</span> Secondary Color:
+          </span>
+          <input type="color" name="secondary-color" class="h-4 w-5" class="pointer">
+          <input type="checkbox" name="use-secondary-color" class="w-4">
+        </label>
         </div>
         <div class="flex items-center pa-3">
-          <label class="mr-3 f-3 fw-6">
+          <label class="mr-3 f-3 fw-6 flex items-center">
+            <span class="f-1 fw-3 mr-1">&#9432;</span>
+            Number of Colors
+          </label>
+          <div>
+            <div class="flex items-center mb-2">
+              <input id="num-colors-6" type="radio" name="num-colors" value="6" checked />
+              <label for="num-colors-6" class="flex items-center pr-3">
+                <span class="mh-1 f-3 w-4 tr">6</span>
+                <div class="w-3 h-2" style="background-color: #ff0000;"></div>
+                <div class="w-3 h-2" style="background-color: #ff8800;"></div>
+                <div class="w-3 h-2" style="background-color: #ffff00;"></div>
+                <div class="w-3 h-2" style="background-color: #00ff00;"></div>
+                <div class="w-3 h-2" style="background-color: #0000ff;"></div>
+                <div class="w-3 h-2" style="background-color: #ff00ff;"></div>
+              </label>
+            </div>
+            <div class="flex items-center mt-2">
+              <input id="num-colors-12" type="radio" name="num-colors" value="12" />
+              <label for="num-colors-12" class="flex items-center pr-3">
+                <span class="mh-1 f-3 w-4 tr">12</span>
+                <div class="w-2 h-2" style="background-color: #ff0000;"></div>
+                <div class="w-2 h-2" style="background-color: #ff4400;"></div>
+                <div class="w-2 h-2" style="background-color: #ff8800;"></div>
+                <div class="w-2 h-2" style="background-color: #ffcc00;"></div>
+                <div class="w-2 h-2" style="background-color: #ffff00;"></div>
+                <div class="w-2 h-2" style="background-color: #88ff00;"></div>
+                <div class="w-2 h-2" style="background-color: #00ff00;"></div>
+                <div class="w-2 h-2" style="background-color: #008888;"></div>
+                <div class="w-2 h-2" style="background-color: #0000ff;"></div>
+                <div class="w-2 h-2" style="background-color: #8800ff;"></div>
+                <div class="w-2 h-2" style="background-color: #ff00ff;"></div>
+                <div class="w-2 h-2" style="background-color: #ff0088;"></div>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center pa-3">
+          <label class="mr-3 f-3 fw-6 flex items-center">
+            <span class="f-1 fw-3 mr-1">&#9432;</span>
             Number of Shades
           </label>
-          <input id="num-shades-5" type="radio" name="num-shades" value="5" checked />
-          <label for="num-shades-5" class="flex items-center pr-3">
-            <span class="mh-1 f-3">5</span>
-            <div class="w-3 h-2" style="background-color: #111111;"></div>
-            <div class="w-3 h-2" style="background-color: #454545;"></div>
-            <div class="w-3 h-2" style="background-color: #888888;"></div>
-            <div class="w-3 h-2" style="background-color: #ababab;"></div>
-            <div class="w-3 h-2" style="background-color: #eeeeee;"></div>
+          <div>
+            <div class="flex items-center mb-2">
+              <input id="num-shades-5" type="radio" name="num-shades" value="5" checked />
+              <label for="num-shades-5" class="flex items-center pr-3">
+                <span class="mh-1 f-3 w-4 tr">5</span>
+                <div class="w-3 h-2" style="background-color: #111111;"></div>
+                <div class="w-3 h-2" style="background-color: #454545;"></div>
+                <div class="w-3 h-2" style="background-color: #888888;"></div>
+                <div class="w-3 h-2" style="background-color: #ababab;"></div>
+                <div class="w-3 h-2" style="background-color: #eeeeee;"></div>
+              </label>
+            </div>
+            <div class="flex items-center mt-2">
+              <input id="num-shades-7" type="radio" name="num-shades" value="7" />
+              <label for="num-shades-7" class="flex items-center pr-3">
+                <span class="mh-1 f-3 w-4 tr">7</span>
+                <div class="w-3 h-2" style="background-color: #111111;"></div>
+                <div class="w-3 h-2" style="background-color: #232323;"></div>
+                <div class="w-3 h-2" style="background-color: #454545;"></div>
+                <div class="w-3 h-2" style="background-color: #888888;"></div>
+                <div class="w-3 h-2" style="background-color: #ababab;"></div>
+                <div class="w-3 h-2" style="background-color: #cdcdcd;"></div>
+                <div class="w-3 h-2" style="background-color: #eeeeee;"></div>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <div class="flex items-center pt-2 pb-1">
+            <label class="mr-3 f-3 fw-6 flex items-center" for="scale-model">
+              <span class="f-1 fw-3 mr-1">&#9432;</span>
+              Scale Model
+            </label>
+            <select id="scale-model" name="scale-model">
+              <option value="Chroma">chroma.js</option>
+              <option value="EnsureContrast">Ensure Accessible Contrast</option>
+              <option value="FixedHSLLightness">Fixed HSL-based Lightness at Each Step</option>
+              <option value="FixedLabLightness">Fixed Lab-based Lightness at Each Step</option>
+            </select>
+          </div>
+          <div class="flex items-center pb-2 pt-1">
+            <label class="mr-3 f-3 fw-6 flex items-center" for="color-wheel">
+              <span class="f-1 fw-3 mr-1">&#9432;</span>
+              Color Wheel
+            </label>
+            <select id="color-wheel" name="color-wheel">
+              <option value="EqualHueBased">Equally-Spaced Hues</option>
+              <option value="NuancedHueBased">Nuanced</option>
+            </select>
+          </div>
+        </div>
+      </form>
+      <form action="#" data-view-config class="flex items-center bg-gray-darkest gray-lightest">
+        <div class="flex items-center pa-3">
+          <label for="show-details" class="mr-3 f-2 fw-6 flex items-center">
+            <input id="show-details" type="checkbox" name="show-details" value="true" checked />
+            <span class="ml-2">
+            Show Details per Color
+            </span>
           </label>
-          <input id="num-shades-7" type="radio" name="num-shades" value="7" />
-          <label for="num-shades-7" class="flex items-center pr-3">
-            <span class="mh-1 f-3">7</span>
-            <div class="w-3 h-2" style="background-color: #111111;"></div>
-            <div class="w-3 h-2" style="background-color: #232323;"></div>
-            <div class="w-3 h-2" style="background-color: #454545;"></div>
-            <div class="w-3 h-2" style="background-color: #888888;"></div>
-            <div class="w-3 h-2" style="background-color: #ababab;"></div>
-            <div class="w-3 h-2" style="background-color: #cdcdcd;"></div>
-            <div class="w-3 h-2" style="background-color: #eeeeee;"></div>
+          <label for="show-contrast" class="mr-3 f-2 fw-6 flex items-center">
+            <input id="show-contrast" type="checkbox" name="show-contrast" value="true" checked />
+            <span class="ml-2">
+            Show Contrast Info
+            </span>
+          </label>
+          <label for="big-swatches" class="mr-3 f-2 fw-6 flex items-center">
+            <input id="big-swatches" type="checkbox" name="big-swatches" value="true" checked />
+            <span class="ml-2">
+            Big Swatches
+            </span>
           </label>
         </div>
       </form>
-      <article class="pa-3 bt bc-dark-ish" data-palette>
+      <nav class="flex items-baseline ph-3 pv-2 bg-gray-lightest gray-darkest">
+        <h4 class="f-2 fw-5 mr-3 mv-0">Download This Palette</h4>
+        <a class="f-2 blue-dark mr-3" href="#">CSS Variables</a>
+        <a class="f-2 blue-dark mr-3" href="#">Melange Variables</a>
+        <a class="f-2 blue-dark mr-3" href="#"><code>.css</code></a>
+      </nav>
+      <article class="pa-3 bt bc-gray-light bg-white" data-palette>
         <template data-row>
-          <div class="flex items-start justify-between w-100 mt-2">
+          <div class="flex items-start justify-start w-100 mt-2">
             <div class="w-10 tr f-3 ttu fw-5 mr-3 pt-1">
               <slot name="name" />
             </div>
-            <div class="w-90 flex items-center" data-shades>
+            <div class="xw-90 flex items-center" data-shades>
             <slot name="shades" />
             </div>
           </div>
         </template>
         <template data-swatch>
-          <div class="flex flex-column mr-2 ba bc-gray-light hover-bg-gray-light bg-white  pa-1 br-1">
-            <div data-color class="w-6 h-6"></div>
+          <div class="flex flex-column mr-2 ba bc-gray-light hover-bg-gray-light bg-white pa-1 br-1">
+            <div data-color class="w-6 h-6 flex flex-column items-end justify-end">
+              <template data-comparison>
+                <span class="mr-2 mb-2 f-1 ttl">
+                  <slot name="name"></slot>
+                  <slot name="contrast"></slot>
+                </span>
+              </template>
+            </div>
             <span data-name class="w-6 ws-nowrap overflow-x-scroll f-1 ttu fw-5 pt-1"></span>
             <span data-hex class="f-1 ttu fw-5 ff-mono"></span>
-            <span data-hsl class="f-1 ttu fw-5 ff-mono"></span>
           </div>
         </template>
       </article>

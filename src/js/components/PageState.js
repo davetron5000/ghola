@@ -19,26 +19,31 @@ export default class PageState {
     })
   }
 
-  set colorHex(val) {
-    this.params.colorHex = val
-    this._save()
-  }
-  get colorHex() { return this.params.colorHex }
-
+  // Derived attributes
   set color(val) { this.colorHex = val.hex() }
   get color()    { return new Color(this.colorHex) }
+  get isShowColorDetails() { return this.showColorDetails == "true" }
+  get isShowContrastInfo() { return this.showContrastInfo == "true" }
+  get isBigSwatches()      { return this.bigSwatches == "true" }
 
-  set numColors(val) {
-    this.params.numColors = val
-    this._save()
-  }
-  get numColors() { return this.params.numColors }
+  // Attributes serialized to the query string
+  set colorHex(val)   { this.params.colorHex = val; this._save() }
+  get colorHex()      { return this.params.colorHex }
+  set numColors(val)  { this.params.numColors = val; this._save() }
+  get numColors()     { return this.params.numColors }
+  set numShades(val)  { this.params.numShades = val; this._save() }
+  get numShades()     { return this.params.numShades }
+  set scaleModel(val) { this.params.scaleModel = val; this._save() }
+  get scaleModel()    { return this.params.scaleModel }
+  set colorWheel(val) { this.params.colorWheel = val; this._save() }
+  get colorWheel()    { return this.params.colorWheel }
 
-  set numShades(val) {
-    this.params.numShades = val
-    this._save()
-  }
-  get numShades() { return this.params.numShades }
+  set showColorDetails(val) { this.params.showColorDetails = val; this._save() }
+  get showColorDetails()    { return this.params.showColorDetails }
+  set showContrastInfo(val) { this.params.showContrastInfo = val; this._save() }
+  get showContrastInfo()    { return this.params.showContrastInfo }
+  set bigSwatches(val)      { this.params.bigSwatches = val; this._save() }
+  get bigSwatches()         { return this.params.bigSwatches }
 
   _save() {
     const searchParams = new URLSearchParams(this.params)
