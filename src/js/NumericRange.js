@@ -19,7 +19,7 @@ export default class NumericRange {
     if (!this.isWithin(number)) {
       throw `${number} is not within this range ${this.start}..${this.end}`
     }
-    const normalizedEnd  = this.end - this.start
+    const normalizedEnd  = (this.end-1) - this.start
     const normalizedNumber  = number - this.start
     return normalizedNumber / normalizedEnd
   }

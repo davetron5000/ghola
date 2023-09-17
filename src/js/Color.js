@@ -27,26 +27,29 @@ export default class Color {
     }
   }
 
+  lighten(x=1) { return new Color(chroma(this.hex()).brighten(x).hex()) }
+  darken(x=1) { return new Color(chroma(this.hex()).darken(x).hex()) }
+
   withLightness(lightness, { model = "lab", outOfRange = "throw" } = {}) {
+    if ( lightness < 0 || lightness > 100 ) {
+      if (outOfRange === "throw") {
+        throw `Lightness of ${lightness} is outside range 0,100`
+      }
+      else if (Array.isArray(outOfRange)) {
+        if (outOfRange.length != 2) {
+          throw `when outOfRange is an array, it must have exactly two items, not ${outOfRange.length}`
+        }
+        const min = outOfRange[0]
+        const max = outOfRange[1]
+        lightness = Math.max(min,Math.min(max,lightness))
+      }
+      else {
+        throw `Value for outOfRange is not supported: '${outOfRange}'`
+      }
+    }
     if (model == "lab") {
       const [l,a,b] = chroma(this.hex()).lab()
 
-      if ( lightness < 0 || lightness > 100 ) {
-        if (outOfRange === "throw") {
-          throw `Lightness of ${lightness} is outside range 0,100`
-        }
-        else if (Array.isArray(outOfRange)) {
-          if (outOfRange.length != 2) {
-            throw `when outOfRange is an array, it must have exactly two items, not ${outOfRange.length}`
-          }
-          const min = outOfRange[0]
-          const max = outOfRange[1]
-          lightness = Math.max(min,Math.min(max,lightness))
-        }
-        else {
-          throw `Value for outOfRange is not supported: '${outOfRange}'`
-        }
-      }
       return new Color(
         chroma.lab(lightness,a,b).hex()
       )
@@ -74,50 +77,7 @@ export default class Color {
 
   hue() { return chroma(this.hex()).hsl()[0] }
   isGray() { return isNaN(this.hue()) }
-
-  ///////
-
-  gray() {
-    return new Color(chroma(this.hex()).desaturate(10).hex())
-  }
-  hsl() {
-    return chroma(this.hex()).hsl().slice(0,3).map( (value) => {
-      if (isNaN(value)) {
-        return "NaN"
-      }
-      return Math.ceil(value * 100) / 100
-    }).join()
-  }
-
-  darkest() {
-    const hsl = chroma(this.hex()).hsl()
-    //return new Color(chroma.hsl(hsl[0],hsl[1],Math.max(0.05,hsl[2]/4)).hex())
-    return new Color(chroma.hsl(hsl[0],hsl[1],0.1).hex())
-  }
-  dark() {
-    const hsl = chroma(this.hex()).hsl()
-    //return new Color(chroma.hsl(hsl[0],hsl[1],Math.max(0.1,(hsl[2]/2))).hex())
-    return new Color(chroma.hsl(hsl[0],hsl[1],0.15).hex())
-  }
-  lightest() {
-    const hsl = chroma(this.hex()).hsl()
-    return new Color(chroma.hsl(hsl[0],hsl[1],0.9).hex())
-    return new Color(chroma.hsl(hsl[0],hsl[1],Math.min(0.95,hsl[2] * 4)).hex())
-  }
-  light() {
-    const hsl = chroma(this.hex()).hsl()
-    return new Color(chroma.hsl(hsl[0],hsl[1],0.85).hex())
-    return new Color(chroma.hsl(hsl[0],hsl[1],Math.min(0.9,(hsl[2] * 2))).hex())
-  }
-
-  darken(amount) {
-    const lab = chroma(this.hex()).lab()
-    return new Color(chroma.lab(Math.max(lab[0] - amount,0),lab[1],lab[2]).hex())
-  }
-  lighten(amount) {
-    const lab = chroma(this.hex()).lab()
-    return new Color(chroma.lab(Math.min(lab[0] + amount,100),lab[1],lab[2]).hex())
-  }
+  gray() { return new Color(chroma(this.hex()).desaturate(10).hex()) }
 
   rotateHue(degrees) {
     const hsl = chroma(this.hex()).hsl()

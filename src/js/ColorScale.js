@@ -2,6 +2,7 @@ import { TypeOf } from "brutaljs"
 import chroma from "chroma-js"
 
 import Color from "./Color"
+import NumericRange from "./NumericRange"
 
 
 class ColorScaleBase {
@@ -47,7 +48,102 @@ class ColorScaleBase {
   }
 }
 
-class FixedHSLLightness extends ColorScaleBase {
+class ChromaScale extends ColorScaleBase {
+  constructor(color, numShades) {
+    super(color, numShades)
+    const scale = chroma.scale(["black", color.hex(), "white"])
+    this.shades = scale.colors(numShades + 2).slice(1,numShades+1).map( (chromaColor) => {
+      return new Color(chromaColor)
+    })
+  }
+}
+
+class LinearLightnessScale {
+  constructor(color, numSteps, discard=1) {
+    const numScale = numSteps + (2 * discard)
+    this.steps = []
+    let lightness = color.lightness() / 100
+    if (lightness == 0) {
+      lightness = 0.01
+    }
+    else if (lightness == 1) {
+      lightness = 0.99
+    }
+    for (let i = 0; i < numScale; i++) {
+      const previous = i-1 / (numScale-1)
+      let percent  = i   / (numScale-1)
+      if (percent == 0) {
+        percent = 0.01
+      }
+      else if (percent == 1) {
+        percent = 0.99
+      }
+      if ((lightness > previous) && (lightness < percent)) {
+        this.steps.push( lightness * 100)
+      }
+      else {
+        this.steps.push( percent * 100)
+      }
+    }
+    this.steps = this.steps.slice(discard,numSteps+discard)
+
+  }
+}
+
+class LogLightnessScale {
+  constructor(color, numSteps, min_percent = 0.1, la=1, lx=1.5, da=2, dx=2, fudge=0) {
+    this.steps = []
+    let lightness = color.lightness() / 100
+    if (lightness == 0) {
+      lightness = 0.01
+    }
+    else if (lightness == 1) {
+      lightness = 0.99
+    }
+    for (let i = 0; i < numSteps; i++) {
+      const previous = this.steps[i-1] / 100
+      let percent  = (i+1) / (numSteps)
+      if (percent == 0) {
+        percent = 0.01
+      }
+      else if (percent == 1) {
+        percent = 0.99
+      }
+
+      if (percent < 0.5) {
+        percent = la * Math.pow(percent,lx)
+        percent = (percent - (percent * fudge))
+      }
+      else if (percent > 0.5) {
+        percent = 1 - ( da * Math.pow(1-percent,dx) )
+        percent = (percent + ((1-percent) * fudge))
+      }
+      if (percent < min_percent) {
+        if (i == 0) {
+          percent = 0.1
+        }
+        else if (i == 1) {
+          percent = 0.13
+        }
+      }
+      if (!isNaN(previous) && (lightness > previous) && (lightness < percent)) {
+        this.steps.push( lightness * 100)
+      }
+      else {
+        this.steps.push( percent * 100 )
+      }
+      if ( i > 0 ) {
+        if (this.steps[i] < this.steps[i-1]) {
+          const p = (i+1) / numSteps
+          throw `WTF: ${i} ${p} 1 - ( ${da} * Math.pow(1-${p},${dx}) ) ${this.steps}`
+        }
+      }
+    }
+  }
+}
+
+
+class TweakedFixedHSLLightness extends ColorScaleBase {
   constructor(color, numShades, baseColor) {
     super(color, numShades)
     const lightness = Math.min(95,Math.max(5,baseColor.lightness()))
@@ -78,99 +174,109 @@ class FixedHSLLightness extends ColorScaleBase {
     })
   }
 }
-class FixedLabLightness extends ColorScaleBase {
+
+class FixedLightness extends ColorScaleBase {
   constructor(color, numShades, baseColor) {
     super(color, numShades)
-    const lightness = Math.min(95,Math.max(5,baseColor.lightness()))
-
-    let lightnessValues = [];
-
-    if (this.numShades == 5) {
-      if (baseColor.lightness() <= 20) {
-        lightnessValues[0] = color.isGray() ? 1 : 0
-        lightnessValues[1] = Math.max(2,baseColor.lightness() / 2)
-        lightnessValues[2] = baseColor.lightness()
-        lightnessValues[3] = baseColor.lightness() * 4.5
-        lightnessValues[4] = color.isGray() ? 99 : 100
-      }
-      else if (baseColor.lightness() >= 80) {
-        lightnessValues[0] = Math.max(baseColor.lightness() / 5,(color.isGray() ? 1 : 0))
-        lightnessValues[1] = baseColor.lightness() / 2
-        lightnessValues[2] = baseColor.lightness()
-        lightnessValues[3] = Math.max(98,baseColor.lightness())
-        lightnessValues[4] = color.isGray() ? 99 : 100
-      }
-      else {
-        lightnessValues[0] = color.isGray() ? 1 : 0
-        lightnessValues[1] = 2
-        lightnessValues[2] = baseColor.lightness()
-        lightnessValues[3] = 98
-        lightnessValues[4] = color.isGray() ? 99 : 100
-      }
-    }
-    else {
-      if (baseColor.lightness() <= 20) {
-        lightnessValues[0] = color.isGray() ? 1 : 0
-        lightnessValues[1] = Math.max(2,baseColor.lightness() / 2)
-        lightnessValues[2] = Math.max(2,baseColor.lightness() / 1.5)
-        lightnessValues[3] = baseColor.lightness()
-        lightnessValues[4] = baseColor.lightness() * 3
-        lightnessValues[5] = baseColor.lightness() * 4.5
-        lightnessValues[6] = color.isGray() ? 99 : 100
-      }
-      else if (baseColor.lightness() >= 80) {
-        lightnessValues[0] = Math.max(baseColor.lightness() / 5,(color.isGray() ? 1 : 0))
-        lightnessValues[1] = baseColor.lightness() / 2
-        lightnessValues[2] = baseColor.lightness() / 1.5
-        lightnessValues[3] = baseColor.lightness()
-        lightnessValues[4] = Math.max(97,baseColor.lightness())
-        lightnessValues[5] = Math.max(98,baseColor.lightness())
-        lightnessValues[6] = color.isGray() ? 99 : 100
-      }
-      else {
-        lightnessValues[0] = color.isGray() ? 1 : 0
-        lightnessValues[1] = 5
-        lightnessValues[2] = Math.max(10,baseColor.lightness() - 20)
-        lightnessValues[3] = baseColor.lightness()
-        lightnessValues[4] = Math.min(90,baseColor.lightness() + 20)
-        lightnessValues[5] = 98
-        lightnessValues[6] = color.isGray() ? 99 : 100
-      }
-    }
-    this.shades = lightnessValues.map( (value) => {
-      return this.color.withLightness(value, { model: "lab" })
+    this.shades = this._scale(baseColor,numShades).steps.map( (lightness) => {
+      return this.color.withLightness(Math.max(1,Math.min(99,lightness)), { model: this._model(), outOfRange: [ 1,99] })
     })
   }
 }
+class FixedHSLLightness extends FixedLightness {
+  _model() { return "hsl" }
+}
 
-class ChromaScale extends ColorScaleBase {
-  constructor(color, numShades) {
-    super(color, numShades)
-    const scale = chroma.scale(["black", color.hex(), "white"])
-    const shades = scale.colors(30).slice(1,28).map( (chromaColor) => {
-      return new Color(chromaColor)
-    })
-    this.shades = []
+class HSLHandCraftedScale extends LinearLightnessScale {
+  constructor(baseColor,numShades) {
+    super(baseColor,numShades)
     if (numShades == 5) {
-      this.shades[0] = shades[0]
-      this.shades[1] = shades[Math.max(Math.ceil(shades.length * .3),4)]
-      this.shades[2] = color
-      this.shades[3] = shades[Math.ceil(shades.length * .7)]
-      this.shades[4] = shades[shades.length-1]
+      this.steps = [
+        12,
+        20,
+        50,
+        85,
+        98,
+      ]
     }
-    else {
-      this.shades[0] = shades[0]
-      this.shades[1] = shades[Math.ceil(shades.length * .2)]
-      this.shades[2] = shades[Math.ceil(shades.length * .3)]
-      this.shades[3] = color
-      this.shades[4] = shades[Math.ceil(shades.length * .7)]
-      this.shades[5] = shades[Math.ceil(shades.length * .8)]
-      this.shades[6] = shades[shades.length-1]
+    else if (numShades == 7) {
+      this.steps = [
+        8,
+        12,
+        20,
+        50,
+        70,
+        85,
+        98,
+      ]
+    }
+    for (let i = 1; i < this.steps.length; i++) {
+      const prev = this.steps[i-1]
+      if ( prev > baseColor.lightness() && this.steps[i] < baseColor.lightness() ) {
+        this.steps[i-1] = baseColor.lightness()
+      }
     }
   }
 }
+class LabHandCraftedScale extends LinearLightnessScale {
+  constructor(baseColor,numShades) {
+    super(baseColor,numShades)
+    if (numShades == 5) {
+      this.steps = [
+        1,
+        20,
+        50,
+        85,
+        100,
+      ]
+    }
+    else if (numShades == 7) {
+      this.steps = [
+        1,
+        12,
+        30,
+        50,
+        70,
+        85,
+        100,
+      ]
+    }
+    for (let i = 1; i < this.steps.length; i++) {
+      const prev = this.steps[i-1]
+      if ( prev > baseColor.lightness() && this.steps[i] < baseColor.lightness() ) {
+        this.steps[i-1] = baseColor.lightness()
+      }
+    }
+  }
+}
+class FixedHSLLinearLightness extends FixedHSLLightness {
+  _scale(baseColor,numShades) { return new LinearLightnessScale(baseColor,numShades) }
+}
 
-class EnsureContrast extends ColorScaleBase {
+class FixedHSLHandCrafted extends FixedHSLLightness {
+  _scale(baseColor,numShades) { return new HSLHandCraftedScale(baseColor,numShades) }
+}
+
+class FixedHSLLogLightness extends FixedHSLLightness {
+  _scale(baseColor,numShades) { return new LogLightnessScale(baseColor,numShades) }
+}
+
+class FixedLabLightness extends FixedLightness {
+  _model() { return "lab" }
+}
+
+class FixedLabLinearLightness extends FixedLabLightness {
+  _scale(baseColor,numShades) { return new LinearLightnessScale(baseColor,numShades,0) }
+}
+
+class FixedLabLogLightness extends FixedLabLightness {
+  _scale(baseColor,numShades) { return new LogLightnessScale(baseColor,numShades, 0,16,4, 1, 1, 0.6) }
+}
+class FixedLabHandCrafted extends FixedLabLightness {
+  _scale(baseColor,numShades) { return new LabHandCraftedScale(baseColor,numShades) }
+}
+
+class NotUsedEnsureContrast extends ColorScaleBase {
   constructor(color, numShades) {
     super(color, numShades)
 
@@ -246,13 +352,108 @@ class EnsureContrast extends ColorScaleBase {
   }
 }
 
+class EnsureContrast extends ColorScaleBase {
+
+  findContrast(color1,color2,contrast,delta) {
+    let newColor = color1
+    while (newColor.contrast(color2) < contrast) {
+      const next = delta < 1 ? newColor.darken() : newColor.lighten() //withLightness(newColor.lightness() + delta, { outOfRange: [ 1,99 ] })
+      if (next.lightness() > 99) { break }
+      if (next.lightness() < 1) { break }
+      newColor = next
+    }
+    if (Math.abs(newColor.lightness() - color1.lightness()) < 10) {
+      return null
+    }
+    return newColor
+  }
+
+  findContrastingPair(dark,light,ratio) {
+    while(dark.contrast(light) < ratio) {
+
+      const newDarkest  = dark.withLightness(dark.lightness() - 1, { outOfRange: [ 0, 100 ] })
+      const newLightest = light.withLightness(light.lightness() + 1, { outOfRange: [ 0, 100 ] })
+
+      if (newDarkest.lightness() > 0) {
+        dark = newDarkest
+      }
+      if (newLightest.lightness() < 100) {
+        light = newLightest
+      }
+      if ( (newLightest.lightness() >= 100) && (newDarkest.lightness() <= 0) ) {
+        break
+      }
+    }
+    return [ dark, light ]
+  }
+
+  constructor(color, numShades) {
+    super(color, numShades)
+
+    let darker = [
+      this.findContrast(this.color,Color.white(),4.5,-1),
+    ].filter( (x) => !!x )
+
+    let lighter = [
+      this.findContrast(this.color,Color.black(),4.5,1),
+    ].filter( (x) => !!x )
+
+
+    let [ d1, l1 ] = this.findContrastingPair(
+      darker[0] || this.color,
+      lighter[lighter.length-1] || this.color,
+      9,
+    )
+
+    darker.unshift(d1)
+    lighter.push(l1)
+
+    let [ d2, l2 ] = this.findContrastingPair(
+      darker[0] || this.color,
+      lighter[lighter.length-1] || this.color,
+      13,
+    )
+
+    darker.unshift(d2)
+    lighter.push(l2)
+
+    const half = Math.floor(numShades/2)
+
+    while (darker.length < half) {
+      const color = darker[0] || this.color
+      darker.unshift(color.withLightness(color.lightness() / 2, { outOfRange: [ 0,100 ] }))
+    }
+    while (lighter.length < half) {
+      const color = lighter[lighter.length-1] || this.color
+      lighter.push(color.withLightness(color.lightness() * 1.2, { outOfRange: [ 0,100 ] }))
+    }
+
+    if (darker.length > half) { darker = darker.slice(0,half) }
+    if (lighter.length > half) { lighter = lighter.slice(-half) }
+
+    this.shades = darker.concat([color]).concat(lighter).filter( (x) => !!x )
+  }
+}
+
 export default class ColorScale extends ColorScaleBase {
   static scale(name) {
-    if (name == "FixedLabLightness") {
-      return FixedLabLightness
+    if (name == "FixedHSLLinearLightness") {
+      return FixedHSLLinearLightness
     }
-    else if (name == "FixedHSLLightness") {
-      return FixedHSLLightness
+    else if (name == "FixedHSLLogLightness") {
+      return FixedHSLLogLightness
+    }
+    else if (name == "FixedHSLHandCrafted") {
+      return FixedHSLHandCrafted
+    }
+    else if (name == "FixedLabLinearLightness") {
+      return FixedLabLinearLightness
+    }
+    else if (name == "FixedLabLogLightness") {
+      return FixedLabLogLightness
+    }
+    else if (name == "FixedLabHandCrafted") {
+      return FixedLabHandCrafted
     }
     else if (name == "EnsureContrast") {
       return EnsureContrast
@@ -261,35 +462,7 @@ export default class ColorScale extends ColorScaleBase {
       return ChromaScale
     }
     else {
-      return ColorScale
+      throw `No such scale ${name}`
     }
   }
-  constructor(color, numShades) {
-    super(color,numShades)
-    let darkest = this.color.darkest()
-    let dark = this.color.dark()
-    let lightest = this.color.lightest()
-    let light = this.color.light()
-    if (this.numShades == 5) {
-      this.shades = [
-        darkest,
-        dark,
-        color,
-        light,
-        lightest,
-      ]
-    }
-    else {
-      this.shades = [
-        darkest,
-        dark,
-        dark.lighten(3),
-        color,
-        light.darken(3),
-        light,
-        lightest,
-      ]
-    }
-  }
-
 }

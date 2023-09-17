@@ -33,20 +33,34 @@
     <main>
       <form action="#" data-palette-config class="flex items-center bg-gray-light black-ish">
         <div>
-        <label class="mh-3 f-3 fw-6 flex items-center">
-          <span class="mr-2 w-70 flex items-center">
-            <span class="f-1 fw-3 mr-1">&#9432;</span> Base Color:
-          </span>
-          <input type="color" name="color" class="h-4 w-5" class="pointer" value="#ff0000">
-          <div class="w-4">&nbsp;</div>
-        </label>
-        <label class="mh-3 f-3 fw-6 flex items-center">
-          <span class="mr-2 w-70 flex items-center">
-            <span class="f-1 fw-3 mr-1">&#9432;</span> Secondary Color:
-          </span>
-          <input type="color" name="secondary-color" class="h-4 w-5" class="pointer">
-          <input type="checkbox" name="use-secondary-color" class="w-4">
-        </label>
+          <label for="color" class="mh-3 f-3 fw-6 flex items-center">
+            <span class="mr-2 w-70 flex items-center">
+              <span class="f-1 fw-3 mr-1">&#9432;</span>
+              <div>
+                Base Color:
+                <div class="flex items-center">
+                  <div data-name class="f-1 fw-normal ttu mr-2"></div>
+                  <div data-hex class="f-1 ff-mono fw-3 ttu"></div>
+                </div>
+              </div>
+            </span>
+            <input type="color" name="color" class="h-4 w-5" class="pointer" value="#ff0000">
+            <div class="w-4">&nbsp;</div>
+          </label>
+          <label for="secondary-color" class="mh-3 f-3 fw-6 flex items-center">
+            <span class="mr-2 w-70 flex items-center">
+              <span class="f-1 fw-3 mr-1">&#9432;</span>
+              <div>
+                Secondary Color:
+                <div class="flex items-center">
+                  <div data-name class="f-1 fw-normal ttu mr-2"></div>
+                  <div data-hex class="f-1 ff-mono fw-3 ttu"></div>
+                </div>
+              </div>
+            </span>
+            <input type="color" name="secondary-color" class="h-4 w-5" class="pointer">
+            <input type="checkbox" name="use-secondary-color" class="w-4">
+          </label>
         </div>
         <div class="flex items-center pa-3">
           <label class="mr-3 f-3 fw-6 flex items-center">
@@ -125,10 +139,16 @@
               Scale Model
             </label>
             <select id="scale-model" name="scale-model">
-              <option value="Chroma">chroma.js</option>
-              <option value="EnsureContrast">Ensure Accessible Contrast</option>
-              <option value="FixedHSLLightness">Fixed HSL-based Lightness at Each Step</option>
-              <option value="FixedLabLightness">Fixed Lab-based Lightness at Each Step</option>
+
+              <option value="Chroma"                  > chroma.js</option>
+              <option value="EnsureContrast"          > Ensure Accessible Contrast</option>
+              <option value="FixedHSLLinearLightness" > HSL, Fixed, Linear Steps</option>
+              <option value="FixedHSLLogLightness"    > HSL, Fixed, Logarithmic Steps</option>
+              <option value="FixedHSLHandCrafted"     > HSL, Fixed, Hand-crafted Steps</option>
+              <option value="FixedLabLinearLightness" > Lab, Fixed, Linear Steps</option>
+              <option value="FixedLabLogLightness"    > Lab, Fixed, Logarithmic Steps</option>
+              <option value="FixedLabHandCrafted"     > Lab, Fixed, Hand-crafted Steps</option>
+
             </select>
           </div>
           <div class="flex items-center pb-2 pt-1">
@@ -138,7 +158,7 @@
             </label>
             <select id="color-wheel" name="color-wheel">
               <option value="EqualHueBased">Equally-Spaced Hues</option>
-              <option value="NuancedHueBased">Nuanced</option>
+              <option value="NuancedHueBased">Hand-crafted</option>
             </select>
           </div>
         </div>
