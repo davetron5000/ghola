@@ -20,23 +20,44 @@ export default class PageState {
   }
 
   // Derived attributes
-  set color(val) { this.colorHex = val.hex() }
-  get color()    { return new Color(this.colorHex) }
+  set color(val)           { this.colorHex = val.hex() }
+  get color()              { return new Color(this.colorHex) }
   get isShowColorDetails() { return this.showColorDetails == "true" }
   get isShowContrastInfo() { return this.showContrastInfo == "true" }
   get isBigSwatches()      { return this.bigSwatches == "true" }
+  get isSecondaryColorChecked() { return this.params.secondaryColorChecked == "true" }
+  set secondaryColor(val)  {
+    if (val) {
+      this.params.secondaryColorChecked = "true"
+      this.secondaryColorHex = val.hex()
+    }
+    else {
+      this.params.secondaryColorChecked = "false"
+      this._save()
+    }
+  }
+  get secondaryColor() {
+    if (this.secondaryColorHex) {
+      return new Color(this.secondaryColorHex)
+    }
+    else {
+      return null
+    }
+  }
 
   // Attributes serialized to the query string
-  set colorHex(val)   { this.params.colorHex = val; this._save() }
-  get colorHex()      { return this.params.colorHex }
-  set numColors(val)  { this.params.numColors = val; this._save() }
-  get numColors()     { return this.params.numColors }
-  set numShades(val)  { this.params.numShades = val; this._save() }
-  get numShades()     { return this.params.numShades }
-  set scaleModel(val) { this.params.scaleModel = val; this._save() }
-  get scaleModel()    { return this.params.scaleModel }
-  set colorWheel(val) { this.params.colorWheel = val; this._save() }
-  get colorWheel()    { return this.params.colorWheel }
+  set colorHex(val)          { this.params.colorHex = val; this._save() }
+  get colorHex()             { return this.params.colorHex }
+  set secondaryColorHex(val) { this.params.secondaryColorHex = val; this._save() }
+  get secondaryColorHex()    { return this.params.secondaryColorHex }
+  set numColors(val)         { this.params.numColors = val; this._save() }
+  get numColors()            { return this.params.numColors }
+  set numShades(val)         { this.params.numShades = val; this._save() }
+  get numShades()            { return this.params.numShades }
+  set scaleModel(val)        { this.params.scaleModel = val; this._save() }
+  get scaleModel()           { return this.params.scaleModel }
+  set colorWheel(val)        { this.params.colorWheel = val; this._save() }
+  get colorWheel()           { return this.params.colorWheel }
 
   set showColorDetails(val) { this.params.showColorDetails = val; this._save() }
   get showColorDetails()    { return this.params.showColorDetails }
@@ -47,6 +68,9 @@ export default class PageState {
 
   _save() {
     const searchParams = new URLSearchParams(this.params)
+    if (!this.params.secondaryColorHex)  {
+      searchParams.delete("secondaryColorHex")
+    }
     this.window.history.pushState(this.params,"unused",this.window.location.pathname + "?" + searchParams.toString())
   }
 

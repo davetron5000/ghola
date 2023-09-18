@@ -16,7 +16,69 @@ class ColorName extends Component {
   }
 }
 
+class ColorSelector extends Component {
+  constructor(element) {
+    super(element)
+    EventManager.defineEvents(this,"colorSelected")
+    this.colorPicker = new ColorInput(this.$selector("input[type=color]"))
+    this.hexCode     = new ColorHexCode(this.$("hex"))
+    this.name        = new ColorName(this.$("name"))
+
+    this.colorPicker.onColorSelected( (color) => this.hexCode.color = color )
+    this.colorPicker.onColorSelected( (color) => this.name.color = color )
+    this.colorPicker.onColorSelected( (color) => this.colorSelectedEventManager.fireEvent(color) )
+  }
+
+  set color(val) {
+    if (!val) {
+      throw `WTF`
+    }
+    this.colorPicker.color = val
+    this.hexCode.color     = val
+    this.name.color        = val
+  }
+}
+
+class DisableableColorSelector extends ColorSelector {
+  constructor(element, enabled) {
+    super(element)
+    this.checkedEventManager   = new EventManager("checked")
+    this.uncheckedEventManager = new EventManager("unchecked")
+    this.checkbox = new Checkbox(this,"input[type=checkbox]",
+      this.checkedEventManager,
+      this.uncheckedEventManager)
+
+    if (enabled) {
+      this.checkbox.checked = true
+      this._enable()
+    }
+    else {
+      this.checkbox.checked = false
+      this._disable()
+    }
+
+    this.checkedEventManager.addListener(() => {
+      this.colorSelectedEventManager.fireEvent(this.colorPicker.color)
+      this._enable()
+    })
+    this.uncheckedEventManager.addListener(() => {
+      this.colorSelectedEventManager.fireEvent(null)
+      this._disable()
+    })
+  }
+  _enable() {
+    this.element.classList.remove("gray")
+    this.colorPicker.enable()
+  }
+  _disable() {
+    this.element.classList.add("gray")
+    this.colorPicker.disable()
+  }
+}
+
 export default class PaletteForm extends Component {
+  static logContext = "ghola"
+
   constructor(element, initialData) {
     super(element)
     EventManager.defineEvents(this,
@@ -27,21 +89,14 @@ export default class PaletteForm extends Component {
                               "scaleModelChanged",
                               "colorWheelChanged")
 
-    this.colorPicker            = new ColorInput(this.$selector("input[name=color]"))
-    this.secondaryColorPicker   = new ColorInput(this.$selector("input[name=secondary-color]"))
-    //this.secondaryColorCheckbox = new Checkbox(this.$selector("label[for='secondary-color'] input[type=checkbox]"))
-    this.primaryHexCode         = new ColorHexCode(this.$selector("label[for='color'] [data-hex]"))
-    this.primaryName            = new ColorName(this.$selector("label[for='color'] [data-name]"))
-    this.secondaryHexCode       = new ColorHexCode(this.$selector("label[for='secondary-color'] [data-hex]"))
-    this.secondaryName          = new ColorName(this.$selector("label[for='secondary-color'] [data-name]"))
+    this.colorSelector = new ColorSelector(this.$selector("label[for='color']"))
+    this.secondaryColorSelector = new DisableableColorSelector(
+      this.$selector("label[for='secondary-color']"),
+      initialData.secondaryColorChecked
+    )
 
-    this.colorPicker.onColorSelected( (color) => this.baseColorChangedEventManager.fireEvent(color) )
-    this.colorPicker.onColorSelected( (color) => this.primaryHexCode.color = color )
-    this.colorPicker.onColorSelected( (color) => this.primaryName.color = color )
-
-    this.secondaryColorPicker.onColorSelected( (color) => this.baseColorChangedEventManager.fireEvent(color) )
-    this.secondaryColorPicker.onColorSelected( (color) => this.primaryHexCode.color = color )
-    this.secondaryColorPicker.onColorSelected( (color) => this.primaryName.color = color )
+    this.colorSelector.onColorSelected(this.baseColorChangedEventManager)
+    this.secondaryColorSelector.onColorSelected(this.secondaryColorChangedEventManager)
 
     this.numColorsRadioButtons = new RadioButtons(
       this,
@@ -67,32 +122,38 @@ export default class PaletteForm extends Component {
     )
 
 
-    if (initialData.color)      {
-      this.color                = initialData.color
-      this.primaryHexCode.color = this.color
-      this.primaryName.color    = this.color
-    }
-
-    if (initialData.numColors)  { this.numColors  = initialData.numColors }
-    if (initialData.numShades)  { this.numShades  = initialData.numShades }
-    if (initialData.scaleModel) { this.scaleModel = initialData.scaleModel }
-    if (initialData.colorWheel) { this.colorWheel = initialData.colorWheel }
+    if (initialData.color)          { this.color          = initialData.color }
+    if (initialData.secondaryColor) { this.secondaryColor = initialData.secondaryColor }
+    if (initialData.numColors)      { this.numColors      = initialData.numColors }
+    if (initialData.numShades)      { this.numShades      = initialData.numShades }
+    if (initialData.scaleModel)     { this.scaleModel     = initialData.scaleModel }
+    if (initialData.colorWheel)     { this.colorWheel     = initialData.colorWheel }
   }
 
-  get numColors()    { return parseInt(this._formData().get("num-colors")) }
-  set numColors(val) { this.numColorsRadioButtons.selected = val }
+  get numColors()         { return parseInt(this._formData().get("num-colors")) }
+  set numColors(val)      { this.numColorsRadioButtons.selected = val }
 
-  get color()        { return new Color(this._formData().get("color")) }
-  set color(val)     { this.colorPicker.color = val }
+  get color()             { return new Color(this._formData().get("color")) }
+  set color(val)          { this.colorSelector.color = val }
 
-  get numShades()    { return parseInt(this._formData().get("num-shades")) }
-  set numShades(val) { this.numShadesRadioButtons.selected = val }
+  get secondaryColor()    { 
+    if (this._formData().get("secondary-color")) {
+      return new Color(this._formData().get("secondary-color"))
+    }
+    else {
+      return null
+    }
+  }
+  set secondaryColor(val) { this.secondaryColorSelector.color = val }
 
-  get scaleModel()    { return this._formData().get("scale-model") }
-  set scaleModel(val) { this.modelSelect.selected = val }
+  get numShades()         { return parseInt(this._formData().get("num-shades")) }
+  set numShades(val)      { this.numShadesRadioButtons.selected = val }
 
-  get colorWheel()    { return this._formData().get("color-wheel") }
-  set colorWheel(val) { this.colorWheelSelect.selected = val }
+  get scaleModel()        { return this._formData().get("scale-model") }
+  set scaleModel(val)     { this.modelSelect.selected = val }
+
+  get colorWheel()        { return this._formData().get("color-wheel") }
+  set colorWheel(val)     { this.colorWheelSelect.selected = val }
 
   _formData() { return new FormData(this.element) }
 }

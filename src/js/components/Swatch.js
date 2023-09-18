@@ -2,6 +2,7 @@ import chroma from "chroma-js"
 import { Component, TypeOf } from "brutaljs"
 
 class Name extends Component {
+  static logContext = "ghola"
   constructor(element, color) {
     super(element)
     this.element.textContent = color.name()
@@ -9,6 +10,7 @@ class Name extends Component {
 }
 
 class Hex extends Component {
+  static logContext = "ghola"
   constructor(element,color) {
     super(element)
     this.element.textContent = color.hex()
@@ -16,6 +18,7 @@ class Hex extends Component {
 }
 
 class ContrastComparison extends Component {
+  static logContext = "ghola"
   constructor(element, color, contrast) {
     super(element)
     this.color = color
@@ -41,8 +44,10 @@ class ContrastComparison extends Component {
   }
 }
 class ColorSquare extends Component {
+  static logContext = "ghola"
   constructor(element,color,comparisonColors) {
     super(element)
+    this.methodStart("constructor")
     this.color = color
     this.element.style.backgroundColor = color.hex()
     this.comparisonTemplate = this.template("comparison")
@@ -58,6 +63,7 @@ class ColorSquare extends Component {
       this.element.appendChild(node)
       return new ContrastComparison(node,color,contrast)
     })
+    this.methodDone("constructor")
   }
 
   set size(val) {
@@ -91,8 +97,10 @@ class ColorSquare extends Component {
   }
 }
 export default class Swatch extends Component {
+  static logContext = "ghola"
   constructor(element, color, comparisonColors) {
     super(element)
+    this.methodStart("constructor")
     if (!color) {
       throw `color is required`
     }
@@ -106,6 +114,7 @@ export default class Swatch extends Component {
     this.hex         = new Hex(this.$("hex"), this.color)
 
     this.size = "large"
+    this.methodDone("constructor")
   }
 
   set size(val) {

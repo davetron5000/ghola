@@ -1,6 +1,6 @@
 export default class Checkbox {
-  constructor(form,selector,checkedEventManager,uncheckedEventManager) {
-    this.checkbox = form.$selector(selector)
+  constructor(element,selector,checkedEventManager,uncheckedEventManager) {
+    this.checkbox = element.$selector(selector)
     this.checkbox.addEventListener("input", (event) => {
       if (event.target.checked) {
         checkedEventManager.fireEvent()

@@ -12,7 +12,7 @@
  * - busy animation
  */
 
-import { Body } from "brutaljs"
+import { Body, LogViewer } from "brutaljs"
 
 import PageState   from "./components/PageState"
 import PaletteForm from "./components/PaletteForm"
@@ -20,9 +20,16 @@ import Palette     from "./components/Palette"
 import ViewForm    from "./components/ViewForm"
 
 document.addEventListener("DOMContentLoaded", () => {
+  /*
+  const gholaLogViewer = new LogViewer({ type: "measure", logContext: "ghola", })
+  gholaLogViewer.start()
+  const eventsLogViewer = new LogViewer({ type: "measure", className: "Template", })
+  eventsLogViewer.start()
+  */
   const pageState = new PageState(window,{
     numColors: 6,
     colorHex: "#8900C0",
+    secondaryColorHex: null,
     numShades: 5,
     scaleModel: "FixedLightness",
     colorWheel: "NuancedHueBased",
@@ -38,6 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const paletteForm = new PaletteForm(body.$selector("form[data-palette-config]"),{
     numColors: pageState.numColors,
     color: pageState.color,
+    secondaryColor: pageState.secondaryColor,
+    secondaryColorChecked: pageState.isSecondaryColorChecked,
     numShades: pageState.numShades,
     scaleModel: pageState.scaleModel,
     colorWheel: pageState.colorWheel,
@@ -50,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   paletteForm.onBaseColorChanged( (color)       => palette.rebuild({baseColor: color}) )
+  paletteForm.onSecondaryColorChanged( (color)  => palette.rebuild({secondaryColor: color}) )
   paletteForm.onNumColorsChanged( (numColors)   => palette.rebuild({numColors}) )
   paletteForm.onNumShadesChanged( (numShades)   => palette.rebuild({numShades}) )
   paletteForm.onScaleModelChanged( (scaleModel) => palette.rebuild({scaleModel}) )
@@ -63,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
   viewForm.onNoBigSwatches(    () => palette.swatchSize = "small" )
 
   paletteForm.onBaseColorChanged( (color)       => pageState.color = color )
+  paletteForm.onSecondaryColorChanged( (color)  => pageState.secondaryColor = color )
   paletteForm.onNumColorsChanged( (numColors)   => pageState.numColors = numColors )
   paletteForm.onNumShadesChanged( (numShades)   => pageState.numShades = numShades )
   paletteForm.onScaleModelChanged( (scaleModel) => pageState.scaleModel = scaleModel )
@@ -75,19 +86,21 @@ document.addEventListener("DOMContentLoaded", () => {
   viewForm.onHideContrastInfo( () => pageState.showContrastInfo = false )
   viewForm.onNoBigSwatches(    () => pageState.bigSwatches      = false )
 
-  pageState.onPopstate( ({numColors,color,numShades,scaleModel}) => {
+  pageState.onPopstate( ({numColors,color,secondaryColor, numShades,scaleModel}) => {
     palette.rebuild({
       numColors: numColors,
       baseColor: color,
+      secondaryColor: secondaryColor,
       numShades: numShades,
       scaleModel: scaleModel,
       colorWheel: colorWheel,
     })
   })
 
-  pageState.onPopstate( ({numColors,color,numShades}) => {
+  pageState.onPopstate( ({numColors,color,secondaryColor, numShades}) => {
     paletteForm.numColors = numColors
     paletteForm.color = color
+    paletteForm.secondaryColor = secondaryColor
     paletteForm.numShades =  numShades
     paletteForm.scaleModel = scaleModel
   })
@@ -95,6 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
   palette.rebuild({
     numColors: paletteForm.numColors,
     baseColor: paletteForm.color,
+    secondaryColor: paletteForm.secondaryColor,
     numShades: paletteForm.numShades,
     scaleModel: paletteForm.scaleModel,
     colorWheel: paletteForm.colorWheel,

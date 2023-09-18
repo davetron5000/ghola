@@ -20,20 +20,27 @@
     <header class="bg-black-ish white-ish pa-3">
       <h1 class="f-6 ttu tracked fw-bold mt-3 mb-0 flex items-baseline">
         <span class="mr-1">Ghola</span>
-        <div class="w-4 h-4 br-1 mh-2" style="background-color: #ff0000;"></div>
-        <div class="w-4 h-4 br-1 mh-2" style="background-color: #ff8800;"></div>
-        <div class="w-4 h-4 br-1 mh-2" style="background-color: #ffff00;"></div>
-        <div class="w-4 h-4 br-1 mh-2" style="background-color: #00ff00;"></div>
-        <div class="w-4 h-4 br-1 mh-2" style="background-color: #0000ff;"></div>
-        <div class="w-4 h-4 br-1 mh-2" style="background-color: #ff00ff;"></div>
-
+        <div class="flex flex-wrap">
+          <div class="w-4 h-4 br-1 mh-2 mb-2" style="background-color: #ff0000;"></div>
+          <div class="w-4 h-4 br-1 mh-2 mb-2" style="background-color: #ff8800;"></div>
+          <div class="w-4 h-4 br-1 mh-2 mb-2" style="background-color: #ffff00;"></div>
+          <div class="w-4 h-4 br-1 mh-2 mb-2" style="background-color: #00ff00;"></div>
+          <div class="w-4 h-4 br-1 mh-2 mb-2" style="background-color: #0000ff;"></div>
+          <div class="w-4 h-4 br-1 mh-2 mb-2" style="background-color: #ff00ff;"></div>
+        </div>
       </h1>
-      <h2 class="f-5 fw-5 mv-2">The color picker for developers</h2>
+      <h2 class="flex items-baseline justify-between f-4 f-5-ns fw-5 mv-2">
+        <span>
+        The color picker for developers
+        </span>
+        <span class="dn db-ns f-3 fw-normal ml-3"><a class="blue-light" href="about.html">About this tool</a></span>
+      </h2>
+      <div class="db dn-ns f-3 fw-normal"><a class="blue-light" href="about.html">About this tool</a></div>
     </header>
     <main>
-      <form action="#" data-palette-config class="flex items-center bg-gray-light black-ish">
+      <form action="#" data-palette-config class="flex flex-wrap items-center bg-gray-light black-ish ph-3 pv-2">
         <div>
-          <label for="color" class="mh-3 f-3 fw-6 flex items-center">
+          <label for="color" class="mr-3 f-3 fw-6 flex items-center">
             <span class="mr-2 w-70 flex items-center">
               <span class="f-1 fw-3 mr-1">&#9432;</span>
               <div>
@@ -47,7 +54,7 @@
             <input type="color" name="color" class="h-4 w-5" class="pointer" value="#ff0000">
             <div class="w-4">&nbsp;</div>
           </label>
-          <label for="secondary-color" class="mh-3 f-3 fw-6 flex items-center">
+          <label for="secondary-color" class="mr-3 f-3 fw-6 flex items-center gray">
             <span class="mr-2 w-70 flex items-center">
               <span class="f-1 fw-3 mr-1">&#9432;</span>
               <div>
@@ -58,11 +65,11 @@
                 </div>
               </div>
             </span>
-            <input type="color" name="secondary-color" class="h-4 w-5" class="pointer">
+            <input type="color" name="secondary-color" class="h-4 w-5" class="pointer" disabled>
             <input type="checkbox" name="use-secondary-color" class="w-4">
           </label>
         </div>
-        <div class="flex items-center pa-3">
+        <div class="flex items-center">
           <label class="mr-3 f-3 fw-6 flex items-center">
             <span class="f-1 fw-3 mr-1">&#9432;</span>
             Number of Colors
@@ -100,7 +107,7 @@
             </div>
           </div>
         </div>
-        <div class="flex items-center pa-3">
+        <div class="flex items-center">
           <label class="mr-3 f-3 fw-6 flex items-center">
             <span class="f-1 fw-3 mr-1">&#9432;</span>
             Number of Shades
@@ -185,19 +192,19 @@
           </label>
         </div>
       </form>
-      <nav class="flex items-baseline ph-3 pv-2 bg-gray-lightest gray-darkest">
+      <nav class="flex items-center items-baseline-ns ph-3 pv-2 bg-gray-lightest gray-darkest">
         <h4 class="f-2 fw-5 mr-3 mv-0">Download This Palette</h4>
         <a class="f-2 blue-dark mr-3" href="#">CSS Variables</a>
         <a class="f-2 blue-dark mr-3" href="#">Melange Variables</a>
-        <a class="f-2 blue-dark mr-3" href="#"><code>.css</code></a>
+        <a class="f-2 blue-dark mr-3" href="#">TailwindCSS Configuration</a>
       </nav>
       <article class="pa-3 bt bc-gray-light bg-white" data-palette>
         <template data-row>
           <div class="flex items-start justify-start w-100 mt-2">
-            <div class="w-10 tr f-3 ttu fw-5 mr-3 pt-1">
+            <div class="w-10-ns w-30 tr f-3 ttu fw-5 mr-3 pt-1">
               <slot name="name" />
             </div>
-            <div class="xw-90 flex items-center" data-shades>
+            <div class="flex-ns items-center" data-shades>
             <slot name="shades" />
             </div>
           </div>
@@ -219,7 +226,7 @@
       </article>
     </main>
     <footer class="bg-black-ish white-ish pa-3 mb-4">
-      Copyright &copy; 2023 by David Copeland, All Rights Reserved.
+      Copyright &copy; 2023 by David Copeland, All Rights Reserved. Generative AI was <a class="blue-light" href="https://declare-ai.org/1.0.0-alpha1/none.html">not used in any part of this website, content, or code</a>.
     </footer>
   </body>
 </html>

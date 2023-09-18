@@ -8,6 +8,7 @@ import ColorWheel from "../ColorWheel"
 import ColorScale from "../ColorScale"
 
 export default class Palette extends Component {
+  static logContext = "ghola"
   constructor(element, viewConfig={}) {
     super(element)
 
@@ -52,13 +53,20 @@ export default class Palette extends Component {
   }
 
   rebuild({numColors,baseColor,secondaryColor,numShades,scaleModel,colorWheel}) {
+    this.methodStart("rebuild")
+    this.element.innerHTML = ""
 
-    if (numColors)      { this.numColors = numColors }
-    if (numShades)      { this.numShades = numShades }
-    if (baseColor)      { this.baseColor = baseColor }
-    if (secondaryColor) { this.secondaryColor = secondaryColor }
-    if (scaleModel)     { this.scaleModel = scaleModel }
-    if (colorWheel)     { this.colorWheel = colorWheel }
+    if (numColors)      { this.numColors      = numColors }
+    if (numShades)      { this.numShades      = numShades }
+    if (baseColor)      { this.baseColor      = baseColor }
+    if (scaleModel)     { this.scaleModel     = scaleModel }
+    if (colorWheel)     { this.colorWheel     = colorWheel }
+    if (secondaryColor) {
+      this.secondaryColor = secondaryColor
+    }
+    else if (secondaryColor === null) {
+      this.secondaryColor = null
+    }
 
     const colorWheelClass = ColorWheel.wheel(this.colorWheel)
     const wheel = new colorWheelClass({
@@ -70,11 +78,12 @@ export default class Palette extends Component {
     })
     const colorScaleClass = ColorScale.scale(this.scaleModel)
 
-    this.element.innerHTML = ""
     this.swatches = []
     this.rows = []
     const categories = {}
     wheel.eachColor( (color) => {
+      this.event(`${color}#started`)
+      const now = Date.now()
       const colorScale = new colorScaleClass(color,this.numShades, this.baseColor)
 
       const category = color.category()
@@ -94,13 +103,16 @@ export default class Palette extends Component {
         })
       )
 
-      const swatches = colorScale.colors().map( (color) => {
+      const colors = colorScale.colors()
+      const swatches = colors.map( (color) => {
         const colorsToCompare = colorScale.comparisonColors(color)
-        return new Swatch(
-          this.swatchTemplate.newNode(),
+        const node = this.swatchTemplate.newNode()
+        const swatch = new Swatch(
+          node,
           color,
           colorsToCompare,
         )
+        return swatch
       })
       this.swatches = this.swatches.concat(swatches)
       this.rows.push(colorScaleRow)
@@ -112,6 +124,7 @@ export default class Palette extends Component {
 
       this.element.appendChild(colorScaleRow.element)
     })
+    this.methodDone("rebuild")
   }
 }
 

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charSet="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta content="Website for ghola">
+    <meta content="About Ghola " name="og:title">
+    <meta content="website" name="og:type">
+
+    <meta itemprop="ai-content-declaration:version" content="1.0.0-alpha1">
+    <meta itemprop="ai-content-declaration:level" content="none">
+
+    <title>
+      About Ghola, the Color Picker for Developers
+    </title>
+    <link href="main.css" rel="stylesheet" />
+    <script src="main.js"></script>
+  </head>
+  <body class="ff-sans bg-white-ish black-ish">
+    <header class="bg-black-ish white-ish pa-3">
+      <div class="w-50-ns mh-auto">
+        <h1 class="f-6 ttu tracked fw-bold mt-3 mb-0 flex items-baseline">
+          <span class="mr-1"><a href="/" class="tdn white hover-tdu">Ghola</a></span>
+          <div class="flex flex-wrap">
+            <div class="w-4 h-4 br-1 mh-2 mb-2" style="background-color: #ff0000;"></div>
+            <div class="w-4 h-4 br-1 mh-2 mb-2" style="background-color: #ff8800;"></div>
+            <div class="w-4 h-4 br-1 mh-2 mb-2" style="background-color: #ffff00;"></div>
+            <div class="w-4 h-4 br-1 mh-2 mb-2" style="background-color: #00ff00;"></div>
+            <div class="w-4 h-4 br-1 mh-2 mb-2" style="background-color: #0000ff;"></div>
+            <div class="w-4 h-4 br-1 mh-2 mb-2" style="background-color: #ff00ff;"></div>
+          </div>
+
+        </h1>
+        <h2 class="f-5 fw-5 mv-2">
+          About
+        </h2>
+      </div>
+    </header>
+    <main>
+      <article class="ph-3 mh-auto w-50-ns w-100">
+      <h3 class="f-4">What Problem Is This Trying to Solve?</h3>
+      <p class="measure lh-copy">
+        I am not a designer.  I also don't often want or have access to someone who can choose a color palette for something I'm working on.  And yet, I want a color palette that will generally work at a high level.
+
+      </p>
+      <p class="measure lh-copy">
+        Meaning: A small selection of colors and shades, such that they kinda, sorta go together, and such that in general there is decent contrast between the lighter and darker shades.  I don't want to be changing the color palette while building.
+      </p>
+      <p class="measure lh-copy">
+        I also want there to be, for each color, a very dark and a very light version, to perhaps use as backgrounds.  But I don't want to tweak endlessly, because I don't have the skills to make that a good use of time.
+      </p>
+      <p class="measure lh-copy f-3">
+        Perhaps this is a problem you also have?
+      </p>
+      <h3 class="f-4">How does it work?</h3>
+      <p class="measure lh-copy">
+        There are only a few inputs to provide:
+      </p>
+      <ul>
+        <li><p class="measure lh-copy">
+            <strong>Primary Color</strong> - Usually, you have some color you want to have in the project or that can drive things.
+        </p></li>
+        <li><p class="measure lh-copy">
+            <strong>Secondary Color</strong> - Optional, but perhaps there is a second color that's important?
+        </p></li>
+        <li><p class="measure lh-copy">
+            <strong>Number of Colors</strong> - Ghola will create either 6 base colors, or 12, plus 1 gray.
+            <ul>
+              <li><p class="measure lh-copy mv-1 f-1">
+                  <strong>Six Colors</strong> - Will choose a Red, an Orange, a Yellow, a Green, a Blue, and a Purple.  It should do a reasonable job deciding which of those your chosen colors are and pick the rest.
+              </p></li>
+              <li><p class="measure lh-copy mv-1 f-1">
+                  <strong>Twelve Colors</strong> - Will choose a Red, a Vermilion, an Orange, a Gold, a Yellow, a Chartruese, a Green, a Cyan, a Blue, a Purple, a Magenta, and a Pink.  It should do a reasonable job deciding which of those your chosen colors are and pick the rest.
+              </p></li>
+            </ul>
+        </p></li>
+        <li><p class="measure lh-copy">
+            <strong>Number of Shades</strong> - You can have either 5 or 7 shades of each color.  As a developer, I don't know what to do with more than that, so this constraint is sufficient for most tasks to keep me focused and not twiddling things I am incapable of properly assessing.
+        </p></li>
+        <li><p class="measure lh-copy">
+            <strong>Scale Model</strong> - This is an algorithm for deciding what the 5 or 7 shades actually are.  Each attempts to create a very dark and a very light version of the base color and then fill in the rest with distinct shades per color.
+            <ul>
+              <li><p class="measure lh-copy mv-1 f-1">
+                  <strong>chroma.js</strong> - This app uses chroma.js under the covers, and it has a scale function that this uses.  It creates a scale from black to the base color to white, extracting 7 or 9 steps, then discarding the black/white ones.
+              </p></li>
+              <li><p class="measure lh-copy mv-1 f-1">
+                  <strong>Ensure Accessible Contrast</strong> - This will start from the base color and find a darker shade with a 4.5 contrast to white and a lighter shade with a 4.5 contrast to black.  It will then find a pair of shades (light and dark) that have a 9 contrast to each other, then another pair that have a 13 contrast to each other.  These strategies don't always find colors, or the base color may already be OK with black or white.  If there aren't enough shades, it will fill them in to create darker and lighter sahdes.
+              </p></li>
+              <li>
+                <p class="measure lh-copy mv-1 f-1">
+                  <strong>HSL Fixed</strong> - There are three versions that create a scale where each color's scales all have the same fixed value for lightness, using the HSL color model.  For example, the 2nd darkest Red will have the same "L" value as the second darkest blue, and so on.  If a step in the scale is close to the chosen color, that color's lightness is used. For example, if you chose a Blue with a lightness of 17, and the scale has a step for 12 and one for 23, the scale will use 17 instead of 23.
+                </p>
+                <p class="measure lh-copy mv-1 f-1">
+                  There are three versions: a linear scale where each level is divided evenly, a logarithmic scale that attempts to make much darker/lighter colors, and a "hand-crafted" scale that I chose to look decent for lots of colors.
+                </p>
+              </li>
+              <li>
+                <p class="measure lh-copy mv-1 f-1">
+                  <strong>LAB Fixed</strong> - There are three versions that create a scale where each color's scales all have the same fixed value for lightness, using the LAB color model. There are three versions: a linear scale where each level is divided evenly, a logarithmic scale that attempts to make much darker/lighter colors, and a "hand-crafted" scale that I chose to look decent for lots of colors.
+                </p>
+                <p class="measure lh-copy mv-1 f-1">
+                  Because of how LAB works, the brightest colors aren't all that bright.  But, even still these might inspire you.
+                </p>
+              </li>
+            </ul>
+        </p></li>
+        <li>
+          <p class="measure lh-copy">
+            <strong>Color Wheel</strong> - This is how each different hue is chosen, i.e. which 6 or 12 hues are used.  There are two different algorithms:
+            <ul>
+              <li>
+                <p class="measure lh-copy mv-1 f-1">
+                  <strong>Equally-Spaced</strong> - Based on the number of colors, this chooses the number of degrees along the Hue of the HSV color model to choose hues.  For 6, it would be 60 degrees, 12 would be 30 degrees.  For single color mode, it will start with the chosen color and "rotate" the hue to complete the colors.  For dual color mode, it does this, rotating half the number of times. For example, if you have 6 colors and have chosen blue and green, this wheel will take the blue, rotate it by 60 twice, then take the green and rotate that twice. Those are the 6 colors.
+                  This wheel doesn't work that well, especially if you choose two colors that are close together.
+              </p>
+              </li>
+              <li>
+                <p class="measure lh-copy mv-1 f-1">
+                  <strong>Hand-crafted</strong> - This attempts to choose 6 or 12 colors based on a more perceptual grouping of hues to color names.  This perceptual grouping was done by me, and is hard-coded.  In single-color mode, this will figure out where the chosen color lies in its range for its perceptual color.  For example, in 6-color mode, a color with a hue of 50 is considered yellow, and given the yellow range is 41 to 74, its percentage is 27%.  The rest of the colors are that same percentage along their hue range. So, continuning this example, purples range from 259 to 333, and 27% into that range is 279.
+                </p>
+                <p class="measure lh-copy mv-1 f-1">
+                  In two color mode, it's more complicated.  A color wheel is created for each color individually, based on the algorithm described above.  The two wheels are the "averaged".  They are each converted to HSL and those values are averaged to produce a new color, and that color is used.
+                </p>
+                <p class="measure lh-copy mv-1 f-1">
+                  <strong>Except</strong> for the chosen color.  For example, if you choose a purple and a green, those two colors will be in the palette, un-averaged.  Essentially, the green from the purple wheel is discarded, as is the purple from the green wheel. <em>That being said</em>, if you choose two colors that are both considered the same, e.g. two purples, those <strong>will</strong> be averaged.
+                </p>
+                <p class="measure lh-copy mv-1 f-1">
+                  Last but not least, if neither wheel produces a color that is needed—for example, no orange is produced—one is created.  The color that is created will have a hue halfway between the hand-picked ranges, with its saturation and lightness being the average of the two chosen colors.
+                </p>
+              </li>
+          </p>
+        </li>
+      </ul>
+      <h3 class="f-4">What Do I Do With the Palettes?</h3>
+      <p class="measure lh-copy">
+        There are three ways to save these palettes for use:
+      </p>
+      <ul>
+        <li>
+          <p class="measure lh-copy">
+            <strong>CSS Variables</strong> - This will give you a <code>.css</code> file that declares the colors as variables.  Each color will use its categorical name (e.g. red, purple), and each shade will use a value from 1 (darkest) to 5 or 7 (lightest).  Note that if your color and color wheel combination resulted in more than one of the same color, the variables will have numbers to distinguish them, e.g. <code>green-1</code> and <code>green2-1</code>.
+          </p>
+        </li>
+        <li>
+          <p class="measure lh-copy">
+            <strong>Melange Variables</strong> - This is identical to the CSS Variables download, but the variables will use the MelangeCSS naming scheme, so you can drop them into a project using Melange CSS.
+          </p>
+        </li>
+        <li>
+          <p class="measure lh-copy">
+            <strong>TailwindCSS Configuration</strong> - This will produce a JavaScript configuration object you can paste into your TailwindCSS configuration.  Because Tailwind supports nine levels, the object produced here will duplicate some levels.  If you have a 5-shade palette, 100 and 200 will be the darkest, 300 and 400 the second lightest, 500 the center, 600 and 700 the second darkest, and 800 and 900 the darkest.  For the 7-shade palette, 100 and 200  will be the lightest and 800 and 900 the darkest.
+          </p>
+        </li>
+      </ul>
+      <p class="measure lh-copy">
+        Note that the URL in your browser will change as you make changes.  The behavior of the app is deterministic, so you can keep any given URL to return to the palette.
+      </p>
+      <h3 class="f-4">Can I Tweak Things?</h3>
+      <p class="measure lh-copy">
+        Not really.  This is designed to be something you use quickly to make a quick decision and get some colors that are fine, so you can keep working.  It's not for hand-crafting or doing fine color work that a real designer would want to do.
+      </p>
+
+      </article>
+    </main>
+    <footer class="bg-black-ish white-ish ph-3 pt-4 pb-5">
+      Copyright &copy; 2023 by David Copeland, All Rights Reserved. Generative AI was <a class="blue-light" href="https://declare-ai.org/1.0.0-alpha1/none.html">not used in any part of this website, content, or code</a>.
+    </footer>
+  </body>
+</html>
+

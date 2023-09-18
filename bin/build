@@ -34,7 +34,7 @@ if [ "${ENV}" = "dev" ]; then
     src/css/index.css
 
   echo "Copying HTML"
-  cp src/html/index.html serve/dev
+  cp src/html/*.html serve/dev
 
 else
   echo "Not implemented"
