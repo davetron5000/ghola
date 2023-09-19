@@ -85,11 +85,9 @@ export default class PaletteForm extends Component {
       this.$selector("label[for='color']"),
       (hex) => {
         let color = new Color(hex)
-        console.log(`Got ${hex}`)
         if (color.isGray()) {
           color = Color.fromHSL(199,0.1,color.lightness({ model: "hsl" }))
         }
-        console.log(`Returning ${color.hex()}`)
         return color.hex()
       }
     )
