@@ -120,6 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     palette.swatchSize = "small"
   }
 
-  const tooltip = new Tooltip(body.$("tooltip-ui"),body.$selectors("[data-tooltip]"))
+  const tooltip = new Tooltip(body.$("tooltip-ui"))
+  tooltip.attach(body.$selectors("[data-tooltip]"))
 
 })
