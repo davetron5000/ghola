@@ -2,4 +2,4 @@
 
 set -e
 
-SHELL=/bin/bash npx chokidar -p "src/js/**/*.js" "src/html/**/*.html" "src/css/**/*.css" -c "bin/build"
+SHELL=/bin/bash npx chokidar -p "src/js/**/*.js" "src/html/**/*.html" "src/css/**/*.css" "src/images/**/*.ico" "src/images/**/*.png" -c "bin/build"

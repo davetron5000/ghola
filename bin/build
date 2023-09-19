@@ -35,6 +35,8 @@ if [ "${ENV}" = "dev" ]; then
 
   echo "Copying HTML"
   cp src/html/*.html serve/dev
+  cp src/images/*.ico serve/dev
+  cp src/images/*.png serve/dev
 
 else
   if [ "${ENV}" = "production" ]; then
@@ -60,6 +62,8 @@ else
 
     echo "Copying HTML"
     cp src/html/*.html docs
+    cp src/images/*.ico docs
+    cp src/images/*.png docs
   else
 
     echo "Not implemented"
