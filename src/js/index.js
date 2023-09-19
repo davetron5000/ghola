@@ -1,23 +1,10 @@
-/*
- * TODO:
- *
- * - ColorWheels
- *   - ForceSaturation
- *   - Rectangle (based on two colors)
- * - allow choosing more than one color
- * - export
- *   - CSS variables
- *   - ability to name each level
- * - debounce events
- * - busy animation
- */
-
 import { Body, LogViewer } from "brutaljs"
 
 import PageState   from "./components/PageState"
 import PaletteForm from "./components/PaletteForm"
 import Palette     from "./components/Palette"
 import ViewForm    from "./components/ViewForm"
+import Tooltip     from "./components/Tooltip"
 
 document.addEventListener("DOMContentLoaded", () => {
   /*
@@ -132,4 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
   else {
     palette.swatchSize = "small"
   }
+
+  const tooltip = new Tooltip(body.$("tooltip-ui"),body.$selectors("[data-tooltip]"))
+
 })
