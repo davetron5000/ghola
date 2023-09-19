@@ -1,4 +1,4 @@
-import { Component, Checkbox, EventManager } from "brutaljs"
+import { Component, Checkbox, EventManager } from "brutaldom"
 
 export default class ViewForm extends Component {
   wasCreated(initialData) {

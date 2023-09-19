@@ -1,4 +1,4 @@
-import { Component, EventManager, Checkbox, RadioButtons, Select } from "brutaljs"
+import { Component, EventManager, Checkbox, RadioButtons, Select } from "brutaldom"
 import ColorInput from "./ColorInput"
 import Color from "../Color"
 

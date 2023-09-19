@@ -1,4 +1,4 @@
-import { Body, LogViewer } from "brutaljs"
+import { Body, LogViewer } from "brutaldom"
 
 import PageState    from "./components/PageState"
 import PaletteForm  from "./components/PaletteForm"

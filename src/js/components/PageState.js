@@ -1,4 +1,4 @@
-import { EventManager } from "brutaljs"
+import { EventManager } from "brutaldom"
 
 import Color from "../Color"
 

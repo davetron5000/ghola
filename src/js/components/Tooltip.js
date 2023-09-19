@@ -1,4 +1,4 @@
-import { Component } from "brutaljs"
+import { Component } from "brutaldom"
 
 class TooltipContent extends Component {
   set contentFromElement(element) {

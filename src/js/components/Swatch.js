@@ -1,5 +1,5 @@
 import chroma from "chroma-js"
-import { Component, TypeOf } from "brutaljs"
+import { Component, TypeOf } from "brutaldom"
 
 class Name extends Component {
   static logContext = "ghola"

@@ -1,4 +1,4 @@
-import { Component } from "brutaljs"
+import { Component } from "brutaldom"
 
 export default class ColorScaleRow extends Component {
   wasCreated() {

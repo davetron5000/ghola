@@ -1,4 +1,4 @@
-import { TypeOf } from "brutaljs"
+import { TypeOf } from "brutaldom"
 
 import Color from "../Color"
 

@@ -1,4 +1,4 @@
-import { Component, Link } from "brutaljs"
+import { Component, Link } from "brutaldom"
 
 import CSVGenerator                   from "../generators/CSVGenerator"
 import MelangeConfigurationGenerator  from "../generators/MelangeConfigurationGenerator"

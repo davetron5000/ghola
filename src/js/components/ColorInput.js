@@ -1,4 +1,4 @@
-import { Component, EventManager } from "brutaljs"
+import { Component, EventManager } from "brutaldom"
 import Color from "../Color"
 
 export default class ColorInput extends Component {
@@ -7,9 +7,9 @@ export default class ColorInput extends Component {
     EventManager.defineEvents(this,"colorSelected")
     this.colorSelectedEventManager.debounce(200)
     this.element.addEventListener("change", (event) => {
-      const filteredHex = this.filter(element.value)
-      if (filteredHex != element.value) {
-        element.value = filteredHex
+      const filteredHex = this.filter(this.element.value)
+      if (filteredHex != this.element.value) {
+        this.element.value = filteredHex
       }
       this.colorSelectedEventManager.fireEvent(new Color(filteredHex))
     })

@@ -1,4 +1,4 @@
-import { Component } from "brutaljs"
+import { Component } from "brutaldom"
 
 import ColorScaleRow from "./ColorScaleRow"
 import Swatch from "./Swatch"
