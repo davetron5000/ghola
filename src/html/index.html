@@ -198,11 +198,18 @@
           </label>
         </div>
       </form>
-      <nav class="flex items-center items-baseline-ns ph-3 pv-2 bg-gray-lightest gray-darkest">
-        <h4 class="f-2 fw-5 mr-3 mv-0">Download This Palette</h4>
-        <a class="f-2 blue-dark mr-3" href="#">CSS Variables</a>
-        <a class="f-2 blue-dark mr-3" href="#">Melange Variables</a>
-        <a class="f-2 blue-dark mr-3" href="#">TailwindCSS Configuration</a>
+      <nav data-downloads class="flex flex-row-ns flex-column items-center items-center-ns items-baseline-ns ph-3 pv-2 bg-gray-lightest gray-darkest">
+        <h4 class="f-3 f-2-ns fw-5 mr-3 mv-0 flex items-center">
+          <span class="f-1 fw-3 mr-1 pointer" data-tooltip="Download this palette for use in your project" data-tooltip-anchor="download">&#9432;</span>
+          <span>
+            Download This Palette
+          </span>
+        </h4>
+        <a data-css class="f-2 blue-dark mr-3 mv-2 mv0-ns" href="#">CSS Variables</a>
+        <a data-melange class="f-2 blue-dark mr-3 mv-2 mv0-ns" href="#">Melange Variables</a>
+        <a data-melange-config class="f-2 blue-dark mr-3 mv-2 mv0-ns" href="#">Melange Configuration</a>
+        <a data-tailwind class="f-2 blue-dark mr-3 mv-2 mv0-ns" href="#">TailwindCSS Configuration</a>
+        <a data-csv class="f-2 blue-dark mr-3 mv-2 mv0-ns" href="#">Good 'Ole CSV</a>
       </nav>
       <article class="pa-3 bt bc-gray-light bg-white" data-palette>
         <template data-row>

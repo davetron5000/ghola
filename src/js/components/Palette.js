@@ -80,7 +80,7 @@ export default class Palette extends Component {
 
     this.swatches = []
     this.rows = []
-    const categories = {}
+    this.palette = {}
     wheel.eachColor( (color) => {
       this.event(`${color}#started`)
       const now = Date.now()
@@ -90,11 +90,10 @@ export default class Palette extends Component {
       let baseCategoryName = this.numColors <= 6 ? category.six : category.twelve
       let categoryName = baseCategoryName
       let index = 2
-      while (categories[categoryName]) {
+      while (this.palette[categoryName]) {
         categoryName = baseCategoryName + "-" + index
         index += 1
       }
-      categories[categoryName] = true
       const colorScaleRow = new ColorScaleRow(
         this.rowTemplate.newNode({
           fillSlots: {
@@ -104,6 +103,7 @@ export default class Palette extends Component {
       )
 
       const colors = colorScale.colors()
+      this.palette[categoryName] = colors
       const swatches = colors.map( (color) => {
         const colorsToCompare = colorScale.comparisonColors(color)
         const node = this.swatchTemplate.newNode()

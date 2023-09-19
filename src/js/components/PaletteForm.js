@@ -17,10 +17,10 @@ class ColorName extends Component {
 }
 
 class ColorSelector extends Component {
-  constructor(element) {
+  constructor(element,filter) {
     super(element)
     EventManager.defineEvents(this,"colorSelected")
-    this.colorPicker = new ColorInput(this.$selector("input[type=color]"))
+    this.colorPicker = new ColorInput(this.$selector("input[type=color]"), filter)
     this.hexCode     = new ColorHexCode(this.$("hex"))
     this.name        = new ColorName(this.$("name"))
 
@@ -40,8 +40,8 @@ class ColorSelector extends Component {
 }
 
 class DisableableColorSelector extends ColorSelector {
-  constructor(element, enabled) {
-    super(element)
+  constructor(element, filter, enabled) {
+    super(element,filter)
     this.checkedEventManager   = new EventManager("checked")
     this.uncheckedEventManager = new EventManager("unchecked")
     this.checkbox = new Checkbox(this,"input[type=checkbox]",
@@ -89,9 +89,27 @@ export default class PaletteForm extends Component {
                               "scaleModelChanged",
                               "colorWheelChanged")
 
-    this.colorSelector = new ColorSelector(this.$selector("label[for='color']"))
+    this.colorSelector = new ColorSelector(
+      this.$selector("label[for='color']"),
+      (hex) => {
+        let color = new Color(hex)
+        console.log(`Got ${hex}`)
+        if (color.isGray()) {
+          color = Color.fromHSL(199,0.1,color.lightness({ model: "hsl" }))
+        }
+        console.log(`Returning ${color.hex()}`)
+        return color.hex()
+      }
+    )
     this.secondaryColorSelector = new DisableableColorSelector(
       this.$selector("label[for='secondary-color']"),
+      (hex) => {
+        let color = new Color(hex)
+        if (color.isGray()) {
+          color = Color.fromHSL(34,0.1,color.lightness({ model: "hsl" }))
+        }
+        return color.hex()
+      },
       initialData.secondaryColorChecked
     )
 

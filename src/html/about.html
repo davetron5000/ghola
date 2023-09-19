@@ -54,10 +54,10 @@
       </p>
       <h4 class="f-3">First, Choose Colors</h4>
           <p class="measure lh-copy">
-            You must choose a <strong>Primary Color</strong>, which is what drives the whole thing.  This can be any non-gray color, but ultimately is either something you like or someothing that has to be in the app or website.
+            You must choose a <strong>Primary Color</strong>, which is what drives the whole thing.  This can be any non-gray color, but ultimately is either something you like or someothing that has to be in the app or website. If you choose gray, Ghola will add a bit of blue to it.
         </p>
           <p class="measure lh-copy">
-            You may optionally choose a <strong>Secondary Color</strong>, either to provide more variety to the algorithm described below, or because you have a second important color.  Things work better if this color is not very close to the primar color, but whatever. It's fine.
+            You may optionally choose a <strong>Secondary Color</strong>, either to provide more variety to the algorithm described below, or because you have a second important color.  Things work better if this color is not very close to the primar color, but whatever. It's fine. If you choose gray, Ghola will add a bit of beige to it.
         </p>
       <h4 class="f-3">Next, Decide How Many</h4>
       <p class="measure lh-copy">
@@ -153,9 +153,10 @@
                 </p>
               </li>
         </ul>
+      <a name="download"></a>
       <h3 class="f-4">What Do I Do With the Palettes?</h3>
       <p class="measure lh-copy">
-        There are three ways to save these palettes for use:
+        You can download the palette in a few ways to use in your project:
       </p>
       <ul>
         <li>
@@ -170,7 +171,17 @@
         </li>
         <li>
           <p class="measure lh-copy">
+            <strong>Melange Configuration</strong> - This will produce a snippet of JavaScript that can be pasted into Melange's source code to set its palette.  Probably not what you want.
+          </p>
+        </li>
+        <li>
+          <p class="measure lh-copy">
             <strong>TailwindCSS Configuration</strong> - This will produce a JavaScript configuration object you can paste into your TailwindCSS configuration.  Because Tailwind supports nine levels, the object produced here will duplicate some levels.  If you have a 5-shade palette, 100 and 200 will be the darkest, 300 and 400 the second lightest, 500 the center, 600 and 700 the second darkest, and 800 and 900 the darkest.  For the 7-shade palette, 100 and 200  will be the lightest and 800 and 900 the darkest.
+          </p>
+        </li>
+        <li>
+          <p class="measure lh-copy">
+            <strong>CSV</strong> - This will produce a CSV that has the color category (e.g. Red), the color name (e.g. Maroon), and the hex code.
           </p>
         </li>
       </ul>

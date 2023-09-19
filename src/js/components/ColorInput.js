@@ -2,12 +2,17 @@ import { Component, EventManager } from "brutaljs"
 import Color from "../Color"
 
 export default class ColorInput extends Component {
-  constructor(element) {
+  constructor(element, filter) {
     super(element)
+    this.filter = filter || ((x) => { return x })
     EventManager.defineEvents(this,"colorSelected")
     this.colorSelectedEventManager.debounce(200)
     this.element.addEventListener("change", (event) => {
-      this.colorSelectedEventManager.fireEvent(new Color(element.value))
+      const filteredHex = this.filter(element.value)
+      if (filteredHex != element.value) {
+        element.value = filteredHex
+      }
+      this.colorSelectedEventManager.fireEvent(new Color(filteredHex))
     })
   }
 
@@ -17,7 +22,7 @@ export default class ColorInput extends Component {
 
   set color(val) {
     this._color = val
-    this.element.value = val ? val.hex() : null
+    this.element.value = val ? this.filter(val.hex()) : null
   }
 
   get color() {
