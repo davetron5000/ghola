@@ -1,8 +1,7 @@
 import { Component } from "brutaljs"
 
 export default class ColorScaleRow extends Component {
-  constructor(element) {
-    super(element)
+  wasCreated() {
     this.shadesSlot = this.$slot("shades")
   }
   

@@ -2,8 +2,7 @@ import { Component, EventManager } from "brutaljs"
 import Color from "../Color"
 
 export default class ColorInput extends Component {
-  constructor(element, filter) {
-    super(element)
+  wasCreated(filter) {
     this.filter = filter || ((x) => { return x })
     EventManager.defineEvents(this,"colorSelected")
     this.colorSelectedEventManager.debounce(200)

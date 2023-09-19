@@ -3,24 +3,21 @@ import { Component, TypeOf } from "brutaljs"
 
 class Name extends Component {
   static logContext = "ghola"
-  constructor(element, color) {
-    super(element)
+  wasCreated(color) {
     this.element.textContent = color.name()
   }
 }
 
 class Hex extends Component {
   static logContext = "ghola"
-  constructor(element,color) {
-    super(element)
+  wasCreated(color) {
     this.element.textContent = color.hex()
   }
 }
 
 class ContrastComparison extends Component {
   static logContext = "ghola"
-  constructor(element, color, contrast) {
-    super(element)
+  wasCreated(color, contrast) {
     this.color = color
     this.contrast = contrast
     this.element.style.color = color.hex()
@@ -45,8 +42,7 @@ class ContrastComparison extends Component {
 }
 class ColorSquare extends Component {
   static logContext = "ghola"
-  constructor(element,color,comparisonColors) {
-    super(element)
+  wasCreated(color,comparisonColors) {
     this.methodStart("constructor")
     this.color = color
     this.element.style.backgroundColor = color.hex()
@@ -98,8 +94,7 @@ class ColorSquare extends Component {
 }
 export default class Swatch extends Component {
   static logContext = "ghola"
-  constructor(element, color, comparisonColors) {
-    super(element)
+  wasCreated(color, comparisonColors) {
     this.methodStart("constructor")
     if (!color) {
       throw `color is required`

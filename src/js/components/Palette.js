@@ -9,9 +9,7 @@ import ColorScale from "../ColorScale"
 
 export default class Palette extends Component {
   static logContext = "ghola"
-  constructor(element, viewConfig={}) {
-    super(element)
-
+  wasCreated(viewConfig={}) {
     this.viewConfig = viewConfig
 
     this.rowTemplate    = this.template("row")

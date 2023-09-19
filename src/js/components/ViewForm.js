@@ -1,8 +1,7 @@
 import { Component, Checkbox, EventManager } from "brutaljs"
 
 export default class ViewForm extends Component {
-  constructor(element, initialData) {
-    super(element)
+  wasCreated(initialData) {
     EventManager.defineEvents(this,
                               "showColorDetails",
                               "hideColorDetails",

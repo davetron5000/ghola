@@ -10,8 +10,7 @@ class TooltipContent extends Component {
 }
 
 export default class Tooltip extends Component {
-  constructor(element) {
-    super(element)
+  wasCreated() {
     this.closeButton = this.$selector("a")
     this.content = new TooltipContent(this.$("content"))
     this.closeButton.addEventListener("click", (event) => {

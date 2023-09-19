@@ -14,8 +14,7 @@ class ColorName extends Component {
 }
 
 class ColorSelector extends Component {
-  constructor(element,filter) {
-    super(element)
+  wasCreated(filter) {
     EventManager.defineEvents(this,"colorSelected")
     this.colorPicker = new ColorInput(this.$selector("input[type=color]"), filter)
     this.hexCode     = new ColorHexCode(this.$("hex"))
@@ -73,8 +72,7 @@ class DisableableColorSelector extends ColorSelector {
 export default class PaletteForm extends Component {
   static logContext = "ghola"
 
-  constructor(element, initialData) {
-    super(element)
+  wasCreated(initialData) {
     EventManager.defineEvents(this,
                               "baseColorChanged",
                               "secondaryColorChanged",

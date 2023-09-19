@@ -14,8 +14,7 @@ export default class DownloadsNav extends Component {
     "melange-config": MelangeConfigurationGenerator,
     tailwind: TailwindConfigurationGenerator,
   }
-  constructor(element, palette) {
-    super(element)
+  wasCreated(palette) {
     Object.entries(this.constructor.generators).forEach( ([ dataFragment, klass ]) => {
       const link = new Link(this.$(dataFragment))
       link.onClick( () => {
