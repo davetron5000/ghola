@@ -1,11 +1,10 @@
-import { Component } from "brutaljs"
+import { Component, Link } from "brutaljs"
 
 import CSVGenerator                   from "./generators/CSVGenerator"
 import MelangeConfigurationGenerator  from "./generators/MelangeConfigurationGenerator"
 import CSSVariablesGenerator          from "./generators/CSSVariablesGenerator"
 import MelangeCSSVariablesGenerator   from "./generators/MelangeCSSVariablesGenerator"
 import TailwindConfigurationGenerator from "./generators/TailwindConfigurationGenerator"
-import Link                           from "./Link"
 
 export default class DownloadsNav extends Component {
   static generators = {

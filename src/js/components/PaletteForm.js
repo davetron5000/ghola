@@ -1,9 +1,6 @@
-import { Component, EventManager } from "brutaljs"
-import RadioButtons from "./RadioButtons"
-import Select from "./Select"
+import { Component, EventManager, Checkbox, RadioButtons, Select } from "brutaljs"
 import ColorInput from "./ColorInput"
 import Color from "../Color"
-import Checkbox from "./Checkbox"
 
 class ColorHexCode extends Component {
   set color(val) {
@@ -44,9 +41,15 @@ class DisableableColorSelector extends ColorSelector {
     super(element,filter)
     this.checkedEventManager   = new EventManager("checked")
     this.uncheckedEventManager = new EventManager("unchecked")
-    this.checkbox = new Checkbox(this,"input[type=checkbox]",
-      this.checkedEventManager,
-      this.uncheckedEventManager)
+    this.checkbox = new Checkbox(this.$selector("input[type=checkbox]"))
+    this.checkbox.onChecked( () => {
+      this._enable()
+      this.colorSelectedEventManager.fireEvent(this.colorPicker.color)
+    })
+    this.checkbox.onUnchecked( () => {
+      this.colorSelectedEventManager.fireEvent(null)
+      this._disable()
+    })
 
     if (enabled) {
       this.checkbox.checked = true
@@ -56,15 +59,6 @@ class DisableableColorSelector extends ColorSelector {
       this.checkbox.checked = false
       this._disable()
     }
-
-    this.checkedEventManager.addListener(() => {
-      this.colorSelectedEventManager.fireEvent(this.colorPicker.color)
-      this._enable()
-    })
-    this.uncheckedEventManager.addListener(() => {
-      this.colorSelectedEventManager.fireEvent(null)
-      this._disable()
-    })
   }
   _enable() {
     this.element.classList.remove("gray")
@@ -116,29 +110,17 @@ export default class PaletteForm extends Component {
     this.colorSelector.onColorSelected(this.baseColorChangedEventManager)
     this.secondaryColorSelector.onColorSelected(this.secondaryColorChangedEventManager)
 
-    this.numColorsRadioButtons = new RadioButtons(
-      this,
-      "[name=num-colors]",
-      this.numColorsChangedEventManager,
-      parseInt
-    )
-    this.numShadesRadioButtons = new RadioButtons(
-      this,
-      "[name=num-shades]",
-      this.numShadesChangedEventManager,
-      parseInt
-    )
-    this.modelSelect = new Select(
-      this,
-      "[name=scale-model]",
-      this.scaleModelChangedEventManager
-    )
-    this.colorWheelSelect = new Select(
-      this,
-      "[name=color-wheel]",
-      this.colorWheelChangedEventManager
-    )
+    this.numColorsRadioButtons = new RadioButtons(this.$selectors("[name=num-colors]"), parseInt)
+    this.numColorsRadioButtons.onSelected(this.numColorsChangedEventManager)
 
+    this.numShadesRadioButtons = new RadioButtons(this.$selectors("[name=num-shades]"), parseInt)
+    this.numShadesRadioButtons.onSelected(this.numShadesChangedEventManager)
+
+    this.modelSelect = new Select(this.$selector("[name=scale-model]"))
+    this.modelSelect.onInput(this.scaleModelChangedEventManager)
+
+    this.colorWheelSelect = new Select(this.$selector("[name=color-wheel]"))
+    this.colorWheelSelect.onInput(this.colorWheelChangedEventManager)
 
     if (initialData.color)          { this.color          = initialData.color }
     if (initialData.secondaryColor) { this.secondaryColor = initialData.secondaryColor }

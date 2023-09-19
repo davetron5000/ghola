@@ -1,5 +1,4 @@
-import { Component, EventManager } from "brutaljs"
-import Checkbox from "./Checkbox"
+import { Component, Checkbox, EventManager } from "brutaljs"
 
 export default class ViewForm extends Component {
   constructor(element, initialData) {
@@ -13,23 +12,17 @@ export default class ViewForm extends Component {
                               "noBigSwatches")
 
 
-    this.showColorDetailsCheckbox = new Checkbox(
-      this,"[name='show-details']",
-      this.showColorDetailsEventManager,
-      this.hideColorDetailsEventManager,
-    )
+    this.showColorDetailsCheckbox = new Checkbox(this.$selector("[name='show-details']"))
+    this.showColorDetailsCheckbox.onChecked(this.showColorDetailsEventManager)
+    this.showColorDetailsCheckbox.onUnchecked(this.hideColorDetailsEventManager)
 
-    this.showContrastInfoCheckbox = new Checkbox(
-      this,"[name='show-contrast']",
-      this.showContrastInfoEventManager,
-      this.hideContrastInfoEventManager,
-    )
+    this.showContrastInfoCheckbox = new Checkbox(this.$selector("[name='show-contrast']"))
+    this.showContrastInfoCheckbox.onChecked(this.showContrastInfoEventManager)
+    this.showContrastInfoCheckbox.onUnchecked(this.hideContrastInfoEventManager)
 
-    this.bigSwatchesCheckbox = new Checkbox(
-      this,"[name='big-swatches']",
-      this.bigSwatchesEventManager,
-      this.noBigSwatchesEventManager,
-    )
+    this.bigSwatchesCheckbox = new Checkbox(this.$selector("[name='big-swatches']"))
+    this.bigSwatchesCheckbox.onChecked(this.bigSwatchesEventManager)
+    this.bigSwatchesCheckbox.onUnchecked(this.noBigSwatchesEventManager)
 
     this.showColorDetails = initialData.showColorDetails
     this.showContrastInfo = initialData.showContrastInfo
