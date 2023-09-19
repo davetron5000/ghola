@@ -37,6 +37,32 @@ if [ "${ENV}" = "dev" ]; then
   cp src/html/*.html serve/dev
 
 else
-  echo "Not implemented"
-  exit 1
+  if [ "${ENV}" = "production" ]; then
+    echo "Building JavaScript"
+    npx esbuild  \
+      --bundle  \
+      --define:ENV=\"production\" \
+      --define:APP_VERSION=\"${APP_VERSION}\" \
+      --keep-names \
+      --outfile=docs/main.js \
+      --minify \
+      --sourcemap \
+      src/js/index.js
+
+    echo "Building CSS"
+
+    npx esbuild \
+      --sourcemap \
+      --bundle \
+      --minify \
+      --outfile=docs/main.css \
+      src/css/index.css
+
+    echo "Copying HTML"
+    cp src/html/*.html docs
+  else
+
+    echo "Not implemented"
+    exit 1
+  fi
 fi

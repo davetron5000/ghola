@@ -16,14 +16,14 @@ document.addEventListener("DOMContentLoaded", () => {
   */
   const pageState = new PageState(window,{
     numColors: 6,
-    colorHex: "#8900C0",
+    colorHex: "#BE38F3",
     secondaryColorHex: null,
     numShades: 5,
-    scaleModel: "FixedLightness",
-    colorWheel: "NuancedHueBased",
-    showColorDetails: true,
-    showContrastInfo: true,
-    bigSwatches: true,
+    scaleModel: "EnsureContrast",
+    colorWheel: "HandCrafted",
+    showColorDetails: "true",
+    showContrastInfo: "true",
+    bigSwatches: "true",
   })
 
   const body = new Body()

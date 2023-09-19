@@ -1,8 +1,7 @@
 {
   "name": "ghola",
   "version": "1.0.0",
-  "description": "Color Chooser for Developers",
-  "main": "index.js",
+  "description": "Color Picker for Developers",
   "author": "David Copeland",
   "license": "Hippocratic-2.1",
   "dependencies": {
