@@ -1,37 +1,11 @@
-import { Body, LogViewer, Component } from "brutaljs"
+import { Body, LogViewer } from "brutaljs"
 
-import PageState   from "./components/PageState"
-import PaletteForm from "./components/PaletteForm"
-import Palette     from "./components/Palette"
-import ViewForm    from "./components/ViewForm"
-import Tooltip     from "./components/Tooltip"
-import Link        from "./components/Link"
-import CSVGenerator from "./components/CSVGenerator"
-import MelangeConfigurationGenerator from "./components/MelangeConfigurationGenerator"
-import CSSVariablesGenerator from "./components/CSSVariablesGenerator"
-import MelangeCSSVariablesGenerator from "./components/MelangeCSSVariablesGenerator"
-import TailwindConfigurationGenerator from "./components/TailwindConfigurationGenerator"
-
-class DownloadsNav extends Component {
-  static generators = {
-    csv: CSVGenerator,
-    css: CSSVariablesGenerator,
-    melange: MelangeCSSVariablesGenerator,
-    "melange-config": MelangeConfigurationGenerator,
-    tailwind: TailwindConfigurationGenerator,
-  }
-  constructor(element, palette) {
-    super(element)
-    Object.entries(this.constructor.generators).forEach( ([ dataFragment, klass ]) => {
-      const link = new Link(this.$(dataFragment))
-      link.onClick( () => {
-        const generator = new klass(palette)
-        const url = URL.createObjectURL(generator.blob())
-        window.location = url
-      })
-    })
-  }
-}
+import PageState    from "./components/PageState"
+import PaletteForm  from "./components/PaletteForm"
+import Palette      from "./components/Palette"
+import ViewForm     from "./components/ViewForm"
+import Tooltip      from "./components/Tooltip"
+import DownloadsNav from "./components/DownloadsNav"
 
 document.addEventListener("DOMContentLoaded", () => {
   /*
