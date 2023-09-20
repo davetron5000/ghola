@@ -8,10 +8,6 @@ services:
         source: "./"
         target: "/root/work"
         consistency: "consistent"
-      - type: bind
-        source: "../brutaljs"
-        target: "/root/brutaljs"
-        consistency: "consistent"
     entrypoint: /root/show-help-in-app-container-then-wait.sh
     working_dir: /root/work
 
