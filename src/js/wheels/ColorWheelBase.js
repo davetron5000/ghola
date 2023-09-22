@@ -2,7 +2,10 @@ import Color from "../Color"
 
 export default class ColorWheelBase {
   static normalizeNumColors(numColors) {
-    if (numColors <= 6) {
+    if ( (numColors > 0) && (numColors < 3) ) {
+      return numColors
+    }
+    else if (numColors <= 6) {
       return 6
     }
     else {

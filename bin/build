@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -15,16 +15,27 @@ fi
 
 APP_VERSION=init
 
-if [ "${ENV}" = "dev" ]; then
-  echo "Building JavaScript"
+build_js() {
+  infile="${1}"
+  outfile="${2}"
+  env="${3}"
+  rest="${@:4}"
+
+  echo "Building JavaScript for '${env}' to '${outfile}'"
   npx esbuild  \
     --bundle  \
-    --define:ENV=\"dev\" \
+    --define:ENV=\"${env}\" \
     --define:APP_VERSION=\"${APP_VERSION}\" \
     --keep-names \
-    --outfile=serve/dev/main.js \
+    --outfile="${outfile}" \
     --sourcemap \
-    src/js/index.js
+    ${rest} src/js/"${infile}"
+}
+
+if [ "${ENV}" = "dev" ]; then
+  build_js index.js serve/dev/main.js dev
+  build_js albers.js serve/dev/albers.js dev
+
   echo "Building CSS"
 
   npx esbuild \
@@ -34,22 +45,17 @@ if [ "${ENV}" = "dev" ]; then
     src/css/index.css
 
   echo "Copying HTML"
-  cp src/html/*.html serve/dev
+  rsync -a src/html/ serve/dev
+
+  echo "Copying images"
   cp src/images/*.ico serve/dev
   cp src/images/*.png serve/dev
 
 else
   if [ "${ENV}" = "production" ]; then
     echo "Building JavaScript"
-    npx esbuild  \
-      --bundle  \
-      --define:ENV=\"production\" \
-      --define:APP_VERSION=\"${APP_VERSION}\" \
-      --keep-names \
-      --outfile=docs/main.js \
-      --minify \
-      --sourcemap \
-      src/js/index.js
+    build_js index.js docs/main.js production --minify
+    build_js albers.js docs/albers.js production --minify
 
     echo "Building CSS"
 
@@ -61,7 +67,9 @@ else
       src/css/index.css
 
     echo "Copying HTML"
-    cp src/html/*.html docs
+    rsync -a src/html/ docs
+
+    echo "Copying images"
     cp src/images/*.ico docs
     cp src/images/*.png docs
   else

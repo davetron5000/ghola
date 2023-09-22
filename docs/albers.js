@@ -747,6 +747,7 @@
     const startButton = new Link_default(body.$("start"));
     const exercise = body.$("exercise");
     startButton.onClick(() => {
+      console.log("CLICK");
       exercise.requestFullScreen({
         navigationUI: "hide"
       }).then(() => {
@@ -758,4 +759,4 @@
     });
   });
 })();
-//# sourceMappingURL=main.js.map
+//# sourceMappingURL=albers.js.map

@@ -2,6 +2,7 @@ FROM node:20.6
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -y update && \
+    apt-get -yq install rsync && \
     npm install -g npm@latest
 
 ENV EDITOR=vim

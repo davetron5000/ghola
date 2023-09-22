@@ -1,3 +1,4 @@
+import { TypeOf }       from "brutaldom"
 import { GetColorName } from "hex-color-to-color-name"
 import chroma           from "chroma-js"
 
@@ -38,6 +39,30 @@ export default class Color {
   static white() { return new Color("#ffffff") }
   static black() { return new Color("#000000") }
 
+  static fromRGB(r,g,b) {
+    return new Color(chroma.rgb([r,g,b]).hex())
+  }
+
+  static random(...exceptThese) {
+    let color
+
+    let guard = 0
+    while ( !color || (exceptThese.some( (c) => c.isSame(color) )) ) {
+      color = new Color(
+        chroma.rgb([
+          Math.floor(Math.random() * 256),
+          Math.floor(Math.random() * 256),
+          Math.floor(Math.random() * 256),
+        ]).hex()
+      )
+      guard += 1
+      if (guard > 100) {
+        throw `Too many times! ${guard}`
+      }
+    }
+    return color
+  }
+
   static average(colors,{ model = "lab" } = {}) {
     if (model == "lab") {
       return (new LabAverage(colors)).color
@@ -55,10 +80,17 @@ export default class Color {
   // Queries
   chroma()   { return chroma(this.hex()) }
   hex()      { return this.hexCode }
-  name()     { return GetColorName(this.hexCode) }
+  name()     { return this._bringIntoAtLeastTheFriggin80sFFS(GetColorName(this.hexCode)) }
   category() { return new ColorCategory(this) }
   hue()      { return this.chroma().hsl()[0] }
   isGray()   { return isNaN(this.hue()) }
+
+  _bringIntoAtLeastTheFriggin80sFFS(colorName) {
+    if (colorName.toLowerCase() == "flesh") {
+      return "peach"
+    }
+    return colorName
+  }
 
   lightness({ model = "lab" } = {}) {
     if (model == "lab") {
@@ -75,6 +107,19 @@ export default class Color {
   }
 
   contrast(other) { return chroma.contrast(this.hex(),other.hex()) }
+  isSame(other) {
+    if (other) {
+      if (other.hex) {
+        return this.hex() == other.hex()
+      }
+      else {
+        throw `You cannot compare a ${TypeOf.asString(other)} to a Color`
+      }
+    }
+    else {
+      return false
+    }
+  }
 
   // Transformations
   lighten(x=1) { return new Color(this.chroma().brighten(x).hex()) }
