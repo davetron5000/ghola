@@ -86,6 +86,7 @@
               Color Wheel
             </label>
             <select id="color-wheel" name="color-wheel" class="w-50">
+              <option value="Monochrome">Monochrome 🧸</option>
               <option value="EqualHueBased">Equally-Spaced Hues</option>
               <option value="HandCrafted">Hand-crafted</option>
             </select>
@@ -96,6 +97,21 @@
               # of Colors
             </label>
             <div class="w-50">
+              <div class="dn xflex items-center mb-1">
+                <input id="num-colors-1" type="radio" name="num-colors" value="1" checked />
+                <label for="num-colors-1" class="flex items-center w-100">
+                  <span class="mh-1 f-3 w-4 tr">1</span>
+                  <div class="h-2" style="background-color: #ff0000; width: 100%;"></div>
+                </label>
+              </div>
+              <div class="dn xflex items-center mb-1">
+                <input id="num-colors-2" type="radio" name="num-colors" value="2" checked />
+                <label for="num-colors-2" class="flex items-center w-100">
+                  <span class="mh-1 f-3 w-4 tr">2</span>
+                  <div class="h-2" style="background-color: #ff0000; width: 50%;"></div>
+                  <div class="h-2" style="background-color: #00ff00; width: 50%;"></div>
+                </label>
+              </div>
               <div class="flex items-center mb-1">
                 <input id="num-colors-6" type="radio" name="num-colors" value="6" checked />
                 <label for="num-colors-6" class="flex items-center w-100">
