@@ -32,31 +32,48 @@
 }
   </style>
   </head>
-  <body class="ff-sans bg-white-ish black-ish h-100vh">
-    <header class="bg-black-ish white-ish pa-3">
-      <div class="mh-auto">
-        <h1 class="f-4 fw-bold mt-3 mb-0 lh-title tc">
-          <a href="index.html" class="tdn hover-tdu white">
-            Exercises from <i class="f-5 db">Interaction of Color</i> <div class="db f-3">by Josef Albers</div>
+  <body class="ff-serif bg-white-ish black-ish h-100vh">
+    <header class="pa-3">
+      <div class="mh-auto w-70">
+        <h1 class="f-5 fw-5 mt-3 mb-0 flex flex-row-ns flex-column items-center lh-title tc tl-ns">
+          <a class="mr-1 i tdn black hover-tdu-ns" href="index.html">
+            Exercises from <i class="fs-normal tracked-none ttn db f-6">Interaction of Color</i> <span class="db ff-sans fs-normal f-4 db">by Josef Albers</span>
           </a>
+          <div class="ml-3-ns mt-4 mt-0-ns">
+            <div class="w-7 h-4 mh-2 mb-2" style="background-color: #FF6666; transform: rotate(4deg);"></div>
+            <div class="w-7 h-4 mh-2 mb-2" style="background-color: #FFE1DC; transform: rotate(7deg) translate(8px,-15px);"></div>
+            <div class="w-7 h-4 mh-2 mb-2" style="background-color: #FF6666; transform: rotate(-2deg) translate(-6px, -5px)"></div>
+            <div class="w-7 h-4 mh-2 mb-2" style="background-color: #FFE1DC; transform: rotate(5deg) translate(5px,-7px);"></div>
+            <div class="w-7 h-4 mh-2 mb-2" style="background-color: #FFC6C1; transform: rotate(-7deg) translate(1px,-8px);"></div>
+            <div class="w-7 h-4 mh-2 mb-2" style="background-color: #660000; transform: rotate(-2deg) translate(0,0);"></div>
+            <div class="w-7 h-4 mh-2 mb-2" style="background-color: #C6323C; transform: rotate(3deg) translate(5px,-23px);"></div>
+          </div>
         </h1>
         <h2 class="f-5 tc ttu tracked fw-3 measure-narrow mh-auto">
-          <div>IV</div><div>A color has many faces</div><div>—the relativity of color</div>
+          <div class="f-6 fw-5 tracked-mega">IV</div><div class="mt-3">A color has many faces</div><div>—the relativity of color</div>
         </h2>
       </div>
     </header>
     <main>
-      <h3 class="tc tracked-tight f-4">Color is the most relative medium in art</h3>
-      <p class="measure lh-copy mh-auto">
-        This part of the book has students create small rectangles of paper of the same color, placing them on larger backgrounds of different colors in order to see the differences.  What I've chosen to do here is create an interactive tool that will display effectively random colors in this way and you can then say how different each is.
-      </p>
-      <nav class="flex items-center justify-center mv-4">
-        <a href="#" data-start class="tdn db pos-relative">
-          <div class="w-6 h-4 bg-red-dark"   style="transform: rotate(-3deg)"></div>
-          <div class="w-6 h-4 bg-red-darker" style="transform: rotate(5deg) translate(-1px,-4px)"></div>
-          <span class="pos-absolute f-3 tc top-3 bottom-1 left-1 right-1 red-lighter fw-bold">Start</span>
-        </a>
-      </nav>
+      <section class="pa-3">
+        <h3 class="tc tracked-tight ws-nowrap f-3 fw-bold">Color is the most relative medium in art</h3>
+        <p class="measure lh-copy mh-auto">
+          This part of the book has students create small rectangles of paper of the same color, placing them on larger backgrounds of different colors in order to see the differences.  What I've chosen to do here is create an interactive tool that will display effectively random colors in this way and you can then say how different each is.
+        </p>
+        <nav class="dn flex-ns items-center justify-center mv-4">
+          <a href="#" data-start class="tdn db pos-relative">
+            <div class="w-6 h-4 bg-red-dark"   style="transform: rotate(-3deg)"></div>
+            <div class="w-6 h-4 bg-red-darker" style="transform: rotate(5deg) translate(-1px,-4px)"></div>
+            <span class="pos-absolute f-3 tc top-3 bottom-1 left-1 right-1 red-lighter fw-bold">Start</span>
+          </a>
+        </nav>
+        <aside class="db dn-ns bg-red-lightest red-darker pa-3 br-3 tc bc-red-darker bs-dotted flex items-center">
+          <strong>Note:</strong>
+          <p class="ma-0 ml-3 tl lh-copy">
+          This doesn't work well on the size screen you are using. Try rotating or using a larger screen.
+          </p>
+        </aside>
+      </section>
       <article data-exercise class="dn w-100 pos-relative">
         <aside data-debug class="dn pos-absolute bg-black green-light br-bottom-3 shadow-3 pa-2 top-0 left-0 right-0">
           <dl>
@@ -164,10 +181,15 @@
         </template>
       </article>
     </main>
-    <footer class="bg-black-ish white-ish pa-3 mb-4">
-      <div class="w-60 mh-auto">
+    <footer class="bg-blue-lighter black-ish ph-3 pv-5 mb-4 pos-relative" style="transform: rotate(3deg)">
+      <div class="w-100 bg-blue-darker h-6 pos-absolute top-2" style="transform: rotate(-5deg)"></div>
+      <div class="w-100 w-60-ns mh-auto white-ish" style="transform: rotate(-3deg)">
         <p class="lh-copy">
-          Copyright &copy; 2023 by David Copeland, All Rights Reserved. Generative AI was <a class="blue-light" href="https://declare-ai.org/1.0.0-alpha1/none.html">not used in any part of this website, content, or code</a>.
+          Copyright &copy; 2023 by David Copeland, All Rights Reserved. Generative AI was <a class="blue-lighter" href="https://declare-ai.org/1.0.0-alpha1/none.html">not used in any part of this website, content, or code</a>.
+        </p>
+        <p class="lh-copy pt-3 blue-darkest">
+          <a href="/about.html" class="blue-darkest">About</a>
+          <a href="https://github.com/davetron5000/ghola" class="blue-darkest">Source</a>
         </p>
       </div>
     </footer>
