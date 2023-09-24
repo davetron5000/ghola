@@ -2,6 +2,7 @@
 
 :root {
   --mg-ff-sans: 'Helvetica Neue', Inter, Roboto, 'Nimbus Sans', sans-serif;
+  --mg-ff-serif: 'Baskerville', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
   --mg-ff-mono: Courier, monospace;
 }
 
