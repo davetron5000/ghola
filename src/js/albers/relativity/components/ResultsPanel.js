@@ -1,5 +1,5 @@
 import { Component } from "brutaldom"
-import Swatch from "../../components/Swatch"
+import Swatch from "../../../components/Swatch"
 
 export default class ResultsPanel extends Component {
   wasCreated(swatchTemplate) {

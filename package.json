@@ -8,7 +8,7 @@
     "brutaldom": "^1.0.0-alpha1",
     "chroma-js": "^2.4.2",
     "hex-color-to-color-name": "^1.0.2",
-    "melange-css": "^1.0.0-beta1"
+    "melange-css": "^1.0.0-beta3"
   },
   "devDependencies": {
     "chokidar-cli": "^3.0.0",

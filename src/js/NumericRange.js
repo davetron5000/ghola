@@ -11,6 +11,11 @@ export default class NumericRange {
     }
   }
 
+  random() {
+    const diff = this.end - this.start
+    return Math.floor(Math.random() * diff) + this.start
+  }
+
   isWithin(number) {
     return number >= this.start && number < this.end
   }

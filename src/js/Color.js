@@ -43,6 +43,25 @@ export default class Color {
     return new Color(chroma.rgb([r,g,b]).hex())
   }
 
+  static fromHSV(h,s,v) {
+    return new Color(chroma.hsv([h,s,v]).hex())
+  }
+
+  static randomInHueRange(hueTolerance,...exceptThese) {
+    let color
+
+    let guard = 0
+    while ( !color || (exceptThese.some( (c) => Math.abs(c.hue() - color.hue()) < hueTolerance ) ) ) {
+      color = Color.random()
+      guard += 1
+      if (guard > 100) {
+        throw `Too many times! ${guard}`
+      }
+    }
+    return color
+
+  }
+
   static random(...exceptThese) {
     let color
 

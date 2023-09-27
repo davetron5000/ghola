@@ -34,7 +34,8 @@ build_js() {
 
 if [ "${ENV}" = "dev" ]; then
   build_js index.js serve/dev/main.js dev
-  build_js albers.js serve/dev/albers.js dev
+  build_js albers/relativity/index.js serve/dev/albers-relativity.js dev
+  build_js albers/lightness/index.js serve/dev/albers-lightness.js dev
 
   echo "Building CSS"
 
@@ -55,7 +56,8 @@ else
   if [ "${ENV}" = "production" ]; then
     echo "Building JavaScript"
     build_js index.js docs/main.js production --minify
-    build_js albers.js docs/albers.js production --minify
+    build_js albers/relativity/index.js docs/albers-relativity.js production --minify
+    build_js albers/lightness/index.js docs/albers-lightness.js production --minify
 
     echo "Building CSS"
 

@@ -1,7 +1,7 @@
 import { Component, EventManager } from "brutaldom"
 
-import ArrayShuffler from "../../ArrayShuffler"
-import Color         from "../../Color"
+import ArrayShuffler from "../../../ArrayShuffler"
+import Color         from "../../../Color"
 import Demonstration from "../Demonstration"
 import Exploration   from "../Exploration"
 import Reflection    from "../Reflection"

@@ -1,5 +1,5 @@
-import Color from "../Color"
-import ArrayShuffler from "../ArrayShuffler"
+import Color from "../../Color"
+import ArrayShuffler from "../../ArrayShuffler"
 
 export default class Demonstration {
   static random() {

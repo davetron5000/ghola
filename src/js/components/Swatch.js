@@ -64,15 +64,15 @@ class ColorSquare extends Component {
 
   set size(val) {
     if (val == "large") {
-      this.element.classList.remove("h-5")
-      this.element.classList.add("h-6")
+      this.element.classList.remove("h-4")
+      this.element.classList.add("h-5")
       this.contrastComparisons.forEach( (contrastComparison) => {
         contrastComparison.expand()
       })
     }
     else if (val == "small") {
-      this.element.classList.remove("h-6")
-      this.element.classList.add("h-5")
+      this.element.classList.remove("h-5")
+      this.element.classList.add("h-4")
       this.contrastComparisons.forEach( (contrastComparison) => {
         contrastComparison.shrink()
       })

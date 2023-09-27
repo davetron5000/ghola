@@ -4,7 +4,6 @@ import Exercise from "./components/Exercise"
 import Results  from "./components/Results"
 
 document.addEventListener("DOMContentLoaded", () => {
-
   const body        = new Body()
   const startButton = new Link(body.$("start"))
   const exercise    = new Exercise(body.$("exercise"))
