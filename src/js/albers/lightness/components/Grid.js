@@ -1,12 +1,18 @@
 import {  Component } from "brutaldom"
 
 export default class Grid extends Component {
+  wasCreated() {
+    this.colorSwatches = []
+  }
+
   addColorSwatch(colorSwatch) {
     this.element.appendChild(colorSwatch.element)
+    this.colorSwatches.push(colorSwatch)
   }
 
   clear() {
     this.element.innerHTML = ""
+    this.colorSwatches = []
   }
 
   show() {
@@ -22,8 +28,7 @@ export default class Grid extends Component {
   }
 
   _setHeightBasedOnNumColors() {
-    const swatches = this.$selectors("[data-single-swatch]")
-    const numSwatches = swatches.length
+    const numSwatches = this.colorSwatches.length
     let height
 
     // We want to use the three column layout UNLESS there is
@@ -31,15 +36,15 @@ export default class Grid extends Component {
     if ( (numSwatches % 3 != 0) && (numSwatches % 2 == 0) ) {
       this.element.classList.remove("cols-3")
       this.element.classList.add("cols-2")
-      const rows = swatches.length / 2
+      const rows = this.colorSwatches.length / 2
       height = 100 / rows
     }
     else {
       this.element.classList.add("cols-3")
       this.element.classList.remove("cols-2")
-      const rows = swatches.length / 3
+      const rows = this.colorSwatches.length / 3
       height = 100 / rows
     }
-    swatches.forEach( (e) => e.style.height = `${height}vh` )
+    this.colorSwatches.forEach( (c) => c.element.style.height = `${height}vh` )
   }
 }

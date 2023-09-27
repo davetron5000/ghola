@@ -14,7 +14,7 @@ import Results       from "./Results"
 import Summary       from "./Summary"
 
 export default class Exercise extends Component {
-  wasCreated() {
+  wasCreated(swatchTemplate) {
     EventManager.defineEvents(this,"abandoned","done")
 
     this.colorTemplate = this.template("color")
@@ -22,8 +22,8 @@ export default class Exercise extends Component {
 
     this.grid    = new Grid(this.$("grid"))
     this.help    = new Help(this.$("help"))
-    this.results = new Results(this.$("results"))
-    this.summary = new Summary(this.$("summary"), this.results.swatchTemplate)
+    this.results = new Results(this.$("results"), swatchTemplate)
+    this.summary = new Summary(this.$("summary"), swatchTemplate)
 
     this.phases = [
       {
@@ -130,7 +130,6 @@ export default class Exercise extends Component {
     shuffled.forEach( (color, index) => {
       if (index >= slough)  {
         const node = this.colorTemplate.newNode()
-        node.dataset.singleSwatch = true
         const isDarker = this.colors[color.hex()].type.isDark()
         const colorSwatch = new ColorSwatch(node,this.navTemplate,color,isDarker)
         colorSwatch.onSelected( (color,choice) => {

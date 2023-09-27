@@ -3,10 +3,10 @@ import { Component, EventManager, Link } from "brutaldom"
 import Swatch from "../../../components/Swatch"
 
 export default class Results extends Component {
-  wasCreated() {
+  wasCreated(swatchTemplate) {
     EventManager.defineEvents(this,"again","harder","summary")
 
-    this.swatchTemplate = this.template("swatch")
+    this.swatchTemplate = swatchTemplate
 
     this.$percentSlots = this.$slots("percent")
     this.$darkGroup    = this.$("dark")
