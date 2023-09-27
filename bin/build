@@ -3,7 +3,7 @@
 set -e
 
 if [ "$1" = "help" ] || [ "$1" = "-h" ]; then
-  echo "usage: $0 [dev|test|prod]"
+  echo "usage: $0 [dev|production]"
   exit 0
 fi
 
