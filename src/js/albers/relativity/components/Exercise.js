@@ -87,16 +87,6 @@ export default class Exercise extends Component {
     this.debug.phase = this.phase
   }
 
-  show() {
-    this.element.classList.remove("dn")
-    this.element.classList.add("flex")
-  }
-
-  hide() {
-    this.element.classList.remove("flex")
-    this.element.classList.add("dn")
-  }
-
   begin() {
     this.phase.start()
     this.exploration = []

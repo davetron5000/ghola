@@ -17,14 +17,11 @@ export default class Grid extends Component {
 
   show() {
     super.show()
-    this.element.classList.remove("db")
-    this.element.classList.add("grid")
     this._setHeightBasedOnNumColors()
   }
 
   hide() {
     super.hide()
-    this.element.classList.remove("grid")
   }
 
   _setHeightBasedOnNumColors() {

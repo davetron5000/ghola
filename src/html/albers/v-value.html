@@ -70,7 +70,7 @@
         <p class="measure lh-copy mh-auto">
           You'll see your accuracy, then be asked if you want to try again with similarly-randomized colors or to repeat with a more difficult challenge.  The colors will become harder and harder to distinguish.
         </p>
-        <nav class="dn flex-ns items-center justify-center mv-4">
+        <nav class="dn flex-ns items-center justify-center mv-4" data-brutaldom-display="flex">
           <a href="#" data-start class="tdn db pos-relative">
             <div class="w-5 h-3 bg-red-dark"   style="transform: rotate(-3deg)"></div>
             <div class="w-5 h-3 bg-red-darker" style="transform: rotate(5deg) translate(-1px,-4px)"></div>
@@ -84,7 +84,7 @@
           </p>
         </aside>
       </section>
-      <article data-exercise class="dn">
+      <article data-exercise class="dn" data-brutaldom-display="block">
         <template data-nav>
           <nav class="flex items-center justify-center"
                data-selected="bg-white-ish black-ish"
@@ -125,7 +125,7 @@
         </aside>
         <section data-grid class="grid cols-3 mh-auto" style="gap: 0.25rem">
         </section>
-        <section data-results class="dn pa-5">
+        <section data-results class="dn pa-5" data-brutaldom-display="block">
           <h3 class="tc f-4 ma-0">Results</h4>
           <p class="measure mh-auto tc f-5 ma-0 mv-1">
             <slot name="percent"></slot>% Correct
@@ -144,7 +144,7 @@
               <div class="w-5 h-3 bg-purple-darker" style="transform: rotate(5deg) translate(-5px,-8px)"></div>
               <span class="pos-absolute f-2 tc top-3 bottom-1 left-1 right-1 purple-lighter fw-bold">Make it Harder</span>
             </a>
-            <a href="#" data-show-summary class="tdn dn pos-relative mr-3">
+            <a href="#" data-show-summary class="tdn dn pos-relative mr-3" data-brutaldom-display="block">
               <div class="w-5 h-3 bg-red-dark"   style="transform: rotate(-4deg)"></div>
               <div class="w-5 h-3 bg-red-darker" style="transform: rotate(5deg) translate(-5px,-8px)"></div>
               <span class="pos-absolute f-2 tc top-3 bottom-1 left-1 right-1 red-lighter fw-bold">Summary</span>
@@ -157,7 +157,7 @@
           <div class="lst-none pl-0 flex flex-wrap items-center justify-center" data-light>
           </div>
         </section>
-        <section data-summary class="dn pa-5">
+        <section data-summary class="dn pa-5" data-brutaldom-display="block">
           <template data-swatch-summary>
             <div>
               <div class="flex items-baseline">
@@ -179,7 +179,7 @@
             <slot name="percent"></slot>% Correct
           </p>
           <nav class="flex items-center justify-center mv-3">
-            <a href="#" data-done class="tdn dn pos-relative mr-3">
+            <a href="#" data-done class="tdn dn pos-relative mr-3" data-brutaldom-display="block">
               <div class="w-5 h-3 bg-red-dark"   style="transform: rotate(-4deg)"></div>
               <div class="w-5 h-3 bg-red-darker" style="transform: rotate(5deg) translate(-5px,-8px)"></div>
               <span class="pos-absolute f-2 tc top-3 bottom-1 left-1 right-1 red-lighter fw-bold">Done</span>

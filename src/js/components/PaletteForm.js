@@ -113,10 +113,10 @@ export default class PaletteForm extends Component {
     this.numShadesRadioButtons.onSelected(this.numShadesChangedEventManager)
 
     this.modelSelect = new Select(this.$selector("[name=scale-model]"))
-    this.modelSelect.onInput(this.scaleModelChangedEventManager)
+    this.modelSelect.onSelected(this.scaleModelChangedEventManager)
 
     this.colorWheelSelect = new Select(this.$selector("[name=color-wheel]"))
-    this.colorWheelSelect.onInput(this.colorWheelChangedEventManager)
+    this.colorWheelSelect.onSelected(this.colorWheelChangedEventManager)
 
     if (initialData.color)          { this.color          = initialData.color }
     if (initialData.secondaryColor) { this.secondaryColor = initialData.secondaryColor }
