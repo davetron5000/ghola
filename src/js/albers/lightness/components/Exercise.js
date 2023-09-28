@@ -74,8 +74,7 @@ export default class Exercise extends Component {
     this.currentPhase = 0
     this.allColorsSeen = {}
 
-    this.help.onGo( () => this.help.hide() )
-    this.help.onGo( () => this.start() )
+    this.help.onGo( () => this.help.hide().then( () => this.start() ) )
 
     this.results.onAgain( () => this.results.hide() )
     this.results.onAgain( () => this.startup() )

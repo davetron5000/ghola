@@ -1,8 +1,20 @@
-import {  Component } from "brutaldom"
+import { Animator, Component } from "brutaldom"
 
 export default class Grid extends Component {
   wasCreated() {
     this.colorSwatches = []
+    if (this.hidden) {
+      this.element.style.opacity = 0
+    }
+    this.animator = new Animator(this.element,{
+      duration: 200,
+      styles: {
+        opacity: {
+          from: 0,
+          to: 1,
+        }
+      }
+    })
   }
 
   addColorSwatch(colorSwatch) {

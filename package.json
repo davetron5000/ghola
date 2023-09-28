@@ -5,7 +5,7 @@
   "author": "David Copeland",
   "license": "Hippocratic-2.1",
   "dependencies": {
-    "brutaldom": "^1.0.0-alpha3",
+    "brutaldom": "^1.0.0-alpha4",
     "chroma-js": "^2.4.2",
     "hex-color-to-color-name": "^1.0.2",
     "melange-css": "^1.0.0-beta3"
