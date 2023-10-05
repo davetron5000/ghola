@@ -39,7 +39,7 @@ export default class Results extends Component {
 
       swatch.size = "large"
       swatch.hideContrast()
-      swatch.hex.element.textContent = `HSL(${answer.hsl().join(",")})`
+      swatch.hex.element.textContent = isNaN(answer.hsl()[0]) ? answer.hex() : `HSL(${answer.hsl().join(",")})`
 
       if (answer.isCorrect()) {
         swatch.name.element.innerHTML = "&check;"
@@ -66,7 +66,6 @@ export default class Results extends Component {
   }
 
   _scrollIntoView() {
-    const rect = this.heading.getBoundingClientRect()
-    setTimeout( () => ( window.scrollTo({ left: rect.x, top: rect.y, behavior: "smooth" }) ), 50)
+    setTimeout( () => ( this.heading.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" }) ), 500)
   }
 }

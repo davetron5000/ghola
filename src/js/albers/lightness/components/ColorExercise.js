@@ -13,19 +13,9 @@ import Help          from "./Help"
 import Results       from "./Results"
 import Summary       from "./Summary"
 
-export default class Exercise extends Component {
-  wasCreated(swatchTemplate) {
-    EventManager.defineEvents(this,"abandoned","done")
-
-    this.colorTemplate = this.template("color")
-    this.navTemplate   = this.template("nav")
-
-    this.grid    = new Grid(this.$("grid"))
-    this.help    = new Help(this.$("help"))
-    this.results = new Results(this.$("results"), swatchTemplate)
-    this.summary = new Summary(this.$("summary"), swatchTemplate)
-
-    this.phases = [
+export default class ColorExercise extends Component {
+  _phases() {
+    return [
       {
         total: 6,
         dark: new NumericRange(5,30),
@@ -71,6 +61,19 @@ export default class Exercise extends Component {
         sameHue: true,
       },
     ]
+  }
+
+  wasCreated(swatchTemplate) {
+    EventManager.defineEvents(this,"abandoned","done")
+
+    this.colorTemplate = this.template("color")
+    this.navTemplate   = this.template("nav")
+
+    this.grid    = new Grid(this.$("grid"))
+    this.help    = new Help(this.$("help"))
+    this.results = new Results(this.$("results"), swatchTemplate)
+    this.summary = new Summary(this.$("summary"), swatchTemplate)
+
     this.currentPhase = 0
     this.allColorsSeen = {}
 
@@ -101,12 +104,21 @@ export default class Exercise extends Component {
       navigationUI: "hide",
     }).then( () => this.help.show() )
   }
+
   start() {
-    const totalSwatches = this.phases[this.currentPhase].total
+    console.log("start()")
+    const totalSwatches = this._phases()[this.currentPhase].total
     const [
       darkColors,
       lightColors
-    ] = this._randomColors(this.phases[this.currentPhase])
+    ] = this._randomColors(this._phases()[this.currentPhase])
+    console.log("colors")
+    console.log(darkColors)
+    if (darkColors.length == 0) {
+      console.error(this.currentPhase)
+      console.error(this._phases())
+      throw `WTF`
+    }
 
     this.colors = {}
     darkColors.forEach( (color) => {
@@ -170,11 +182,12 @@ export default class Exercise extends Component {
       lightColors,
     ]
   }
+
   _nextPhase() {
     this.currentPhase += 1
-    if (this.currentPhase < this.phases.length) {
+    if (this.currentPhase < this._phases().length) {
       this.startup()
-      if (this.currentPhase == (this.phases.length-1)) {
+      if (this.currentPhase == (this._phases().length-1)) {
         this.results.showSummaryLink()
       }
     }

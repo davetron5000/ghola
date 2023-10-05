@@ -20,4 +20,7 @@ export default class Answer {
       Math.floor(l * 100),
     ]
   }
+  hex() {
+    return this.color.hex()
+  }
 }

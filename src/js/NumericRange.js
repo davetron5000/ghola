@@ -6,14 +6,24 @@ export default class NumericRange {
 
     this.start = start
     this.end = end
+    this.array = []
+    for (let i=this.start;i < this.end; i++) {
+      this.array.push(i)
+    }
     if (start > end) {
       throw `${start} must be less than or equal to ${end}`
     }
   }
 
+  forEach(f) { return this.array.forEach(f) }
+  map(f)     { return this.array.map(f) }
+
   random() {
-    const diff = this.end - this.start
-    return Math.floor(Math.random() * diff) + this.start
+    return Math.floor(Math.random() * this.size) + this.start
+  }
+
+  get size() {
+    return this.end - this.start
   }
 
   isWithin(number) {
@@ -31,5 +41,9 @@ export default class NumericRange {
 
   valueAtPercent(percent) {
     return Math.floor(this.start + ((this.end - this.start) * percent))
+  }
+
+  toString() {
+    return `[${this.start}..${this.end})` 
   }
 }

@@ -39,6 +39,12 @@ export default class Color {
   static white() { return new Color("#ffffff") }
   static black() { return new Color("#000000") }
 
+  static gray(lightness) { 
+    return new Color(
+      chroma.hsl([NaN,0,lightness / 100]).hex()
+    )
+  }
+
   static fromRGB(r,g,b) {
     return new Color(chroma.rgb([r,g,b]).hex())
   }
@@ -173,7 +179,18 @@ export default class Color {
     }
   }
 
-  gray() { return new Color(this.chroma().desaturate(10).hex()) }
+  gray({ model = "lab" } = {}) {
+    if (model == "lab") {
+      return new Color(this.chroma().desaturate(10).hex())
+    }
+    else if (model == "hsl" ) {
+      const [h,s,l] = this.chroma().hsl()
+      return new Color(chroma.hsl(h,0,l).hex())
+    }
+    else {
+      throw `Unknown model ${model}`
+    }
+  }
 
   rotateHue(degrees) {
     const hsl = this.chroma().hsl()

@@ -41,10 +41,15 @@ export default class Summary extends Component {
       swatch.size = "small"
       swatch.hideContrast()
       const [h,s,l] = answer.hsl()
-      swatch.hex.element.innerHTML = ""
-      const summaryNode = this.summaryTemplate.newNode()
-      swatch.hex.element.appendChild(summaryNode)
-      new SwatchSummary(summaryNode,h,s,l)
+      if (isNaN(h)) {
+        swatch.hex.element.textContent = answer.hex()
+      }
+      else {
+        swatch.hex.element.innerHTML = ""
+        const summaryNode = this.summaryTemplate.newNode()
+        swatch.hex.element.appendChild(summaryNode)
+        new SwatchSummary(summaryNode,h,s,l)
+      }
 
       if (answer.isCorrect()) {
         this.$correct.appendChild(node)

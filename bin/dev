@@ -2,4 +2,13 @@
 
 set -e
 
-SHELL=/bin/bash npx chokidar -p "src/js/**/*.js" "src/html/**/*.html" "src/css/**/*.css" "src/images/**/*.ico" "src/images/**/*.png" -c "bin/build"
+trap killgroup SIGINT
+
+killgroup() {
+  echo "Killing everything..."
+  kill 0
+}
+
+SHELL=/bin/bash npx chokidar -p "src/js/**/*.js" "src/html/**/*.html" "src/css/**/*.css" "src/images/**/*.ico" "src/images/**/*.png" -c "bin/build" &
+bin/run &
+wait
