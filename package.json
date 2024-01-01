@@ -1,18 +1,20 @@
 {
-  "name": "ghola",
+  "name": "tleilax",
   "version": "1.0.0",
-  "description": "Color Picker for Developers",
-  "author": "David Copeland",
-  "license": "Hippocratic-2.1",
-  "dependencies": {
-    "brutaldom": "^1.0.0-alpha4",
-    "chroma-js": "^2.4.2",
-    "hex-color-to-color-name": "^1.0.2",
-    "melange-css": "^1.0.0-beta3"
-  },
+  "description": "Template for basic static site",
+  "main": "index.js",
+  "author": "David Bryant Copeland",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "private": true,
   "devDependencies": {
     "chokidar-cli": "^3.0.0",
-    "esbuild": "^0.19.2",
+    "ejs": "^3.1.9",
+    "esbuild": "^0.19.5",
     "http-server": "^14.1.1"
+  },
+  "dependencies": {
+    "chroma-js": "^2.4.2",
+    "hex-color-to-color-name": "^1.0.2",
+    "melange-css": "^1.0.0-beta6"
   }
 }

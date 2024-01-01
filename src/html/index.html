@@ -16,261 +16,179 @@
     <title>
       Ghola - Palette Generator for Developers
     </title>
-    <link href="main.css" rel="stylesheet" />
-    <script src="main.js"></script>
-  </head>
-  <body class="ff-sans bg-white-ish black-ish">
-    <aside data-tooltip-ui class="dn shadow-5 ba bc-gray-darkest bg-white-ish black-ish ph-3 pv-2 f-1 br-2 w-6 items-end justify-between pos-absolute" data-brutaldom-display="block">
-      <p class="measure lh-copy ma-0">
-      <a href="#" class="mb-2 ml-2 f-r blue-darkest bg-blue-lightest f-1 ph-2 pv-1 br-2 ws-nowrap ba bc-gray-darkest tdn">&times; Close</a>
-      <span data-content></span>
-      </p>
-    </aside>
-    <header class="bg-black-ish white-ish pa-3">
-      <h1 class="f-6 ttu tracked fw-bold mt-3 mb-0 flex items-baseline">
-        <span class="mr-1"><a href="/" class="tdn white hover-tdu">Ghola</a></span>
-        <div class="flex flex-wrap">
-          <div class="w-3 h-3 br-1 mh-2 mb-2" style="background-color: #ff0000;"></div>
-          <div class="w-3 h-3 br-1 mh-2 mb-2" style="background-color: #ff8800;"></div>
-          <div class="w-3 h-3 br-1 mh-2 mb-2" style="background-color: #ffff00;"></div>
-          <div class="w-3 h-3 br-1 mh-2 mb-2" style="background-color: #00ff00;"></div>
-          <div class="w-3 h-3 br-1 mh-2 mb-2" style="background-color: #0000ff;"></div>
-          <div class="w-3 h-3 br-1 mh-2 mb-2" style="background-color: #ff00ff;"></div>
-          <div class="w-3 h-3 br-1 mh-2 mb-2" style="background-color: #888888;"></div>
-        </div>
-      </h1>
-      <h2 class="flex items-baseline justify-between f-4 f-5-ns fw-5 mv-2">
-        <span>
-        Palette Generator for Developers
-        </span>
-        <span class="dn db-ns f-3 fw-normal ml-3"><a class="blue-light" href="about.html">About this tool</a></span>
-      </h2>
-      <div class="db dn-ns f-3 fw-normal"><a class="blue-light" href="about.html">About this tool</a></div>
-    </header>
-    <main>
-      <form action="#" data-palette-config class="flex flex-wrap items-center bg-gray-light black-ish ph-3 pv-2">
-        <div class="w-100 w-30-ns w-50-m">
-          <label for="color" class="f-3 fw-6 flex items-center">
-            <span class="mr-2 w-70 flex items-center">
-              <span class="f-1 fw-3 mr-1 pointer" data-tooltip="The main color to drive the rest of the palette. It may not be gray. Suggest something saturated and bold.">&#9432;</span>
-              <div>
-                Primary Color:
-                <div class="flex items-center">
-                  <div data-name class="f-1 fw-normal ttu mr-2"></div>
-                  <div data-hex class="f-1 ff-mono fw-3 ttu"></div>
-                </div>
-              </div>
-            </span>
-            <input type="color" name="color" class="h-3 w-4" class="pointer" value="#ff0000">
-            <div class="w-3">&nbsp;</div>
-          </label>
-          <label for="secondary-color" class="f-3 fw-6 flex items-center gray">
-            <span class="mr-2 w-70 flex items-center">
-              <span class="f-1 fw-3 mr-1 pointer" data-tooltip="Another color to include or drive the palette. It may not be gray, and works best when somewhat different from Primary. Uncheck the checkbox to remove it from consideration">&#9432;</span>
-              <div>
-                Secondary Color:
-                <div class="flex items-center">
-                  <div data-name class="f-1 fw-normal ttu mr-2"></div>
-                  <div data-hex class="f-1 ff-mono fw-3 ttu"></div>
-                </div>
-              </div>
-            </span>
-            <input type="color" name="secondary-color" class="h-3 w-4" class="pointer" disabled>
-            <input type="checkbox" name="use-secondary-color" class="w-3">
-          </label>
-        </div>
-        <div class="w-100 w-30-ns w-50-m mh-2-l mt-2 mt-0-l">
-          <div class="flex items-center">
-            <label class="w-50 mr-2 f-3 fw-6 flex items-center" for="color-wheel">
-              <span class="f-1 fw-3 mr-1 pointer" data-tooltip="How do you want each main color of the 6 or 12 to be generated? Had-crafted is best, but you never know." data-tooltip-anchor="wheel">&#9432;</span>
-              Color Wheel
-            </label>
-            <select id="color-wheel" name="color-wheel" class="w-50">
-              <option value="Monochrome">Monochrome 🧸</option>
-              <option value="EqualHueBased">Equally-Spaced Hues</option>
-              <option value="HandCrafted">Hand-crafted</option>
-            </select>
-          </div>
-          <div class="flex items-center mt-2">
-            <label class="w-50 mr-2 f-3 fw-6 flex items-center">
-              <span class="f-1 fw-3 mr-1 pointer" data-tooltip="How many colors will the chosen wheel produce? Six will give you Red, Orange, Green, Blue, and Purple.  12 will give you colors between each. You also will always have a gray.">&#9432;</span>
-              # of Colors
-            </label>
-            <div class="w-50">
-              <div class="dn xflex items-center mb-1">
-                <input id="num-colors-1" type="radio" name="num-colors" value="1" checked />
-                <label for="num-colors-1" class="flex items-center w-100">
-                  <span class="mh-1 f-3 w-3 tr">1</span>
-                  <div class="h-2" style="background-color: #ff0000; width: 100%;"></div>
-                </label>
-              </div>
-              <div class="dn xflex items-center mb-1">
-                <input id="num-colors-2" type="radio" name="num-colors" value="2" checked />
-                <label for="num-colors-2" class="flex items-center w-100">
-                  <span class="mh-1 f-3 w-3 tr">2</span>
-                  <div class="h-2" style="background-color: #ff0000; width: 50%;"></div>
-                  <div class="h-2" style="background-color: #00ff00; width: 50%;"></div>
-                </label>
-              </div>
-              <div class="flex items-center mb-1">
-                <input id="num-colors-6" type="radio" name="num-colors" value="6" checked />
-                <label for="num-colors-6" class="flex items-center w-100">
-                  <span class="mh-1 f-3 w-3 tr">6</span>
-                  <div class="h-2" style="background-color: #ff0000; width: 16.6%;"></div>
-                  <div class="h-2" style="background-color: #ff8800; width: 16.6%;"></div>
-                  <div class="h-2" style="background-color: #ffff00; width: 16.6%;"></div>
-                  <div class="h-2" style="background-color: #00ff00; width: 16.6%;"></div>
-                  <div class="h-2" style="background-color: #0000ff; width: 16.6%;"></div>
-                  <div class="h-2" style="background-color: #ff00ff; width: 16.6%;"></div>
-                </label>
-              </div>
-              <div class="flex items-center mt-1">
-                <input id="num-colors-12" type="radio" name="num-colors" value="12" />
-                <label for="num-colors-12" class="flex items-center w-100">
-                  <span class="mh-1 f-3 w-3 tr">12</span>
-                  <div class="h-2" style="background-color: #ff0000; width: 8.3%;"></div>
-                  <div class="h-2" style="background-color: #ff4400; width: 8.3%;"></div>
-                  <div class="h-2" style="background-color: #ff8800; width: 8.3%;"></div>
-                  <div class="h-2" style="background-color: #ffcc00; width: 8.3%;"></div>
-                  <div class="h-2" style="background-color: #ffff00; width: 8.3%;"></div>
-                  <div class="h-2" style="background-color: #88ff00; width: 8.3%;"></div>
-                  <div class="h-2" style="background-color: #00ff00; width: 8.3%;"></div>
-                  <div class="h-2" style="background-color: #008888; width: 8.3%;"></div>
-                  <div class="h-2" style="background-color: #0000ff; width: 8.3%;"></div>
-                  <div class="h-2" style="background-color: #8800ff; width: 8.3%;"></div>
-                  <div class="h-2" style="background-color: #ff00ff; width: 8.3%;"></div>
-                  <div class="h-2" style="background-color: #ff0088; width: 8.3%;"></div>
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="w-100 w-30-ns w-50-m mh-2-l mt-2 mt-0-l">
-          <div class="flex items-center">
-            <label class="w-50 mr-2 f-3 fw-6 flex items-center" for="scale-model">
-              <span class="f-1 fw-3 mr-1 pointer" data-tooltip="Controls the algorithm used to generate the different shades.  Each one has slightly different results, but should preserve you chosen colors." data-tooltip-anchor="scale">&#9432;</span>
-              Scale Model
-            </label>
-            <select id="scale-model" name="scale-model" class="w-50">
-
-              <option value="Chroma"                  > chroma.js</option>
-              <option value="EnsureContrast"          > Ensure Contrast</option>
-              <option value="FixedHSLLinearLightness" > HSL, Fixed, Linear</option>
-              <option value="FixedHSLLogLightness"    > HSL, Fixed, Logarithmic</option>
-              <option value="FixedHSLHandCrafted"     > HSL, Fixed, Hand-crafted</option>
-              <option value="FixedLabLinearLightness" > Lab, Fixed, Linear</option>
-              <option value="FixedLabLogLightness"    > Lab, Fixed, Logarithmic</option>
-              <option value="FixedLabHandCrafted"     > Lab, Fixed, Hand-crafted</option>
-
-            </select>
-          </div>
-          <div class="flex items-center mt-2">
-            <label class="w-50 mr-2 f-3 fw-6 flex items-center">
-              <span class="f-1 fw-3 mr-1 pointer" data-tooltip="For each color produced by the wheel, how many shades do you want? Five is plenty, but go for seven if you need a few more.">&#9432;</span>
-              # of Shades
-            </label>
-            <div class="w-50">
-              <div class="flex items-center mb-1">
-                <input id="num-shades-5" type="radio" name="num-shades" value="5" checked />
-                <label for="num-shades-5" class="flex items-center w-100">
-                  <span class="mh-1 f-3 w-3 tr">5</span>
-                  <div class="h-2" style="background-color: none   ; width: 14.28%; "></div>
-                  <div class="h-2" style="background-color: #111111; width: 14.28%; "></div>
-                  <div class="h-2" style="background-color: #454545; width: 14.28%; "></div>
-                  <div class="h-2" style="background-color: #888888; width: 14.28%; "></div>
-                  <div class="h-2" style="background-color: #ababab; width: 14.28%; "></div>
-                  <div class="h-2" style="background-color: #eeeeee; width: 14.28%; "></div>
-                  <div class="h-2" style="background-color: none   ; width: 14.28%; "></div>
-                </label>
-              </div>
-              <div class="flex items-center mt-1">
-                <input id="num-shades-7" type="radio" name="num-shades" value="7" />
-                <label for="num-shades-7" class="flex items-center w-100">
-                  <span class="mh-1 f-3 w-3 tr">7</span>
-                  <div class="h-2" style="background-color: #111111; width: 14.28%; "></div>
-                  <div class="h-2" style="background-color: #232323; width: 14.28%; "></div>
-                  <div class="h-2" style="background-color: #454545; width: 14.28%; "></div>
-                  <div class="h-2" style="background-color: #888888; width: 14.28%; "></div>
-                  <div class="h-2" style="background-color: #ababab; width: 14.28%; "></div>
-                  <div class="h-2" style="background-color: #cdcdcd; width: 14.28%; "></div>
-                  <div class="h-2" style="background-color: #eeeeee; width: 14.28%; "></div>
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
+    <link href="/css/styles.css" rel="stylesheet" />
+    <script src="/js/main.js"></script>
+    <template id="g-hex-code">
+      <code class="db w-100 black-ish tl f-1 fw-4 ff-mono ph-2 mv-1 h-1-line lh-solid">
+        <slot name="code"></slot>
+      </code>
+    </template>
+    <template id="g-color-name">
+      <div class="ttu f-1 gray-darker fw-5 nowrap tl mt-2 ph-2 lh-solid h-2-lines flex items-end">
+        <slot name="name"></slot>
+      </div>
+    </template>
+    <template id="g-editable-color-swatch">
+      <form class="bg-white w-5 flex flex-column justify-center ba bc-gray-dark pa-1">
+        <label class="ma-0 pa-0 sr-only"></label>
+        <input class="w-100 bn bw-0 pa-0 pointer h-5 db" type="color" />
+        <g-color-name></g-color-name>
+        <g-hex-code></g-hex-code>
       </form>
-      <form action="#" data-view-config class="flex items-center bg-gray-darkest gray-lightest">
-        <div class="flex items-center pa-3">
-          <label for="show-details" class="mr-3 f-2 fw-6 flex items-center">
-            <input id="show-details" type="checkbox" name="show-details" value="true" checked />
-            <span class="ml-2">
-            Show Color Name &amp; Code
-            </span>
-          </label>
-          <label for="show-contrast" class="mr-3 f-2 fw-6 flex items-center">
-            <input id="show-contrast" type="checkbox" name="show-contrast" value="true" checked />
-            <span class="ml-2">
-            Show Contrast
-            </span>
-          </label>
-          <label for="big-swatches" class="mr-3 f-2 fw-6 flex items-center">
-            <input id="big-swatches" type="checkbox" name="big-swatches" value="true" checked />
-            <span class="ml-2">
-            Big Swatches
-            </span>
-          </label>
-        </div>
-      </form>
-      <nav data-downloads class="flex flex-row-ns flex-column items-center items-center-ns items-baseline-ns ph-3 pv-2 bg-gray-lightest gray-darkest">
-        <h4 class="f-3 f-2-ns fw-5 mr-3 mv-0 flex items-center">
-          <span class="f-1 fw-3 mr-1 pointer" data-tooltip="Download this palette for use in your project" data-tooltip-anchor="download">&#9432;</span>
-          <span>
-            Download This Palette
+    </template>
+    <template id="g-color-scale">
+      <div class="flex items-center justify-center gap-2">
+      </div>
+    </template>
+    <template id="g-color-name-input">
+      <label class="w-15">
+        <input type="text"
+               name="colorName" 
+               class="w-100 inner-shadow-1 f-2 fw-5 pa-2 ba bg-white mb-2 br-1"
+               data-css-when-edited="bc-orange bg-orange-lightest"
+               data-css-when-derived="bc-gray-dark bg-white"
+               >
+        <div class="f-1 i gray-dark">
+          Color Name
+          <span data-when-derived class="gray">
+            (derived)
           </span>
-        </h4>
-        <a data-css class="f-2 blue-dark mr-3 mv-2 mv0-ns" href="#">CSS Variables</a>
-        <a data-melange class="f-2 blue-dark mr-3 mv-2 mv0-ns" href="#">Melange Variables</a>
-        <a data-melange-config class="f-2 blue-dark mr-3 mv-2 mv0-ns" href="#">Melange Configuration</a>
-        <a data-tailwind class="f-2 blue-dark mr-3 mv-2 mv0-ns" href="#">TailwindCSS Configuration</a>
-        <a data-csv class="f-2 blue-dark mr-3 mv-2 mv0-ns" href="#">Good 'Ole CSV</a>
-      </nav>
-      <article class="pa-3 bt bc-gray-light bg-white" data-palette>
-        <template data-row>
-          <div class="flex items-start justify-start w-100 mt-2">
-            <div class="w-10-ns w-30 tr f-3 ttu fw-5 mr-3 pt-1">
-              <slot name="name" />
+          <span data-when-edited class="gray">
+            (yours)
+          </span>
+        </div>
+      </label>
+    </template>
+    <template id="g-color-in-palette">
+      <div class="flex items-start justify-center gap-2">
+        <g-color-name-input></g-color-name-input>
+        <g-color-scale editable="true"></g-color-scale>
+        <nav class="flex flex-column pv-1 mh-2 w-15">
+          <%- include("templates/small-button.html", {
+                additionalButtonClass: "mb-1 br-bottom-0",
+                data: "complement",
+                label: "Add Complement",
+                icon: {
+                  char: "&DoubleUpDownArrow;",
+                  description: "Double up and down arrow",
+                }
+              }) %>
+          <%- include("templates/small-button.html", {
+                additionalButtonClass: "mb-1 br-top-0 br-bottom-0",
+                data: "split-complement",
+                label: "Add Split Complement",
+                icon: {
+                  char: "&nLeftrightarrow;",
+                  description: "Left/right arrow with slash through it",
+                }
+              }) %>
+          <%- include("templates/small-button.html", {
+                additionalButtonClass: "mb-1 br-top-0 br-bottom-0",
+                data: "analogous",
+                label: "Add Analogous",
+                icon: {
+                  char: "&angmsdac;",
+                  description: "Angle arrow",
+                }
+              }) %>
+          <%- include("templates/small-button.html", {
+                additionalButtonClass: "br-top-0",
+                data: "triad",
+                label: "Add Triad",
+                icon: {
+                  char: "&triangle;",
+                  description: "Triangle",
+                }
+              }) %>
+          <%- include("templates/small-button.html", {
+                accentColor: "red",
+                data: "remove",
+                label: "Remove Color",
+                icon: {
+                  char: "&times;",
+                  description:"'x' or times sign" 
+                }}) %>
+          <aside class="mt-3" data-link-message>
+            <div class="f-1 fw-6 ttl tracked-tight">
+            Linked to Primary
             </div>
-            <div class="flex-ns items-center" data-shades>
-            <slot name="shades" />
+            <div class="f-1 ttu fw-4" data-link-message-algorithm>
             </div>
-          </div>
-        </template>
-        <template data-swatch>
-          <div class="flex flex-column mr-2 ba bc-gray-light hover-bg-black hover-white black bg-white pa-1 br-1">
-            <div data-color class="w-5 h-5 flex flex-column items-end justify-end">
-              <template data-comparison>
-                <span class="mr-2 mb-2 f-1 ttl">
-                  <slot name="name"></slot>
-                  <slot name="contrast"></slot>
-                </span>
-              </template>
-            </div>
-            <span data-name class="w-5 ws-nowrap overflow-x-scroll f-1 ttu fw-5 pt-1"></span>
-            <span data-hex class="f-1 ttu fw-5 ff-mono"></span>
-          </div>
-        </template>
+          </aside>
+        </nav>
+      </div>
+    </template>
+    <template id="g-palette">
+      <article>
+        <section class="flex flex-column gap-2">
+        </section>
+        <nav class="flex items-center justify-center pa-3 gap-3">
+          <g-pe-button-accent color="blue">
+            <button data-add-random-color class="shadow-button pointer f-3 ph-3 pv-2 tc ba br-3 lh-solid flex items-center">
+              <div role="none" class="mr-2">
+                <div class="flex">
+                  <span class="br-tl-2 h-1 w-1 bg-blue"></span>
+                  <span class="h-1 w-1 bg-green"></span>
+                  <span class="br-tr-2 h-1 w-1 bg-gray"></span>
+                </div>
+                <div class="flex">
+                  <span class="h-1 w-1 bg-purple"></span>
+                  <span class="h-1 w-1 bg-yellow"></span>
+                  <span class="h-1 w-1 bg-black"></span>
+                </div>
+                <div class="flex">
+                  <span class="br-bl-2 h-1 w-1 bg-red"></span>
+                  <span class="h-1 w-1 bg-white"></span>
+                  <span class="br-br-2 h-1 w-1 bg-orange"></span>
+                </div>
+              </div>
+              Add Random Color
+            </button>
+          </g-pe-button-accent>
+        </nav>
       </article>
+    </template>
+  </head>
+  <body class="ff-sans bg-gray-lightest black-ish">
+    <header class="bg-black-ish gray-lightest">
+      <h1 class="ma-0 mh-3 pt-3 f-6 ttu tracked flex items-center gap-3">
+        Ghola
+        <span class="h-3 w-3 bg-red"></span>
+        <span class="h-3 w-3 bg-orange"></span>
+        <span class="h-3 w-3 bg-yellow"></span>
+        <span class="h-3 w-3 bg-green"></span>
+        <span class="h-3 w-3 bg-blue"></span>
+        <span class="h-3 w-3 bg-purple"></span>
+        <span class="h-3 w-3 bg-gray"></span>
+      </h1>
+      <h2 class="ma-0 mh-3 pb-3 f-5">Palette Generator for Developers</h2>
+      <div class="bg-white bb bc-gray-dark black flex items-baseline">
+        <label for="compact" class="bg-gray-lightest flex items-center gap-1 pa-3 inner-shadow-1 br bl bc-gray pointer hover-bg-white">
+          <input type="checkbox" name="compact" id="compact">
+          <span>
+            Compact
+          </span>
+        </label>
+        <nav class="bg-gray-lighter flex items-baseline pa-3 gap-3 w-100">
+          <h3 class="f-2 fw-7 ma-0">Download this palette:</h3>
+          <a id="download-css"             href="#" class="blue-dark">CSS Variables</a>
+          <a id="download-melange"         href="#" class="blue-dark">MelangeCSS Variables</a>
+          <a id="download-melange-config"  href="#" class="blue-dark">MelangeCSS Configuration</a>
+          <a id="download-tailwind"        href="#" class="blue-dark">Tailwind</a>
+          <a id="download-csv"             href="#" class="blue-dark">Good 'Ole CSV</a>
+        </nav>
+      </div>
+    </header>
+    <main class="pa-3">
+      <g-palette compact-checkbox-id="compact" 
+                 primary-hex-code="#452176"
+                 download-css-link-id="download-css"
+                 download-melange-link-id="download-melange"
+                 download-melange-config-link-id="download-melange-config"
+                 download-tailwind-link-id="download-tailwind"
+                 download-csv-link-id="download-csv"
+                 ></g-palette>
     </main>
-    <footer class="bg-black-ish white-ish pa-3 mb-4">
-      <p class="lh-copy">
-      Copyright &copy; 2023 by David Copeland, All Rights Reserved. Generative AI was <a class="blue-light" href="https://declare-ai.org/1.0.0-alpha1/none.html">not used in any part of this website, content, or code</a>.
-      </p>
-      <p class="lh-copy">
-        <a href="/colophon.html" class="blue-light">Colophon</a>
-        <a href="https://github.com/davetron5000/ghola" class="blue-light">Source</a>
-      </p>
-    </footer>
   </body>
 </html>
 

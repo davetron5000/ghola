@@ -1,0 +1,19 @@
+.shadow-button {
+  transform: translateX(-1px) translateY(-1px);
+  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
+}
+.shadow-button:active {
+  box-shadow: none;
+  transform: none;
+}
+.shadow-button:disabled {
+  box-shadow: none;
+  transform: none;
+  background: var(--mg-gray);
+  color: var(--mg-gray-lighter);
+  border-color: var(--mg-gray);
+  cursor: not-allowed;
+}
+.shadow-button:active:disabled {
+  box-shadow: none;
+}

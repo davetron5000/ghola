@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+mv docs/CNAME .
+rm -rf docs/*
+mv CNAME docs/
+bin/build production docs
+rm -rf site/production
+

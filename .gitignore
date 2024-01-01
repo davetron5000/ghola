@@ -1,5 +1,5 @@
-# Obviously we don't need this
-node_modules
+# site/ is where everything is built and served from
+site
 
-# This is where the site is served up for local dev
-serve
+# node_modules needs no introduction
+node_modules

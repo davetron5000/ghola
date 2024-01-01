@@ -1,0 +1,25 @@
+<%
+let accent = "gray"
+if (typeof accentColor === "string") {
+  accent = accentColor
+}
+let cssClass = ""
+if (typeof additionalClass === "string") {
+  cssClass = additionalClass
+}
+let buttonCssClass = ""
+if (typeof additionalButtonClass === "string") {
+  buttonCssClass = additionalButtonClass
+}
+let iconChar = ""
+let iconDescription = ""
+if (typeof icon === "object") {
+  iconChar = icon.char
+  iconDescription = icon.description
+}
+%>
+<g-pe-button-accent color="<%= accent %>" class="<%= cssClass %>" icon="<%- iconChar %>" icon-description="<%= iconDescription %>">
+  <button data-<%= data %> class="shadow-button pointer f-1 flex-grow-1 ph-2 pv-1 tc ba br-3 <%= buttonCssClass %>">
+    <%= label %>
+  </button>
+</g-pe-button-accent>

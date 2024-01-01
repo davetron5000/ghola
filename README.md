@@ -1,19 +1,23 @@
-# ghola - Color Picker for Developers
+# ghola - color palette generator for devs
 
-This allows choosing a color palette that will provide a wide variety of shades and tints, but not too many, and such that most
-combinations are accessible.
+## Features
+
+* Link derived colors e.g. the complement
+  - These cannot be changed
+  - they are labeled as such
+* Name the colors - default based on previous ghola, but allow to change
+* Download CSS
+
+
+## Web Components
 
 ## Setup
 
-1. Install Docker
-2. `dx/build`
-3. `dx/start`
-4. In a new terminal: `dx/exec bin/setup`
-5. Then, in two terminals:
-   - `dx/exec bin/dev`
-   - `dx/exec bin/run`
-
-To build for prod:
-
-`dx/exec bin/build production`
-
+1. Clone this repo
+2. Install Docker
+3. `dx/build`
+4. `dx/start`
+5. In another window:
+   1. `dx/exec bin/setup`
+   2. `dx/exec bin/dev`
+6. Open `http://localhost:5555` in your browser

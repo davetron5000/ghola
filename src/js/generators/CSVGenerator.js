@@ -1,22 +1,18 @@
-export default class CSVGenerator {
-  constructor(palette) {
-    this.palette = palette
-  }
-
+import Generator from "./Generator"
+export default class CSVGenerator extends Generator {
   blob() {
     const csv = [
       [ "Color Category", "Color Name", "Hex" ].join(","),
     ]
-    Object.entries(this.palette.palette).forEach( ([name,shades]) => {
-      shades.forEach( (color) => {
+    this._eachColor({
+      onColor: (name,color) => {
         csv.push([
-          name,
-          color.name(),
-          color.hex(),
+          name.toString().replaceAll(/['\",]/g,"-"),
+          color.name.toString().replaceAll(/['\",]/g,"-"),
+          color.hexCode,
         ].join(","))
-      })
+      }
     })
     return new Blob([csv.join("\n")],{ type: "text/csv" })
   }
-
 }

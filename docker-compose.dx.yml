@@ -10,8 +10,6 @@ services:
         consistency: "consistent"
     entrypoint: /root/show-help-in-app-container-then-wait.sh
     working_dir: /root/work
-
-
     ports:
-      - "8888:8888"
+      - "5555:6501"
 

@@ -1,12 +1,13 @@
-FROM node:20.6
+FROM node:20
 
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get -y update && \
-    apt-get -yq install rsync && \
-    npm install -g npm@latest
+RUN apt-get -y update
+
 
 ENV EDITOR=vim
 RUN apt-get install -y vim && \
     echo "set -o vi" >> /root/.bashrc
 
+# This entrypoint produces a nice help message and waits around for you to do
+# something with the container.
 COPY dx/show-help-in-app-container-then-wait.sh /root

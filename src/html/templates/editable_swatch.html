@@ -1,0 +1,46 @@
+<!--
+
+  Definitions:
+  * properties - do not change once the component is created
+  * state      - state of the component at any time, changes when needed
+  * operations - methods that others can invoke on this component
+  * events     - things that happen in this component that others can listen for
+
+  EditableSwatch
+    - properties:
+      - initial color
+      - description of the color e.g. "step 4 of the blue scale"
+    - states:
+      - owner: user chose a color | system chose the color (default)
+      - color: hex code (default to initial)
+    - operations:
+      - system sets the color
+        if state is user chose a color, ignore
+    - events:
+      - user chose a color
+      - user removed their choice
+
+  HTML inside:
+    - color input [*]
+      - changed:
+        - fire the "user chose a color" event (only if not reset)
+        - fire "here is the color name" event
+    - label for what the input is for
+      - description property
+    - name of the color [*]
+      - when "here is the color" event fires, update the name
+    - hex code
+      - when "here is the color" event fires, update the hex code
+    - reset button [*]
+      states:
+        - enabled/disabled
+      operations:
+        - enable/disable
+      listens:
+        - when "user chose a color" -> enable
+        - when "system chose the color" -> disable
+      click:
+        - send the "user removed their choice" event
+        - allow the input to be reset
+
+-->

@@ -25,10 +25,10 @@ while getopts ":he:" opt "${@}"; do
 done
 
 if [ "${ENV}" = "dev" ]; then
-  npx http-server serve/dev -p 8888 -c-1
+  npx http-server site/dev -p 6501 -c-1
 else
 if [ "${ENV}" = "production" ]; then
-  npx http-server docs -p 8888 -c-1
+  npx http-server docs -p 6501 -c-1
 else
   echo "Unknown environment: '${ENV}'"
   usage
