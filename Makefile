@@ -29,6 +29,7 @@ CSS_SRC_FILE=$(CSS_SRC_DIR)/index.css
 
 JS_SRC_DIR=$(SRC_DIR)/js
 JS_SRC_FILE=$(JS_SRC_DIR)/index.js
+JS_TEST_SRC_FILE=$(JS_SRC_DIR)/tests.js
 JS_SRC_FILES=$(shell find $(JS_SRC_DIR) -name '*.js')
 
 IMAGES_SRC_DIR=$(SRC_DIR)/images
@@ -60,14 +61,19 @@ CSS_DEST_FILE=$(CSS_DEST_DIR)/styles.css
 
 JS_DEST_DIR=$(DEST_DIR)/js
 JS_DEST_FILE=$(JS_DEST_DIR)/main.js
+JS_TEST_DEST_FILE=$(JS_DEST_DIR)/tests.js
 
 $(CSS_DEST_FILE) : $(CSS_SRC_FILE)
 	npx esbuild $(MINIFY_CSS_FLAG) --sourcemap --bundle $(CSS_SRC_FILE) --outfile=$(CSS_DEST_FILE)
 
 $(JS_DEST_FILE) : $(JS_SRC_FILES)
-	npx esbuild $(MINIFY_JS_FLAG) --sourcemap --bundle $(JS_SRC_FILE) --outfile=$(JS_DEST_FILE)
+	npx esbuild $(MINIFY_JS_FLAG) --sourcemap --bundle $(JS_SRC_FILE) --outfile=$@
+
+$(JS_TEST_DEST_FILE) : $(JS_SRC_FILES)
+	npx esbuild $(MINIFY_JS_FLAG) --sourcemap --bundle $(JS_TEST_SRC_FILE) --outfile=$@
 
 $(HTML_DEST_DIR)/%.html: $(HTML_SRC_DIR)/%.html
+	@mkdir -p `dirname $@`
 	npx ejs --data-file $(EJS_DATA_FILE) --output-file $@ $<
 
 $(IMAGES_DEST_DIR):
@@ -108,5 +114,5 @@ clean:
 debug:
 	@echo $(ASSETS_DEST_FILES)
 
-default: $(CSS_DEST_FILE) $(JS_DEST_FILE) $(HTML_DEST_FILES) $(ICONS_DEST_DIR) $(IMAGES_DEST_DIR) $(IMAGES_DEST_FILES) $(ASSETS_DEST_DIR) $(ASSETS_DEST_FILES) $(FAVICON_ICO) $(MANIFEST_DEST) $(ICON_180)
+default: $(CSS_DEST_FILE) $(JS_DEST_FILE) $(JS_TEST_DEST_FILE) $(HTML_DEST_FILES) $(ICONS_DEST_DIR) $(IMAGES_DEST_DIR) $(IMAGES_DEST_FILES) $(ASSETS_DEST_DIR) $(ASSETS_DEST_FILES) $(FAVICON_ICO) $(MANIFEST_DEST) $(ICON_180)
 	@echo Done with $(ENV)

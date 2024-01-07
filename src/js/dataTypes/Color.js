@@ -31,14 +31,6 @@ export default class Color {
     return new Color(chroma.random().hex())
   }
 
-  static nextId() {
-    if (!this._nextId) {
-      this._nextId = 0
-    }
-    this._nextId = this._nextId + 1
-    return this._nextId;
-  }
-
   constructor(hexCodeAsString) {
     if (!hexCodeAsString) {
       throw `Color must be given a hex code`
@@ -48,9 +40,7 @@ export default class Color {
       throw `'${hexCodeAsString}' is not a valid hex code`
     }
     this.hexCode           = `#${hexCode}`.toUpperCase()
-    this.objectId          = Color.nextId()
     this.name              = new ColorName(this)
-    this._category         = RichString.fromString(this.name.category.broad)
     this._userSuppliedName = null
   }
 
@@ -71,6 +61,9 @@ export default class Color {
       return this._userSuppliedName
     }
     else {
+      if (!this._category) {
+        this._category = RichString.fromString(this.name.category.broad)
+      }
       return this._category
     }
   }

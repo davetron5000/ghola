@@ -1,0 +1,34 @@
+    <header class="bg-black-ish gray-lightest">
+      <h1 class="ma-0 mh-3 pt-3 f-6 ttu tracked flex items-center gap-3">
+        Ghola
+        <span class="h-3 w-3 bg-red"></span>
+        <span class="h-3 w-3 bg-orange"></span>
+        <span class="h-3 w-3 bg-yellow"></span>
+        <span class="h-3 w-3 bg-green"></span>
+        <span class="h-3 w-3 bg-blue"></span>
+        <span class="h-3 w-3 bg-purple"></span>
+        <span class="h-3 w-3 bg-gray"></span>
+      </h1>
+      <h2 class="ma-0 mh-3 pb-3 f-5">Palette Generator for Developers</h2>
+      <% if (typeof(subtitle) === "string") { %>
+        <h3 class="ma-0 ph-3 pb-3 f-4 ttu tracked fw-4"><%= subtitle %></h3>
+      <% } %>
+      <% if ( (typeof(main) === "boolean") && main) { %>
+      <div class="bg-white bb bc-gray-dark black flex items-baseline">
+        <label for="compact" class="bg-gray-lightest flex items-center gap-1 pa-3 inner-shadow-1 br bl bc-gray pointer hover-bg-white">
+          <input type="checkbox" name="compact" id="compact">
+          <span>
+            Compact
+          </span>
+        </label>
+        <nav class="bg-gray-lighter flex items-baseline pa-3 gap-3 w-100">
+          <h3 class="f-2 fw-7 ma-0">Download this palette:</h3>
+          <a id="download-css"             href="#" class="blue-dark">CSS Variables</a>
+          <a id="download-melange"         href="#" class="blue-dark">MelangeCSS Variables</a>
+          <a id="download-melange-config"  href="#" class="blue-dark">MelangeCSS Configuration</a>
+          <a id="download-tailwind"        href="#" class="blue-dark">Tailwind</a>
+          <a id="download-csv"             href="#" class="blue-dark">Good 'Ole CSV</a>
+        </nav>
+      </div>
+      <% } %>
+    </header>

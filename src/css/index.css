@@ -34,3 +34,30 @@ input:disabled.pointer {
 .w-15 {
   width: 15%;
 }
+
+g-test-case summary h4 {
+  display: inline-block;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: var(--mg-sp-1);
+}
+g-test-case details {
+  margin-bottom: var(--mg-sp-3);
+}
+g-test-case summary p {
+  margin-left: var(--mg-sp-4);
+  margin-top: 0;
+  max-width: var(--mg-tw);
+  line-height: var(--mg-lh-copy);
+}
+g-test-case-subject-source code {
+  font-size: var(--mg-fs-1);
+  text-shadow: rgba(230,255,130,0.61) 0px 0px 5px;
+}
+@media (prefers-contrast: more) {
+  g-test-case-subject-source code {
+    font-size: var(--mg-fs-1);
+    text-shadow: none;
+  }
+}

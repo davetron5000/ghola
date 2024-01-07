@@ -1,23 +1,4 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charSet="utf-8" />
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-
-    <meta name="description" content="Ghola is a palette generator for developers">
-    <meta content="Ghola - Palette Generator for Developers " name="og:title">
-    <meta content="website" name="og:type">
-    <meta content="https://ghola.dev/og-image.png" name="og:image">
-
-    <meta itemprop="ai-content-declaration:version" content="1.0.0-alpha1">
-    <meta itemprop="ai-content-declaration:level" content="none">
-
-    <title>
-      Ghola - Palette Generator for Developers
-    </title>
-    <link href="/css/styles.css" rel="stylesheet" />
-    <script src="/js/main.js"></script>
+<%- include("./templates/head.html", { description: "Palette Generator for Developers", title: "Ghola - Palette Generator for Developers" }) %>
     <template id="g-hex-code">
       <code class="db w-100 black-ish tl f-1 fw-4 ff-mono ph-2 mv-1 h-1-line lh-solid">
         <slot name="code"></slot>
@@ -150,35 +131,7 @@
     </template>
   </head>
   <body class="ff-sans bg-gray-lightest black-ish">
-    <header class="bg-black-ish gray-lightest">
-      <h1 class="ma-0 mh-3 pt-3 f-6 ttu tracked flex items-center gap-3">
-        Ghola
-        <span class="h-3 w-3 bg-red"></span>
-        <span class="h-3 w-3 bg-orange"></span>
-        <span class="h-3 w-3 bg-yellow"></span>
-        <span class="h-3 w-3 bg-green"></span>
-        <span class="h-3 w-3 bg-blue"></span>
-        <span class="h-3 w-3 bg-purple"></span>
-        <span class="h-3 w-3 bg-gray"></span>
-      </h1>
-      <h2 class="ma-0 mh-3 pb-3 f-5">Palette Generator for Developers</h2>
-      <div class="bg-white bb bc-gray-dark black flex items-baseline">
-        <label for="compact" class="bg-gray-lightest flex items-center gap-1 pa-3 inner-shadow-1 br bl bc-gray pointer hover-bg-white">
-          <input type="checkbox" name="compact" id="compact">
-          <span>
-            Compact
-          </span>
-        </label>
-        <nav class="bg-gray-lighter flex items-baseline pa-3 gap-3 w-100">
-          <h3 class="f-2 fw-7 ma-0">Download this palette:</h3>
-          <a id="download-css"             href="#" class="blue-dark">CSS Variables</a>
-          <a id="download-melange"         href="#" class="blue-dark">MelangeCSS Variables</a>
-          <a id="download-melange-config"  href="#" class="blue-dark">MelangeCSS Configuration</a>
-          <a id="download-tailwind"        href="#" class="blue-dark">Tailwind</a>
-          <a id="download-csv"             href="#" class="blue-dark">Good 'Ole CSV</a>
-        </nav>
-      </div>
-    </header>
+    <%- include("./templates/header.html", { main: true } ) %>
     <main class="pa-3">
       <g-palette compact-checkbox-id="compact" 
                  primary-hex-code="#452176"

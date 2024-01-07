@@ -3,6 +3,16 @@ import TypeOf            from "./TypeOf"
 import MethodMeasurement from "./MethodMeasurement"
 
 const noop = () => {}
+const makeDebounced = function(callback, wait) {
+  let timeout;
+  return function(...args) {
+    const context = this;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      callback.apply(context, args)
+    }, wait)
+  }
+}
 
 const hasAttributesMixin = {
   attributeChangedCallback(name, oldValue, newValue) {
@@ -26,7 +36,9 @@ const hasAttributesMixin = {
             this[attributeName] = newValue === "true"
           }
           else {
+      measurement.measureCode("assignment", () => {
             this[attributeName] = new klass(newValue)
+      })
           }
         }
         else {
@@ -39,7 +51,9 @@ const hasAttributesMixin = {
     }
     if (valueChanged) {
       if (this.render) {
-        measurement.measureCode("render", () => this.render() )
+        measurement.measureCode("attributeChangedCallback::render", () => {
+          return makeDebounced( () => this.render() , 5)()
+        })
       }
     }
     measurement.done()

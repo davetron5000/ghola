@@ -50,7 +50,7 @@ class PaletteComponent extends HTMLElement {
 
   afterRenderTemplate({measurement}) {
     this.serializer.load()
-    this.palette.onChanged( () => this.serializer.save(), { debounce: 20 } )
+    this.palette.onChanged( () => this.serializer.save() )
     this.$compactCheckbox = document.getElementById(this.compactCheckboxId)
     if (this.$compactCheckbox) {
       this.$compactCheckbox.addEventListener("change", (event) => {
