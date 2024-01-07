@@ -15,6 +15,7 @@
   "dependencies": {
     "chroma-js": "^2.4.2",
     "hex-color-to-color-name": "^1.0.2",
+    "html-prettify": "^1.0.7",
     "melange-css": "^1.0.0-beta6"
   }
 }

@@ -4,6 +4,17 @@ import ColorWheel from "./dataTypes/ColorWheel"
 import RichString from "./brutaldom/RichString"
 import MethodMeasurement from "./brutaldom/MethodMeasurement"
 
+const makeDebounced = function(callback, wait) {
+  let timeout;
+  return function(...args) {
+    const context = this;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      callback.apply(context, args)
+    }, wait)
+  }
+}
+
 class HexCodeAndName {
 
   static NULL_VALUE = {
@@ -164,7 +175,7 @@ class PaletteState {
 
 }
 
-export default class PaletteSerializer {
+class PaletteSerializer {
 
   constructor(palette, window) {
     this.palette = palette
@@ -181,7 +192,7 @@ export default class PaletteSerializer {
     })
   }
 
-  save() {
+  _save() {
     const state = new PaletteState(this.palette.primaryColor,this.palette.otherColors)
 
     const url = new URL(this.window.location);
@@ -196,6 +207,7 @@ export default class PaletteSerializer {
       )
     }
   }
+  save = makeDebounced(this._save, 100)
 
   load() {
     const url = new URL(this.window.location);
@@ -221,3 +233,5 @@ export default class PaletteSerializer {
     this.window.location.reload()
   }
 }
+
+export default PaletteSerializer

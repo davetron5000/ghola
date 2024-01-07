@@ -1,6 +1,7 @@
 import chroma from "chroma-js"
 
 import Color from "../dataTypes/Color"
+import MethodMeasurement from "../brutaldom/MethodMeasurement"
 
 export default class ColorScale {
   constructor({baseColor,numSteps}) {
@@ -41,23 +42,28 @@ export default class ColorScale {
 
 
   _calculateScale() {
-    const numColorsToGenerate = this.numSteps * 10
-    const colors = chroma.scale(["black",this.baseColor.toString(),"white"]).
-      colors(numColorsToGenerate + 2).
-      map( (color) => new Color(color) ).
-      slice(1,numColorsToGenerate + 1)
+    const measurement = new MethodMeasurement(performance,this,"_calculateScale")
+    const numColorsToGenerate = this.numSteps < 20 ? (this.numSteps * 10) : this.numSteps
+    const scale = measurement.measureCode('scale', () => chroma.scale(["black",this.baseColor.toString(),"white"]) )
+    const chromaColors = measurement.measureCode('chroma colors', () => scale.colors(numColorsToGenerate + 2) )
+    const colors = measurement.measureCode('slice', () => chromaColors.slice(1,numColorsToGenerate + 1))
 
     const selectedColors = []
     const halfway = (this.numSteps-1) / 2
+    measurement.measureCode("assign colors", () => {
     for (let i = 0; i < this.numSteps; i++) {
       if (i == halfway) {
         selectedColors[halfway] = this.baseColor
       }
       else {
-        selectedColors[i] = colors[Math.floor(colors.length * this._percentForIndex(i,this.numSteps-1))]
+        measurement.measureCode(`assign color ${i}`, () => {
+        selectedColors[i] = new Color(colors[Math.floor(colors.length * this._percentForIndex(i,this.numSteps-1))])
+        })
       }
     }
+    })
 
+    measurement.done()
     return selectedColors
   }
 }

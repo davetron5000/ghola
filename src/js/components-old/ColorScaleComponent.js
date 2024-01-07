@@ -2,6 +2,7 @@ import Color from "../dataTypes/Color"
 import ColorName from "../dataTypes/ColorName"
 import HasTemplate from "../brutaldom/HasTemplate"
 import HasAttributes from "../brutaldom/HasAttributes"
+import MethodMeasurement from "../brutaldom/MethodMeasurement"
 import HasEvents from "../brutaldom/HasEvents"
 import ColorScale from "../dataTypes/ColorScale"
 
@@ -47,15 +48,20 @@ class ColorScaleComponent extends HTMLElement {
     if (!this.$element) {
       return
     }
+    const measurement = new MethodMeasurement(performance,this,"render")
     if (this.name && this.colorScale) {
       if (!this.$editableColorSwatches) {
+        measurement.measureCode("_createSwatches", ()=> {
         this.$editableColorSwatches = this._createSwatches()
+        })
       }
       this.$editableColorSwatches.forEach( ($editableColorSwatch, index) => {
-        $editableColorSwatch.update({
-          hexCode: this.colorScale.color(index),
-          description: `${this.name} level ${index}`,
-          compact: this.compact
+        measurement.measureCode(`forEach ${index}`, () => {
+          $editableColorSwatch.update({
+            hexCode: this.colorScale.color(index),
+            //description: `${this.name} level ${index}`,
+            //compact: this.compact
+          })
         })
       })
     }
@@ -65,6 +71,7 @@ class ColorScaleComponent extends HTMLElement {
     else {
       this.$element.classList.add("gap-2")
     }
+    measurement.done()
   }
 
   _createSwatches() {

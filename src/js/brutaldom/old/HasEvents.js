@@ -66,7 +66,7 @@ const HasEvents = {
         if (debug) {
           console.log(`${this.constructor.name} is dispatching ${key} with details %o`,detail)
         }
-        this.dispatchEvent(new CustomEvent(key, { detail }))
+        setTimeout( () => this.dispatchEvent(new CustomEvent(key, { detail })) )
         measurement.done()
       }
       klass.prototype[dispatchMethodName] = dispatchFunction

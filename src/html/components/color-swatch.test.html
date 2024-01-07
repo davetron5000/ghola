@@ -1,0 +1,334 @@
+<%- include("../templates/head.html", { description: "Tests for the color swatch component", title: "Ghola - Color Swatch Component Tests", tests: true }) %>
+</head>
+  <body class="ff-sans bg-white black-ish">
+    <%- include("../templates/header.html", { subtitle: "Test of color swatch" }) %>
+    <main class="pa-3">
+      <a class="blue-dark" href="color-swatch.html">View demo</a>
+      <h3>Test Cases</h3>
+      <g-test-case id="base-case">
+        <details>
+          <summary>
+        <h4>Base Case</h4>
+        <p>
+          The <code>input</code>'s <code>value</code> should reflect the <code>hex-code</code> attribute. The <code>label</code> should get the hex code set as well.  Changing the <code>input</code>'s value should update the <code>hex-code</code> attribute.
+        </p>
+        </summary>
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject id="base-case-subject">
+            <g-color-swatch hex-code="#990033">
+              <label class="flex flex-column gap-2">
+                <input type="color" class="h-5 w-5">
+              </label>
+            </g-color-swatch>
+          </g-test-case-subject>
+          <g-element-source element-id="base-case-subject" html="inner">
+            <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+          </g-element-source>
+        </div>
+        </details>
+      </g-test-case>
+      <g-test-case id="multiple">
+        <details>
+          <summary>
+        <h4>Multiple Labels and Inputs</h4>
+        <p class="p">
+          Base case behavior applies to all relevant inputs and labels.
+        </p>
+        </summary>
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-color-swatch hex-code="#990033" class="flex flex-column gap-2">
+              <label>
+                <input type="color" class="h-5 w-5">
+              </label>
+              <input type="color" id="not-inside-label">
+              <label for="not-inside-label">
+                <code></code>
+              </label>
+              <input type="text" id="text-input">
+              <label for="text-input"></label>
+            </g-color-swatch>
+          </g-test-case-subject>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+          </g-element-source>
+        </div>
+        </details>
+      </g-test-case>
+      <g-test-case id="derived-brighter-linear">
+        <details>
+          <summary>
+        <h4>Deriving Brighter Values - Linear</h4>
+        <p class="p">
+          Color swatch can show a brigher value based on linear transformation
+        </p>
+        </summary>
+        <g-test-case-subject class="db">
+          <g-color-swatch id="swatch-derived-brighter-linear"
+                          derived-from="swatch-derived-from-brighter-linear"
+                          brighten-by="50%"
+                          debug
+                          derivation-algorithm="linear">
+            <label>
+              <input type="color" readonly>
+              <code></code>
+            </label>
+          </g-color-swatch>
+          <g-color-swatch id="swatch-derived-from-brighter-linear" debug hex-code="#123456">
+            <label>
+              <input type="color">
+              <code></code>
+            </label>
+          </g-color-swatch>
+        </g-test-case-subject>
+        <g-element-source element-sibling="g-test-case-subject" html="inner">
+          <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+        </g-element-source>
+        </details>
+      </g-test-case>
+      <g-test-case id="derived-darker-linear">
+        <details>
+          <summary>
+        <h4>Deriving Darker Values - Linear</h4>
+        <p class="p">
+          Color swatch can show a darker value based on linear transformation
+        </p>
+        </summary>
+        <g-test-case-subject class="db">
+          <g-color-swatch id="swatch-derived-darker-linear"
+                          derived-from="swatch-derived-from-darker-linear"
+                          darken-by="50%"
+                          debug
+                          derivation-algorithm="linear">
+            <label>
+              <input type="color" readonly>
+              <code></code>
+            </label>
+          </g-color-swatch>
+          <g-color-swatch id="swatch-derived-from-darker-linear" debug hex-code="#123456">
+            <label>
+              <input type="color">
+              <code></code>
+            </label>
+          </g-color-swatch>
+        </g-test-case-subject>
+        <g-element-source element-sibling="g-test-case-subject" html="inner">
+          <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+        </g-element-source>
+        </details>
+      </g-test-case>
+      <g-test-case id="derived-brighter-exponential">
+        <details>
+          <summary>
+        <h4>Deriving Brighter Values - Exponential</h4>
+        <p class="p">
+          Color swatch can show a brigher value based on exponential transformation
+        </p>
+        </summary>
+        <g-test-case-subject class="db">
+          <g-color-swatch id="swatch-derived-brighter-exponential"
+                          derived-from="swatch-derived-from-brighter-exponential"
+                          brighten-by="50%"
+                          debug
+                          derivation-algorithm="exp">
+            <label>
+              <input type="color" readonly>
+              <code></code>
+            </label>
+          </g-color-swatch>
+          <g-color-swatch id="swatch-derived-from-brighter-exponential" debug hex-code="#123456">
+            <label>
+              <input type="color">
+              <code></code>
+            </label>
+          </g-color-swatch>
+        </g-test-case-subject>
+        <g-element-source element-sibling="g-test-case-subject" html="inner">
+          <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+        </g-element-source>
+        </details>
+      </g-test-case>
+      <g-test-case id="derived-darker-exponential">
+        <details>
+          <summary>
+        <h4>Deriving Darker Values - exponential</h4>
+        <p class="p">
+          Color swatch can show a darker value based on exponential transformation
+        </p>
+        </summary>
+        <g-test-case-subject class="db">
+          <g-color-swatch id="swatch-derived-darker-exponential"
+                          derived-from="swatch-derived-from-darker-exponential"
+                          darken-by="50%"
+                          debug
+                          derivation-algorithm="exp">
+            <label>
+              <input type="color" readonly>
+              <code></code>
+            </label>
+          </g-color-swatch>
+          <g-color-swatch id="swatch-derived-from-darker-exponential" debug hex-code="#123456">
+            <label>
+              <input type="color">
+              <code></code>
+            </label>
+          </g-color-swatch>
+        </g-test-case-subject>
+        <g-element-source element-sibling="g-test-case-subject" html="inner">
+          <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+        </g-element-source>
+        </details>
+      </g-test-case>
+      <g-test-case id="derived-complement">
+        <details>
+          <summary>
+        <h4>Deriving Complement</h4>
+        <p class="p">
+          Color swatch can show the complement of another color
+        </p>
+        </summary>
+        <g-test-case-subject class="db">
+          <g-color-swatch derived-from="derived-from-complement"
+                          id="derived-complement"
+                          debug
+                          derivation-algorithm="complement">
+            <label>
+              <input type="color" readonly>
+              <code></code>
+            </label>
+          </g-color-swatch>
+          <g-color-swatch id="derived-from-complement" debug hex-code="#123456">
+            <label>
+              <input type="color">
+              <code></code>
+            </label>
+          </g-color-swatch>
+        </g-test-case-subject>
+        <g-element-source element-sibling="g-test-case-subject" html="inner">
+          <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+        </g-element-source>
+        </details>
+      </g-test-case>
+      <g-test-case id="derived-split-complement">
+        <details>
+          <summary>
+        <h4>Deriving Split Complements</h4>
+        <p class="p">
+          Color swatch can show one of the split complements of another color
+        </p>
+        </summary>
+        <g-test-case-subject class="db">
+          <g-color-swatch derived-from="derived-from-split-complement"
+                          id="derived-split-complement-lower"
+                          debug
+                          derivation-algorithm="split-complement-lower">
+            <label>
+              <input type="color" readonly>
+              <code></code>
+            </label>
+          </g-color-swatch>
+          <g-color-swatch id="derived-from-split-complement" debug hex-code="#123456">
+            <label>
+              <input type="color">
+              <code></code>
+            </label>
+          </g-color-swatch>
+          <g-color-swatch derived-from="derived-from-split-complement"
+                          id="derived-split-complement-upper"
+                          debug
+                          derivation-algorithm="split-complement-upper">
+            <label>
+              <input type="color" readonly>
+              <code></code>
+            </label>
+          </g-color-swatch>
+        </g-test-case-subject>
+        <g-element-source element-sibling="g-test-case-subject" html="inner">
+          <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+        </g-element-source>
+        </details>
+      </g-test-case>
+      <g-test-case id="derived-analogous">
+        <details>
+          <summary>
+        <h4>Deriving Analogous</h4>
+        <p class="p">
+          Color swatch can show one of the analogous colors of another color
+        </p>
+        </summary>
+        <g-test-case-subject class="db">
+          <g-color-swatch derived-from="derived-from-analogous"
+                          id="derived-analogous-lower"
+                          debug
+                          derivation-algorithm="analogous-lower">
+            <label>
+              <input type="color" readonly>
+              <code></code>
+            </label>
+          </g-color-swatch>
+          <g-color-swatch id="derived-from-analogous" debug hex-code="#123456">
+            <label>
+              <input type="color">
+              <code></code>
+            </label>
+          </g-color-swatch>
+          <g-color-swatch derived-from="derived-from-analogous"
+                          id="derived-analogous-upper"
+                          debug
+                          derivation-algorithm="analogous-upper">
+            <label>
+              <input type="color" readonly>
+              <code></code>
+            </label>
+          </g-color-swatch>
+        </g-test-case-subject>
+        <g-element-source element-sibling="g-test-case-subject" html="inner">
+          <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+        </g-element-source>
+        </details>
+      </g-test-case>
+      <g-test-case id="derived-triad">
+        <details>
+          <summary>
+        <h4>Deriving Triad</h4>
+        <p class="p">
+          Color swatch can show one of the triad colors of another color
+        </p>
+        </summary>
+        <g-test-case-subject class="db">
+          <g-color-swatch derived-from="derived-from-triad"
+                          id="derived-triad-lower"
+                          debug
+                          derivation-algorithm="triad-lower">
+            <label>
+              <input type="color" readonly>
+              <code></code>
+            </label>
+          </g-color-swatch>
+          <g-color-swatch id="derived-from-triad" debug hex-code="#123456">
+            <label>
+              <input type="color">
+              <code></code>
+            </label>
+          </g-color-swatch>
+          <g-color-swatch derived-from="derived-from-triad"
+                          id="derived-triad-upper"
+                          debug
+                          derivation-algorithm="triad-upper">
+            <label>
+              <input type="color" readonly>
+              <code></code>
+            </label>
+          </g-color-swatch>
+        </g-test-case-subject>
+        <g-element-source element-sibling="g-test-case-subject" html="inner">
+          <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+        </g-element-source>
+        </details>
+      </g-test-case>
+
+
+    </main>
+  </body>
+</html>
+
