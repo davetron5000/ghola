@@ -1,0 +1,142 @@
+<%- include("../templates/head.html", { description: "Demo of the color name component", title: "Ghola - Color Name Component" }) %>
+<style id="basic-example-css">
+g-color-name label:has(input[data-user-override]):after {
+  font-size: var(--mg-fs-1);
+  font-style: italic;
+  color: var(--mg-gray-dark);
+  content: "Overridden";
+}
+</style>
+</head>
+  <body class="ff-sans bg-white black-ish">
+    <%- include("../templates/header.html", { subtitle: "Demo of color name" }) %>
+    <main class="pa-3">
+      <a class="blue-dark" href="color-name.test.html">Run tests</a>
+      <p class="p">
+        The <code>g-color-name</code> allows managing the name of a color.  By default, it will use a value from a broad list, based on the hue.  The intent is to use categorizations like "Red" or "Purple" and not ultra-specific values like "Snowy Mist".  The user can edit the value and, in this case, the user's value will remain and changes to the swatch will not affect the input.
+      </p>
+      <h4>Example</h4>
+      <p class="p">
+        Change the color swatch and observe how the name is updated.  Then edit the name, then change the color swatch. Your name persists.  Clear the name you entered and it should be restored to a default name. Note that styling changes when you have overridden, since <code>data-user-override</code> is added or removed, based on the override state.
+        </p>
+        <div id="basic-example" class="flex items-center gap-3 mb-3">
+          <g-color-name color-swatch="basis-swatch" debug id="color-name-basis-swatch">
+            <label class="flex flex-column gap-1">
+              <input type="text" class="ba br-2 bg-white-ish bc-gray-dark pa-1 ff-sans">
+              <span class="f-1 ttu tracked-tight">Color Name</span>
+            </label>
+          </g-color-name>
+          <g-color-swatch id="basis-swatch" hex-code="#00ff00">
+            <label class="flex flex-column gap-2">
+              <input type="color" class="h-5 w-5">
+            </label>
+          </g-color-swatch>
+        </div>
+        <g-element-source element-id="basic-example" html="inner">
+          <pre><code></code></pre>
+        </g-element-source>
+      <h4>Edge Cases</h4>
+      <p class="p">
+        There aren't many edge cases, but <code>debug</code> can be set to cause console logs to generate when an edge case or obvious mis-use occurs.
+      </p>
+      <ul>
+        <li class="mb-3 flex items-start gap-2">
+          <p class="ma-0 lh-copy w-25">
+            If there is no <code>input</code>, nothing is rendered.
+          </p>
+          <g-element-source element-id="missing-input-example" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+          <div class="ba bc-gray pa-1 flex flex-column items-center gap-2">
+            <div id="missing-input-example" class="flex items-center gap-3 mb-3">
+              <g-color-name color-swatch="missing-input-swatch" debug id="missing-input">
+              </g-color-name>
+              <g-color-swatch id="missing-input-swatch" hex-code="#00ff00">
+                <label class="flex flex-column gap-2">
+                  <input type="color" class="h-5 w-5">
+                </label>
+              </g-color-swatch>
+            </div>
+          </div>
+        </li>
+        <li class="mb-3 flex items-start gap-2">
+          <p class="ma-0 lh-copy w-25">
+            If there is no <code>g-color-swatch</code>, no behavior is modified.
+          </p>
+          <g-element-source element-id="missing-swatch-example" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+          <div class="ba bc-gray pa-1 flex flex-column items-center gap-2">
+            <div id="missing-swatch-example" class="flex items-center gap-3 mb-3">
+              <g-color-name color-swatch="missing-swatch-swatch" debug id="missing-swatch">
+                <label class="flex flex-column gap-2">
+                <input type="text">
+                Color Name
+                </label>
+              </g-color-name>
+            </div>
+          </div>
+        </li>
+        <li class="mb-3 flex items-start gap-2">
+          <p class="ma-0 lh-copy w-25">
+            If there is a non-text <code>input</code>, nothing is rendered.
+          </p>
+          <g-element-source element-id="wrong-input-example" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+          <div class="ba bc-gray pa-1 flex flex-column items-center gap-2">
+            <div id="wrong-input-example" class="flex items-center gap-3 mb-3">
+              <g-color-name color-swatch="wrong-input-swatch" debug id="wrong-input">
+                <input type="number">
+              </g-color-name>
+              <g-color-swatch id="wrong-input-swatch" hex-code="#00ff00">
+                <label class="flex flex-column gap-2">
+                  <input type="color" class="h-5 w-5">
+                </label>
+              </g-color-swatch>
+            </div>
+          </div>
+        </li>
+        <li class="mb-3 flex items-start gap-2">
+          <p class="ma-0 lh-copy w-25">
+            If there is more than one <code>input</code>, only one is used, based what <code>document.querySelectorAll</code> returns.
+          </p>
+          <g-element-source element-id="many-input-example" html="inner" class="w-40 overflow-x-scroll">
+            <pre><code></code></pre>
+          </g-element-source>
+          <div class="ba bc-gray pa-1 flex flex-column items-center gap-2">
+            <aside class="f-1 i">View console and look for messages prefixed with <code>many-input</code></aside>
+            <div id="many-input-example" class="flex items-center gap-3 mb-3">
+              <g-color-name color-swatch="many-input-swatch" debug id="many-input" class="flex flex-column gap-3">
+                <label class="flex items-center gap-2">
+                  <input type="text">
+                  <span>
+                    &larr; This one is likely what is used
+                  </span>
+                </label>
+                <label class="flex items-center gap-2">
+                  <input type="text">
+                  <span>
+                    Likely ignored.
+                  </span>
+                </label>
+                <label class="flex items-center gap-2">
+                  <input type="text">
+                  <span>
+                    Likely also ignored.
+                  </span>
+                </label>
+              </g-color-name>
+              <g-color-swatch id="many-input-swatch" hex-code="#00ff00">
+                <label class="flex flex-column gap-2">
+                  <input type="color" class="h-5 w-5">
+                </label>
+              </g-color-swatch>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>
+

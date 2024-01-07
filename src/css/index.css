@@ -1,5 +1,6 @@
 @import "melange-css/melange.css";
 @import "./shadow-button.css";
+@import "./g-element-source.css";
 
 :root {
   --mg-ff-sans: 'Helvetica Neue', Inter, Roboto, 'Nimbus Sans', sans-serif;
@@ -50,14 +51,4 @@ g-test-case summary p {
   margin-top: 0;
   max-width: var(--mg-tw);
   line-height: var(--mg-lh-copy);
-}
-g-test-case-subject-source code {
-  font-size: var(--mg-fs-1);
-  text-shadow: rgba(230,255,130,0.61) 0px 0px 5px;
-}
-@media (prefers-contrast: more) {
-  g-test-case-subject-source code {
-    font-size: var(--mg-fs-1);
-    text-shadow: none;
-  }
 }

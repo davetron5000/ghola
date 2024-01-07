@@ -28,7 +28,7 @@ const assertEqual = (expected,got,context) => {
   if (expected == got) {
     return
   }
-  const message = `${context}\nExpected '${expected}'\nto equal  '${got}'`
+  const message = `${context}\nExpected '${expected}'\nbut got   '${got}'`
   throw new TestFailure(message)
 }
 
@@ -36,7 +36,7 @@ const assertNotEqual = (expected,got,context) => {
   if (expected != got) {
     return
   }
-  const message = `${context}\nExpected '${expected}'\nto equal  '${got}'`
+  const message = `${context}\nDidn't expected '${expected}'\nto equal     '${got}'`
   throw new TestFailure(message)
 }
 
@@ -50,6 +50,9 @@ const assert = (expr,context) => {
 const testSuites = {}
 
 const suite = (id,suiteCode) => {
+  if (testSuites[id]) {
+    throw `There is already a test with id '${id}'`
+  }
   testSuites[id] = new TestSuite(id,suiteCode)
 }
 
@@ -164,6 +167,9 @@ class TestSuite {
         results.push(new TestResult(test,assertionsThisTest,e,"from setup()"))
       }
     })
+    if (results.length == 0) {
+      results.push(new TestResult({description:""},0,"No tests"))
+    }
     return results
   }
 }
@@ -175,7 +181,9 @@ class Tests {
       return testSuite.run(subject)
     }
     else {
-      throw `No such test ${testCaseId}`
+      return [
+        new TestResult({ description: "locating the test" },0,`No test case with id ${testCaseId}`)
+      ]
     }
   }
 }

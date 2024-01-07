@@ -12,6 +12,8 @@ export default class ColorSwatchComponent extends HTMLElement {
     "debug",
   ]
 
+  static HEX_CODE_CHANGE_EVENT_NAME = "hex-code-change"
+
   constructor() {
     super()
     this.onInputChangeCallback = (event) => {
@@ -42,7 +44,7 @@ export default class ColorSwatchComponent extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
     if (name == "hex-code") {
       this.hexCode = newValue
-      this.dispatchEvent(new CustomEvent("hex-code-change"))
+      this.dispatchEvent(new CustomEvent(this.constructor.HEX_CODE_CHANGE_EVENT_NAME))
     }
     else if (name == "derived-from") {
       this.derivedFromId = newValue
@@ -160,7 +162,7 @@ export default class ColorSwatchComponent extends HTMLElement {
     const hexCodeExists = !!this.hexCode
 
     if (derivedFromElement) {
-      derivedFromElement.addEventListener("hex-code-change",this.onDerivedElementChangeCallback)
+      derivedFromElement.addEventListener(this.constructor.HEX_CODE_CHANGE_EVENT_NAME,this.onDerivedElementChangeCallback)
       this.mostRecentlyDerivedFromElement = derivedFromElement
       if ( (derivedFromElement.hexCode) && (whenHexCodeExists == hexCodeExists) ) {
         this._deriveHexCodeFrom(derivedFromElement.hexCode)
@@ -168,7 +170,7 @@ export default class ColorSwatchComponent extends HTMLElement {
     }
     else {
       if (this.mostRecentlyDerivedFromElement) {
-        this.mostRecentlyDerivedFromElement.removeEventListener("hex-code-change",this.onDerivedElementChangeCallback)
+        this.mostRecentlyDerivedFromElement.removeEventListener(this.constructor.HEX_CODE_CHANGE_EVENT_NAME,this.onDerivedElementChangeCallback)
         this.mostRecentlyDerivedFromElement = null
       }
       else {
@@ -176,6 +178,15 @@ export default class ColorSwatchComponent extends HTMLElement {
       }
     }
   }
+
+  get forTesting() {
+    return {
+      dispatchHexCodeChanged: () => {
+        this.dispatchEvent(new CustomEvent(this.constructor.HEX_CODE_CHANGE_EVENT_NAME))
+      }
+    }
+  }
+
 
   static tagName = "g-color-swatch"
   static define() {
