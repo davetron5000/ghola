@@ -1,0 +1,32 @@
+<%- include("../templates/head.html", { description: "Tests for the color name component", title: "Ghola - Color Name Component Tests", tests: true }) %>
+</head>
+  <body class="ff-sans bg-white black-ish">
+    <%- include("../templates/header.html", { subtitle: "Test of color name" }) %>
+    <main class="pa-3">
+      <a class="blue-dark" href="color-name.html">View demo</a>
+      <h3>Test Cases</h3>
+      <%- include("../templates/test-case-start.html", {
+        id: "name-derived-from-color-input",
+        title: "Name can be overridden, but defaults to a broad categorization based on the hex code of the swatch",
+        description: "This allows the user to supply their own name for the color, but in absence of that, get a reasonable default",
+        }) %>
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-color-name color-swatch="basis-swatch" debug id="color-name-basis-swatch">
+              <input type="text" class="ba br-2 bg-white-ish bc-gray-dark pa-1 ff-sans">
+            </g-color-name>
+            <g-color-swatch id="basis-swatch" hex-code="#000000">
+              <label class="flex flex-column gap-2">
+                <input type="color" class="h-5 w-5">
+              </label>
+            </g-color-swatch>
+          </g-test-case-subject>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+        </div>
+      <%- include("../templates/test-case-end.html") %>
+    </main>
+  </body>
+</html>
+

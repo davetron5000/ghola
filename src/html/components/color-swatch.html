@@ -17,7 +17,7 @@
           </g-color-swatch>
         </div>
         <g-element-source element-sibling="g-color-swatch">
-          <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+          <pre><code></code></pre>
         </g-element-source>
       </div>
       <p class="p">
@@ -35,7 +35,7 @@
           </g-color-swatch>
         </div>
         <g-element-source element-sibling="g-color-swatch">
-          <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+          <pre><code></code></pre>
         </g-element-source>
       </div>
       <h4>Example - non-editable</h4>
@@ -56,7 +56,7 @@
           </script>
         </div>
         <g-element-source element-sibling="g-color-swatch">
-          <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+          <pre><code></code></pre>
         </g-element-source>
       </div>
       <p class="p">
@@ -82,7 +82,7 @@
           </g-color-swatch>
         </div>
         <g-element-source element-sibling="div[data-example]">
-          <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+          <pre><code></code></pre>
         </g-element-source>
       </div>
       <p class="p">
@@ -191,7 +191,7 @@
         <details>
           <summary>Show Code</summary>
           <g-element-source element-id="two-shades-example">
-            <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+            <pre><code></code></pre>
           </g-element-source>
         </details>
       </div>
@@ -295,7 +295,7 @@
         <details>
           <summary>Show Code</summary>
           <g-element-source element-id="complement-shades-example">
-            <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+            <pre><code></code></pre>
           </g-element-source>
         </details>
       </div>
@@ -385,7 +385,7 @@
         <details>
           <summary>Show Code</summary>
           <g-element-source element-id="color-wheel-example">
-            <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+            <pre><code></code></pre>
           </g-element-source>
         </details>
       </div>
@@ -399,7 +399,7 @@
             If there is no <code>input</code>, nothing is rendered.
           </p>
           <g-element-source element-id="missing-input">
-            <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+            <pre><code></code></pre>
           </g-element-source>
           <div class="ba bc-gray pa-2">
             <aside class="f-1 i">View console and look for messages prefixed with <code>missing-input</code></aside>
@@ -413,7 +413,7 @@
             If there are two <code>input</code>'s with <code>type=color</code>, both are affected the same way.
           </p>
           <g-element-source element-id="two-inputs">
-            <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+            <pre><code></code></pre>
           </g-element-source>
         <div class="ba bc-gray pa-2">
           <g-color-swatch hex-code="#456999" debug id="two-inputs">
@@ -429,14 +429,14 @@
             If the derivation algorithm is unknown, it is treated as blank and the value is linked directly.
           </p>
           <g-element-source element-id="bad-algo-2-container" html="inner">
-            <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+            <pre><code></code></pre>
           </g-element-source>
           <div class="ba bc-gray pa-2 flex flex-column gap-2">
             <aside class="f-1 i">View console and look for messages prefixed with <code>bad-algo-2</code></aside>
             <div id="bad-algo-2-container">
               <div class="flex items-center gap-2">
                 <g-color-swatch hex-code="#456999" id="bad-algo-1" debug="bad-algo-1">
-                  <input class="h-4" type=color>
+                  <input class="h-4" type="color">
                 </g-color-swatch>
                 <div class="f-1">&larr; Edit this one</div>
               </div>
@@ -454,7 +454,7 @@
             If an <code>input</code> is not <code>readonly</code>, but the <code>derived-from</code> is set, the behavior is undefined.
           </p>
           <g-element-source element-id="derivation-error-container" html="inner">
-            <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+            <pre><code></code></pre>
           </g-element-source>
           <div class="ba bc-gray pa-2 flex flex-column gap-2">
             <aside class="f-1 i">View console and look for messages prefixed with <code>editable-derivation</code></aside>
@@ -481,7 +481,7 @@
             If <code>derived-from</code> is set, but <code>darken-by</code> is not specified, the other element's hex code is used directly, unchanged.
           </p>
           <g-element-source element-id="derivation-no-darken-container" html="inner">
-            <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+            <pre><code></code></pre>
           </g-element-source>
           <div id="derivation-no-darken-container" class="ba bc-gray pa-2 flex flex-column gap-2">
             <g-color-swatch hex-code="#456999" id="derivation-no-darken">
@@ -503,7 +503,7 @@
             If <code>derived-from</code> references a non-existent element, no behavior will be changed.
           </p>
           <g-element-source element-id="no-derivation-container" html="inner">
-            <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+            <pre><code></code></pre>
           </g-element-source>
           <div class="ba bc-gray pa-2 flex flex-column gap-2">
             <aside class="f-1 i">View console and look for messages prefixed with <code>non-existent-derivation</code></aside>
@@ -528,7 +528,7 @@
             The <code>label</code> must either 1) contain the <code>input</code> and <strong>not</strong> set <code>for</code> or 2) not contain the <code>input</code>, and set <code>for</code> to the <code>input</code>'s <code>id</code>.
           </p>
           <g-element-source element-id="label-cases" html="inner">
-            <pre class="dib bg-black green-lighter ph-3 ma-0 lh-title pv-2 br-3"><code></code></pre>
+            <pre><code></code></pre>
           </g-element-source>
           <div class="ba bc-gray pa-2 flex flex-column gap-2">
             <aside class="f-1 i">View console and look for messages prefixed with <code>orphaned-label</code></aside>
