@@ -1,16 +1,22 @@
 <%
-const readonly = !(typeof(editable) === "boolean" && editable)
+let renderInput   = (typeof(editable)      === "boolean" && editable)
+let inputDisabled = (typeof(disabledInput) === "boolean" && disabledInput)
+
+if (inputDisabled) {
+  renderInput = true
+}
+
 %>
 <div class="flex flex-column gap-2 items-center">
-  <% if (readonly) { %>
+  <% if (!renderInput) { %>
     <div data-color></div>
   <% } else { %>
-    <input type="color" class="pointer" id="<%= id %>-input">
+    <input type="color" class="pointer" id="<%= id %>-input" <%= inputDisabled ? 'disabled' : '' %>>
   <% } %>
   <div class="nowrap f-2 fw-3 ttl">
     <%- typeof(secondaryLabel) === "string" ? secondaryLabel : "&nbsp;" %>
   </div>
-  <% if (readonly) { %>
+  <% if (!renderInput) { %>
     <div data-hexcode class="flex flex-columnn gap-2">
       <code class="fw-3 f-1 ff-mono"></code>
     </div>

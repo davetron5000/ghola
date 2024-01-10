@@ -31,7 +31,7 @@
               <input class="w-100 bn bw-0 pa-0 pointer h-5 db" type="color">
               <code class="ff-mono"></code>
             </label>
-            <input class="w-2 h-2" type="color" readonly>
+            <input class="w-2 h-2" type="color" disabled>
           </g-color-swatch>
         </div>
         <g-element-source element-sibling="g-color-swatch">
@@ -41,16 +41,16 @@
       <h4>Example - non-editable</h4>
       <div class="flex items-start gap-3">
         <div class="ba bc-gray pa-2 flex flex-column gap-2">
-          <g-color-swatch id="readonly-swatch" hex-code="#990033">
+          <g-color-swatch id="disabled-swatch" hex-code="#990033">
             <label>
-              <input type="color" readonly>
+              <input type="color" disabled>
             </label>
           </g-color-swatch>
           <button class="ph-3 pv-2 ba br-3 bc-gray-dark bg-white hover-bg-blue-lightest pointer blue-dark black-ish" id="change-hex-code-button">Change <code>hex-code</code> Attribute Randomly</button>
           <script>
             document.getElementById("change-hex-code-button").addEventListener("click", (event) => {
               event.preventDefault()
-              const swatch = document.getElementById("readonly-swatch")
+              const swatch = document.getElementById("disabled-swatch")
               swatch.setAttribute("hex-code",`#${Math.floor(Math.random()*16777215).toString(16)}`)
             })
           </script>
@@ -60,14 +60,14 @@
         </g-element-source>
       </div>
       <p class="p">
-        Here, since the <code>input</code> is <code>readonly</code>, it's value is set to the <code>hex-code</code> and label set, too, but the control cannot be interacted with.
+        Here, since the <code>input</code> is <code>disabled</code>, it's value is set to the <code>hex-code</code> and label set, too, but the control cannot be interacted with.
       </p>
       <h4>Example - derived</h4>
       <div class="flex items-start gap-3">
         <div data-example class="ba bc-gray pa-2 flex flex-column items-center">
           <g-color-swatch derived-from="abcd" darken-by="50%" derivation-algorithm="brightness">
             <label>
-              <input type="color" readonly>
+              <input type="color" disabled>
             </label>
           </g-color-swatch>
           <g-color-swatch id="abcd" hex-code="#99ff99">
@@ -77,7 +77,7 @@
           </g-color-swatch>
           <g-color-swatch derived-from="abcd" brighten-by="50%" derivation-algorithm="brightness">
             <label>
-              <input type="color" readonly>
+              <input type="color" disabled>
             </label>
           </g-color-swatch>
         </div>
@@ -95,19 +95,19 @@
             <h6 class="f-2 ttl ff-mono tracked w-10 tr">99/75/50</h6>
             <g-color-swatch class="w-5" derived-from="scale-1" darken-by="99%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
             <g-color-swatch class="w-5" derived-from="scale-1" darken-by="75%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
             <g-color-swatch class="w-5" derived-from="scale-1" darken-by="50%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
@@ -119,19 +119,19 @@
             </g-color-swatch>
             <g-color-swatch class="w-5" derived-from="scale-1" brighten-by="50%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
             <g-color-swatch class="w-5" derived-from="scale-1" brighten-by="75%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
             <g-color-swatch class="w-5" derived-from="scale-1" brighten-by="99%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
@@ -140,19 +140,19 @@
             <h6 class="f-2 ttl ff-mono tracked w-10 tr">90/70/30</h6>
             <g-color-swatch class="w-5" derived-from="scale-1" darken-by="90%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
             <g-color-swatch class="w-5" derived-from="scale-1" darken-by="70%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
             <g-color-swatch class="w-5" derived-from="scale-1" darken-by="30%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
@@ -164,19 +164,19 @@
             </g-color-swatch>
             <g-color-swatch class="w-5" derived-from="scale-1" brighten-by="30%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
             <g-color-swatch class="w-5" derived-from="scale-1" brighten-by="70%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
             <g-color-swatch class="w-5" derived-from="scale-1" brighten-by="90%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
@@ -199,19 +199,19 @@
             <h6 class="f-2 ttl tracked w-10 tr">Primary Color</h6>
             <g-color-swatch class="w-5" derived-from="derive-complementary-from" darken-by="99%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
             <g-color-swatch class="w-5" derived-from="derive-complementary-from" darken-by="75%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
             <g-color-swatch class="w-5" derived-from="derive-complementary-from" darken-by="50%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
@@ -223,19 +223,19 @@
             </g-color-swatch>
             <g-color-swatch class="w-5" derived-from="derive-complementary-from" brighten-by="50%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
             <g-color-swatch class="w-5" derived-from="derive-complementary-from" brighten-by="75%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
             <g-color-swatch class="w-5" derived-from="derive-complementary-from" brighten-by="99%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
@@ -244,43 +244,43 @@
             <h6 class="f-2 ttl tracked w-10 tr">Complementary</h6>
             <g-color-swatch class="w-5" derived-from="complementary-1" darken-by="99%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
             <g-color-swatch class="w-5" derived-from="complementary-1" darken-by="75%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
             <g-color-swatch class="w-5" derived-from="complementary-1" darken-by="50%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
             <g-color-swatch class="w-5" id="complementary-1" derived-from="derive-complementary-from" derivation-algorithm="complement">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
             <g-color-swatch class="w-5" derived-from="complementary-1" brighten-by="50%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
             <g-color-swatch class="w-5" derived-from="complementary-1" brighten-by="75%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
             <g-color-swatch class="w-5" derived-from="complementary-1" brighten-by="99%" derivation-algorithm="brightness">
               <label>
-                <input class="h-5 w-100" type="color" readonly>
+                <input class="h-5 w-100" type="color" disabled>
                 <code class="db"></code>
               </label>
             </g-color-swatch>
@@ -465,7 +465,7 @@
               </div>
               <div class="flex items-center gap-2">
                 <g-color-swatch hex-code="#456999" derived-from="bad-algo-1" derivation-algorithm="exp" debug="bad-algo-2">
-                  <input class="h-3" type=color readonly>
+                  <input class="h-3" type=color disabled>
                 </g-color-swatch>
                 <div class="f-1">This should reflect the exact value since the algorithm is invalid</div>
               </div>
@@ -474,7 +474,7 @@
         </li>
         <li class="mb-3 flex items-start gap-2">
           <p class="ma-0 lh-copy w-25">
-            If an <code>input</code> is not <code>readonly</code>, but the <code>derived-from</code> is set, the behavior is undefined.
+            If an <code>input</code> is not <code>disabled</code>, but the <code>derived-from</code> is set, the behavior is undefined.
           </p>
           <g-element-source element-id="derivation-error-container" html="inner">
             <pre><code></code></pre>
@@ -513,9 +513,9 @@
                 <code></code>
               </label>
             </g-color-swatch>
-            <g-color-swatch derived-from="derivation-no-darken" debug="readonly-derivation">
+            <g-color-swatch derived-from="derivation-no-darken" debug="disabled-derivation">
               <label class="flex flex-column items-center gap-1">
-                <input type=color readonly>
+                <input type=color disabled>
                 <code></code>
               </label>
             </g-color-swatch>
@@ -539,7 +539,7 @@
               </g-color-swatch>
               <g-color-swatch derived-from="non-existent" debug="non-existent-derivation">
                 <label class="flex flex-column items-center gap-1">
-                  <input type=color readonly>
+                  <input type=color disabled>
                   <code></code>
                 </label>
               </g-color-swatch>

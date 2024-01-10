@@ -13,25 +13,35 @@ const basicSetup = (locatePaletteColor) => {
     const $unlinkButton  = require($paletteColor.querySelector("[data-unlink]"),"[data-unlink] button")
     const $removeButton  = require($paletteColor.querySelector("[data-remove]"),"[data-remove] button")
 
+    /* Given we have cloned the entire thing:
+     * 1 - we have to change any relevant ids
+     * 2 - we have to clear any attributes the component may have set before the clone
+     */
+
+    // ID to set in ourselves
     const uniqueId = `palette-color-scale-${crypto.randomUUID()}`
-    $paletteColor.querySelectorAll("g-color-swatch").forEach( (swatch) => {
-      if (swatch.getAttribute("derived-from")) {
-        swatch.setAttribute("derived-from",uniqueId)
-      }
-      if (swatch.getAttribute("id") && swatch.getAttribute("hex-code")) {
-        swatch.id = uniqueId
-      }
-    })
-    $paletteColor.querySelectorAll("g-color-name").forEach( (colorName) => {
-      if (colorName.getAttribute("color-swatch")) {
-        colorName.setAttribute("color-swatch",uniqueId)
-      }
-    })
     $paletteColor.id = `test-case-${uniqueId}`
 
-    document.body.appendChild($paletteColor)
+    const container = document.createElement("div")
+    container.appendChild($paletteColor)
+
+    document.body.appendChild(container)
+
+    $paletteColor.querySelectorAll("g-color-swatch").forEach( (e) => {
+      // If we have an id, don't clear it, but change it to be unique
+      if (e.id) {
+        e.id = `test-case-${e.id}`
+      }
+      // Remove these attributes as the component will set them
+      e.removeAttribute("derived-from")
+      e.removeAttribute("darken-by")
+      e.removeAttribute("brighten-by")
+    })
+    // Remove this so we can set it later to trigger needed behavior
+    $paletteColor.removeAttribute("scale-algorithm")
 
     return {
+      container,
       $paletteColor,
       $previewButton,
       $unlinkButton,
@@ -40,11 +50,11 @@ const basicSetup = (locatePaletteColor) => {
   }
 }
 
-const childrenSetup = basicSetup( ({subject,clone}) => clone(subject.children[0],"children[0]") )
+const setupBasedOnFirstChild = basicSetup( ({subject,clone}) => clone(subject.children[0],"children[0]") )
 
-const teardownAdded = ({$paletteColor}) => {
+const teardownAdded = ({container}) => {
   try {
-    document.body.removeChild($paletteColor)
+    document.body.removeChild(container)
   }
   catch (e) {
     if ( (e instanceof DOMException) && e.name == "NotFoundError") {
@@ -57,11 +67,11 @@ const teardownAdded = ({$paletteColor}) => {
 }
 
 testCase("primary-color", ({setup,teardown,test,subject,assert,assertEqual}) => {
-  setup(childrenSetup)
+  setup(setupBasedOnFirstChild)
   teardown(teardownAdded)
 
   test("preview is enabled, but unlink and remove are not",
-    ({ $paletteColor, $previewButton, $unlinkButton, $removeButton }) => {
+    ({ $previewButton, $unlinkButton, $removeButton }) => {
 
       assert(!$previewButton.getAttribute("disabled"), "Expected preview button to be enabled")
       assert( $unlinkButton.getAttribute("disabled"), "Expected unlink button to be disabled")
@@ -69,64 +79,31 @@ testCase("primary-color", ({setup,teardown,test,subject,assert,assertEqual}) => 
     }
   )
 
-  test("The current name and colors can be queried",
+  test("Relevant data is exposed: current color, user override, scale, and base swatch",
     ({ $paletteColor }) => {
+
+      $paletteColor.setAttribute("scale-algorithm", "linear")
 
       assertEqual("Purple",$paletteColor.colorName, "Color name should reflect the value in the color name field")
       assert(!$paletteColor.colorNameUserOverride, "Color name is not user defined when using the default")
-      assertEqual("#0a0413",$paletteColor.colorScale[0],"The first color in the scale when using exp should be the darkest")
-      assertEqual("#32145f",$paletteColor.colorScale[1],"The first color in the scale when using exp should be the darker")
-      assertEqual("#461d84",$paletteColor.colorScale[2],"The first color in the scale when using exp should be the dark")
+      assertEqual("#140826",$paletteColor.colorScale[0],"The first color in the scale when using exp should be the darkest")
+      assertEqual("#28104c",$paletteColor.colorScale[1],"The first color in the scale when using exp should be the darker")
+      assertEqual("#3c1971",$paletteColor.colorScale[2],"The first color in the scale when using exp should be the dark")
       assertEqual("#6429bd",$paletteColor.colorScale[3],"The first color in the scale when using exp should be the base")
       assertEqual("#905edc",$paletteColor.colorScale[4],"The first color in the scale when using exp should be the bright")
-      assertEqual("#b08ce6",$paletteColor.colorScale[5],"The first color in the scale when using exp should be the brighter")
+      assertEqual("#c0a3eb",$paletteColor.colorScale[5],"The first color in the scale when using exp should be the brighter")
       assertEqual("#efe8fa",$paletteColor.colorScale[6],"The first color in the scale when using exp should be the brightest")
+      assertEqual($paletteColor.querySelectorAll("g-color-swatch")[3],$paletteColor.baseColorSwatch,"Base color swatch should be the middle one")
     }
   )
-
-  test("The preview event is fired when the preview button is clicked",
-    ({$paletteColor,$previewButton}) => {
-      let previewCalled = false
-      $paletteColor.addEventListener("preview", (event) => previewCalled = true )
-      $previewButton.dispatchEvent(new Event("click"))
-
-      assert(previewCalled,"The event listener should've been called when the button was clicked")
-    }
-  )
-})
-
-testCase("derive-color-scale", ({setup,teardown,confidenceCheck,test,subject,assert,assertEqual}) => {
-  setup(childrenSetup)
-  setup(({$paletteColor}) => {
-    // Clear out the ids and any generated attributes
-    $paletteColor.querySelectorAll("g-color-swatch").forEach( (e) => {
-      e.removeAttribute("id")
-      e.removeAttribute("derived-from")
-      e.removeAttribute("darken-by")
-      e.removeAttribute("brighten-by")
-    })
-    $paletteColor.removeAttribute("derive-color-scale")
-  })
-  teardown(teardownAdded)
-  confidenceCheck( ({$paletteColor}) => {
-    const numSwatches = $paletteColor.querySelectorAll("g-color-swatch").length
-    if (numSwatches != 7) {
-      throw `Test setup is borked - there are ${numSwatches} swatches and not 5`
-    }
-  })
-
-  test("derivations and configuration are set automatically on swatches based on a linear progression",
+  test("values are derived based on a linear percentage",
     ({ $paletteColor }) => {
+
+      $paletteColor.setAttribute("scale-algorithm", "linear")
+
       const swatches = Array.from($paletteColor.querySelectorAll("g-color-swatch"))
 
       const base = swatches[3]
-
-
-      // Trigger everything
-      $paletteColor.setAttribute("derive-color-scale","linear")
-
-      assert(base.id,`Base swatch should have been given an ID: ${base.outerHTML}`)
-      assertEqual(1,document.querySelectorAll(`#${base.id}`).length,"The assigned ID should be unique")
 
       swatches.forEach( (swatch,index) => {
         if (index == 3) {
@@ -135,7 +112,6 @@ testCase("derive-color-scale", ({setup,teardown,confidenceCheck,test,subject,ass
         assertEqual(base.id,swatch.getAttribute("derived-from"),`Swatch ${index} should be derived-from the base (${base.id})`)
         assertEqual("brightness",swatch.getAttribute("derivation-algorithm","brightness"), `Swatch ${index} should use the brightness algorithm`)
       })
-
 
       assertEqual("80%",swatches[0].getAttribute("darken-by"), "Swatches earlier in scale should have darker colors")
       assertEqual("60%",swatches[1].getAttribute("darken-by"), "Swatches earlier in scale should have darker colors")
@@ -146,20 +122,33 @@ testCase("derive-color-scale", ({setup,teardown,confidenceCheck,test,subject,ass
       assertEqual($paletteColor.querySelectorAll("g-color-swatch")[3],$paletteColor.baseColorSwatch,"The base swatch should be the middle one")
     }
   )
+
+  test("The preview event is fired when the preview button is clicked and includes the relevant info",
+    ({$paletteColor,$previewButton}) => {
+      let previewCalled = false
+      let detail = null
+
+      $paletteColor.addEventListener("preview", (event) => {
+        previewCalled = true 
+        detail = event.detail
+      })
+      $previewButton.dispatchEvent(new Event("click"))
+
+      assert(previewCalled,"The event listener should've been called when the button was clicked")
+      assertEqual($paletteColor.colorName,detail.colorName, "details should have the color name")
+      assertEqual($paletteColor.colorNameUserOverride,detail.colorNameUserOverride,"details should have the override flag")
+      assert(7,detail.colorScale.length,"details should have the same # of colors in the scale")
+      $paletteColor.colorScale.forEach( (hexCode,index) => {
+        assertEqual(hexCode,detail.colorScale[index],`Index ${index} should match the component`)
+      })
+      assertEqual($paletteColor.baseColorSwatch.hexCode,detail.baseColor,"Base color should be explicitly called out")
+
+    }
+  )
 })
 
 testCase("derive-color-scale-exp", ({setup,teardown,confidenceCheck,test,subject,assert,assertEqual}) => {
-  setup(childrenSetup)
-  setup(({$paletteColor}) => {
-    // Clear out the ids and any generated attributes
-    $paletteColor.querySelectorAll("g-color-swatch").forEach( (e) => {
-      e.removeAttribute("id")
-      e.removeAttribute("derived-from")
-      e.removeAttribute("darken-by")
-      e.removeAttribute("brighten-by")
-    })
-    $paletteColor.removeAttribute("derive-color-scale")
-  })
+  setup(setupBasedOnFirstChild)
   teardown(teardownAdded)
   confidenceCheck( ({$paletteColor}) => {
     const numSwatches = $paletteColor.querySelectorAll("g-color-swatch").length
@@ -176,7 +165,7 @@ testCase("derive-color-scale-exp", ({setup,teardown,confidenceCheck,test,subject
 
 
       // Trigger everything
-      $paletteColor.setAttribute("derive-color-scale","exponential")
+      $paletteColor.setAttribute("scale-algorithm","exponential")
 
       assert(base.id,`Base swatch should have been given an ID: ${base.outerHTML}`)
       assertEqual(1,document.querySelectorAll(`#${base.id}`).length,"The assigned ID should be unique")
@@ -200,15 +189,35 @@ testCase("derive-color-scale-exp", ({setup,teardown,confidenceCheck,test,subject
   )
 })
 
-testCase("linked-color", ({setup,teardown,test,subject,assert,assertEqual}) => {
+testCase("linked-to-primary", ({setup,teardown,test,confidenceCheck,subject,assert,assertEqual}) => {
   setup( (...args) => {
     const locatePaletteColor = ({subject,clone}) => {
-      return clone(subject.querySelector("g-palette-color-scale[linked-to]"),"g-palette-color-scale[linked-to]",subject)
+      return clone(subject.querySelector("g-palette-color-scale[linked-to-primary]"),"g-palette-color-scale[linked-to-primary]",subject)
     }
     return basicSetup(locatePaletteColor)(...args)
   })
+  setup( ({subject,container,clone,$paletteColor}) => {
+    const $primary = clone(subject.querySelector("g-palette-color-scale[primary]"))
+    $primary.id = `test-case-primary-${crypto.randomUUID()}`
+    container.appendChild($primary)
+    // Force the relinking behavior
+    $paletteColor.removeAttribute("linked-to-primary")
+    $paletteColor.setAttribute("linked-to-primary","complement")
+    return {$primary}
+  })
+  confidenceCheck(({$primary,$paletteColor}) => {
+    assert($primary.baseColorSwatch,"the linked-to-primary g-color-scale should've had a baseColorSwatch")
+    assert($paletteColor.baseColorSwatch.querySelectorAll("input[type=color]").length > 0,"there should be at least one color input on our base color")
+  })
 
   teardown(teardownAdded)
+
+  test("the base color is linked to the primary using the value for linked-to-primary",
+    ({ $paletteColor,$primary }) => {
+      assertEqual($primary.baseColorSwatch.id,$paletteColor.baseColorSwatch.getAttribute("derived-from"),`Expected our base color's derived-from to have been set to the primary's base color: primary ${$primary.baseColorSwatch.outerHTML}\nus: ${$paletteColor.baseColorSwatch.outerHTML}`)
+      assertEqual($paletteColor.getAttribute("linked-to-primary"),$paletteColor.baseColorSwatch.getAttribute("derivation-algorithm"))
+    }
+  )
 
   test("all buttons are enabled",
     ({ $paletteColor, $previewButton, $unlinkButton, $removeButton }) => {
@@ -257,98 +266,23 @@ testCase("linked-color", ({setup,teardown,test,subject,assert,assertEqual}) => {
       assert(parent.children.namedItem(id),"The element should still be there")
     }
   )
-  test("The unlink event is fired and the linked-to attribute removed when the unlink button is clicked",
+  test("The unlink event is fired when unlink is clicked and the derivation attributes from the base swatch are removed, but it's hex-code is preserved and any inputs inside are made editable",
     ({$paletteColor,$unlinkButton}) => {
       let unlinkCalled = false
       $paletteColor.addEventListener("unlink", (event) => unlinkCalled = true )
       $unlinkButton.dispatchEvent(new Event("click"))
 
       assert(unlinkCalled,"The event listener should've been called when the button was clicked")
-      assert($paletteColor.getAttribute("linked-to") === null,"linked-to attribute should've been removed")
-    }
-  )
-  test("The unlink event is fired but the linked-to attribute remains if default is prevented",
-    ({$paletteColor,$unlinkButton}) => {
-      let unlinkCalled = false
-      $paletteColor.addEventListener("unlink", (event) => {
-        event.preventDefault()
-        unlinkCalled = true 
+      assert($paletteColor.getAttributeNames().indexOf("linked-to-primary") == -1,"linked-to-primary attribute should've been removed")
+      assert($paletteColor.baseColorSwatch.getAttributeNames().indexOf("derived-from") == -1,"derived-from should've been removed")
+      assert($paletteColor.baseColorSwatch.getAttributeNames().indexOf("derivation-algorithm") == -1,"derivation-algorithm should've been removed")
+      assertEqual("#82bd29",$paletteColor.baseColorSwatch.getAttribute("hex-code"),"hex-code shoud've been set on the base color")
+      $paletteColor.baseColorSwatch.querySelectorAll("input[type=color]").forEach( (input) => {
+        assert(input.getAttributeNames().indexOf("disabled") == -1,`Input should not have disabled set: ${input.outerHTML}`)
       })
-      $unlinkButton.dispatchEvent(new Event("click"))
-
-      assert(unlinkCalled,"The event listener should've been called when the button was clicked")
-      assert($paletteColor.getAttribute("linked-to") !== null,`linked-to attribute should not been removed`)
     }
   )
-})
-testCase("linked-to-primary", ({setup,teardown,test,subject,assert,assertEqual}) => {
-  setup( (...args) => {
-    const locatePaletteColor = ({subject,clone}) => {
-      return clone(subject.querySelector("g-palette-color-scale[linked-to-primary]"),"g-palette-color-scale[linked-to-primary]",subject)
-    }
-    return basicSetup(locatePaletteColor)(...args)
-  })
-
-  teardown(teardownAdded)
-
-  test("preview is enabled, but unlink and remove are not",
-    ({ $paletteColor, $previewButton, $unlinkButton, $removeButton }) => {
-
-      assert(!$previewButton.getAttribute("disabled"), "Expected preview button to be enabled")
-      assert(!$unlinkButton.getAttribute("disabled"), "Expected unlink button to be enabled")
-      assert(!$removeButton.getAttribute("disabled"), "Expected remove button to be enabled")
-    }
-  )
-
-  test("The preview event is fired when the preview button is clicked",
-    ({$paletteColor,$previewButton}) => {
-      let previewCalled = false
-      $paletteColor.addEventListener("preview", (event) => previewCalled = true )
-      $previewButton.dispatchEvent(new Event("click"))
-
-      assert(previewCalled,"The event listener should've been called when the button was clicked")
-    }
-  )
-  test("The remove event is fired and the element is removed when the remove button is clicked",
-    ({$paletteColor,$removeButton}) => {
-      let removeCalled = false
-      const parent = $paletteColor.parentElement
-      const id = $paletteColor.id
-
-      $paletteColor.addEventListener("remove", (event) => removeCalled = true )
-      $removeButton.dispatchEvent(new Event("click"))
-
-      assert(removeCalled,"The event listener should've been called when the button was clicked")
-      assert(!parent.children.namedItem(id),"The element should've been removed")
-    }
-  )
-  test("The remove event is fired but the element not removed when the remove button is clicked but the handler preventsDefault()",
-    ({$paletteColor,$removeButton}) => {
-      let removeCalled = false
-      const parent = $paletteColor.parentElement
-      const id = $paletteColor.id
-
-      $paletteColor.addEventListener("remove", (event) => {
-        event.preventDefault()
-        removeCalled = true 
-      })
-      $removeButton.dispatchEvent(new Event("click"))
-
-      assert(removeCalled,"The event listener should've been called when the button was clicked")
-      assert(parent.children.namedItem(id),"The element should still be there")
-    }
-  )
-  test("The unlink event is fired and the linked-to-primary attribute removed when the unlink button is clicked",
-    ({$paletteColor,$unlinkButton}) => {
-      let unlinkCalled = false
-      $paletteColor.addEventListener("unlink", (event) => unlinkCalled = true )
-      $unlinkButton.dispatchEvent(new Event("click"))
-
-      assert(unlinkCalled,"The event listener should've been called when the button was clicked")
-      assert($paletteColor.getAttribute("linked-to-primary") === null,"linked-to-primary attribute should've been removed")
-    }
-  )
-  test("The unlink event is fired but the linked-to-primary attribute remains if default is prevented",
+  test("The unlink event is fired but there are no changes if default was prevented",
     ({$paletteColor,$unlinkButton}) => {
       let unlinkCalled = false
       $paletteColor.addEventListener("unlink", (event) => {
@@ -359,12 +293,14 @@ testCase("linked-to-primary", ({setup,teardown,test,subject,assert,assertEqual})
 
       assert(unlinkCalled,"The event listener should've been called when the button was clicked")
       assert($paletteColor.getAttribute("linked-to-primary") !== null,`linked-to-primary attribute should not been removed`)
+      assert($paletteColor.baseColorSwatch.getAttribute("derived-from"),"derived-from should've been preserved")
+      assert($paletteColor.baseColorSwatch.getAttribute("derivation-algorithm"),"derivation-algorithm should've been preserved")
     }
   )
 })
 
 testCase("unlinked-color", ({setup,teardown,test,subject,assert,assertEqual}) => {
-  setup(childrenSetup)
+  setup(setupBasedOnFirstChild)
   teardown(teardownAdded)
 
   test("preview and remove are enabled, but unlink id not",

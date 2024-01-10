@@ -8,16 +8,24 @@ export default class PaletteColorComponent extends HTMLElement {
 
   static observedAttributes = [
     "primary",
-    "linked-to",
     "linked-to-primary",
-    "derive-color-scale",
+    "scale-algorithm",
     "debug",
   ]
 
   constructor() {
     super()
     this.logger = Logger.forPrefix(null)
-    this.previewButtonClickListener = () => { this.dispatchEvent(new CustomEvent("preview")) }
+    this.previewButtonClickListener = () => {
+      const detail = {
+        colorName: this.colorName,
+        colorNameUserOverride: this.colorNameUserOverride,
+        colorScale: this.colorScale,
+        baseColor: this.baseColorSwatch.hexCode,
+      }
+
+      this.dispatchEvent(new CustomEvent("preview", { detail: detail })) 
+    }
     this.removeButtonClickListener = () => { 
       const defaultNotPrevented = this.dispatchEvent(new CustomEvent("remove", { bubbles: true, cancelable: true })) 
       if (defaultNotPrevented) {
@@ -27,8 +35,14 @@ export default class PaletteColorComponent extends HTMLElement {
     this.unlinkButtonClickListener = () => {
       const defaultNotPrevented = this.dispatchEvent(new CustomEvent("unlink", { bubbles: true, cancelable: true }))
       if (defaultNotPrevented) {
-        this.removeAttribute("linked-to")
         this.removeAttribute("linked-to-primary")
+        if (this.baseColorSwatch) {
+          this.baseColorSwatch.removeAttribute("derived-from")
+          this.baseColorSwatch.removeAttribute("derivation-algorithm")
+          this.baseColorSwatch.querySelectorAll("input[type=color][disabled]").forEach( (input) => {
+            input.removeAttribute("disabled")
+          })
+        }
       }
     }
   }
@@ -48,14 +62,11 @@ export default class PaletteColorComponent extends HTMLElement {
         this.logger.warn("primary should either be present or omitted, not '%s'",newValue)
       }
     }
-    else if (name == "linked-to") {
-      this.linkedToId = newValue
-    }
     else if (name == "linked-to-primary") {
-      this.linkedPrimary = true
+      this.linkedPrimaryAlgorithm = newValue
     }
-    else if (name == "derive-color-scale") {
-      this.colorScaleAlgorithm = newValue
+    else if (name == "scale-algorithm") {
+      this.scaleAlgorithm = newValue
     }
     else if (name == "debug") {
       let oldLogger
@@ -81,10 +92,6 @@ export default class PaletteColorComponent extends HTMLElement {
   }
 
   _configureScale() {
-    if (!this.colorScaleAlgorithm) {
-      return
-    }
-
     const swatches = Array.from(this.querySelectorAll(ColorSwatchComponent.tagName))
     if (swatches.length % 2 == 0) {
       this.logger.warn("Cannot set up a scale with an even number of swatches")
@@ -96,14 +103,26 @@ export default class PaletteColorComponent extends HTMLElement {
     this.baseColorSwatch = swatches[middle]
     let id = this.baseColorSwatch.id
     if (!id) {
-      id = `${ColorSwatchComponent.tagName}-${crypto.randomUUID()}`
+      id = `${ColorSwatchComponent.tagName}-${crypto.randomUUID()}-generated`
       this.baseColorSwatch.id = id
     }
+    
+    if (this.linkedPrimaryElement) {
+      if (this.linkedPrimaryElement.baseColorSwatch) {
+        this.baseColorSwatch.setAttribute("derived-from",this.linkedPrimaryElement.baseColorSwatch.id)
+        if (this.linkedPrimaryAlgorithm) {
+          this.baseColorSwatch.setAttribute("derivation-algorithm",this.linkedPrimaryAlgorithm)
+        }
+      }
+      else {
+        this.logger.warn("Linked g-palette-color-scale (%s) has no base color, so we cannot link to it",this.linkedPrimaryElement.id)
+      }
+    }
 
-    const algorithm = ColorScale.fromString(this.colorScaleAlgorithm)
+    const algorithm = ColorScale.fromString(this.scaleAlgorithm)
 
-    if (algorithm.isFallback) {
-      this.logger.warn(`No such algorithm for derive-color-scale '${this.colorScaleAlgorithm}'`)
+    if (algorithm.isFallback && this.scaleAlgorithm) {
+      this.logger.warn(`No such algorithm for derive-color-scale '${this.scaleAlgorithm}'`)
     }
     swatches.forEach( (swatch,index) => {
       if (index != middle) {
@@ -130,7 +149,7 @@ export default class PaletteColorComponent extends HTMLElement {
       this._eachUnlinkElement(disable)
       this._eachRemoveElement(disable)
     }
-    else if ( (this.linkedToId) || (this.linkedPrimary) ){
+    else if ( this.linkedPrimaryAlgorithm ){
       this._eachPreviewElement(enable)
       this._eachUnlinkElement(enable)
       this._eachRemoveElement(enable)
@@ -146,22 +165,16 @@ export default class PaletteColorComponent extends HTMLElement {
   }
 
   _configureLink() {
-
-    let linkedToElement = null
-    if (this.linkedToId) {
-      linkedToElement = document.getElementById(this.linkedToId)
-      if (!linkedToElement) {
-        this.logger.warn("linked-to is '%s' but no element in the document has that id",this.linkedToId)
+    if (this.linkedPrimaryAlgorithm) {
+      this.linkedPrimaryElement = this.parentElement ? this.parentElement.querySelector(`${this.constructor.tagName}[primary]`) : null
+      if (!this.linkedPrimaryElement) {
+        if (this.parentElement) {
+          this.logger.warn("linked-to-primary had a value ('%s') but no sibling is marked as primary: %o",this.linkedPrimaryAlgorithm,this.parentElement.querySelectorAll("g-palette-color-scale").length)
+        }
+        else {
+          this.logger.warn("linked-to-primary had a value ('%s') but we have no parent element",this.linkedPrimaryAlgorithm)
+        }
       }
-    }
-    else if (this.linkedPrimary) {
-      linkedToElement = this.parentElement ? this.parentElement.querySelector(`${this.constructor.tagName}[primary]`) : null
-      if (!linkedToElement) {
-        this.logger.warn("linked-to-primary is '%s' but no sibling is marked as primary",this.linkedPrimary)
-      }
-    }
-    if (this.linkedToId && this.linkedPrimary) {
-      this.logger.warn("linked-to and linked-to-primary are both set - behavior is undefined")
     }
   }
   _eachPreviewElement(f) { this.querySelectorAll("[data-preview]").forEach(f) }
