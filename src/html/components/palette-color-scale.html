@@ -10,125 +10,12 @@
       <p class="p">
         When you combine this with the <code>g-color-name</code>, <code>g-color-swatch</code> elements with derivations, you can createa color palette.
       </p>
-      <h4>Attributes</h4>
-      <p class="p">
-        The <code>g-palette-color</code> recognizes three attributes:
-      </p>
-      <table class="collapse">
-        <thead>
-          <tr>
-            <th class="tl pa-1 bb br">Attribute</th>
-            <th class="tl pa-1 bb br">Values</th>
-            <th class="tl pa-1 bb">Notes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="pa-1 br bb"><code class="bg-black-ish green-light dib pa-1 ff-mono">primary</code></td>
-            <td class="pa-1 br bb">Set or omitted</td>
-            <td class="pa-1 bb"><p class="p">
-                If set, this color is considered the primary one in the palette and cannot be removed or unlinked.
-            </p></td>
-          </tr>
-          <tr>
-            <td class="pa-1 br bb"><code class="bg-black-ish green-light dib pa-1 ff-mono">linked-to</code></td>
-            <td class="pa-1 br bb">The <code class="ff-mono">id</code> of another <code>g-palette-color</code>.
-            <td class="pa-1 bb"><p class="p">
-                If set, this can be unlinked.
-            </p></td>
-          </tr>
-          <tr>
-            <td class="pa-1 br bb"><code class="bg-black-ish green-light dib pa-1 ff-mono">linked-to-primary</code></td>
-            <td class="pa-1 br bb">Set or omitted</td>
-            <td class="pa-1 bb"><p class="p">
-                If set, the component will find a <code>g-palette-color</code> with <code>primary</code> set in the children if this component's parent.
-            </p></td>
-          </tr>
-        </tbody>
-      </table>
-      <h4>Events</h4>
-      <p class="p">
-        The <code>g-palette-color</code> also recognizes three buttons that can trigger special events:
-      </p>
-      <table class="collapse">
-        <thead>
-          <tr>
-            <th class="tl pa-1 bb br">Action</th>
-            <th class="tl pa-1 bb br">Event Name</th>
-            <th class="tl pa-1 bb br">Markup Needed</th>
-            <th class="tl pa-1 bb">Notes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th class="tl pa-1 br bb">Preview</th>
-            <td class="pa-1 br bb"><code class="bg-black-ish green-light dib pa-1 ff-mono">preview</code></td>
-            <td class="pa-1 br bb">One or more elements with <code class="ff-mono">data-preview</code></td>
-            <td class="pa-1 bb"><p class="p">
-                No special behavior other than connecting the tagged elements with the higher-level event.
-            </p></td>
-          </tr>
-          <tr>
-            <th class="tl pa-1 bb br">Unlink</th>
-            <td class="pa-1 br bb"><code class="bg-black-ish green-light dib pa-1 ff-mono">unlink</code></td>
-            <td class="pa-1 br bb">One or more elements with <code class="ff-mono">data-unlink</code></td>
-            <td class="pa-1 bb"><p class="p">
-                Elements will trigger the higher-level event, but also the <code>linked-to</code> attribute is removed.
-                You can stop this via <code>preventDefault</code>
-            </p></td>
-          </tr>
-          <tr>
-            <th class="tl pa-1 bb br">Remove</th>
-            <td class="pa-1 bb br"><code class="bg-black-ish green-light dib pa-1 ff-mono">remove</code></td>
-            <td class="pa-1 bb br">One or more elements with <code class="ff-mono">data-remove</code></td>
-            <td class="pa-1 bb"><p class="p">
-                Elements will trigger the higher-level event, but this also removes the entire <code>g-palette-color</code> from the DOM.  You can stop this via <code>preventDefault</code>
-            </p></td>
-          </tr>
-        </tbody>
-      </table>
-      <h4>API</h4>
-      <p class="p">
-        The <code>g-palette-color</code> can provide programmatic access to what it's wrapping.
-      </p>
-      <table class="collapse">
-        <thead>
-          <tr>
-            <th class="tl pa-1 bb br">Method</th>
-            <th class="tl pa-1 bb br">Return Value</th>
-            <th class="tl pa-1 bb">Notes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="pa-1 br bb"><code class="bg-black-ish green-light dib pa-1 ff-mono">.colorName</code></td>
-            <td class="pa-1 br bb">Name of the color, as a String</td>
-            <td class="pa-1 bb"><p class="p">
-                If set, this color is considered the primary one in the palette and cannot be removed or unlinked.
-            </p></td>
-          </tr>
-          <tr>
-            <td class="pa-1 br bb"><code class="bg-black-ish green-light dib pa-1 ff-mono">.colorNameUserOverride</code></td>
-            <td class="pa-1 br bb"><code>true</code> or <code>false</code></td>
-            <td class="pa-1 bb"><p class="p">
-              <code>true</code> if the user has overridden the color, <code>false</code> if the default system-provided value is being used.
-            </p></td>
-          </tr>
-          <tr>
-            <td class="pa-1 br bb"><code class="bg-black-ish green-light dib pa-1 ff-mono">.colorScale</code></td>
-            <td class="pa-1 br bb">Array of hex codes as strings</td>
-            <td class="pa-1 bb"><p class="p">
-                Values are provided in the order of the <code>g-color-swatch</code> elements. Empty if there aren't any.
-            </p></td>
-          </tr>
-        </tbody>
-      </table>
       <h4>Example</h4>
       <p class="p">
-        This shows a primary, linked, and unlinked color with a darker and brighter version of each base color.  You can also access the internals programmatically.
+        This shows how the scales can be connected—or not—to create a palette.
       </p>
       <div class="flex flex-column gap-4 pa-2 ba bc-gray">
-        <g-palette-color class="flex gap-3" primary id="primary-palette-color">
+        <g-palette-color-scale debug class="flex gap-3" primary id="primary-palette-color" scale-algorithm="exponential">
           <div class="flex flex-column justify-between">
             <g-color-name color-swatch="primary-base-color">
               <label class="flex flex-column gap-1 mb-3">
@@ -161,21 +48,30 @@
               </script>
             </nav>
           </div>
-          <div class="flex justify-center gap-1">
-            <g-color-swatch debug derived-from="primary-base-color" derivation-algorithm="brightness" darken-by="50%">
-              <%- include("../templates/g-color-swatch.html", { id: "primary-base-color" } ) %>
+          <div class="flex pa-2 ba bc-gray">
+            <g-color-swatch>
+              <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
             </g-color-swatch>
-            <g-color-swatch debug id="primary-base-color" hex-code="#6429bd">
-              <%- include("../templates/g-color-swatch.html", { id: "primary-base-color", editable: true, secondaryLabel: "Primary" } ) %>
+            <g-color-swatch>
+              <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
             </g-color-swatch>
-            <g-color-swatch debug derived-from="primary-base-color" derivation-algorithm="brightness" brighten-by="<%= (5/7) * 100 %>%">
-              <%- include("../templates/g-color-swatch.html", { id: "primary-base-color" } ) %>
+            <g-color-swatch id="primary-base-color" hex-code="#6429bd">
+              <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color">
+                <code></code>
+                <span class="f-1">Change this one</span>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch>
+              <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
+            </g-color-swatch>
+            <g-color-swatch>
+              <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
             </g-color-swatch>
           </div>
-        </g-palette-color>
-        <g-palette-color class="flex gap-3" linked-to="primary-palette-color">
+        </g-palette-color-scale>
+        <g-palette-color-scale id="linked-to-primary-as-complement" debug scale-algorithm="exponential" class="flex gap-3" linked-to-primary="complement">
           <div class="flex flex-column justify-between">
-            <g-color-name color-swatch="complement">
+            <g-color-name color-swatch="primary-base-color">
               <label class="flex flex-column gap-1 mb-3">
                 <input type="text" class="f-3 ba br-2 bg-white-ish black bc-gray pa-2 ff-sans">
               </label>
@@ -193,50 +89,24 @@
               </button>
             </nav>
           </div>
-          <div class="flex justify-center gap-1">
-            <g-color-swatch debug derived-from="complement" derivation-algorithm="brightness" darken-by="50%">
-              <%- include("../templates/g-color-swatch.html") %>
+          <div class="flex pa-2 ba bc-gray">
+            <g-color-swatch>
+              <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
             </g-color-swatch>
-            <g-color-swatch debug id="complement" derived-from="primary-base-color" derivation-algorithm="complement">
-              <%- include("../templates/g-color-swatch.html", { id: "complement", secondaryLabel: "Complement" } ) %>
+            <g-color-swatch>
+              <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
             </g-color-swatch>
-            <g-color-swatch debug derived-from="complement" derivation-algorithm="brightness" brighten-by="<%= (5/7) * 100 %>%">
-              <%- include("../templates/g-color-swatch.html" ) %>
+            <g-color-swatch debug="complement-base">
+              <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
             </g-color-swatch>
-          </div>
-        </g-palette-color>
-        <g-palette-color class="flex gap-3">
-          <div class="flex flex-column justify-between">
-            <g-color-name color-swatch="unlinked">
-              <label class="flex flex-column gap-1 mb-3">
-                <input type="text" class="f-3 ba br-2 bg-white-ish black bc-gray pa-2 ff-sans">
-              </label>
-
-            </g-color-name>
-            <nav class="flex flex-column gap-1">
-              <button data-preview class="shadow-button f-2 br-1">
-                Preview
-              </button>
-              <button data-remove class="shadow-button br-1">
-                Remove
-              </button>
-              <button data-unlink class="shadow-button f-1 br-1">
-                Unlink from Primary
-              </button>
-            </nav>
-          </div>
-          <div class="flex justify-center gap-1">
-            <g-color-swatch debug derived-from="unlinked" derivation-algorithm="brightness" darken-by="50%">
-              <%- include("../templates/g-color-swatch.html") %>
+            <g-color-swatch>
+              <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
             </g-color-swatch>
-            <g-color-swatch debug id="unlinked" hex-code="#443311">
-              <%- include("../templates/g-color-swatch.html", { id: "unlinked", editable: true } ) %>
-            </g-color-swatch>
-            <g-color-swatch debug derived-from="unlinked" derivation-algorithm="brightness" brighten-by="<%= (5/7) * 100 %>%">
-              <%- include("../templates/g-color-swatch.html" ) %>
+            <g-color-swatch>
+              <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
             </g-color-swatch>
           </div>
-        </g-palette-color>
+        </g-palette-color-scale>
       </div>
       <h4>Edge Cases</h4>
       <p class="p">

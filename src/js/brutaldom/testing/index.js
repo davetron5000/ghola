@@ -152,7 +152,9 @@ class TestCase {
       return element
     }
     const clone = (element,description) => {
-      return require(element,description).cloneNode(true)
+      const cloned = require(element,description).cloneNode(true)
+      cloned.dataset["testCaseId"] = this.id
+      return cloned
     }
 
     tests.forEach( (test) => {

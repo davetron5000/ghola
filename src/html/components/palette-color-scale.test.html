@@ -15,7 +15,7 @@
         }) %>
         <div class="flex flex-column gap-3">
           <g-test-case-subject>
-            <g-palette-color-scale primary class="flex flex-column gap-2">
+            <g-palette-color-scale primary scale-algorithm="linear" class="flex flex-column gap-2">
               <div>
                 <g-color-name color-swatch="primary-base-color">
                   <label>
@@ -24,106 +24,31 @@
                   </label>
 
                 </g-color-name>
-                <button data-preview>
-                  Preview
-                </button>
-                <button data-remove>
-                  Remove
-                </button>
-                <button data-unlink>
-                  Unlink from Primary
-                </button>
+                <button data-preview> Preview </button>
+                <button data-remove> Remove </button>
+                <button data-unlink> Unlink from Primary </button>
               </div>
               <div class="flex">
-                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="brightness" darken-by="90%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
-                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="brightness" darken-by="50%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
-                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="brightness" darken-by="30%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
                 <g-color-swatch id="primary-base-color" hex-code="#6429bd">
                   <label class="flex flex-column"><input type="color"></label>
                 </g-color-swatch>
-                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="brightness" brighten-by="30%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
-                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="brightness" brighten-by="50%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
-                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="brightness" brighten-by="90%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
-                </g-color-swatch>
-              </div>
-            </g-palette-color-scale>
-          </g-test-case-subject>
-            <script>
-              document.
-                querySelector("g-test-case#primary-color g-palette-color-scale").
-                addEventListener("preview", () => alert("Preview!") )
-            </script>
-          <g-element-source element-sibling="g-test-case-subject" html="inner">
-            <pre><code></code></pre>
-          </g-element-source>
-        </div>
-      <%- include("../templates/test-case-end.html") %>
-      <%- include("../templates/test-case-start.html", {
-        id: "linked-color",
-        title: "When set as linked, the color can be removed, unlinked, and previewed",
-        open: false,
-        description: "Linked colors can be removed, unlinked, and previewed"
-        }) %>
-        <div class="flex flex-column gap-3">
-          <g-test-case-subject>
-            <g-palette-color-scale primary id="linked-color-palette-color-scale">
-              <div class="flex">
-                <g-color-swatch id="linked-to-primary-base-color" hex-code="#6429bd">
-                  <label class="flex flex-column"><input type="color"></label>
-                </g-color-swatch>
-              </div>
-            </g-palette-color-scale>
-            <g-palette-color-scale linked-to="linked-color-palette-color-scale" class="flex flex-column gap-2">
-              <div>
-                <g-color-name color-swatch="linked-to-base-color">
-                  <label>
-                    <input type="text" class="f-3 ba br-2 bg-white-ish black bc-gray pa-2 ff-sans inner-shadow-1">
-                    Color Name
-                  </label>
-
-                </g-color-name>
-                <button data-preview>
-                  Preview
-                </button>
-                <button data-remove>
-                  Remove
-                </button>
-                <button data-unlink>
-                  Unlink from Primary
-                </button>
-              </div>
-              <div class="flex">
-                <g-color-swatch derived-from="linked-to-base-color" derivation-algorithm="brightness" darken-by="90%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
-                </g-color-swatch>
-                <g-color-swatch derived-from="linked-to-base-color" derivation-algorithm="brightness" darken-by="50%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
-                </g-color-swatch>
-                <g-color-swatch derived-from="linked-to-base-color" derivation-algorithm="brightness" darken-by="30%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
-                </g-color-swatch>
-                <g-color-swatch id="linked-to-base-color" derived-from="linked-to-primary-base-color" derivation-algorithm="complement">
-                  <label class="flex flex-column"><input type="color" readonly></label>
-                </g-color-swatch>
-                <g-color-swatch derived-from="linked-to-base-color" derivation-algorithm="brightness" brighten-by="<%= (3/7) * 100 %>%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
-                </g-color-swatch>
-                <g-color-swatch derived-from="linked-to-base-color" derivation-algorithm="brightness" brighten-by="<%= (5/7) * 100 %>%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
-                </g-color-swatch>
-                <g-color-swatch derived-from="linked-to-base-color" derivation-algorithm="brightness" brighten-by="90%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
               </div>
             </g-palette-color-scale>
@@ -148,12 +73,18 @@
           <g-test-case-subject>
             <g-palette-color-scale primary>
               <div class="flex">
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color"></label>
+                </g-color-swatch>
                 <g-color-swatch id="another-primary-base-color" hex-code="#6429bd">
+                  <label class="flex flex-column"><input type="color"></label>
+                </g-color-swatch>
+                <g-color-swatch>
                   <label class="flex flex-column"><input type="color"></label>
                 </g-color-swatch>
               </div>
             </g-palette-color-scale>
-            <g-palette-color-scale linked-to-primary class="flex flex-column gap-2">
+            <g-palette-color-scale linked-to-primary="complement" class="flex flex-column gap-2">
               <div>
                 <button data-preview>
                   Preview
@@ -167,25 +98,25 @@
               </div>
               <div class="flex">
                 <g-color-swatch derived-from="linked-to-another-primary-base-color" derivation-algorithm="brightness" darken-by="90%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
                 <g-color-swatch derived-from="linked-to-another-primary-base-color" derivation-algorithm="brightness" darken-by="50%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
                 <g-color-swatch derived-from="linked-to-another-primary-base-color" derivation-algorithm="brightness" darken-by="30%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
-                <g-color-swatch id="linked-to-another-primary-base-color" derived-from="another-primary-base-color" derivation-algorithm="complement">
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                <g-color-swatch id="linked-to-another-primary-base-color">
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
                 <g-color-swatch derived-from="linked-to-another-primary-base-color" derivation-algorithm="brightness" brighten-by="<%= (3/7) * 100 %>%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
                 <g-color-swatch derived-from="linked-to-another-primary-base-color" derivation-algorithm="brightness" brighten-by="<%= (5/7) * 100 %>%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
                 <g-color-swatch derived-from="linked-to-another-primary-base-color" derivation-algorithm="brightness" brighten-by="90%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
               </div>
             </g-palette-color-scale>
@@ -228,25 +159,25 @@
               </div>
               <div class="flex">
                 <g-color-swatch derived-from="unlinked-to-base-color" derivation-algorithm="brightness" darken-by="90%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
                 <g-color-swatch derived-from="unlinked-to-base-color" derivation-algorithm="brightness" darken-by="50%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
                 <g-color-swatch derived-from="unlinked-to-base-color" derivation-algorithm="brightness" darken-by="30%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
                 <g-color-swatch id="unlinked-to-base-color" hex-code="#876543">
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
                 <g-color-swatch derived-from="unlinked-to-base-color" derivation-algorithm="brightness" brighten-by="<%= (3/7) * 100 %>%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
                 <g-color-swatch derived-from="unlinked-to-base-color" derivation-algorithm="brightness" brighten-by="<%= (5/7) * 100 %>%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
                 <g-color-swatch derived-from="unlinked-to-base-color" derivation-algorithm="brightness" brighten-by="90%">
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
               </div>
             </g-palette-color-scale>
@@ -256,48 +187,6 @@
                 querySelector("g-test-case#primary-color g-palette-color-scale").
                 addEventListener("preview", () => alert("Preview!") )
             </script>
-          <g-element-source element-sibling="g-test-case-subject" html="inner">
-            <pre><code></code></pre>
-          </g-element-source>
-        </div>
-      <%- include("../templates/test-case-end.html") %>
-      <%- include("../templates/test-case-start.html", {
-        id: "derive-color-scale",
-        title: "Using as a color-scale with linear gradient",
-        open: false,
-        description: "When derive-color-scale is set, the center swatch is assumed base and others are set up as a gradient, derived linearly from there."
-        }) %>
-        <div class="flex flex-column gap-3">
-          <g-test-case-subject>
-            <g-palette-color-scale derive-color-scale="linear" class="flex flex-column gap-2" id="derive-color-scale-component" debug>
-              <button data-preview> Preview </button>
-              <button data-remove> Remove </button>
-              <button data-unlink> Unlink from Primary </button>
-              <div class="flex">
-                <g-color-swatch>
-                  <label class="flex flex-column"><input type="color" readonly></label>
-                </g-color-swatch>
-                <g-color-swatch>
-                  <label class="flex flex-column"><input type="color" readonly></label>
-                </g-color-swatch>
-                <g-color-swatch>
-                  <label class="flex flex-column"><input type="color" readonly></label>
-                </g-color-swatch>
-                <g-color-swatch hex-code="#6429bd">
-                  <label class="flex flex-column"><input type="color"></label>
-                </g-color-swatch>
-                <g-color-swatch>
-                  <label class="flex flex-column"><input type="color" readonly></label>
-                </g-color-swatch>
-                <g-color-swatch>
-                  <label class="flex flex-column"><input type="color" readonly></label>
-                </g-color-swatch>
-                <g-color-swatch>
-                  <label class="flex flex-column"><input type="color" readonly></label>
-                </g-color-swatch>
-              </div>
-            </g-palette-color-scale>
-          </g-test-case-subject>
           <g-element-source element-sibling="g-test-case-subject" html="inner">
             <pre><code></code></pre>
           </g-element-source>
@@ -317,25 +206,25 @@
               <button data-unlink> Unlink from Primary </button>
               <div class="flex">
                 <g-color-swatch>
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
                 <g-color-swatch>
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
                 <g-color-swatch>
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
                 <g-color-swatch hex-code="#6429bd">
                   <label class="flex flex-column"><input type="color"></label>
                 </g-color-swatch>
                 <g-color-swatch>
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
                 <g-color-swatch>
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
                 <g-color-swatch>
-                  <label class="flex flex-column"><input type="color" readonly></label>
+                  <label class="flex flex-column"><input type="color" disabled></label>
                 </g-color-swatch>
               </div>
             </g-palette-color-scale>

@@ -62,7 +62,7 @@ export default class ColorSwatchComponent extends HTMLElement {
       if (this.derivationAlgorithm) {
         this._updateDerivationifNeeded({ whenHexCodeExists: true })
       }
-      else {
+      else if (!!newValue) {
         this.logger.warn("derivation-algorithm '%s' is not valid",newValue)
       }
     }
@@ -131,15 +131,11 @@ export default class ColorSwatchComponent extends HTMLElement {
     }
     const numInputs = this._eachInput( (element) => {
       element.value = this.hexCode
-      if (element.getAttributeNames().indexOf("readonly") != -1) {
-        element.setAttribute("disabled",true)
-        element.removeEventListener("change", this.onInputChangeCallback)
-      }
-      else {
-        element.removeAttribute("disabled")
-        element.addEventListener("change", this.onInputChangeCallback)
+      element.addEventListener("change", this.onInputChangeCallback)
+      const disabled = element.getAttributeNames().indexOf("disabled") != -1
+      if (!disabled) {
         if (this.derivedFromId) {
-          this.logger.warn("derived-from-id is set, but a non-readonly input was detected: %o",element)
+          this.logger.warn("derived-from-id is set, but an enabled input was detected: %o",element)
         }
       }
     })
@@ -181,10 +177,15 @@ export default class ColorSwatchComponent extends HTMLElement {
     const hexCodeExists = !!this.hexCode
 
     if (derivedFromElement) {
-      derivedFromElement.addEventListener(this.constructor.HEX_CODE_CHANGE_EVENT_NAME,this.onDerivedElementChangeCallback)
-      this.mostRecentlyDerivedFromElement = derivedFromElement
-      if ( (derivedFromElement.hexCode) && (whenHexCodeExists == hexCodeExists) ) {
-        this._deriveHexCodeFrom(derivedFromElement.hexCode)
+      if (derivedFromElement.tagName.toLowerCase() == this.constructor.tagName) {
+        derivedFromElement.addEventListener(this.constructor.HEX_CODE_CHANGE_EVENT_NAME,this.onDerivedElementChangeCallback)
+        this.mostRecentlyDerivedFromElement = derivedFromElement
+        if ( (derivedFromElement.hexCode) && (whenHexCodeExists == hexCodeExists) ) {
+          this._deriveHexCodeFrom(derivedFromElement.hexCode)
+        }
+      }
+      else {
+        this.logger.warn("Derived element has id '%s', but this is a %s, not a %s",this.derivedFromId,derivedFromElement.tagName,this.constructor.tagName)
       }
     }
     else {
