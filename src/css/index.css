@@ -1,6 +1,7 @@
 @import "melange-css/melange.css";
 @import "./shadow-button.css";
 @import "./g-element-source.css";
+@import "./palette.css";
 
 :root {
   --mg-ff-sans: 'Helvetica Neue', Inter, Roboto, 'Nimbus Sans', sans-serif;
@@ -11,23 +12,38 @@
 input::-webkit-color-swatch-wrapper {
   margin: 0;
   padding: 0;
-}
-input::-webkit-color-swatch {
   border-radius: 0;
-  border: none;
 }
 
-.lh-solid.f-1.h-2-lines {
-  height: calc(2 * var(--mg-fs-1) * var(--mg-lh-solid));
+input::-webkit-color-swatch,
+input::-moz-color-swatch {
+  border: none;
+  border-top-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-radius: 0;
 }
-.lh-solid.f-1.h-1-line {
-  height: calc(var(--mg-fs-1) * var(--mg-lh-solid));
+input[type=color] {
+  border-top-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+code {
+  font-family: var(--mg-ff-mono);
 }
 
 input:disabled.pointer {
   cursor: not-allowed;
 }
 
+.mb-half {
+  margin-bottom: calc(var(--mg-sp-1) / 2);
+}
 .inner-shadow-1 {
   box-shadow: inset 0 0 10px var(--mg-gray-light);
 }
@@ -51,4 +67,11 @@ g-test-case summary p {
   margin-top: 0;
   max-width: var(--mg-tw);
   line-height: var(--mg-lh-copy);
+}
+
+g-color-name label:has(input[data-user-override]) [data-overridden] {
+  visibility: visible;
+}
+g-color-name label:not(:has(input[data-user-override])) [data-overridden] {
+  visibility: hidden;
 }

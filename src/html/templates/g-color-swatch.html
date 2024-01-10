@@ -1,0 +1,22 @@
+<%
+const readonly = !(typeof(editable) === "boolean" && editable)
+%>
+<div class="flex flex-column gap-2 items-center">
+  <% if (readonly) { %>
+    <div data-color></div>
+  <% } else { %>
+    <input type="color" class="pointer" id="<%= id %>-input">
+  <% } %>
+  <div class="nowrap f-2 fw-3 ttl">
+    <%- typeof(secondaryLabel) === "string" ? secondaryLabel : "&nbsp;" %>
+  </div>
+  <% if (readonly) { %>
+    <div data-hexcode class="flex flex-columnn gap-2">
+      <code class="fw-3 f-1 ff-mono"></code>
+    </div>
+  <% } else { %>
+    <label for="<%= id %>-input" class="flex flex-columnn gap-2">
+      <code class="fw-3 f-1 ff-mono"></code>
+    </label>
+  <% } %>
+</div>

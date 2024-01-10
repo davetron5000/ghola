@@ -1,7 +1,7 @@
 import BaseDerivation from "./BaseDerivation"
 import chroma from "chroma-js"
 
-export default class LinearDerivation extends BaseDerivation {
+export default class BrightnessDerivation extends BaseDerivation {
   derive(hexCode, options={}) {
     if (options.darken && !isNaN(options.darken)) {
       return this.darken(hexCode,options.darken)

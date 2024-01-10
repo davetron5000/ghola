@@ -1,0 +1,32 @@
+g-palette-color g-color-swatch {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--mg-gray-light);
+  border-radius: 0;
+  padding: var(--mg-sp-1);
+  border-radius: var(--mg-bw-1);
+}
+
+g-palette-color g-color-swatch:has(input) {
+  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
+  border-color: var(--mg-gray);
+  border-radius: var(--mg-bw-2);
+}
+
+g-palette-color g-color-swatch:has(input:disabled) {
+  box-shadow: none;
+  border-radius: var(--mg-bw-1);
+}
+
+g-palette-color g-color-swatch input,
+g-palette-color g-color-swatch [data-color] {
+  width: calc(2 * var(--mg-sp-5));
+  height: calc(2 * var(--mg-sp-5));
+}
+g-palette-color g-color-swatch input {
+  cursor: pointer;
+}
+
+g-palette-color g-color-swatch input:disabled {
+  cursor: not-allowed;
+}

@@ -29,7 +29,7 @@ export default class ColorSwatchComponent extends HTMLElement {
         this.removeAttribute("hex-code")
       }
     }
-    this.derivationAlgorithm = DerivationAlgorithm.fromString("linear", { throwOnUnknown: true })
+    this.derivationAlgorithm = DerivationAlgorithm.fromString("brightness", { throwOnUnknown: true })
     this.logger = Logger.forPrefix(null)
   }
 
@@ -80,14 +80,18 @@ export default class ColorSwatchComponent extends HTMLElement {
     this.render()
   }
 
-  static INPUT_SELECTOR = "input[type=color]"
+  static INPUT_SELECTOR      = "input[type=color]"
+  static DATA_COLOR_SELECTOR = "[data-color]"
 
   _eachInput(f) {
-    const inputs = this.querySelectorAll(this.constructor.INPUT_SELECTOR)
-    if (inputs.length == 0) {
-      this.logger.warn("No elements matching '%s'",this.constructor.INPUT_SELECTOR)
-    }
-    inputs.forEach(f)
+    const elements = this.querySelectorAll(this.constructor.INPUT_SELECTOR)
+    elements.forEach(f)
+    return elements.length
+  }
+  _eachDataColor(f) {
+    const elements = this.querySelectorAll(this.constructor.DATA_COLOR_SELECTOR)
+    elements.forEach(f)
+    return elements.length
   }
 
   _eachLabelWithInput(f) {
@@ -105,11 +109,19 @@ export default class ColorSwatchComponent extends HTMLElement {
           code = document.createElement("code")
           label.appendChild(code)
         }
-        f([label,input,code])
+        f(code)
       }
       else {
         this.logger.warn(`Orphaned label inside the element does not wrap nor reference a color input inside the element: %o`,label)
       }
+    })
+    this.querySelectorAll("[data-hexcode]").forEach( (hexCode) => {
+      let code = hexCode.querySelector("code")
+      if (!code) {
+        code = document.createElement("code")
+        hexCode.appendChild(code)
+      }
+      f(code)
     })
   }
 
@@ -117,7 +129,7 @@ export default class ColorSwatchComponent extends HTMLElement {
     if (this.disconnected) {
       return
     }
-    this._eachInput( (element) => {
+    const numInputs = this._eachInput( (element) => {
       element.value = this.hexCode
       if (element.getAttributeNames().indexOf("readonly") != -1) {
         element.setAttribute("disabled",true)
@@ -131,16 +143,23 @@ export default class ColorSwatchComponent extends HTMLElement {
         }
       }
     })
+    const numDataColors = this._eachDataColor( (element) => {
+      element.style.backgroundColor = this.hexCode
+    })
+
+    if ( (numDataColors == 0) && (numInputs == 0) ) {
+      this.logger.warn("There were no <input type=color> nor [data-color] elements found")
+    }
     if (this.derivedFromId) {
       this._updateDerivationifNeeded({ whenHexCodeExists: false })
     }
     if (this.hexCode) {
-      this._eachLabelWithInput( ([label,input,codeElement]) => {
+      this._eachLabelWithInput( (codeElement) => {
         codeElement.textContent = this.hexCode
       })
     }
     else {
-      this._eachLabelWithInput( ([label,input,codeElement]) => {
+      this._eachLabelWithInput( (codeElement) => {
         codeElement.textContent = ""
       })
     }

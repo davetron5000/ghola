@@ -1,5 +1,4 @@
-import LinearDerivation from "./LinearDerivation"
-import ExponentialDerivation from "./ExponentialDerivation"
+import BrightnessDerivation from "./BrightnessDerivation"
 import ComplementaryDerivation from "./ComplementaryDerivation"
 import {
   SplitComplementaryUpperDerivation,
@@ -19,11 +18,8 @@ export default class DerivationAlgorithm {
     if (string instanceof DerivationAlgorithm) {
       return string
     }
-    else if (string == "linear") {
-      return new LinearDerivation()
-    }
-    else if (string == "exp") {
-      return new ExponentialDerivation()
+    else if (string == "brightness") {
+      return new BrightnessDerivation()
     }
     else if (string == "complement") {
       return new ComplementaryDerivation()

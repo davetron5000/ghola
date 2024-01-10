@@ -1,7 +1,45 @@
 .shadow-button {
   transform: translateX(-1px) translateY(-1px);
   box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
+  line-height: var(--mg-lh-solid);
+  padding-left: var(--mg-sp-2);
+  padding-right: var(--mg-sp-2);
+  padding-top: var(--mg-sp-1);
+  padding-bottom: var(--mg-sp-1);
+  border-style: solid;
+  border-width: 1px;
+  text-align: center;
+  cursor: pointer;
+
+  background-color: var(--mg-gray-lightest);
+  color: var(--mg-gray-darker);
+  border-color: var(--mg-gray);
 }
+
+.shadow-button.f-2,
+.shadow-button.f-3 {
+  padding-top: var(--mg-sp-2);
+  padding-bottom: var(--mg-sp-2);
+}
+
+.shadow-button-dark {
+  background-color: var(--mg-gray-dark);
+  color: var(--mg-gray-lighter);
+  border-color: var(--mg-gray);
+  box-shadow: 1px 1px 2px 1px rgba( 20, 20, 20, 0.5 );
+}
+
+.shadow-button--red {
+  background-color: var(--mg-red-lightest);
+  color: var(--mg-red-darker);
+  border-color: var(--mg-red-dark);
+}
+
+.shadow-button.pv-3 {
+  padding-top: var(--mg-sp-3);
+  padding-bottom: var(--mg-sp-3);
+}
+
 .shadow-button:active {
   box-shadow: none;
   transform: none;
@@ -9,10 +47,11 @@
 .shadow-button:disabled {
   box-shadow: none;
   transform: none;
-  background: var(--mg-gray);
-  color: var(--mg-gray-lighter);
-  border-color: var(--mg-gray);
+  background: var(--mg-gray-light);
+  color: var(--mg-gray-lightest);
+  border-color: transparent;
   cursor: not-allowed;
+  font-style: italic;
 }
 .shadow-button:active:disabled {
   box-shadow: none;

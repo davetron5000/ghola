@@ -4,10 +4,10 @@ import {
   assertNotEqual,
   assert,
   suite,
-} from "./brutaldom/testing"
+} from "../brutaldom/testing"
 
-import ColorSwatchComponent from "./components/ColorSwatchComponent"
-import ColorNameComponent from "./components/ColorNameComponent"
+import ColorSwatchComponent from "./ColorSwatchComponent"
+import ColorNameComponent from "./ColorNameComponent"
 
 suite("name-derived-from-color-input", ({setup,teardown,test,subject,assert,assertEqual}) => {
   setup( ({require,clone}) => {
@@ -32,26 +32,30 @@ suite("name-derived-from-color-input", ({setup,teardown,test,subject,assert,asse
   })
 
   test("by default, the input's value is the broad category name of the color",
-    ({$input,$swatch}) => {
+    ({$colorName,$input,$swatch}) => {
       $swatch.setAttribute("hex-code","#ff0000")
       $swatch.forTesting.dispatchHexCodeChanged()
 
       assertEqual("Red",$input.value,"<input>'s value should be Red")
+      assertEqual("Red",$colorName.name,"The name attribute should return the value")
+      assert(!$colorName.userOverride,"Since the value is the default, userOverride should be false")
     }
   )
 
   test("if the swatch's value changes, the input's value is updated",
-    ({$input,$swatch}) => {
+    ({$colorName,$input,$swatch}) => {
       $swatch.setAttribute("hex-code","#ff0000")
       $swatch.forTesting.dispatchHexCodeChanged()
       $swatch.setAttribute("hex-code","#00ff00")
       $swatch.forTesting.dispatchHexCodeChanged()
 
       assertEqual("Green",$input.value,"<input>'s value should be Green")
+      assertEqual("Green",$colorName.name,"The name attribute should return the value")
+      assert(!$colorName.userOverride,"Since the value is the default, userOverride should be false")
     }
   )
   test("if the user has changed the input, changes to the swatch are ignored",
-    ({$input,$swatch}) => {
+    ({$colorName,$input,$swatch}) => {
       $swatch.setAttribute("hex-code","#ff0000")
       $swatch.forTesting.dispatchHexCodeChanged()
 
@@ -64,6 +68,8 @@ suite("name-derived-from-color-input", ({setup,teardown,test,subject,assert,asse
 
       assertEqual(override,$input.value,"<input>'s value should be the same as what the user input")
       assert($input.dataset.userOverride,"<input> should have data-user-override set to allow detection of this situation")
+      assertEqual(override,$colorName.name,"The name attribute should return the value")
+      assert($colorName.userOverride,"Since the user has overridden the value, userOverride should be true")
     }
   )
   test("if the user has changed the input, then clears it, the name should be restored to the swatch's default",

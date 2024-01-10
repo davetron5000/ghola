@@ -1,0 +1,54 @@
+<%- include("../templates/head.html", { description: "Components List", title: "Ghola - Components" }) %>
+</head>
+  <body class="ff-sans bg-white black-ish">
+    <%- include("../templates/header.html", { subtitle: "Components" }) %>
+    <main class="pa-3">
+      <p class="p">
+        The pages here demo the components in isolation and can run the components' tests.
+      </p>
+      <table class="collapse">
+        <thead>
+          <tr>
+            <th class="tl pa-1 bb br">Component</th>
+            <th class="tl pa-1 bb br">Purpose</th>
+            <th class="tl pa-1 bb br">Demo</th>
+            <th class="tl pa-1 bb">Test</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="pa-1 br bb"><code class="bg-black-ish green-light dib pa-1 ff-mono">g-color-swatch</code></td>
+            <td class="pa-1 br bb">
+              <p class="p">
+                Renders a color swatch, possibly with its value derived from another, or possibly editable
+              </p>
+            </td>
+            <td class="pa-1 bb br"><a class="blue-dark" href="color-swatch.html">View Demo</a></td>
+            <td class="pa-1 bb"><a class="blue-dark" href="color-swatch.test.html">Run Tests</a></td>
+          </tr>
+          <tr>
+            <td class="pa-1 br bb"><code class="bg-black-ish green-light dib pa-1 ff-mono">g-color-name</code></td>
+            <td class="pa-1 br bb">
+              <p class="p">
+                Shows a system-provided name for a color, but allows the user to override it.
+              </p>
+            </td>
+            <td class="pa-1 bb br"><a class="blue-dark" href="color-name.html">View Demo</a></td>
+            <td class="pa-1 bb"><a class="blue-dark" href="color-name.test.html">Run Tests</a></td>
+          </tr>
+          <tr>
+            <td class="pa-1 br bb"><code class="bg-black-ish green-light dib pa-1 ff-mono">g-palette-color</code></td>
+            <td class="pa-1 br bb">
+              <p class="p">
+                Wraps <code>g-color-palette</code> elements and a <code>g-color-name</code> element to show different versions of a base color to be used in a larger palette.
+              </p>
+            </td>
+            <td class="pa-1 bb br"><a class="blue-dark" href="palette-color.html">View Demo</a></td>
+            <td class="pa-1 bb"><a class="blue-dark" href="palette-color.test.html">Run Tests</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </body>
+</html>
+
