@@ -3,7 +3,7 @@ import {
   assertEqual,
   assertNotEqual,
   assert,
-  suite,
+  testCase,
 } from "../brutaldom/testing"
 
 import chroma from "chroma-js"
@@ -35,7 +35,7 @@ const singleDerviedTeardown = ({$main,$derived}) =>  {
 }
 
 
-suite("derived-brighter-linear", ({setup,teardown,test,subject,assert,assertEqual}) => {
+testCase("derived-brighter-linear", ({setup,teardown,test,subject,assert,assertEqual}) => {
   setup( singleDerviedSetup )
   teardown( singleDerviedTeardown )
 
@@ -48,7 +48,7 @@ suite("derived-brighter-linear", ({setup,teardown,test,subject,assert,assertEqua
     }
   )
 })
-suite("derived-darker-linear", ({setup,teardown,test,subject,assert,assertEqual}) => {
+testCase("derived-darker-linear", ({setup,teardown,test,subject,assert,assertEqual}) => {
   setup( singleDerviedSetup )
   teardown( singleDerviedTeardown )
 
@@ -62,7 +62,7 @@ suite("derived-darker-linear", ({setup,teardown,test,subject,assert,assertEqual}
   )
 })
 
-suite("derived-complement", ({setup,teardown,test,subject,assert,assertEqual}) => {
+testCase("derived-complement", ({setup,teardown,test,subject,assert,assertEqual}) => {
   setup( singleDerviedSetup )
   teardown( singleDerviedTeardown )
   test("manipulating the main causes the other to derive the derivedary value",
@@ -112,7 +112,7 @@ const lowerUpperTeardown = ({$lower,$main,$upper}) => {
   document.body.removeChild($upper)
 }
 
-suite("derived-split-complement", ({setup,teardown,test,subject,assert,assertEqual}) => {
+testCase("derived-split-complement", ({setup,teardown,test,subject,assert,assertEqual}) => {
   setup( lowerUpperSetup )
   teardown( lowerUpperTeardown )
 
@@ -128,7 +128,7 @@ suite("derived-split-complement", ({setup,teardown,test,subject,assert,assertEqu
   )
 })
 
-suite("derived-analogous", ({setup,teardown,test,subject,assert,assertEqual}) => {
+testCase("derived-analogous", ({setup,teardown,test,subject,assert,assertEqual}) => {
   setup( lowerUpperSetup )
   teardown( lowerUpperTeardown )
 
@@ -144,7 +144,7 @@ suite("derived-analogous", ({setup,teardown,test,subject,assert,assertEqual}) =>
   )
 })
 
-suite("derived-triad", ({setup,teardown,test,subject,assert,assertEqual}) => {
+testCase("derived-triad", ({setup,teardown,test,subject,assert,assertEqual}) => {
   setup( lowerUpperSetup )
   teardown( lowerUpperTeardown )
 
@@ -162,7 +162,7 @@ suite("derived-triad", ({setup,teardown,test,subject,assert,assertEqual}) => {
 
 })
 
-suite("base-case", ({setup,teardown,test,subject,assert,assertEqual}) => {
+testCase("base-case", ({setup,teardown,test,subject,assert,assertEqual}) => {
   setup( () => {
     const component = subject.children[0].cloneNode(true)
     const $input = component.querySelector("input[type=color]")
@@ -203,7 +203,7 @@ suite("base-case", ({setup,teardown,test,subject,assert,assertEqual}) => {
   })
 })
 
-suite("non-input-case", ({setup,teardown,test,subject,assert,assertEqual}) => {
+testCase("non-input-case", ({setup,teardown,test,subject,assert,assertEqual}) => {
   setup( ({clone,require}) => {
     const component = clone(subject.children[0],"children[0]")
     const $color = require(component.querySelector("[data-color]"),"data-color")
@@ -231,7 +231,7 @@ suite("non-input-case", ({setup,teardown,test,subject,assert,assertEqual}) => {
   })
 })
 
-suite("multiple", ({setup,teardown,test,subject,assert,assertEqual,assertNotEqual}) => {
+testCase("multiple", ({setup,teardown,test,subject,assert,assertEqual,assertNotEqual}) => {
   setup( () => {
     const component = subject.children[0].cloneNode(true)
     const $inputs = component.querySelectorAll("input[type=color]")

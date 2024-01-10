@@ -49,13 +49,13 @@ const assert = (expr,context) => {
   throw new TestFailure(context)
 }
 
-const testSuites = {}
+const testCases = {}
 
-const suite = (id,suiteCode) => {
-  if (testSuites[id]) {
+const testCase = (id,testCaseCode) => {
+  if (testCases[id]) {
     throw `There is already a test with id '${id}'`
   }
-  testSuites[id] = new TestSuite(id,suiteCode)
+  testCases[id] = new TestCase(id,testCaseCode)
 }
 
 class Test {
@@ -103,10 +103,10 @@ class TestResult {
 class ConfidenceCheckFailed extends Error {
 }
 
-class TestSuite {
-  constructor(id,suiteCode) {
+class TestCase {
+  constructor(id,testCaseCode) {
     this.id = id
-    this.suiteCode = suiteCode
+    this.testCaseCode = testCaseCode
   }
   run(subject) {
     let setups = []
@@ -132,7 +132,7 @@ class TestSuite {
       }
     }
 
-    this.suiteCode({
+    this.testCaseCode({
       setup: captureSetup,
       teardown: captureTeardown,
       test: captureTest,
@@ -198,10 +198,10 @@ class TestSuite {
 }
 
 class Tests {
-  static runSuite(testCaseId, subject) {
-    const testSuite = testSuites[testCaseId]
-    if (testSuite) {
-      return testSuite.run(subject)
+  static runTestCase(testCaseId, subject) {
+    const testCase = testCases[testCaseId]
+    if (testCase) {
+      return testCase.run(subject)
     }
     else {
       return [
@@ -228,7 +228,7 @@ class TestCaseComponent extends HTMLElement {
     if (subject && this.id) {
       const $p = this.querySelector("p")
       const description = $p ? $p.textContent.trim() : this.id
-      const formattedResults = Tests.runSuite(this.id,subject).map( (result) => {
+      const formattedResults = Tests.runTestCase(this.id,subject).map( (result) => {
         if (result.passed) {
           return [
             "PASS",
@@ -289,6 +289,6 @@ export {
   assertEqual,
   assertNotEqual,
   assert,
-  suite,
+  testCase,
   TestCaseComponent,
 }

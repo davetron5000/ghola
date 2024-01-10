@@ -3,7 +3,7 @@ import {
   assertEqual,
   assertNotEqual,
   assert,
-  suite,
+  testCase,
 } from "../brutaldom/testing"
 
 const basicSetup = (locatePaletteColor) => {
@@ -13,7 +13,7 @@ const basicSetup = (locatePaletteColor) => {
     const $unlinkButton  = require($paletteColor.querySelector("[data-unlink]"),"[data-unlink] button")
     const $removeButton  = require($paletteColor.querySelector("[data-remove]"),"[data-remove] button")
 
-    const uniqueId = `palette-color-${crypto.randomUUID()}`
+    const uniqueId = `palette-color-scale-${crypto.randomUUID()}`
     $paletteColor.querySelectorAll("g-color-swatch").forEach( (swatch) => {
       if (swatch.getAttribute("derived-from")) {
         swatch.setAttribute("derived-from",uniqueId)
@@ -56,7 +56,7 @@ const teardownAdded = ({$paletteColor}) => {
   }
 }
 
-suite("primary-color", ({setup,teardown,test,subject,assert,assertEqual}) => {
+testCase("primary-color", ({setup,teardown,test,subject,assert,assertEqual}) => {
   setup(childrenSetup)
   teardown(teardownAdded)
 
@@ -95,7 +95,7 @@ suite("primary-color", ({setup,teardown,test,subject,assert,assertEqual}) => {
   )
 })
 
-suite("as-color-scale", ({setup,teardown,confidenceCheck,test,subject,assert,assertEqual}) => {
+testCase("derive-color-scale", ({setup,teardown,confidenceCheck,test,subject,assert,assertEqual}) => {
   setup(childrenSetup)
   setup(({$paletteColor}) => {
     // Clear out the ids and any generated attributes
@@ -105,7 +105,7 @@ suite("as-color-scale", ({setup,teardown,confidenceCheck,test,subject,assert,ass
       e.removeAttribute("darken-by")
       e.removeAttribute("brighten-by")
     })
-    $paletteColor.removeAttribute("as-color-scale")
+    $paletteColor.removeAttribute("derive-color-scale")
   })
   teardown(teardownAdded)
   confidenceCheck( ({$paletteColor}) => {
@@ -123,7 +123,7 @@ suite("as-color-scale", ({setup,teardown,confidenceCheck,test,subject,assert,ass
 
 
       // Trigger everything
-      $paletteColor.setAttribute("as-color-scale","linear")
+      $paletteColor.setAttribute("derive-color-scale","linear")
 
       assert(base.id,`Base swatch should have been given an ID: ${base.outerHTML}`)
       assertEqual(1,document.querySelectorAll(`#${base.id}`).length,"The assigned ID should be unique")
@@ -143,11 +143,12 @@ suite("as-color-scale", ({setup,teardown,confidenceCheck,test,subject,assert,ass
       assertEqual("30%",swatches[4].getAttribute("brighten-by"), "Swatches later in scale should have brighter colors")
       assertEqual("60%",swatches[5].getAttribute("brighten-by"), "Swatches later in scale should have brighter colors")
       assertEqual("90%",swatches[6].getAttribute("brighten-by"), "Swatches later in scale should have brighter colors")
+      assertEqual($paletteColor.querySelectorAll("g-color-swatch")[3],$paletteColor.baseColorSwatch,"The base swatch should be the middle one")
     }
   )
 })
 
-suite("as-color-scale-exp", ({setup,teardown,confidenceCheck,test,subject,assert,assertEqual}) => {
+testCase("derive-color-scale-exp", ({setup,teardown,confidenceCheck,test,subject,assert,assertEqual}) => {
   setup(childrenSetup)
   setup(({$paletteColor}) => {
     // Clear out the ids and any generated attributes
@@ -157,7 +158,7 @@ suite("as-color-scale-exp", ({setup,teardown,confidenceCheck,test,subject,assert
       e.removeAttribute("darken-by")
       e.removeAttribute("brighten-by")
     })
-    $paletteColor.removeAttribute("as-color-scale")
+    $paletteColor.removeAttribute("derive-color-scale")
   })
   teardown(teardownAdded)
   confidenceCheck( ({$paletteColor}) => {
@@ -175,7 +176,7 @@ suite("as-color-scale-exp", ({setup,teardown,confidenceCheck,test,subject,assert
 
 
       // Trigger everything
-      $paletteColor.setAttribute("as-color-scale","exponential")
+      $paletteColor.setAttribute("derive-color-scale","exponential")
 
       assert(base.id,`Base swatch should have been given an ID: ${base.outerHTML}`)
       assertEqual(1,document.querySelectorAll(`#${base.id}`).length,"The assigned ID should be unique")
@@ -194,76 +195,15 @@ suite("as-color-scale-exp", ({setup,teardown,confidenceCheck,test,subject,assert
       assertEqual("49%",swatches[4].getAttribute("brighten-by"), "Swatches later in scale should have brighter colors")
       assertEqual("87%",swatches[5].getAttribute("brighten-by"), "Swatches later in scale should have brighter colors")
       assertEqual("96%",swatches[6].getAttribute("brighten-by"), "Swatches later in scale should have brighter colors")
+      assertEqual($paletteColor.querySelectorAll("g-color-swatch")[3],$paletteColor.baseColorSwatch,"The base swatch should be the middle one")
     }
   )
 })
 
-suite("as-tweaked-color-scale", ({setup,teardown,confidenceCheck,test,subject,assert,assertEqual}) => {
-  setup(childrenSetup)
-  setup(({$paletteColor}) => {
-    // Clear out the ids and any generated attributes
-    $paletteColor.querySelectorAll("g-color-swatch").forEach( (e,index) => {
-
-      e.removeAttribute("id")
-      e.removeAttribute("derived-from")
-      e.removeAttribute("darken-by")
-      e.removeAttribute("derivation-algorithm")
-
-      e.removeAttribute("brighten-by")
-      if (index == 1) {
-        e.setAttribute("darken-by","70%")
-      }
-      if (index == 3) {
-        e.setAttribute("brighten-by","65%")
-      }
-      if (index == 0) {
-        e.setAttribute("derivation-algorithm","linear")
-      }
-    })
-    // Re-trigger the entire thing
-    $paletteColor.removeAttribute("as-color-scale")
-    $paletteColor.setAttribute("as-color-scale","linear")
-  })
-  teardown(teardownAdded)
-  confidenceCheck( ({$paletteColor}) => {
-    const numSwatches = $paletteColor.querySelectorAll("g-color-swatch").length
-    if (numSwatches != 5) {
-      throw `Test setup is borked - there are ${numSwatches} swatches and not 5`
-    }
-  })
-
-  test("derivations and configuration are set automatically on swatches",
-    ({ $paletteColor }) => {
-      const swatches = Array.from($paletteColor.querySelectorAll("g-color-swatch"))
-
-      const base = swatches[2]
-
-      assert(base.id,`Base swatch should have been given an ID: ${base.outerHTML}`)
-      assertEqual(1,document.querySelectorAll(`#${base.id}`).length,"The assigned ID should be unique")
-
-      assertEqual(base.id,swatches[0].getAttribute("derived-from"), "Swatches should be derived-from the base")
-      assertEqual("linear",swatches[0].getAttribute("derivation-algorithm"), "Swatches should get the derivation algorithm from the component")
-      assertEqual("90%",swatches[0].getAttribute("darken-by"), "Swatches earlier in scale should have darker colors")
-
-      assertEqual(base.id,swatches[1].getAttribute("derived-from"), "Swatches should be derived-from the base")
-      assertEqual("linear",swatches[1].getAttribute("derivation-algorithm"), "Swatches should get the derivation algorithm from the component")
-      assertEqual("70%",swatches[1].getAttribute("darken-by"), "Swatches earlier in scale should have darker colors")
-
-      assertEqual(base.id,swatches[3].getAttribute("derived-from"), "Swatches should be derived-from the base")
-      assertEqual("linear",swatches[3].getAttribute("derivation-algorithm"), "Swatches should get the derivation algorithm from the component")
-      assertEqual("65%",swatches[3].getAttribute("brighten-by"), "Swatches later in scale should have brighter colors")
-
-      assertEqual(base.id,swatches[4].getAttribute("derived-from"), "Swatches should be derived-from the base")
-      assertEqual("linear",swatches[4].getAttribute("derivation-algorithm"), "Swatches should get the derivation algorithm from the component")
-      assertEqual("90%",swatches[4].getAttribute("brighten-by"), "Swatches later in scale should have brighten colors")
-    }
-  )
-})
-
-suite("linked-color", ({setup,teardown,test,subject,assert,assertEqual}) => {
+testCase("linked-color", ({setup,teardown,test,subject,assert,assertEqual}) => {
   setup( (...args) => {
     const locatePaletteColor = ({subject,clone}) => {
-      return clone(subject.querySelector("g-palette-color[linked-to]"),"g-palette-color[linked-to]",subject)
+      return clone(subject.querySelector("g-palette-color-scale[linked-to]"),"g-palette-color-scale[linked-to]",subject)
     }
     return basicSetup(locatePaletteColor)(...args)
   })
@@ -341,10 +281,10 @@ suite("linked-color", ({setup,teardown,test,subject,assert,assertEqual}) => {
     }
   )
 })
-suite("linked-to-primary", ({setup,teardown,test,subject,assert,assertEqual}) => {
+testCase("linked-to-primary", ({setup,teardown,test,subject,assert,assertEqual}) => {
   setup( (...args) => {
     const locatePaletteColor = ({subject,clone}) => {
-      return clone(subject.querySelector("g-palette-color[linked-to-primary]"),"g-palette-color[linked-to-primary]",subject)
+      return clone(subject.querySelector("g-palette-color-scale[linked-to-primary]"),"g-palette-color-scale[linked-to-primary]",subject)
     }
     return basicSetup(locatePaletteColor)(...args)
   })
@@ -423,7 +363,7 @@ suite("linked-to-primary", ({setup,teardown,test,subject,assert,assertEqual}) =>
   )
 })
 
-suite("unlinked-color", ({setup,teardown,test,subject,assert,assertEqual}) => {
+testCase("unlinked-color", ({setup,teardown,test,subject,assert,assertEqual}) => {
   setup(childrenSetup)
   teardown(teardownAdded)
 

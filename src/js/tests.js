@@ -4,7 +4,7 @@ import {
 
 import "./components/ColorSwatchComponent.tests.js"
 import "./components/ColorNameComponent.tests.js"
-import "./components/PaletteColorComponent.tests.js"
+import "./components/PaletteColorScaleComponent.tests.js"
 
 
 document.addEventListener("DOMContentLoaded", () => {
