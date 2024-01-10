@@ -1,3 +1,5 @@
+import TypeOf from "../TypeOf"
+
 class TestFailure extends Error {
   constructor(failureMessage) {
     super(failureMessage)
@@ -28,7 +30,7 @@ const assertEqual = (expected,got,context) => {
   if (expected == got) {
     return
   }
-  const message = `${context}\nExpected '${expected}'\nbut got   '${got}'`
+  const message = `${context}\nExpected '${expected}'\nbut got   '${got}' (type: ${TypeOf.asString(got)})`
   throw new TestFailure(message)
 }
 
@@ -73,6 +75,7 @@ class TestResult {
 
   get passed() { return !this.errorOrFailure }
   get failed() { return this.errorOrFailure instanceof TestFailure }
+  get confidenceCheckFailed() { return this.errorOrFailure instanceof ConfidenceCheckFailed }
   get errored() {
     return !this.passed && !this.failed
   }
@@ -97,17 +100,23 @@ class TestResult {
   }
 }
 
+class ConfidenceCheckFailed extends Error {
+}
+
 class TestSuite {
   constructor(id,suiteCode) {
     this.id = id
     this.suiteCode = suiteCode
   }
   run(subject) {
-    let setup = () => { return {} }
-    let teardown = () => { return {} }
+    let setups = []
+    let teardowns = []
 
-    const captureSetup = (f) => { setup = f }
-    const captureTeardown = (f) => { teardown = f }
+    let confidenceChecks = []
+
+    const captureSetup = (f)           => { setups.push(f) }
+    const captureTeardown = (f)        => { teardowns.push(f) }
+    const captureConfidenceCheck = (f) => { confidenceChecks.push(f) }
 
     let tests = []
 
@@ -131,13 +140,14 @@ class TestSuite {
       assert: capturingAssert(assert),
       assertEqual: capturingAssert(assertEqual),
       assertNotEqual: capturingAssert(assertNotEqual),
+      confidenceCheck: captureConfidenceCheck,
     })
 
     const results = []
 
-    const require = (element,description) => {
+    const require = (element,description,elementSearched) => {
       if (!element) {
-        throw `Required element not found: ${description}`
+        throw `Required element not found: ${description}${ elementSearched ? "HTML: " + elementSearched.outerHTML : '' }`
       }
       return element
     }
@@ -148,8 +158,19 @@ class TestSuite {
     tests.forEach( (test) => {
       assertionsThisTest = 0
       try {
-        const setupResults = setup({subject,require, clone})
+        let setupResults = {}
+        setups.forEach( (setup) => {
+          const results = setup({subject,require,clone,...setupResults})
+          setupResults = { ...results, ...setupResults }
+        })
         try {
+          try {
+            confidenceChecks.forEach( (confidenceCheck) => {
+              confidenceCheck(setupResults)
+            })
+          } catch (e) {
+            throw new ConfidenceCheckFailed(e)
+          }
           test.testCode(setupResults)
           results.push(new TestResult(test,assertionsThisTest))
         }
@@ -157,7 +178,9 @@ class TestSuite {
           results.push(new TestResult(test,assertionsThisTest,e))
         }
         try {
-          teardown(setupResults)
+          teardowns.forEach( (teardown) => {
+            teardown(setupResults)
+          })
         }
         catch (e) {
           results.push(new TestResult(test,assertionsThisTest,e,"from teardown()"))
@@ -189,6 +212,15 @@ class Tests {
 }
 
 class TestCaseComponent extends HTMLElement {
+  static observedAttributes = [
+    "force-open",
+  ]
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name == "force-open") {
+      this.forceOpen = newValue == ""
+    }
+  }
 
   connectedCallback() {
     const subject = this.querySelector("g-test-case-subject")
@@ -208,7 +240,7 @@ class TestCaseComponent extends HTMLElement {
         }
         else {
           return [
-            result.failed ? "FAIL" : "ERROR",
+            result.failed ? "FAIL" : ( result.confidenceCheckFailed ? "CONFIDENCE CHECK FAILED" : "ERROR" ),
             result.numAssertions,
             result.test.description,
             result.test.errorMessage,
@@ -227,6 +259,9 @@ class TestCaseComponent extends HTMLElement {
         if (details) {
           details.removeAttribute("open")
         }
+      }
+      if (details && this.forceOpen) {
+        details.setAttribute("open",true)
       }
       formattedResults.forEach( ([result,numAssertions,description,errorMessage,error]) => {
         console.log("[%c%s] %c%s (%d assertions)%s  %o",

@@ -3,8 +3,11 @@
   <body class="ff-sans bg-white black-ish">
     <%- include("../templates/header.html", { subtitle: "Test of color name" }) %>
     <main class="pa-3">
+      <nav class="flex gap-3">
       <a class="blue-dark" href="color-name.html">View demo</a>
-      <h3>Test Cases</h3>
+      <a class="blue-dark" href="color-swatch.test.html">Depends on <code>g-color-swatch</code> Working</a>
+      </nav>
+      <h3>Test Cases for <code>g-color-name</code></h3>
       <%- include("../templates/test-case-start.html", {
         id: "name-derived-from-color-input",
         title: "Name can be overridden, but defaults to a broad categorization based on the hex code of the swatch",

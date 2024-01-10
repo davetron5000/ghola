@@ -4,7 +4,7 @@
     <%- include("../templates/header.html", { subtitle: "Test of color swatch" }) %>
     <main class="pa-3">
       <a class="blue-dark" href="color-swatch.html">View demo</a>
-      <h3>Test Cases</h3>
+      <h3>Test Cases for <code>g-color-swatch</code></h3>
       <g-test-case id="base-case">
         <details>
           <summary>
@@ -22,6 +22,28 @@
             </g-color-swatch>
           </g-test-case-subject>
           <g-element-source element-id="base-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+        </div>
+        </details>
+      </g-test-case>
+      <g-test-case id="non-input-case">
+        <details>
+          <summary>
+            <h4>Base Case on a non-<code>input</code></h4>
+        <p>
+          If there is no <code>input</code> nor <code>label</code>, the contained markup can set <code>data-color</code> and <code>data-hexcode</code>.  In that case, the <code>data-color</code> will be given the background color of the hex code and the <code>data-hexcode</code> will be treated as if it were a <code>label</code>.
+        </p>
+        </summary>
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject id="non-input-case-subject">
+            <g-color-swatch hex-code="#990033">
+              <div data-hexcode class="flex flex-column gap-2">
+                <div data-color class="h-5 w-5"></div>
+              </div>
+            </g-color-swatch>
+          </g-test-case-subject>
+          <g-element-source element-id="non-input-case-subject" html="inner">
             <pre><code></code></pre>
           </g-element-source>
         </div>
@@ -58,7 +80,7 @@
       <g-test-case id="derived-brighter-linear">
         <details>
           <summary>
-        <h4>Deriving Brighter Values - Linear</h4>
+        <h4>Deriving Brighter Values</h4>
         <p class="p">
           Color swatch can show a brigher value based on linear transformation
         </p>
@@ -68,7 +90,7 @@
                           derived-from="swatch-derived-from-brighter-linear"
                           brighten-by="50%"
                           debug
-                          derivation-algorithm="linear">
+                          derivation-algorithm="brightness">
             <label>
               <input type="color" readonly>
               <code></code>
@@ -89,7 +111,7 @@
       <g-test-case id="derived-darker-linear">
         <details>
           <summary>
-        <h4>Deriving Darker Values - Linear</h4>
+        <h4>Deriving Darker Values</h4>
         <p class="p">
           Color swatch can show a darker value based on linear transformation
         </p>
@@ -99,75 +121,13 @@
                           derived-from="swatch-derived-from-darker-linear"
                           darken-by="50%"
                           debug
-                          derivation-algorithm="linear">
+                          derivation-algorithm="brightness">
             <label>
               <input type="color" readonly>
               <code></code>
             </label>
           </g-color-swatch>
           <g-color-swatch id="swatch-derived-from-darker-linear" debug hex-code="#123456">
-            <label>
-              <input type="color">
-              <code></code>
-            </label>
-          </g-color-swatch>
-        </g-test-case-subject>
-        <g-element-source element-sibling="g-test-case-subject" html="inner">
-          <pre><code></code></pre>
-        </g-element-source>
-        </details>
-      </g-test-case>
-      <g-test-case id="derived-brighter-exponential">
-        <details>
-          <summary>
-        <h4>Deriving Brighter Values - Exponential</h4>
-        <p class="p">
-          Color swatch can show a brigher value based on exponential transformation
-        </p>
-        </summary>
-        <g-test-case-subject class="db">
-          <g-color-swatch id="swatch-derived-brighter-exponential"
-                          derived-from="swatch-derived-from-brighter-exponential"
-                          brighten-by="50%"
-                          debug
-                          derivation-algorithm="exp">
-            <label>
-              <input type="color" readonly>
-              <code></code>
-            </label>
-          </g-color-swatch>
-          <g-color-swatch id="swatch-derived-from-brighter-exponential" debug hex-code="#123456">
-            <label>
-              <input type="color">
-              <code></code>
-            </label>
-          </g-color-swatch>
-        </g-test-case-subject>
-        <g-element-source element-sibling="g-test-case-subject" html="inner">
-          <pre><code></code></pre>
-        </g-element-source>
-        </details>
-      </g-test-case>
-      <g-test-case id="derived-darker-exponential">
-        <details>
-          <summary>
-        <h4>Deriving Darker Values - exponential</h4>
-        <p class="p">
-          Color swatch can show a darker value based on exponential transformation
-        </p>
-        </summary>
-        <g-test-case-subject class="db">
-          <g-color-swatch id="swatch-derived-darker-exponential"
-                          derived-from="swatch-derived-from-darker-exponential"
-                          darken-by="50%"
-                          debug
-                          derivation-algorithm="exp">
-            <label>
-              <input type="color" readonly>
-              <code></code>
-            </label>
-          </g-color-swatch>
-          <g-color-swatch id="swatch-derived-from-darker-exponential" debug hex-code="#123456">
             <label>
               <input type="color">
               <code></code>
@@ -326,8 +286,6 @@
         </g-element-source>
         </details>
       </g-test-case>
-
-
     </main>
   </body>
 </html>

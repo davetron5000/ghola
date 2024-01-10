@@ -4,7 +4,9 @@ import {
   assertNotEqual,
   assert,
   suite,
-} from "./brutaldom/testing"
+} from "../brutaldom/testing"
+
+import chroma from "chroma-js"
 
 const singleDerviedSetup = ({subject,clone,require}) => {
   const $derived = clone(subject.children[0],"children[0]")
@@ -41,8 +43,8 @@ suite("derived-brighter-linear", ({setup,teardown,test,subject,assert,assertEqua
     ({$main,$derived,$derivedInput,$derivedLabel}) => {
       $main.setAttribute("hex-code","#453888")
 
-      assertEqual("#998ed1",$derivedInput.value.toLowerCase(), "Value should be derived via linear algorithm")
-      assertEqual("#998ed1",$derivedLabel.textContent.toLowerCase(), "Value should be derived via linear algorithm")
+      assertEqual("#998ed1",$derivedInput.value.toLowerCase(), "Value should be derived via brightness algorithm")
+      assertEqual("#998ed1",$derivedLabel.textContent.toLowerCase(), "Value should be derived via brightness algorithm")
     }
   )
 })
@@ -54,34 +56,8 @@ suite("derived-darker-linear", ({setup,teardown,test,subject,assert,assertEqual}
     ({$main,$derived,$derivedInput,$derivedLabel}) => {
       $main.setAttribute("hex-code","#888555")
 
-      assertEqual("#44432b",$derivedInput.value.toLowerCase(), "Value should be derived via linear algorithm")
-      assertEqual("#44432b",$derivedLabel.textContent.toLowerCase(), "Value should be derived via linear algorithm")
-    }
-  )
-})
-
-suite("derived-brighter-exponential", ({setup,teardown,test,subject,assert,assertEqual}) => {
-  setup( singleDerviedSetup )
-  teardown( singleDerviedTeardown )
-
-  test("manipulating the main causes the others to derive values",
-    ({$main,$derived,$derivedInput,$derivedLabel}) => {
-      $main.setAttribute("hex-code","#453888")
-
-      assertEqual("#c1bdd7",$derivedInput.value.toLowerCase(), "Value should be derived via exponential algorithm")
-      assertEqual("#c1bdd7",$derivedLabel.textContent.toLowerCase(), "Value should be derived via exponential algorithm")
-    }
-  )
-})
-suite("derived-darker-exponential", ({setup,teardown,test,subject,assert,assertEqual}) => {
-  setup( singleDerviedSetup )
-  teardown( singleDerviedTeardown )
-  test("manipulating the main causes the others to derive values",
-    ({$main,$derived,$derivedInput,$derivedLabel}) => {
-      $main.setAttribute("hex-code","#888555")
-
-      assertEqual("#2d2c1c",$derivedInput.value.toLowerCase(), "Value should be derived via exponential algorithm")
-      assertEqual("#2d2c1c",$derivedLabel.textContent.toLowerCase(), "Value should be derived via exponential algorithm")
+      assertEqual("#44432b",$derivedInput.value.toLowerCase(), "Value should be derived via brightness algorithm")
+      assertEqual("#44432b",$derivedLabel.textContent.toLowerCase(), "Value should be derived via brightness algorithm")
     }
   )
 })
@@ -224,6 +200,34 @@ suite("base-case", ({setup,teardown,test,subject,assert,assertEqual}) => {
     const $code = $label.querySelector("code")
     assert($code,`Expected a <code> inside the label: ${$label.outerHTML}`)
     assertEqual($code.textContent,value,"<code> should have textContent set to the input's label")
+  })
+})
+
+suite("non-input-case", ({setup,teardown,test,subject,assert,assertEqual}) => {
+  setup( ({clone,require}) => {
+    const component = clone(subject.children[0],"children[0]")
+    const $color = require(component.querySelector("[data-color]"),"data-color")
+    const $hexcode = require(component.querySelector("[data-hexcode]"),"data-hexcode")
+
+    document.body.appendChild(component)
+    return {component,$color,$hexcode}
+  })
+  teardown( ({component}) => {
+    document.body.removeChild(component)
+  })
+  test("hex-code attribute should be copied to [data-color] background color and set as label", ({component,$color,$hexcode}) => {
+    const hexCode = component.getAttribute("hex-code")
+    const value = $color.style.backgroundColor
+    const [_,r,g,b] = value.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/)
+
+    assert(!!_,`Expected style property to be rgb(r,g,b) but was '${value}'`)
+    const valueAsHex = chroma.rgb(r,g,b).hex()
+
+    assertEqual(hexCode, valueAsHex,"[data-color]'s backgroundColor should be set to the component's hex-code")
+
+    const $code = $hexcode.querySelector("code")
+    assert($code,`Expected a <code> inside the label: ${$hexcode.outerHTML}`)
+    assertEqual($code.textContent,hexCode,"<code> should have textContent set to the hex code")
   })
 })
 

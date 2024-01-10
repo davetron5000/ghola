@@ -78,15 +78,19 @@ export default class ColorNameComponent extends HTMLElement {
     this.render()
   }
 
-  render() {
-    if (this.disconnected) {
-      return
-    }
+  _input() {
     const inputs = this.querySelectorAll("input[type=text]")
     if (inputs.length > 1) {
       this.logger.warn("There is more than one input - only the first one found will be used")
     }
-    const input = inputs[0]
+    return inputs[0]
+  }
+
+  render() {
+    if (this.disconnected) {
+      return
+    }
+    const input = this._input()
     if (this.input != input) {
       if (this.input) {
         this.input.removeEventListener("change",this.inputChangeListener)
@@ -101,6 +105,26 @@ export default class ColorNameComponent extends HTMLElement {
       if (this.colorSwatch && this.colorSwatch.hexCode) {
         input.value = this._name(this.colorSwatch.hexCode)
       }
+    }
+  }
+
+  get name() {
+    const input = this._input()
+    if (input) {
+      return input.value
+    }
+    else {
+      return null
+    }
+
+  }
+  get userOverride() {
+    const input = this._input()
+    if (input) {
+      return input.dataset.userOverride
+    }
+    else {
+      return false
     }
   }
 

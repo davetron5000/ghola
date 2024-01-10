@@ -1,0 +1,351 @@
+<%- include("../templates/head.html", { description: "Tests for the palette color name", title: "Ghola - Palette Color Name Tests", tests: true }) %>
+</head>
+  <body class="ff-sans bg-white black-ish">
+    <%- include("../templates/header.html", { subtitle: "Test of palette color" }) %>
+    <main class="pa-3">
+      <nav class="flex gap-3">
+      <a class="blue-dark" href="palette-color.html">View demo</a>
+      </nav>
+      <h3>Test Cases for <code>g-palette-color</code></h3>
+      <%- include("../templates/test-case-start.html", {
+        id: "primary-color",
+        title: "When set as primary, the color cannot be removed or unlinked, but it can be previewed",
+        open: false,
+        description: "The primary color cannot be removed or unlinked, but still exposes its internal data and allows event listeners.",
+        }) %>
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-palette-color primary class="flex flex-column gap-2">
+              <div>
+                <g-color-name color-swatch="primary-base-color">
+                  <label>
+                    <input type="text" class="f-3 ba br-2 bg-white-ish black bc-gray pa-2 ff-sans inner-shadow-1">
+                    Color Name
+                  </label>
+
+                </g-color-name>
+                <button data-preview>
+                  Preview
+                </button>
+                <button data-remove>
+                  Remove
+                </button>
+                <button data-unlink>
+                  Unlink from Primary
+                </button>
+              </div>
+              <div class="flex">
+                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="brightness" darken-by="90%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="brightness" darken-by="50%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="brightness" darken-by="30%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch id="primary-base-color" hex-code="#6429bd">
+                  <label class="flex flex-column"><input type="color"></label>
+                </g-color-swatch>
+                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="brightness" brighten-by="30%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="brightness" brighten-by="50%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="brightness" brighten-by="90%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+              </div>
+            </g-palette-color>
+          </g-test-case-subject>
+            <script>
+              document.
+                querySelector("g-test-case#primary-color g-palette-color").
+                addEventListener("preview", () => alert("Preview!") )
+            </script>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+        </div>
+      <%- include("../templates/test-case-end.html") %>
+      <%- include("../templates/test-case-start.html", {
+        id: "linked-color",
+        title: "When set as linked, the color can be removed, unlinked, and previewed",
+        open: false,
+        description: "Linked colors can be removed, unlinked, and previewed"
+        }) %>
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-palette-color primary id="linked-color-palette-color">
+              <div class="flex">
+                <g-color-swatch id="linked-to-primary-base-color" hex-code="#6429bd">
+                  <label class="flex flex-column"><input type="color"></label>
+                </g-color-swatch>
+              </div>
+            </g-palette-color>
+            <g-palette-color linked-to="linked-color-palette-color" class="flex flex-column gap-2">
+              <div>
+                <g-color-name color-swatch="linked-to-base-color">
+                  <label>
+                    <input type="text" class="f-3 ba br-2 bg-white-ish black bc-gray pa-2 ff-sans inner-shadow-1">
+                    Color Name
+                  </label>
+
+                </g-color-name>
+                <button data-preview>
+                  Preview
+                </button>
+                <button data-remove>
+                  Remove
+                </button>
+                <button data-unlink>
+                  Unlink from Primary
+                </button>
+              </div>
+              <div class="flex">
+                <g-color-swatch derived-from="linked-to-base-color" derivation-algorithm="brightness" darken-by="90%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch derived-from="linked-to-base-color" derivation-algorithm="brightness" darken-by="50%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch derived-from="linked-to-base-color" derivation-algorithm="brightness" darken-by="30%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch id="linked-to-base-color" derived-from="linked-to-primary-base-color" derivation-algorithm="complement">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch derived-from="linked-to-base-color" derivation-algorithm="brightness" brighten-by="<%= (3/7) * 100 %>%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch derived-from="linked-to-base-color" derivation-algorithm="brightness" brighten-by="<%= (5/7) * 100 %>%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch derived-from="linked-to-base-color" derivation-algorithm="brightness" brighten-by="90%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+              </div>
+            </g-palette-color>
+          </g-test-case-subject>
+            <script>
+              document.
+                querySelector("g-test-case#primary-color g-palette-color").
+                addEventListener("preview", () => alert("Preview!") )
+            </script>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+        </div>
+      <%- include("../templates/test-case-end.html") %>
+      <%- include("../templates/test-case-start.html", {
+        id: "linked-to-primary",
+        title: "When set as linked-to-primary, the color can be removed, unlinked, and previewed and it's linked to the sibling primary",
+        open: false,
+        description: "Linked colors can linked to whatever is considered primary"
+        }) %>
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-palette-color primary>
+              <div class="flex">
+                <g-color-swatch id="another-primary-base-color" hex-code="#6429bd">
+                  <label class="flex flex-column"><input type="color"></label>
+                </g-color-swatch>
+              </div>
+            </g-palette-color>
+            <g-palette-color linked-to-primary class="flex flex-column gap-2">
+              <div>
+                <button data-preview>
+                  Preview
+                </button>
+                <button data-remove>
+                  Remove
+                </button>
+                <button data-unlink>
+                  Unlink from Primary
+                </button>
+              </div>
+              <div class="flex">
+                <g-color-swatch derived-from="linked-to-another-primary-base-color" derivation-algorithm="brightness" darken-by="90%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch derived-from="linked-to-another-primary-base-color" derivation-algorithm="brightness" darken-by="50%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch derived-from="linked-to-another-primary-base-color" derivation-algorithm="brightness" darken-by="30%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch id="linked-to-another-primary-base-color" derived-from="another-primary-base-color" derivation-algorithm="complement">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch derived-from="linked-to-another-primary-base-color" derivation-algorithm="brightness" brighten-by="<%= (3/7) * 100 %>%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch derived-from="linked-to-another-primary-base-color" derivation-algorithm="brightness" brighten-by="<%= (5/7) * 100 %>%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch derived-from="linked-to-another-primary-base-color" derivation-algorithm="brightness" brighten-by="90%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+              </div>
+            </g-palette-color>
+          </g-test-case-subject>
+            <script>
+              document.
+                querySelector("g-test-case#primary-color g-palette-color").
+                addEventListener("preview", () => alert("Preview!") )
+            </script>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+        </div>
+      <%- include("../templates/test-case-end.html") %>
+      <%- include("../templates/test-case-start.html", {
+        id: "unlinked-color",
+        title: "When not primary nor linked, the color unlinked and can be removed or previewed, but not unlinked",
+        open: false,
+        description: "Unlinked colors can be removed or previewed only",
+        }) %>
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-palette-color class="flex flex-column gap-2">
+              <div>
+                <g-color-name color-swatch="primary-base-color">
+                  <label>
+                    <input type="text" class="f-3 ba br-2 bg-white-ish black bc-gray pa-2 ff-sans inner-shadow-1">
+                    Color Name
+                  </label>
+                </g-color-name>
+                <button data-preview>
+                  Preview
+                </button>
+                <button data-remove>
+                  Remove
+                </button>
+                <button data-unlink>
+                  Unlink from Primary
+                </button>
+              </div>
+              <div class="flex">
+                <g-color-swatch derived-from="unlinked-to-base-color" derivation-algorithm="brightness" darken-by="90%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch derived-from="unlinked-to-base-color" derivation-algorithm="brightness" darken-by="50%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch derived-from="unlinked-to-base-color" derivation-algorithm="brightness" darken-by="30%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch id="unlinked-to-base-color" hex-code="#876543">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch derived-from="unlinked-to-base-color" derivation-algorithm="brightness" brighten-by="<%= (3/7) * 100 %>%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch derived-from="unlinked-to-base-color" derivation-algorithm="brightness" brighten-by="<%= (5/7) * 100 %>%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch derived-from="unlinked-to-base-color" derivation-algorithm="brightness" brighten-by="90%">
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+              </div>
+            </g-palette-color>
+          </g-test-case-subject>
+            <script>
+              document.
+                querySelector("g-test-case#primary-color g-palette-color").
+                addEventListener("preview", () => alert("Preview!") )
+            </script>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+        </div>
+      <%- include("../templates/test-case-end.html") %>
+      <%- include("../templates/test-case-start.html", {
+        id: "as-color-scale",
+        title: "Using as a color-scale with linear gradient",
+        open: false,
+        description: "When as-color-scale is set, the center swatch is assumed base and others are set up as a gradient, derived linearly from there."
+        }) %>
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-palette-color as-color-scale="linear" class="flex flex-column gap-2" id="as-color-scale-component" debug>
+              <button data-preview> Preview </button>
+              <button data-remove> Remove </button>
+              <button data-unlink> Unlink from Primary </button>
+              <div class="flex">
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch hex-code="#6429bd">
+                  <label class="flex flex-column"><input type="color"></label>
+                </g-color-swatch>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+              </div>
+            </g-palette-color>
+          </g-test-case-subject>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+        </div>
+      <%- include("../templates/test-case-end.html") %>
+      <%- include("../templates/test-case-start.html", {
+        id: "as-color-scale-exp",
+        title: "Using as a color-scale with exponential gradient",
+        open: false,
+        description: "An exponential gradient will provide more variety and darker darks/lighter lights for the scale"
+        }) %>
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-palette-color as-color-scale="exponential" class="flex flex-column gap-2" id="as-color-scale-exp-component" debug>
+              <button data-preview> Preview </button>
+              <button data-remove> Remove </button>
+              <button data-unlink> Unlink from Primary </button>
+              <div class="flex">
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch hex-code="#6429bd">
+                  <label class="flex flex-column"><input type="color"></label>
+                </g-color-swatch>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" readonly></label>
+                </g-color-swatch>
+              </div>
+            </g-palette-color>
+          </g-test-case-subject>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+        </div>
+      <%- include("../templates/test-case-end.html") %>
+    </main>
+  </body>
+</html>
+

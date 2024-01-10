@@ -2,8 +2,9 @@ import {
   TestCaseComponent,
 } from "./brutaldom/testing"
 
-import "./ColorSwatchComponent.tests.js"
-import "./ColorNameComponent.tests.js"
+import "./components/ColorSwatchComponent.tests.js"
+import "./components/ColorNameComponent.tests.js"
+import "./components/PaletteColorComponent.tests.js"
 
 
 document.addEventListener("DOMContentLoaded", () => {
