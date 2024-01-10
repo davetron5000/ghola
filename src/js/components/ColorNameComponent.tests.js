@@ -3,13 +3,13 @@ import {
   assertEqual,
   assertNotEqual,
   assert,
-  suite,
+  testCase,
 } from "../brutaldom/testing"
 
 import ColorSwatchComponent from "./ColorSwatchComponent"
 import ColorNameComponent from "./ColorNameComponent"
 
-suite("name-derived-from-color-input", ({setup,teardown,test,subject,assert,assertEqual}) => {
+testCase("name-derived-from-color-input", ({setup,teardown,test,subject,assert,assertEqual}) => {
   setup( ({require,clone}) => {
     const $colorName = clone(subject.querySelector(ColorNameComponent.tagName),"text input")
     const $swatch = clone(subject.querySelector(ColorSwatchComponent.tagName),"text input")

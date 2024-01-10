@@ -10,7 +10,7 @@ export default class PaletteColorComponent extends HTMLElement {
     "primary",
     "linked-to",
     "linked-to-primary",
-    "as-color-scale",
+    "derive-color-scale",
     "debug",
   ]
 
@@ -34,7 +34,6 @@ export default class PaletteColorComponent extends HTMLElement {
   }
 
   connectedCallback() {
-    this.connected = true
     this.render()
   }
 
@@ -55,7 +54,7 @@ export default class PaletteColorComponent extends HTMLElement {
     else if (name == "linked-to-primary") {
       this.linkedPrimary = true
     }
-    else if (name == "as-color-scale") {
+    else if (name == "derive-color-scale") {
       this.colorScaleAlgorithm = newValue
     }
     else if (name == "debug") {
@@ -93,16 +92,18 @@ export default class PaletteColorComponent extends HTMLElement {
     }
 
     const middle = (swatches.length - 1) / 2
-    let id = swatches[middle].id
+
+    this.baseColorSwatch = swatches[middle]
+    let id = this.baseColorSwatch.id
     if (!id) {
       id = `${ColorSwatchComponent.tagName}-${crypto.randomUUID()}`
-      swatches[middle].id = id
+      this.baseColorSwatch.id = id
     }
 
     const algorithm = ColorScale.fromString(this.colorScaleAlgorithm)
 
     if (algorithm.isFallback) {
-      this.logger.warn(`No such as-color-scale algorithm '${this.colorScaleAlgorithm}'`)
+      this.logger.warn(`No such algorithm for derive-color-scale '${this.colorScaleAlgorithm}'`)
     }
     swatches.forEach( (swatch,index) => {
       if (index != middle) {
@@ -154,7 +155,7 @@ export default class PaletteColorComponent extends HTMLElement {
       }
     }
     else if (this.linkedPrimary) {
-      linkedToElement = this.connected ? this.parentElement.querySelector(`${this.constructor.tagName}[primary]`) : null
+      linkedToElement = this.parentElement ? this.parentElement.querySelector(`${this.constructor.tagName}[primary]`) : null
       if (!linkedToElement) {
         this.logger.warn("linked-to-primary is '%s' but no sibling is marked as primary",this.linkedPrimary)
       }
@@ -187,7 +188,7 @@ export default class PaletteColorComponent extends HTMLElement {
     })
   }
 
-  static tagName = "g-palette-color"
+  static tagName = "g-palette-color-scale"
   static define() {
     customElements.define(this.tagName, PaletteColorComponent)
   }

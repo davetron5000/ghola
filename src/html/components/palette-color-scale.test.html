@@ -4,9 +4,9 @@
     <%- include("../templates/header.html", { subtitle: "Test of palette color", components: true }) %>
     <main class="pa-3">
       <nav class="flex gap-3">
-      <a class="blue-dark" href="palette-color.html">View demo</a>
+      <a class="blue-dark" href="palette-color-scale.html">View demo</a>
       </nav>
-      <h3>Test Cases for <code>g-palette-color</code></h3>
+      <h3>Test Cases for <code>g-palette-color-scale</code></h3>
       <%- include("../templates/test-case-start.html", {
         id: "primary-color",
         title: "When set as primary, the color cannot be removed or unlinked, but it can be previewed",
@@ -15,7 +15,7 @@
         }) %>
         <div class="flex flex-column gap-3">
           <g-test-case-subject>
-            <g-palette-color primary class="flex flex-column gap-2">
+            <g-palette-color-scale primary class="flex flex-column gap-2">
               <div>
                 <g-color-name color-swatch="primary-base-color">
                   <label>
@@ -57,11 +57,11 @@
                   <label class="flex flex-column"><input type="color" readonly></label>
                 </g-color-swatch>
               </div>
-            </g-palette-color>
+            </g-palette-color-scale>
           </g-test-case-subject>
             <script>
               document.
-                querySelector("g-test-case#primary-color g-palette-color").
+                querySelector("g-test-case#primary-color g-palette-color-scale").
                 addEventListener("preview", () => alert("Preview!") )
             </script>
           <g-element-source element-sibling="g-test-case-subject" html="inner">
@@ -77,14 +77,14 @@
         }) %>
         <div class="flex flex-column gap-3">
           <g-test-case-subject>
-            <g-palette-color primary id="linked-color-palette-color">
+            <g-palette-color-scale primary id="linked-color-palette-color-scale">
               <div class="flex">
                 <g-color-swatch id="linked-to-primary-base-color" hex-code="#6429bd">
                   <label class="flex flex-column"><input type="color"></label>
                 </g-color-swatch>
               </div>
-            </g-palette-color>
-            <g-palette-color linked-to="linked-color-palette-color" class="flex flex-column gap-2">
+            </g-palette-color-scale>
+            <g-palette-color-scale linked-to="linked-color-palette-color-scale" class="flex flex-column gap-2">
               <div>
                 <g-color-name color-swatch="linked-to-base-color">
                   <label>
@@ -126,11 +126,11 @@
                   <label class="flex flex-column"><input type="color" readonly></label>
                 </g-color-swatch>
               </div>
-            </g-palette-color>
+            </g-palette-color-scale>
           </g-test-case-subject>
             <script>
               document.
-                querySelector("g-test-case#primary-color g-palette-color").
+                querySelector("g-test-case#primary-color g-palette-color-scale").
                 addEventListener("preview", () => alert("Preview!") )
             </script>
           <g-element-source element-sibling="g-test-case-subject" html="inner">
@@ -146,14 +146,14 @@
         }) %>
         <div class="flex flex-column gap-3">
           <g-test-case-subject>
-            <g-palette-color primary>
+            <g-palette-color-scale primary>
               <div class="flex">
                 <g-color-swatch id="another-primary-base-color" hex-code="#6429bd">
                   <label class="flex flex-column"><input type="color"></label>
                 </g-color-swatch>
               </div>
-            </g-palette-color>
-            <g-palette-color linked-to-primary class="flex flex-column gap-2">
+            </g-palette-color-scale>
+            <g-palette-color-scale linked-to-primary class="flex flex-column gap-2">
               <div>
                 <button data-preview>
                   Preview
@@ -188,11 +188,11 @@
                   <label class="flex flex-column"><input type="color" readonly></label>
                 </g-color-swatch>
               </div>
-            </g-palette-color>
+            </g-palette-color-scale>
           </g-test-case-subject>
             <script>
               document.
-                querySelector("g-test-case#primary-color g-palette-color").
+                querySelector("g-test-case#primary-color g-palette-color-scale").
                 addEventListener("preview", () => alert("Preview!") )
             </script>
           <g-element-source element-sibling="g-test-case-subject" html="inner">
@@ -208,7 +208,7 @@
         }) %>
         <div class="flex flex-column gap-3">
           <g-test-case-subject>
-            <g-palette-color class="flex flex-column gap-2">
+            <g-palette-color-scale class="flex flex-column gap-2">
               <div>
                 <g-color-name color-swatch="primary-base-color">
                   <label>
@@ -249,11 +249,11 @@
                   <label class="flex flex-column"><input type="color" readonly></label>
                 </g-color-swatch>
               </div>
-            </g-palette-color>
+            </g-palette-color-scale>
           </g-test-case-subject>
             <script>
               document.
-                querySelector("g-test-case#primary-color g-palette-color").
+                querySelector("g-test-case#primary-color g-palette-color-scale").
                 addEventListener("preview", () => alert("Preview!") )
             </script>
           <g-element-source element-sibling="g-test-case-subject" html="inner">
@@ -262,14 +262,14 @@
         </div>
       <%- include("../templates/test-case-end.html") %>
       <%- include("../templates/test-case-start.html", {
-        id: "as-color-scale",
+        id: "derive-color-scale",
         title: "Using as a color-scale with linear gradient",
         open: false,
-        description: "When as-color-scale is set, the center swatch is assumed base and others are set up as a gradient, derived linearly from there."
+        description: "When derive-color-scale is set, the center swatch is assumed base and others are set up as a gradient, derived linearly from there."
         }) %>
         <div class="flex flex-column gap-3">
           <g-test-case-subject>
-            <g-palette-color as-color-scale="linear" class="flex flex-column gap-2" id="as-color-scale-component" debug>
+            <g-palette-color-scale derive-color-scale="linear" class="flex flex-column gap-2" id="derive-color-scale-component" debug>
               <button data-preview> Preview </button>
               <button data-remove> Remove </button>
               <button data-unlink> Unlink from Primary </button>
@@ -296,7 +296,7 @@
                   <label class="flex flex-column"><input type="color" readonly></label>
                 </g-color-swatch>
               </div>
-            </g-palette-color>
+            </g-palette-color-scale>
           </g-test-case-subject>
           <g-element-source element-sibling="g-test-case-subject" html="inner">
             <pre><code></code></pre>
@@ -304,14 +304,14 @@
         </div>
       <%- include("../templates/test-case-end.html") %>
       <%- include("../templates/test-case-start.html", {
-        id: "as-color-scale-exp",
+        id: "derive-color-scale-exp",
         title: "Using as a color-scale with exponential gradient",
         open: false,
         description: "An exponential gradient will provide more variety and darker darks/lighter lights for the scale"
         }) %>
         <div class="flex flex-column gap-3">
           <g-test-case-subject>
-            <g-palette-color as-color-scale="exponential" class="flex flex-column gap-2" id="as-color-scale-exp-component" debug>
+            <g-palette-color-scale derive-color-scale="exponential" class="flex flex-column gap-2" id="derive-color-scale-exp-component" debug>
               <button data-preview> Preview </button>
               <button data-remove> Remove </button>
               <button data-unlink> Unlink from Primary </button>
@@ -338,7 +338,7 @@
                   <label class="flex flex-column"><input type="color" readonly></label>
                 </g-color-swatch>
               </div>
-            </g-palette-color>
+            </g-palette-color-scale>
           </g-test-case-subject>
           <g-element-source element-sibling="g-test-case-subject" html="inner">
             <pre><code></code></pre>
