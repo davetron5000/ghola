@@ -2,81 +2,7 @@ import Logger from "../brutaldom/Logger"
 
 import ColorNameComponent from "./ColorNameComponent"
 import ColorSwatchComponent from "./ColorSwatchComponent"
-
-class LinearGradient {
-  valueFor(index,numSwatches) {
-    const middle = (numSwatches - 1) / 2
-    if (index < middle) {
-      const step = index
-      const totalSteps = middle
-      const min = 40
-      const max = 80
-
-      const percentAlongRange = step / (totalSteps - 1)
-      const percentage = Math.floor(max - (percentAlongRange * (max - min)))
-
-      return [ "darken-by", percentage ]
-    }
-    else {
-      const step = (numSwatches - 1) - index
-      const totalSteps = middle
-      const min = 30
-      const max = 90
-
-      const percentAlongRange = step / (totalSteps - 1)
-      const percentage = Math.floor(max - (percentAlongRange * (max - min)))
-      return [ "brighten-by", percentage ]
-    }
-  }
-}
-
-class ExponentialGradient {
-  _quarticBabyYeah(x) {
-    /*
-     * https://mycurvefit.com
-       -0.75               -90        
-       -0.5                -60        
-       -0.25               -40        
-        0                    0        
-        0.25                60        
-        0.5                 80        
-        0.75                98
-    */
-    const a =    4.0692
-    const b =  175.3016
-    const c =   51.8788
-    const d =  -92.4444
-    const e =  -93.0909
-
-    return  a                  +
-           (b * x)             +
-           (c * Math.pow(x,2)) +
-           (d * Math.pow(x,3)) +
-           (e * Math.pow(x,4))
-  }
-
-  valueFor(index,numSwatches) {
-    const middle = (numSwatches - 1) / 2
-    const step = index + 1
-    const adjustedMiddle = middle + 1
-    const adjustedStep = step - adjustedMiddle
-    const percentAlongRange = adjustedStep / adjustedMiddle
-    
-    const percentage = this._quarticBabyYeah(percentAlongRange)
-
-    if (index < middle) {
-      return [ "darken-by", -1 * percentage ]
-    }
-    else {
-      return [ "brighten-by", percentage ]
-    }
-  }
-}
-class NoGradient {
-  valueFor() {
-    return []
-  }
-}
+import ColorScale from "../color-scales/ColorScale"
 
 export default class PaletteColorComponent extends HTMLElement {
 
@@ -173,19 +99,11 @@ export default class PaletteColorComponent extends HTMLElement {
       swatches[middle].id = id
     }
 
-    let algorithmKlass
+    const algorithm = ColorScale.fromString(this.colorScaleAlgorithm)
 
-    if (this.colorScaleAlgorithm == "linear") {
-      algorithmKlass = LinearGradient
-    }
-    else if (this.colorScaleAlgorithm == "exponential") {
-      algorithmKlass = ExponentialGradient
-    }
-    else {
+    if (algorithm.isFallback) {
       this.logger.warn(`No such as-color-scale algorithm '${this.colorScaleAlgorithm}'`)
-      algorithmKlass = NoGradient
     }
-    const algorithm = new algorithmKlass()
     swatches.forEach( (swatch,index) => {
       if (index != middle) {
         if (!swatch.getAttribute("derived-from")) {
