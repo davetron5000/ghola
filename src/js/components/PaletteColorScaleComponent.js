@@ -4,6 +4,71 @@ import ColorNameComponent from "./ColorNameComponent"
 import ColorSwatchComponent from "./ColorSwatchComponent"
 import ColorScale from "../color-scales/ColorScale"
 
+class SpecialButtons {
+  constructor(parentElement, selector, clickListener) {
+    this.parentElement = parentElement
+    this.selector = selector
+    this.clickListener = clickListener
+  }
+  enable()  { this.forEach( (e) => e.removeAttribute("disabled")   ) }
+  disable() { this.forEach( (e) => e.setAttribute("disabled",true) ) }
+  addEventListeners() {
+    this.forEach( (e) => e.addEventListener("click", this.clickListener) )
+  }
+  forEach(f) {
+    return this.parentElement.querySelectorAll(this.selector).forEach(f)
+  }
+
+  dispatchEvent(name,detail) {
+    return this.parentElement.dispatchEvent(
+      new CustomEvent(name,{ bubbles: true, cancelable: true, detail: detail })
+    )
+  }
+}
+
+class PreviewButtons extends SpecialButtons {
+  constructor(parentElement) {
+    super(parentElement,"[data-preview]",() => {
+      const detail = {
+        colorName: parentElement.colorName,
+        colorNameUserOverride: parentElement.colorNameUserOverride,
+        colorScale: parentElement.colorScale,
+        baseColor: parentElement.baseColorSwatch.hexCode,
+      }
+      this.dispatchEvent("preview", detail)
+    })
+  }
+}
+
+class UnlinkButtons extends SpecialButtons  {
+  constructor(parentElement) {
+    super(parentElement,"[data-unlink]",() => {
+      const defaultNotPrevented = this.dispatchEvent("unlink")
+      if (defaultNotPrevented) {
+        parentElement.removeAttribute("linked-to-primary")
+        if (parentElement.baseColorSwatch) {
+          parentElement.baseColorSwatch.removeAttribute("derived-from")
+          parentElement.baseColorSwatch.removeAttribute("derivation-algorithm")
+          parentElement.baseColorSwatch.querySelectorAll("input[type=color][disabled]").forEach( (input) => {
+            input.removeAttribute("disabled")
+          })
+        }
+      }
+    })
+  }
+}
+
+class RemoveButtons extends SpecialButtons {
+  constructor(parentElement) {
+    super(parentElement,"[data-remove]",() => {
+      const defaultNotPrevented = this.dispatchEvent("remove")
+      if (defaultNotPrevented) {
+        parentElement.parentElement.removeChild(parentElement)
+      }
+    })
+  }
+}
+
 export default class PaletteColorComponent extends HTMLElement {
 
   static observedAttributes = [
@@ -16,35 +81,11 @@ export default class PaletteColorComponent extends HTMLElement {
   constructor() {
     super()
     this.logger = Logger.forPrefix(null)
-    this.previewButtonClickListener = () => {
-      const detail = {
-        colorName: this.colorName,
-        colorNameUserOverride: this.colorNameUserOverride,
-        colorScale: this.colorScale,
-        baseColor: this.baseColorSwatch.hexCode,
-      }
 
-      this.dispatchEvent(new CustomEvent("preview", { detail: detail })) 
-    }
-    this.removeButtonClickListener = () => { 
-      const defaultNotPrevented = this.dispatchEvent(new CustomEvent("remove", { bubbles: true, cancelable: true })) 
-      if (defaultNotPrevented) {
-        this.parentElement.removeChild(this)
-      }
-    }
-    this.unlinkButtonClickListener = () => {
-      const defaultNotPrevented = this.dispatchEvent(new CustomEvent("unlink", { bubbles: true, cancelable: true }))
-      if (defaultNotPrevented) {
-        this.removeAttribute("linked-to-primary")
-        if (this.baseColorSwatch) {
-          this.baseColorSwatch.removeAttribute("derived-from")
-          this.baseColorSwatch.removeAttribute("derivation-algorithm")
-          this.baseColorSwatch.querySelectorAll("input[type=color][disabled]").forEach( (input) => {
-            input.removeAttribute("disabled")
-          })
-        }
-      }
-    }
+    this.previewButtons = new PreviewButtons(this)
+    this.unlinkButtons = new UnlinkButtons(this)
+    this.removeButtons = new RemoveButtons(this)
+
   }
 
   connectedCallback() {
@@ -91,16 +132,17 @@ export default class PaletteColorComponent extends HTMLElement {
     this._configureScale()
   }
 
+  get swatches() {
+    return this.querySelectorAll(ColorSwatchComponent.tagName)
+  }
+
+  get baseColorSwatch() {
+    const middle = (this.swatches.length - 1) / 2
+
+    return this.swatches[middle]
+  }
+
   _configureScale() {
-    const swatches = Array.from(this.querySelectorAll(ColorSwatchComponent.tagName))
-    if (swatches.length % 2 == 0) {
-      this.logger.warn("Cannot set up a scale with an even number of swatches")
-      return
-    }
-
-    const middle = (swatches.length - 1) / 2
-
-    this.baseColorSwatch = swatches[middle]
     let id = this.baseColorSwatch.id
     if (!id) {
       id = `${ColorSwatchComponent.tagName}-${crypto.randomUUID()}-generated`
@@ -124,15 +166,15 @@ export default class PaletteColorComponent extends HTMLElement {
     if (algorithm.isFallback && this.scaleAlgorithm) {
       this.logger.warn(`No such algorithm for derive-color-scale '${this.scaleAlgorithm}'`)
     }
-    swatches.forEach( (swatch,index) => {
-      if (index != middle) {
+    this.swatches.forEach( (swatch,index,array) => {
+      if (swatch != this.baseColorSwatch) {
         if (!swatch.getAttribute("derived-from")) {
           swatch.setAttribute("derived-from",id)
         }
         if (!swatch.getAttribute("derivation-algorithm")) {
           swatch.setAttribute("derivation-algorithm","brightness")
         }
-        const [ attribute, value ] = algorithm.valueFor(index,swatches.length)
+        const [ attribute, value ] = algorithm.valueFor(index,array.length)
         if (attribute && !swatch.getAttribute(attribute)) {
           swatch.setAttribute(attribute,`${Math.floor(value)}%`)
         }
@@ -141,27 +183,24 @@ export default class PaletteColorComponent extends HTMLElement {
   }
 
   _configureButtons() {
-    const enable = (element) => element.removeAttribute("disabled")
-    const disable = (element) => element.setAttribute("disabled",true)
-
     if (this.isPrimary) {
-      this._eachPreviewElement(enable)
-      this._eachUnlinkElement(disable)
-      this._eachRemoveElement(disable)
+      this.previewButtons.enable()
+      this.unlinkButtons.disable()
+      this.removeButtons.disable()
     }
     else if ( this.linkedPrimaryAlgorithm ){
-      this._eachPreviewElement(enable)
-      this._eachUnlinkElement(enable)
-      this._eachRemoveElement(enable)
+      this.previewButtons.enable()
+      this.unlinkButtons.enable()
+      this.removeButtons.enable()
     }
     else {
-      this._eachPreviewElement(enable)
-      this._eachUnlinkElement(disable)
-      this._eachRemoveElement(enable)
+      this.previewButtons.enable()
+      this.unlinkButtons.disable()
+      this.removeButtons.enable()
     }
-    this._eachPreviewElement( (e) => e.addEventListener("click", this.previewButtonClickListener) )
-    this._eachUnlinkElement( (e) => e.addEventListener("click", this.unlinkButtonClickListener) )
-    this._eachRemoveElement( (e) => e.addEventListener("click", this.removeButtonClickListener) )
+    this.previewButtons.addEventListeners()
+    this.unlinkButtons.addEventListeners()
+    this.removeButtons.addEventListeners()
   }
 
   _configureLink() {
@@ -169,7 +208,7 @@ export default class PaletteColorComponent extends HTMLElement {
       this.linkedPrimaryElement = this.parentElement ? this.parentElement.querySelector(`${this.constructor.tagName}[primary]`) : null
       if (!this.linkedPrimaryElement) {
         if (this.parentElement) {
-          this.logger.warn("linked-to-primary had a value ('%s') but no sibling is marked as primary: %o",this.linkedPrimaryAlgorithm,this.parentElement.querySelectorAll("g-palette-color-scale").length)
+          this.logger.warn("linked-to-primary had a value ('%s') but no sibling is marked as primary",this.linkedPrimaryAlgorithm)
         }
         else {
           this.logger.warn("linked-to-primary had a value ('%s') but we have no parent element",this.linkedPrimaryAlgorithm)
@@ -177,10 +216,6 @@ export default class PaletteColorComponent extends HTMLElement {
       }
     }
   }
-  _eachPreviewElement(f) { this.querySelectorAll("[data-preview]").forEach(f) }
-  _eachUnlinkElement(f) { this.querySelectorAll("[data-unlink]").forEach(f) }
-  _eachRemoveElement(f) { this.querySelectorAll("[data-remove]").forEach(f) }
-
 
   get colorName() {
     const colorName = this.querySelector(ColorNameComponent.tagName)
@@ -191,6 +226,7 @@ export default class PaletteColorComponent extends HTMLElement {
       return null
     }
   }
+
   get colorNameUserOverride() {
     const colorName = this.querySelector(ColorNameComponent.tagName)
     return colorName && colorName.userOverride

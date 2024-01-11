@@ -15,74 +15,84 @@
           </div>
           <nav class="flex items-center pv-2 gap-2 ph-2">
             <div class="f-3 fw-5" style="transform: translateY(-1px);">Add Linked Color:</div>
-            <button class="shadow-button f-2 br-left-3 br-1 flex items-center gap-1">
-              <span class="mb-half">
-                Complement<span class="sr-only"> of Primary</span>
-              </span>
-              <g-color-swatch derived-from="primary-base-color" derivation-algorithm="complement">
-                <div data-color class="h-2 w-2"></div>
-              </g-color-swatch>
-            </button>
-            <button class="shadow-button f-2 br-1 flex items-center gap-1">
-              <span class="mb-half">
-                Split Complements<span class="sr-only"> of Primary</span>
-              </span>
-              <g-color-swatch derived-from="primary-base-color" derivation-algorithm="split-complement-lower">
-                <div data-color class="h-2 w-2"></div>
-              </g-color-swatch>
-              <g-color-swatch derived-from="primary-base-color" derivation-algorithm="split-complement-upper">
-                <div data-color class="h-2 w-2"></div>
-              </g-color-swatch>
-            </button>
-            <button class="shadow-button f-2 br-1 flex items-center gap-1">
-              <span class="mb-half">
-                Analogous<span class="sr-only"> of Primary</span>
-              </span>
-              <g-color-swatch derived-from="primary-base-color" derivation-algorithm="analogous-lower">
-                <div data-color class="h-2 w-2"></div>
-              </g-color-swatch>
-              <g-color-swatch derived-from="primary-base-color" derivation-algorithm="analogous-upper">
-                <div data-color class="h-2 w-2"></div>
-              </g-color-swatch>
-            </button>
-            <button class="shadow-button f-2 br-1 br-right-3 flex items-center gap-1">
-              <span class="mb-half">
-                Triads<span class="sr-only"> of Primary</span>
-              </span>
-              <g-color-swatch derived-from="primary-base-color" derivation-algorithm="triad-lower">
-                <div data-color class="h-2 w-2"></div>
-              </g-color-swatch>
-              <g-color-swatch derived-from="primary-base-color" derivation-algorithm="triad-upper">
-                <div data-color class="h-2 w-2"></div>
-              </g-color-swatch>
-            </button>
-            <div class="bl">
-              <button class="shadow-button f-3 fw-4 br-3 flex items-center gap-2 ml-2">
-                <span>
-                  Add Unlinked Color
+            <g-add-color-scale-button link-algorithm="complement" palette="palette" debug>
+              <button class="shadow-button f-2 br-left-3 br-1 flex items-center gap-1">
+                <span class="mb-half">
+                  Complement<span class="sr-only"> of Primary</span>
                 </span>
-                <span aria-role="none" class="flex flex-column gap-0">
-                  <span class="flex">
-                    <span class="h-1 w-1 bg-blue"></span>
-                    <span class="h-1 w-1 bg-gray"></span>
-                    <span class="h-1 w-1 bg-red"></span>
-                  </span>
-                  <span class="flex">
-                    <span class="h-1 w-1 bg-purple"></span>
-                    <span class="h-1 w-1 bg-green"></span>
-                    <span class="h-1 w-1 bg-orange"></span>
-                  </span>
-                  <span class="flex">
-                    <span class="h-1 w-1 bg-yellow"></span>
-                    <span class="h-1 w-1 bg-red"></span>
-                    <span class="h-1 w-1 bg-black"></span>
-                  </span>
-                </span>
+                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="complement">
+                  <div data-color class="h-2 w-2"></div>
+                </g-color-swatch>
               </button>
+            </g-add-color-scale-button>
+            <g-add-color-scale-button link-algorithm="split-complement" palette="palette">
+              <button class="shadow-button f-2 br-1 flex items-center gap-1">
+                <span class="mb-half">
+                  Split Complements<span class="sr-only"> of Primary</span>
+                </span>
+                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="split-complement-lower">
+                  <div data-color class="h-2 w-2"></div>
+                </g-color-swatch>
+                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="split-complement-upper">
+                  <div data-color class="h-2 w-2"></div>
+                </g-color-swatch>
+              </button>
+            </g-add-color-scale-button>
+            <g-add-color-scale-button link-algorithm="analogous" palette="palette">
+              <button class="shadow-button f-2 br-1 flex items-center gap-1">
+                <span class="mb-half">
+                  Analogous<span class="sr-only"> of Primary</span>
+                </span>
+                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="analogous-lower">
+                  <div data-color class="h-2 w-2"></div>
+                </g-color-swatch>
+                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="analogous-upper">
+                  <div data-color class="h-2 w-2"></div>
+                </g-color-swatch>
+              </button>
+            </g-add-color-scale-button>
+            <g-add-color-scale-button link-algorithm="triad" palette="palette">
+              <button class="shadow-button f-2 br-1 br-right-3 flex items-center gap-1">
+                <span class="mb-half">
+                  Triads<span class="sr-only"> of Primary</span>
+                </span>
+                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="triad-lower">
+                  <div data-color class="h-2 w-2"></div>
+                </g-color-swatch>
+                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="triad-upper">
+                  <div data-color class="h-2 w-2"></div>
+                </g-color-swatch>
+              </button>
+            </g-add-color-scale-button>
+            <div class="bl">
+              <g-add-color-scale-button palette="palette">
+                <button class="shadow-button f-3 fw-4 br-3 flex items-center gap-2 ml-2">
+                  <span>
+                    Add Unlinked Color
+                  </span>
+                  <span aria-role="none" class="flex flex-column gap-0">
+                    <span class="flex">
+                      <span class="h-1 w-1 bg-blue"></span>
+                      <span class="h-1 w-1 bg-gray"></span>
+                      <span class="h-1 w-1 bg-red"></span>
+                    </span>
+                    <span class="flex">
+                      <span class="h-1 w-1 bg-purple"></span>
+                      <span class="h-1 w-1 bg-green"></span>
+                      <span class="h-1 w-1 bg-orange"></span>
+                    </span>
+                    <span class="flex">
+                      <span class="h-1 w-1 bg-yellow"></span>
+                      <span class="h-1 w-1 bg-red"></span>
+                      <span class="h-1 w-1 bg-black"></span>
+                    </span>
+                  </span>
+                </button>
+              </g-add-color-scale-button>
             </div>
           </nav>
         </div>
-        <g-palette class="flex flex-column gap-4">
+        <g-palette id="palette" class="flex flex-column gap-4">
           <g-palette-color-scale class="flex justify-center gap-3" primary debug scale-algorithm="exponential">
             <div class="flex flex-column justify-between">
               <g-color-name color-swatch="primary-base-color">
@@ -90,7 +100,6 @@
                   <input type="text" class="f-3 ba br-2 bg-white-ish black bc-gray pa-2 ff-sans inner-shadow-1">
                   <span>Color Name <span data-overridden class="i f-1 ttl gray-dark">(Overridden)</span> </span>
                 </label>
-
               </g-color-name>
               <nav class="flex flex-column gap-1">
                 <button data-preview class="shadow-button f-2 br-1 br-top-3 w-100">
@@ -116,51 +125,6 @@
               </g-color-swatch>
               <g-color-swatch hex-code="#600080" id="primary-base-color">
                 <%- include("templates/g-color-swatch.html", { id: "primary-base-color", editable: true, secondaryLabel: "Primary" } ) %>
-              </g-color-swatch>
-              <g-color-swatch>
-                <%- include("templates/g-color-swatch.html") %>
-              </g-color-swatch>
-              <g-color-swatch>
-                <%- include("templates/g-color-swatch.html") %>
-              </g-color-swatch>
-              <g-color-swatch>
-                <%- include("templates/g-color-swatch.html") %>
-              </g-color-swatch>
-            </div>
-          </g-palette-color-scale>
-          <g-palette-color-scale class="flex justify-center gap-3" linked-to-primary="complement" debug scale-algorithm="exponential">
-            <div class="flex flex-column justify-between">
-              <g-color-name color-swatch="complement-swatch">
-                <label class="flex flex-column gap-1 mb-3">
-                  <input type="text" class="f-3 ba br-2 bg-white-ish black bc-gray pa-2 ff-sans inner-shadow-1">
-                  <span>Color Name <span data-overridden class="i f-1 ttl gray-dark">(Overridden)</span> </span>
-                </label>
-
-              </g-color-name>
-              <nav class="flex flex-column gap-1">
-                <button data-preview class="shadow-button f-2 br-1 br-top-3 w-100">
-                  Preview
-                </button>
-                <button data-remove class="shadow-button shadow-button--red f-1 br-1 w-100">
-                  Remove
-                </button>
-                <button data-unlink class="shadow-button f-1 br-1 br-bottom-3 w-100">
-                  Unlink from Primary
-                </button>
-              </nav>
-            </div>
-            <div class="flex justify-center gap-1">
-              <g-color-swatch>
-                <%- include("templates/g-color-swatch.html") %>
-              </g-color-swatch>
-              <g-color-swatch>
-                <%- include("templates/g-color-swatch.html") %>
-              </g-color-swatch>
-              <g-color-swatch>
-                <%- include("templates/g-color-swatch.html") %>
-              </g-color-swatch>
-              <g-color-swatch id="complement-swatch" derived-from="primary-base-color" derivation-algorithm="complement" id="complementary-base-color">
-                <%- include("templates/g-color-swatch.html", { disabledInput: true, id: "complement-swatch" }) %>
               </g-color-swatch>
               <g-color-swatch>
                 <%- include("templates/g-color-swatch.html") %>

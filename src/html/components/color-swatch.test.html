@@ -286,6 +286,45 @@
         </g-element-source>
         </details>
       </g-test-case>
+      <g-test-case id="derived-disconnected">
+        <details>
+          <summary>
+        <h4>Disconnected Derived Elements</h4>
+        <p class="p">
+          When we set attributes to remove a derivation, the underlying events should stll be connected
+        </p>
+        </summary>
+        <g-test-case-subject class="db">
+          <g-color-swatch derived-from="derived-to-be-disconnected"
+                          id="derived-disconnect-lower"
+                          debug
+                          derivation-algorithm="triad-lower">
+            <label>
+              <input type="color" disabled>
+              <code></code>
+            </label>
+          </g-color-swatch>
+          <g-color-swatch id="derived-to-be-disconnected" debug hex-code="#123456">
+            <label>
+              <input type="color">
+              <code></code>
+            </label>
+          </g-color-swatch>
+          <g-color-swatch derived-from="derived-to-be-disconnected"
+                          id="derived-disconnect-upper"
+                          debug
+                          derivation-algorithm="triad-upper">
+            <label>
+              <input type="color" disabled>
+              <code></code>
+            </label>
+          </g-color-swatch>
+        </g-test-case-subject>
+        <g-element-source element-sibling="g-test-case-subject" html="inner">
+          <pre><code></code></pre>
+        </g-element-source>
+        </details>
+      </g-test-case>
     </main>
   </body>
 </html>

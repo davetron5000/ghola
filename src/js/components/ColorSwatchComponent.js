@@ -20,14 +20,10 @@ export default class ColorSwatchComponent extends HTMLElement {
       this.setAttribute("hex-code",event.target.value)
     }
     this.onDerivedElementChangeCallback = (event) => {
-      let hexCode = event.target.hexCode
-      if (hexCode) {
-        this._deriveHexCodeFrom(hexCode)
+      if (event.target != this.derivedFromElement) {
+        this.logger.warn("Got an eevent from not our derived")
       }
-      else {
-        this.logger.warn("No hexcode on the derived element: %o",event.target)
-        this.removeAttribute("hex-code")
-      }
+      this._deriveHexCodeFromSwatch(event.target)
     }
     this.derivationAlgorithm = DerivationAlgorithm.fromString("brightness", { throwOnUnknown: true })
     this.logger = Logger.forPrefix(null)
@@ -44,9 +40,12 @@ export default class ColorSwatchComponent extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
     if (name == "hex-code") {
       this.hexCode = newValue
-      this.dispatchEvent(new CustomEvent(this.constructor.HEX_CODE_CHANGE_EVENT_NAME))
+      this._dispatchHexcodeChanged()
     }
     else if (name == "derived-from") {
+      if (this.derivedFromElement) {
+        this.derivedFromElement.removeEventListener(this.hexCodeChangedEventName,this.onDerivedElementChangeCallback)
+      }
       this.derivedFromId = newValue
     }
     else if (name == "darken-by") {
@@ -94,7 +93,7 @@ export default class ColorSwatchComponent extends HTMLElement {
     return elements.length
   }
 
-  _eachLabelWithInput(f) {
+  _eachCodeElementInsideRelevantLabel(f) {
     this.querySelectorAll("label").forEach( (label) => {
       let input
       if (label.htmlFor) {
@@ -150,14 +149,25 @@ export default class ColorSwatchComponent extends HTMLElement {
       this._updateDerivationifNeeded({ whenHexCodeExists: false })
     }
     if (this.hexCode) {
-      this._eachLabelWithInput( (codeElement) => {
+      this._eachCodeElementInsideRelevantLabel( (codeElement) => {
         codeElement.textContent = this.hexCode
       })
     }
     else {
-      this._eachLabelWithInput( (codeElement) => {
+      this._eachCodeElementInsideRelevantLabel( (codeElement) => {
         codeElement.textContent = ""
       })
+    }
+  }
+
+  _deriveHexCodeFromSwatch(element) {
+    let hexCode = element.hexCode
+    if (hexCode) {
+      this._deriveHexCodeFrom(hexCode)
+    }
+    else {
+      this.logger.warn("No hexcode on the derived element: %o",event.target)
+      this.removeAttribute("hex-code")
     }
   }
 
@@ -172,14 +182,17 @@ export default class ColorSwatchComponent extends HTMLElement {
     this.setAttribute("hex-code",hexCode)
   }
 
+  get derivedFromElement() {
+    return document.getElementById(this.derivedFromId)
+  }
+
   _updateDerivationifNeeded({whenHexCodeExists}) {
-    const derivedFromElement = document.getElementById(this.derivedFromId)
+    const derivedFromElement = this.derivedFromElement
     const hexCodeExists = !!this.hexCode
 
     if (derivedFromElement) {
       if (derivedFromElement.tagName.toLowerCase() == this.constructor.tagName) {
-        derivedFromElement.addEventListener(this.constructor.HEX_CODE_CHANGE_EVENT_NAME,this.onDerivedElementChangeCallback)
-        this.mostRecentlyDerivedFromElement = derivedFromElement
+        derivedFromElement.addEventListener(this.hexCodeChangedEventName,this.onDerivedElementChangeCallback)
         if ( (derivedFromElement.hexCode) && (whenHexCodeExists == hexCodeExists) ) {
           this._deriveHexCodeFrom(derivedFromElement.hexCode)
         }
@@ -188,21 +201,19 @@ export default class ColorSwatchComponent extends HTMLElement {
         this.logger.warn("Derived element has id '%s', but this is a %s, not a %s",this.derivedFromId,derivedFromElement.tagName,this.constructor.tagName)
       }
     }
-    else {
-      if (this.mostRecentlyDerivedFromElement) {
-        this.mostRecentlyDerivedFromElement.removeEventListener(this.constructor.HEX_CODE_CHANGE_EVENT_NAME,this.onDerivedElementChangeCallback)
-        this.mostRecentlyDerivedFromElement = null
-      }
-      else {
-        this.logger.warn("No element with id '%s' to derive a value from (%s)",this.derivedFromId,this.id)
-      }
-    }
   }
+
+  get hexCodeChangedEventName() { return this.constructor.HEX_CODE_CHANGE_EVENT_NAME }
+
+  _dispatchHexcodeChanged() {
+    this.dispatchEvent(new CustomEvent(this.hexCodeChangedEventName))
+  }
+
 
   get forTesting() {
     return {
       dispatchHexCodeChanged: () => {
-        this.dispatchEvent(new CustomEvent(this.constructor.HEX_CODE_CHANGE_EVENT_NAME))
+        this._dispatchHexcodeChanged()
       }
     }
   }

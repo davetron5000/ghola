@@ -162,6 +162,28 @@ testCase("derived-triad", ({setup,teardown,test,subject,assert,assertEqual}) => 
 
 })
 
+testCase("derived-disconnected", ({setup,teardown,test,subject,assert,assertEqual}) => {
+  setup( lowerUpperSetup )
+  teardown( lowerUpperTeardown )
+
+  test("disconnecting one from the main stops responding to events",
+    ({$main,$upper, $upperInput,$lowerInput}) => {
+      $upper.setAttribute("debug","upper")
+      $upper.removeAttribute("derived-from")
+      $upper.removeAttribute("derivation-algorithm")
+      $upperInput.value = "#123456"
+      $upperInput.dispatchEvent(new Event("change"))
+      $main.setAttribute("hex-code","#334488")
+      console.log($upper)
+
+      assertEqual("#448833",$lowerInput.value, "Value should be derived via triad lower algorithm")
+      assertEqual("#123456",$upperInput.value, "Value should NOT be derived via triad upper algorithm")
+    }
+  )
+
+
+})
+
 testCase("base-case", ({setup,teardown,test,subject,assert,assertEqual}) => {
   setup( () => {
     const component = subject.children[0].cloneNode(true)
