@@ -267,7 +267,7 @@ testCase("linked-to-primary", ({setup,teardown,test,confidenceCheck,subject,asse
     }
   )
   test("The unlink event is fired when unlink is clicked and the derivation attributes from the base swatch are removed, but it's hex-code is preserved and any inputs inside are made editable",
-    ({$paletteColor,$unlinkButton}) => {
+    ({$paletteColor,$unlinkButton,$primary}) => {
       let unlinkCalled = false
       $paletteColor.addEventListener("unlink", (event) => unlinkCalled = true )
       $unlinkButton.dispatchEvent(new Event("click"))
@@ -280,6 +280,11 @@ testCase("linked-to-primary", ({setup,teardown,test,confidenceCheck,subject,asse
       $paletteColor.baseColorSwatch.querySelectorAll("input[type=color]").forEach( (input) => {
         assert(input.getAttributeNames().indexOf("disabled") == -1,`Input should not have disabled set: ${input.outerHTML}`)
       })
+
+      $primary.baseColorSwatch.querySelector("input[type=color]").value = "#111111"
+      $primary.baseColorSwatch.querySelector("input[type=color]").dispatchEvent(new Event("change"))
+      assertEqual("#82bd29",$paletteColor.baseColorSwatch.getAttribute("hex-code"),"hex-code shoud've been set on the base color")
+      assertEqual("#82bd29",$paletteColor.baseColorSwatch.querySelector("input[type=color]").value,"input value shoud've been set on the base color")
     }
   )
   test("The unlink event is fired but there are no changes if default was prevented",

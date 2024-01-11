@@ -9,7 +9,10 @@ export default class LinearGradient extends BaseGradient {
       const min = 40
       const max = 80
 
-      const percentAlongRange = step / (totalSteps - 1)
+      let percentAlongRange = step / (totalSteps - 1)
+      if (isNaN(percentAlongRange)) {
+        percentAlongRange = 0
+      }
       const percentage = Math.floor(max - (percentAlongRange * (max - min)))
 
       return [ "darken-by", percentage ]
@@ -20,7 +23,10 @@ export default class LinearGradient extends BaseGradient {
       const min = 30
       const max = 90
 
-      const percentAlongRange = step / (totalSteps - 1)
+      let percentAlongRange = step / (totalSteps - 1)
+      if (isNaN(percentAlongRange)) {
+        percentAlongRange = 0
+      }
       const percentage = Math.floor(max - (percentAlongRange * (max - min)))
       return [ "brighten-by", percentage ]
     }

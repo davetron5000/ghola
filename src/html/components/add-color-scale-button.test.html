@@ -1,0 +1,94 @@
+<%- include("../templates/head.html", { description: "Tests for the add color scale button component", title: "Ghola - Add Color Scale Button Component Tests", tests: true }) %>
+</head>
+  <body class="ff-sans bg-white black-ish">
+    <%- include("../templates/header.html", { subtitle: "Test of add color scale button", components: true }) %>
+    <main class="pa-3">
+      <nav class="flex gap-3">
+      <a class="blue-dark" href="color-scale-button.html">View demo</a>
+      </nav>
+      <h3>Test Cases for <code>g-add-color-scale-button</code></h3>
+      <%- include("../templates/test-case-start.html", {
+        id: "add-color-scale-random",
+        title: "Add unlinked color",
+        description: "A New <code>g-palette-color-scale</code> is added with a random hex code, unlinked to the primary",
+        }) %>
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-add-color-scale-button palette="palette" debug>
+              <button>Add Random</button>
+            </g-add-color-scale-button>
+            <g-palette id="palette">
+              <g-palette-color-scale primary class="flex" scale-algorithm="exponential">
+                <g-color-name color-swatch="add-color-scale-random-base">
+                  <input type="text">
+                </g-color-name>
+                <g-color-swatch class="flex flex-column items-center">
+                  <input type="color" disabled>
+                </g-color-swatch>
+                <g-color-swatch class="flex flex-column items-center" id="add-color-scale-random-base" hex-code="#8811ff">
+                  <input type="color">
+                </g-color-swatch>
+                <g-color-swatch class="flex flex-column items-center">
+                  <input type="color" disabled>
+                </g-color-swatch>
+              </g-palette-color-scale>
+              <g-palette-color-scale class="flex" scale-algorithm="linear" linked-to-primary="complement">
+                <g-color-swatch class="flex flex-column items-center">
+                  <input type="color" disabled>
+                </g-color-swatch>
+                <g-color-swatch class="flex flex-column items-center">
+                  <input type="color" disabled>
+                </g-color-swatch>
+                <g-color-swatch class="flex flex-column items-center">
+                  <input type="color" disabled>
+                </g-color-swatch>
+              </g-palette-color-scale>
+            </g-palette>
+          </g-test-case-subject>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+        </div>
+      <%- include("../templates/test-case-end.html") %>
+      <% const algorithms = [ "complement", "split-complement", "analogous", "triad" ]
+         algorithms.forEach( (algorithm) => {
+      %>
+      <%- include("../templates/test-case-start.html", {
+        id: "add-color-scale-" + algorithm,
+        title: "Add linked color via " + algorithm,
+        description: "New <code>g-palette-color-scale</code> elements are added linked to the primary as " + algorithm,
+        }) %>
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-add-color-scale-button palette="palette-<%= algorithm %>" link-algorithm="<%= algorithm %>" debug>
+              <button>Add <%= algorithm %></button>
+            </g-add-color-scale-button>
+            <g-palette id="palette-<%= algorithm %>">
+              <g-palette-color-scale primary class="flex" scale-algorithm="exponential">
+                <g-color-name color-swatch="add-color-scale-<%= algorithm %>-base">
+                  <input type="text">
+                </g-color-name>
+                <g-color-swatch class="flex flex-column items-center">
+                  <input type="color" disabled>
+                </g-color-swatch>
+                <g-color-swatch class="flex flex-column items-center" hex-code="#8811ff" id="add-color-scale-<%= algorithm %>-base">
+                  <input type="color">
+                </g-color-swatch>
+                <g-color-swatch class="flex flex-column items-center">
+                  <input type="color" disabled>
+                </g-color-swatch>
+              </g-palette-color-scale>
+            </g-palette>
+          </g-test-case-subject>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+        </div>
+      <%- include("../templates/test-case-end.html") %>
+      <%
+      }) %>
+
+    </main>
+  </body>
+</html>
+
