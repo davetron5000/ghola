@@ -13,8 +13,7 @@
     "http-server": "^14.1.1"
   },
   "dependencies": {
-    "chroma-js": "^2.4.2",
-    "hex-color-to-color-name": "^1.0.2",
+    "color-convert": "^2.0.1",
     "html-prettify": "^1.0.7",
     "melange-css": "^1.0.0-beta6"
   }

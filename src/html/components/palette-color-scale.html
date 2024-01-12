@@ -15,7 +15,7 @@
         This shows how the scales can be connected—or not—to create a palette.
       </p>
       <div class="flex flex-column gap-4 pa-2 ba bc-gray">
-        <g-palette-color-scale debug class="flex gap-3" primary id="primary-palette-color" scale-algorithm="exponential">
+        <g-palette-color-scale show-warnings  class="flex gap-3" primary id="primary-palette-color" scale-algorithm="exponential">
           <div class="flex flex-column justify-between">
             <g-color-name color-swatch="primary-base-color">
               <label class="flex flex-column gap-1 mb-3">
@@ -55,7 +55,7 @@
             <g-color-swatch>
               <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
             </g-color-swatch>
-            <g-color-swatch id="primary-base-color" hex-code="#6429bd" debug>
+            <g-color-swatch id="primary-base-color" hex-code="#6429bd" show-warnings >
               <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color">
                 <code></code>
                 <span class="f-1">Change this one</span>
@@ -69,7 +69,7 @@
             </g-color-swatch>
           </div>
         </g-palette-color-scale>
-        <g-palette-color-scale id="linked-to-primary-as-complement" debug scale-algorithm="exponential" class="flex gap-3" linked-to-primary="complement">
+        <g-palette-color-scale id="linked-to-primary-as-complement" show-warnings scale-algorithm="exponential" class="flex gap-3" linked-to-primary="complement">
           <div class="flex flex-column justify-between">
             <g-color-name color-swatch="primary-base-color">
               <label class="flex flex-column gap-1 mb-3">
@@ -96,7 +96,7 @@
             <g-color-swatch>
               <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
             </g-color-swatch>
-            <g-color-swatch debug="complement-base">
+            <g-color-swatch show-warnings="complement-base">
               <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
             </g-color-swatch>
             <g-color-swatch>
@@ -110,7 +110,7 @@
       </div>
       <h4>Edge Cases</h4>
       <p class="p">
-        <code>debug</code> can be set to cause console logs to generate when an edge case or obvious mis-use occurs.
+        <code>show-warnings</code> can be set to cause console logs to generate when an edge case or obvious mis-use occurs.
       </p>
       <ul>
         <li class="mb-3 flex items-start gap-2">
@@ -122,7 +122,7 @@
           </g-element-source>
           <div class="ba bc-gray pa-1 flex flex-column items-center gap-2">
             <div id="missing-linked-to-example" class="flex items-center gap-3 mb-3">
-              <g-palette-color linked-to="non-existent" id="linked-to-non-existent" debug>
+              <g-palette-color linked-to="non-existent" id="linked-to-non-existent" show-warnings>
               </g-palette-color>
             </div>
           </div>
@@ -136,7 +136,7 @@
           </g-element-source>
           <div class="ba bc-gray pa-1 flex flex-column items-center gap-2">
             <div id="missing-primary-linked-to-example" class="flex items-center gap-3 mb-3">
-              <g-palette-color linked-to-primary id="linked-to-non-existent-primary" debug>
+              <g-palette-color linked-to-primary id="linked-to-non-existent-primary" show-warnings >
               </g-palette-color>
               <g-palette-color>
               </g-palette-color>
@@ -152,7 +152,7 @@
           </g-element-source>
           <div class="ba bc-gray pa-1 flex flex-column items-center gap-2">
             <div id="both-primary-linked-to-example" class="flex items-center gap-3 mb-3">
-              <g-palette-color linked-to-primary linked-to="some-other" id="both-to-non-existent-primary" debug>
+              <g-palette-color linked-to-primary linked-to="some-other" id="both-to-non-existent-primary" show-warnings>
               </g-palette-color>
               <g-palette-color primary>
               </g-palette-color>

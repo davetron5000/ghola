@@ -6,7 +6,7 @@ import {
   testCase,
 } from "../brutaldom/testing"
 
-import chroma from "chroma-js"
+import Color from "../Color"
 
 const singleDerviedSetup = ({subject,clone,require}) => {
   const $derived = clone(subject.children[0],"children[0]")
@@ -120,10 +120,10 @@ testCase("derived-split-complement", ({setup,teardown,test,subject,assert,assert
     ({$main,$upperInput,$upperLabel,$lowerInput,$lowerLabel}) => {
       $main.setAttribute("hex-code","#334488")
 
-      assertEqual("#6e8833",$lowerInput.value, "Value should be derived via split complement lower algorithm")
-      assertEqual("#6e8833",$lowerLabel.textContent,"Value should be derived via split complement lower algorithm")
-      assertEqual("#884d33",$upperInput.value, "Value should be derived via split complement upper algorithm")
-      assertEqual("#884d33",$upperLabel.textContent,"Value should be derived via split complement upper algorithm")
+      assertEqual("#6E8833",$lowerInput.value.toUpperCase(), "Value should be derived via split complement lower algorithm")
+      assertEqual("#6E8833",$lowerLabel.textContent.toUpperCase(),"Value should be derived via split complement lower algorithm")
+      assertEqual("#884D33",$upperInput.value.toUpperCase(), "Value should be derived via split complement upper algorithm")
+      assertEqual("#884D33",$upperLabel.textContent.toUpperCase(),"Value should be derived via split complement upper algorithm")
     }
   )
 })
@@ -136,10 +136,10 @@ testCase("derived-analogous", ({setup,teardown,test,subject,assert,assertEqual})
     ({$main,$upperInput,$upperLabel,$lowerInput,$lowerLabel}) => {
       $main.setAttribute("hex-code","#334488")
 
-      assertEqual("#4d3388",$lowerInput.value, "Value should be derived via analogous lower algorithm")
-      assertEqual("#4d3388",$lowerLabel.textContent,"Value should be derived via analogous lower algorithm")
-      assertEqual("#336e88",$upperInput.value, "Value should be derived via analogous upper algorithm")
-      assertEqual("#336e88",$upperLabel.textContent,"Value should be derived via analogous upper algorithm")
+      assertEqual("#4D3388",$lowerInput.value.toUpperCase(), "Value should be derived via analogous lower algorithm")
+      assertEqual("#4D3388",$lowerLabel.textContent.toUpperCase(),"Value should be derived via analogous lower algorithm")
+      assertEqual("#336E88",$upperInput.value.toUpperCase(), "Value should be derived via analogous upper algorithm")
+      assertEqual("#336E88",$upperLabel.textContent.toUpperCase(),"Value should be derived via analogous upper algorithm")
     }
   )
 })
@@ -168,7 +168,7 @@ testCase("derived-disconnected", ({setup,teardown,test,subject,assert,assertEqua
 
   test("disconnecting one from the main stops responding to events",
     ({$main,$upper, $upperInput,$lowerInput}) => {
-      $upper.setAttribute("debug","upper")
+      $upper.setAttribute("show-warnings","upper")
       $upper.removeAttribute("derived-from")
       $upper.removeAttribute("derivation-algorithm")
       $upperInput.value = "#123456"
@@ -243,7 +243,7 @@ testCase("non-input-case", ({setup,teardown,test,subject,assert,assertEqual}) =>
     const [_,r,g,b] = value.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/)
 
     assert(!!_,`Expected style property to be rgb(r,g,b) but was '${value}'`)
-    const valueAsHex = chroma.rgb(r,g,b).hex()
+    const valueAsHex = Color.fromRGB(r,g,b).hexCode()
 
     assertEqual(hexCode, valueAsHex,"[data-color]'s backgroundColor should be set to the component's hex-code")
 

@@ -414,7 +414,7 @@
       </p>
       <h4>Edge Cases</h4>
       <p class="p">
-        There are obvious edge cases. The attribute <code>debug</code> can be set and error cases or obvious mis-uses will generate warnings in the console.  <code>debug</code> can be set as true, or given a string that will be part of the messages. Note that all warnings are buffered and then dumped when <code>debug</code> goes from falsey to truthy.  This is to account for ordering when attributes are set. For example, if an attribute's value is wrong, but the browser has not parsed the <code>debug</code> value yet, the message about the wrong value could be missed.
+        There are obvious edge cases. The attribute <code>show-warnings</code> can be set and error cases or obvious mis-uses will generate warnings in the console.  <code>show-warnings</code> can be set as true, or given a string that will be part of the messages. Note that all warnings are buffered and then dumped when <code>show-warnings</code> goes from falsey to truthy.  This is to account for ordering when attributes are set. For example, if an attribute's value is wrong, but the browser has not parsed the <code>show-warnings</code> value yet, the message about the wrong value could be missed.
       </p>
       <ul>
         <li class="mb-3 flex items-start gap-2">
@@ -426,7 +426,7 @@
           </g-element-source>
           <div class="ba bc-gray pa-2">
             <aside class="f-1 i">View console and look for messages prefixed with <code>missing-input</code></aside>
-            <g-color-swatch hex-code="#456999" debug id="missing-input">
+            <g-color-swatch hex-code="#456999" show-warnings  id="missing-input">
               <label></label>
             </g-color-swatch>
           </div>
@@ -439,7 +439,7 @@
             <pre><code></code></pre>
           </g-element-source>
         <div class="ba bc-gray pa-2">
-          <g-color-swatch hex-code="#456999" debug id="two-inputs">
+          <g-color-swatch hex-code="#456999" show-warnings  id="two-inputs">
             <div class="flex items-start gap-3">
               <input class="h-3" type=color>
               <input class="h-4" type=color>
@@ -458,13 +458,13 @@
             <aside class="f-1 i">View console and look for messages prefixed with <code>bad-algo-2</code></aside>
             <div id="bad-algo-2-container">
               <div class="flex items-center gap-2">
-                <g-color-swatch hex-code="#456999" id="bad-algo-1" debug="bad-algo-1">
+                <g-color-swatch hex-code="#456999" id="bad-algo-1" show-warnings ="bad-algo-1">
                   <input class="h-4" type="color">
                 </g-color-swatch>
                 <div class="f-1">&larr; Edit this one</div>
               </div>
               <div class="flex items-center gap-2">
-                <g-color-swatch hex-code="#456999" derived-from="bad-algo-1" derivation-algorithm="exp" debug="bad-algo-2">
+                <g-color-swatch hex-code="#456999" derived-from="bad-algo-1" derivation-algorithm="exp" show-warnings="bad-algo-2">
                   <input class="h-3" type=color disabled>
                 </g-color-swatch>
                 <div class="f-1">This should reflect the exact value since the algorithm is invalid</div>
@@ -489,7 +489,7 @@
                   <code></code>
                 </label>
               </g-color-swatch>
-              <g-color-swatch hex-code="#456999" derived-from="derivation-error" debug="editable-derivation">
+              <g-color-swatch hex-code="#456999" derived-from="derivation-error" show-warnings ="editable-derivation">
                 <label class="flex flex-column items-center gap-1">
                   <span>This is derived from other, but (mistakenly) editable</span>
                   <input type=color>
@@ -513,7 +513,7 @@
                 <code></code>
               </label>
             </g-color-swatch>
-            <g-color-swatch derived-from="derivation-no-darken" debug="disabled-derivation">
+            <g-color-swatch derived-from="derivation-no-darken" show-warnings="disabled-derivation">
               <label class="flex flex-column items-center gap-1">
                 <input type=color disabled>
                 <code></code>
@@ -537,7 +537,7 @@
                   <code></code>
                 </label>
               </g-color-swatch>
-              <g-color-swatch derived-from="non-existent" debug="non-existent-derivation">
+              <g-color-swatch derived-from="non-existent" show-warnings="non-existent-derivation">
                 <label class="flex flex-column items-center gap-1">
                   <input type=color disabled>
                   <code></code>
@@ -556,7 +556,7 @@
           <div class="ba bc-gray pa-2 flex flex-column gap-2">
             <aside class="f-1 i">View console and look for messages prefixed with <code>orphaned-label</code></aside>
             <div id="label-cases">
-              <g-color-swatch hex-code="#456999" class="flex flex-column items-center gap-2" debug="orphaned-label">
+              <g-color-swatch hex-code="#456999" class="flex flex-column items-center gap-2" show-warnings ="orphaned-label">
                 <label class="flex flex-column items-center gap-1">
                   <span>This label wraps the input</span>
                   <input type=color id="multi-label">

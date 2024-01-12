@@ -1,22 +1,24 @@
-import chroma from "chroma-js"
 import BaseCustomElement from "../brutaldom/BaseCustomElement"
-
-const namesBasedOnHue = [
-  [ "Red"    , [ 0   , 21  ] ] ,
-  [ "Orange" , [ 21  , 41  ] ] ,
-  [ "Yellow" , [ 41  , 74  ] ] ,
-  [ "Green"  , [ 74  , 167 ] ] ,
-  [ "Blue"   , [ 167 , 259 ] ] ,
-  [ "Purple" , [ 259 , 333 ] ] ,
-  [ "Red"    , [ 333 , 360 ] ] ,
-]
+import Color from "../Color"
 
 export default class ColorNameComponent extends BaseCustomElement {
 
+  static tagName = "g-color-name"
   static observedAttributes = [
     "color-swatch",
-    "debug",
+    "show-warnings",
   ]
+
+  static NAMES_BASED_ON_HUE = [
+    [ "Red"    , [ 0   , 21  ] ] ,
+    [ "Orange" , [ 21  , 41  ] ] ,
+    [ "Yellow" , [ 41  , 74  ] ] ,
+    [ "Green"  , [ 74  , 167 ] ] ,
+    [ "Blue"   , [ 167 , 259 ] ] ,
+    [ "Purple" , [ 259 , 333 ] ] ,
+    [ "Red"    , [ 333 , 360 ] ] ,
+  ]
+
 
   constructor() {
     super()
@@ -35,12 +37,7 @@ export default class ColorNameComponent extends BaseCustomElement {
     }
   }
 
-  connectedCallback() {
-    this.render()
-  }
-
-  disconnectedCallback() {
-    this.disconnected = true
+  onDisconnected() {
     if (this.colorSwatch) {
       this.colorSwatch.removeEventListener("hex-code-change",this.updateNameEventListener)
     }
@@ -72,9 +69,6 @@ export default class ColorNameComponent extends BaseCustomElement {
   }
 
   render() {
-    if (this.disconnected) {
-      return
-    }
     const input = this._input()
     if (this.input != input) {
       if (this.input) {
@@ -114,11 +108,11 @@ export default class ColorNameComponent extends BaseCustomElement {
   }
 
   _name(hexCode) {
-    const hue = chroma(hexCode).hsl()[0]
-    if (isNaN(hue)) {
+    const [hue,saturation,l] = Color.fromHexCode(hexCode).hsl()
+    if (isNaN(hue) || (saturation == 0)) {
       return "Gray"
     }
-    const nameEntry = namesBasedOnHue.find( ([name,[low,high]]) => {
+    const nameEntry = this.constructor.NAMES_BASED_ON_HUE.find( ([name,[low,high]]) => {
       if ((hue >= low) && (hue <= high)) {
         return true
       }
@@ -127,10 +121,5 @@ export default class ColorNameComponent extends BaseCustomElement {
       throw `Something is wrong: ${hexCode}'s hue of '${hue}' was not in namesBasedOnHue`
     }
     return nameEntry[0]
-  }
-
-  static tagName = "g-color-name"
-  static define() {
-    customElements.define(this.tagName, ColorNameComponent)
   }
 }

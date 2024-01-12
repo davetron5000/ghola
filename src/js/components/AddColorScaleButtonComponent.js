@@ -1,14 +1,15 @@
-import chroma                     from "chroma-js"
 import BaseCustomElement          from "../brutaldom/BaseCustomElement"
 import PaletteColorScaleComponent from "./PaletteColorScaleComponent"
 import ColorNameComponent         from "./ColorNameComponent"
+import Color                      from "../Color"
 
 export default class AddColorScaleButtonComponent extends BaseCustomElement {
 
+  static tagName = "g-add-color-scale-button"
   static observedAttributes = [
     "link-algorithm",
     "palette",
-    "debug",
+    "show-warnings",
   ]
 
   constructor() {
@@ -17,15 +18,6 @@ export default class AddColorScaleButtonComponent extends BaseCustomElement {
       event.preventDefault()
       this.addColorScales()
     }
-  }
-
-  connectedCallback() {
-    this.connected = true
-    this.render()
-  }
-
-  disconnectedCallback() {
-    this.disconnected = true
   }
 
   linkAlgorithmChangedCallback({newValue}) {
@@ -37,9 +29,6 @@ export default class AddColorScaleButtonComponent extends BaseCustomElement {
   }
 
   render() {
-    if (this.disconnected) {
-      return
-    }
     const buttons = this.querySelectorAll("button")
     if (buttons.length == 0)  {
       this.logger.warn("No <button> elements found within - this won't do anythning")
@@ -50,7 +39,7 @@ export default class AddColorScaleButtonComponent extends BaseCustomElement {
     if (this.paletteId) {
       this.palette = document.getElementById(this.paletteId)
       if (!this.palette) {
-        if (this.connected) {
+        if (this.isConnected) {
           this.logger.warn("No element with id '%s' found in document",this.paletteId)
         }
       }
@@ -117,17 +106,12 @@ export default class AddColorScaleButtonComponent extends BaseCustomElement {
       newScale.baseColorSwatch.removeAttribute("id") // force the scale to generate one
       newScale.swatches.forEach( (swatch) => swatch.removeAttribute("derived-from") )
       this.palette.appendChild(newScale)
-      newScale.baseColorSwatch.setAttribute("hex-code", chroma.random().hex())
+      newScale.baseColorSwatch.setAttribute("hex-code", Color.random().hexCode())
       newScale.querySelectorAll(ColorNameComponent.tagName).forEach( (colorName) => {
         if (colorName.getAttribute("color-swatch") == primary.baseColorSwatch.id) {
           colorName.setAttribute("color-swatch",newScale.baseColorSwatch.id)
         }
       })
     }
-  }
-
-  static tagName = "g-add-color-scale-button"
-  static define() {
-    customElements.define(this.tagName, AddColorScaleButtonComponent)
   }
 }

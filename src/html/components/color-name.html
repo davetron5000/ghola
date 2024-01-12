@@ -20,7 +20,7 @@ g-color-name label:has(input[data-user-override]):after {
         Change the color swatch and observe how the name is updated.  Then edit the name, then change the color swatch. Your name persists.  Clear the name you entered and it should be restored to a default name. Note that styling changes when you have overridden, since <code>data-user-override</code> is added or removed, based on the override state.
         </p>
         <div id="basic-example" class="flex items-center gap-3 mb-3">
-          <g-color-name color-swatch="basis-swatch" debug id="color-name-basis-swatch">
+          <g-color-name color-swatch="basis-swatch" show-warnings id="color-name-basis-swatch">
             <label class="flex flex-column gap-1">
               <input type="text" class="ba br-2 bg-white-ish bc-gray-dark pa-1 ff-sans">
               <span class="f-1 ttu tracked-tight">Color Name</span>
@@ -37,7 +37,7 @@ g-color-name label:has(input[data-user-override]):after {
         </g-element-source>
       <h4>Edge Cases</h4>
       <p class="p">
-        There aren't many edge cases, but <code>debug</code> can be set to cause console logs to generate when an edge case or obvious mis-use occurs.
+        There aren't many edge cases, but <code>show-warnings</code> can be set to cause console logs to generate when an edge case or obvious mis-use occurs.
       </p>
       <ul>
         <li class="mb-3 flex items-start gap-2">
@@ -49,7 +49,7 @@ g-color-name label:has(input[data-user-override]):after {
           </g-element-source>
           <div class="ba bc-gray pa-1 flex flex-column items-center gap-2">
             <div id="missing-input-example" class="flex items-center gap-3 mb-3">
-              <g-color-name color-swatch="missing-input-swatch" debug id="missing-input">
+              <g-color-name color-swatch="missing-input-swatch" show-warnings id="missing-input">
               </g-color-name>
               <g-color-swatch id="missing-input-swatch" hex-code="#00ff00">
                 <label class="flex flex-column gap-2">
@@ -68,7 +68,7 @@ g-color-name label:has(input[data-user-override]):after {
           </g-element-source>
           <div class="ba bc-gray pa-1 flex flex-column items-center gap-2">
             <div id="missing-swatch-example" class="flex items-center gap-3 mb-3">
-              <g-color-name color-swatch="missing-swatch-swatch" debug id="missing-swatch">
+              <g-color-name color-swatch="missing-swatch-swatch" show-warnings  id="missing-swatch">
                 <label class="flex flex-column gap-2">
                 <input type="text">
                 Color Name
@@ -86,7 +86,7 @@ g-color-name label:has(input[data-user-override]):after {
           </g-element-source>
           <div class="ba bc-gray pa-1 flex flex-column items-center gap-2">
             <div id="wrong-input-example" class="flex items-center gap-3 mb-3">
-              <g-color-name color-swatch="wrong-input-swatch" debug id="wrong-input">
+              <g-color-name color-swatch="wrong-input-swatch" show-warnings id="wrong-input">
                 <input type="number">
               </g-color-name>
               <g-color-swatch id="wrong-input-swatch" hex-code="#00ff00">
@@ -107,7 +107,7 @@ g-color-name label:has(input[data-user-override]):after {
           <div class="ba bc-gray pa-1 flex flex-column items-center gap-2">
             <aside class="f-1 i">View console and look for messages prefixed with <code>many-input</code></aside>
             <div id="many-input-example" class="flex items-center gap-3 mb-3">
-              <g-color-name color-swatch="many-input-swatch" debug id="many-input" class="flex flex-column gap-3">
+              <g-color-name color-swatch="many-input-swatch" show-warnings  id="many-input" class="flex flex-column gap-3">
                 <label class="flex items-center gap-2">
                   <input type="text">
                   <span>
