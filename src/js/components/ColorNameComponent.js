@@ -1,5 +1,5 @@
 import chroma from "chroma-js"
-import Logger from "../brutaldom/Logger"
+import BaseCustomElement from "../brutaldom/BaseCustomElement"
 
 const namesBasedOnHue = [
   [ "Red"    , [ 0   , 21  ] ] ,
@@ -11,7 +11,7 @@ const namesBasedOnHue = [
   [ "Red"    , [ 333 , 360 ] ] ,
 ]
 
-export default class ColorNameComponent extends HTMLElement {
+export default class ColorNameComponent extends BaseCustomElement {
 
   static observedAttributes = [
     "color-swatch",
@@ -20,7 +20,6 @@ export default class ColorNameComponent extends HTMLElement {
 
   constructor() {
     super()
-    this.logger = Logger.forPrefix(null)
     this.updateNameEventListener = () => {
       this.render()
     }
@@ -50,32 +49,18 @@ export default class ColorNameComponent extends HTMLElement {
     }
   }
 
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (name == "color-swatch") {
-      const component = document.getElementById(newValue)
-      if (component != this.colorSwatch) {
-        if (this.colorSwatch) {
-          this.colorSwatch.removeEventListener("hex-code-change",this.updateNameEventListener)
-        }
-        if (component) {
-          this.updateNameEventListener.id = `listener-${this.id}`
-          component.addEventListener("hex-code-change",this.updateNameEventListener)
-        }
+  colorSwatchChangedCallback({newValue}) {
+    const component = document.getElementById(newValue)
+    if (component != this.colorSwatch) {
+      if (this.colorSwatch) {
+        this.colorSwatch.removeEventListener("hex-code-change",this.updateNameEventListener)
       }
-      this.colorSwatch = component
-    }
-    else if (name == "debug") {
-      let oldLogger
-      if (!oldValue && newValue) {
-        oldLogger = this.logger
-      }
-      const prefix = newValue == "" ? this.id : newValue
-      this.logger = Logger.forPrefix(prefix)
-      if (oldLogger) {
-        this.logger.dump(oldLogger)
+      if (component) {
+        this.updateNameEventListener.id = `listener-${this.id}`
+        component.addEventListener("hex-code-change",this.updateNameEventListener)
       }
     }
-    this.render()
+    this.colorSwatch = component
   }
 
   _input() {
