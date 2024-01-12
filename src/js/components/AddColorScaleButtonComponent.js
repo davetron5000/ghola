@@ -1,9 +1,9 @@
 import chroma                     from "chroma-js"
-import Logger                     from "../brutaldom/Logger"
+import BaseCustomElement          from "../brutaldom/BaseCustomElement"
 import PaletteColorScaleComponent from "./PaletteColorScaleComponent"
 import ColorNameComponent         from "./ColorNameComponent"
 
-export default class AddColorScaleButtonComponent extends HTMLElement {
+export default class AddColorScaleButtonComponent extends BaseCustomElement {
 
   static observedAttributes = [
     "link-algorithm",
@@ -13,7 +13,6 @@ export default class AddColorScaleButtonComponent extends HTMLElement {
 
   constructor() {
     super()
-    this.logger = Logger.forPrefix(null)
     this.addScaleClickListener = (event) => {
       event.preventDefault()
       this.addColorScales()
@@ -29,25 +28,12 @@ export default class AddColorScaleButtonComponent extends HTMLElement {
     this.disconnected = true
   }
 
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (name == "link-algorithm") {
-      this.algorithmName = newValue
-    }
-    else if (name == "palette") {
-      this.paletteId = newValue
-    }
-    else if (name == "debug") {
-      let oldLogger
-      if (!oldValue && newValue) {
-        oldLogger = this.logger
-      }
-      const prefix = newValue == "" ? this.id : newValue
-      this.logger = Logger.forPrefix(prefix || `UNKNOWN ${this.constructor.tagName}`)
-      if (oldLogger) {
-        this.logger.dump(oldLogger)
-      }
-    }
-    this.render()
+  linkAlgorithmChangedCallback({newValue}) {
+    this.algorithmName = newValue
+  }
+
+  paletteChangedCallback({newValue}) {
+    this.paletteId = newValue
   }
 
   render() {

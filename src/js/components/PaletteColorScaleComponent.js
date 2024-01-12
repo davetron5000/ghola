@@ -1,4 +1,4 @@
-import Logger from "../brutaldom/Logger"
+import BaseCustomElement from "../brutaldom/BaseCustomElement"
 
 import ColorNameComponent from "./ColorNameComponent"
 import ColorSwatchComponent from "./ColorSwatchComponent"
@@ -69,7 +69,7 @@ class RemoveButtons extends SpecialButtons {
   }
 }
 
-export default class PaletteColorComponent extends HTMLElement {
+export default class PaletteColorComponent extends BaseCustomElement {
 
   static observedAttributes = [
     "primary",
@@ -80,7 +80,6 @@ export default class PaletteColorComponent extends HTMLElement {
 
   constructor() {
     super()
-    this.logger = Logger.forPrefix(null)
 
     this.previewButtons = new PreviewButtons(this)
     this.unlinkButtons = new UnlinkButtons(this)
@@ -96,31 +95,19 @@ export default class PaletteColorComponent extends HTMLElement {
     this.disconnected = true
   }
 
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (name == "primary") {
-      this.isPrimary = String(newValue) === ""
-      if ( (newValue != "") && (newValue != null) ){
-        this.logger.warn("primary should either be present or omitted, not '%s'",newValue)
-      }
+  primaryChangedCallback({newValue}) {
+    this.isPrimary = String(newValue) === ""
+    if ( (newValue != "") && (newValue != null) ){
+      this.logger.warn("primary should either be present or omitted, not '%s'",newValue)
     }
-    else if (name == "linked-to-primary") {
-      this.linkedPrimaryAlgorithm = newValue
-    }
-    else if (name == "scale-algorithm") {
-      this.scaleAlgorithm = newValue
-    }
-    else if (name == "debug") {
-      let oldLogger
-      if (!oldValue && newValue) {
-        oldLogger = this.logger
-      }
-      const prefix = newValue == "" ? this.id : newValue
-      this.logger = Logger.forPrefix(prefix)
-      if (oldLogger) {
-        this.logger.dump(oldLogger)
-      }
-    }
-    this.render()
+  }
+
+  linkedToPrimaryChangedCallback({newValue}) {
+    this.linkedPrimaryAlgorithm = newValue
+  }
+
+  scaleAlgorithmChangedCallback({newValue}) {
+    this.scaleAlgorithm = newValue
   }
 
   render() {

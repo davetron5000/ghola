@@ -1,7 +1,7 @@
+import BaseCustomElement from "../brutaldom/BaseCustomElement"
 import DerivationAlgorithm from "../derivations/DerivationAlgorithm"
-import Logger from "../brutaldom/Logger"
 
-export default class ColorSwatchComponent extends HTMLElement {
+export default class ColorSwatchComponent extends BaseCustomElement {
 
   static observedAttributes = [
     "hex-code",
@@ -26,7 +26,6 @@ export default class ColorSwatchComponent extends HTMLElement {
       this._deriveHexCodeFromSwatch(event.target)
     }
     this.derivationAlgorithm = DerivationAlgorithm.fromString("brightness", { throwOnUnknown: true })
-    this.logger = Logger.forPrefix(null)
   }
 
   connectedCallback() {
@@ -37,46 +36,36 @@ export default class ColorSwatchComponent extends HTMLElement {
     this.disconnected = true
   }
 
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (name == "hex-code") {
-      this.hexCode = newValue
-      this._dispatchHexcodeChanged()
+  hexCodeChangedCallback({newValue}) {
+    this.hexCode = newValue
+    this._dispatchHexcodeChanged()
+  }
+
+  derivedFromChangedCallback({newValue}) {
+    if (this.derivedFromElement) {
+      this.derivedFromElement.removeEventListener(this.hexCodeChangedEventName,this.onDerivedElementChangeCallback)
     }
-    else if (name == "derived-from") {
-      if (this.derivedFromElement) {
-        this.derivedFromElement.removeEventListener(this.hexCodeChangedEventName,this.onDerivedElementChangeCallback)
-      }
-      this.derivedFromId = newValue
-    }
-    else if (name == "darken-by") {
-      this.darkenBy = newValue
+    this.derivedFromId = newValue
+  }
+
+  darkenByChangedCallback({newValue}) {
+    this.darkenBy = newValue
+    this._updateDerivationifNeeded({ whenHexCodeExists: true })
+  }
+
+  brightenByChangedCallback({newValue}) {
+    this.brightenBy = newValue
+    this._updateDerivationifNeeded({ whenHexCodeExists: true })
+  }
+
+  derivationAlgorithmChangedCallback({newValue}) {
+    this.derivationAlgorithm = DerivationAlgorithm.fromString(newValue)
+    if (this.derivationAlgorithm) {
       this._updateDerivationifNeeded({ whenHexCodeExists: true })
     }
-    else if (name == "brighten-by") {
-      this.brightenBy = newValue
-      this._updateDerivationifNeeded({ whenHexCodeExists: true })
+    else if (!!newValue) {
+      this.logger.warn("derivation-algorithm '%s' is not valid",newValue)
     }
-    else if (name == "derivation-algorithm") {
-      this.derivationAlgorithm = DerivationAlgorithm.fromString(newValue)
-      if (this.derivationAlgorithm) {
-        this._updateDerivationifNeeded({ whenHexCodeExists: true })
-      }
-      else if (!!newValue) {
-        this.logger.warn("derivation-algorithm '%s' is not valid",newValue)
-      }
-    }
-    else if (name == "debug") {
-      let oldLogger
-      if (!oldValue && newValue) {
-        oldLogger = this.logger
-      }
-      const prefix = newValue == "" ? this.id : newValue
-      this.logger = Logger.forPrefix(prefix)
-      if (oldLogger) {
-        this.logger.dump(oldLogger)
-      }
-    }
-    this.render()
   }
 
   static INPUT_SELECTOR      = "input[type=color]"
