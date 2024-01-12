@@ -3,13 +3,14 @@ import DerivationAlgorithm from "../derivations/DerivationAlgorithm"
 
 export default class ColorSwatchComponent extends BaseCustomElement {
 
+  static tagName = "g-color-swatch"
   static observedAttributes = [
     "hex-code",
     "derived-from",
     "derivation-algorithm",
     "darken-by",
     "brighten-by",
-    "debug",
+    "show-warnings",
   ]
 
   static HEX_CODE_CHANGE_EVENT_NAME = "hex-code-change"
@@ -26,14 +27,6 @@ export default class ColorSwatchComponent extends BaseCustomElement {
       this._deriveHexCodeFromSwatch(event.target)
     }
     this.derivationAlgorithm = DerivationAlgorithm.fromString("brightness", { throwOnUnknown: true })
-  }
-
-  connectedCallback() {
-    this.render()
-  }
-
-  disconnectedCallback() {
-    this.disconnected = true
   }
 
   hexCodeChangedCallback({newValue}) {
@@ -114,9 +107,6 @@ export default class ColorSwatchComponent extends BaseCustomElement {
   }
 
   render() {
-    if (this.disconnected) {
-      return
-    }
     const numInputs = this._eachInput( (element) => {
       element.value = this.hexCode
       element.addEventListener("change", this.onInputChangeCallback)
@@ -205,11 +195,5 @@ export default class ColorSwatchComponent extends BaseCustomElement {
         this._dispatchHexcodeChanged()
       }
     }
-  }
-
-
-  static tagName = "g-color-swatch"
-  static define() {
-    customElements.define(this.tagName, ColorSwatchComponent)
   }
 }

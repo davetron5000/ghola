@@ -15,7 +15,7 @@
           </div>
           <nav class="flex items-center pv-2 gap-2 ph-2">
             <div class="f-3 fw-5" style="transform: translateY(-1px);">Add Linked Color:</div>
-            <g-add-color-scale-button link-algorithm="complement" palette="palette" debug>
+            <g-add-color-scale-button link-algorithm="complement" palette="palette" show-warnings>
               <button class="shadow-button f-2 br-left-3 br-1 flex items-center gap-1">
                 <span class="mb-half">
                   Complement<span class="sr-only"> of Primary</span>
@@ -93,7 +93,7 @@
           </nav>
         </div>
         <g-palette id="palette" class="flex flex-column gap-4">
-          <g-palette-color-scale class="flex justify-center gap-3" primary debug scale-algorithm="exponential">
+          <g-palette-color-scale class="flex justify-center gap-3" primary show-warnings  scale-algorithm="exponential">
             <div class="flex flex-column justify-between">
               <g-color-name color-swatch="primary-base-color">
                 <label class="flex flex-column gap-1 mb-3">

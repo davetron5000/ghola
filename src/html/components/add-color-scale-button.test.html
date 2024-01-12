@@ -14,7 +14,7 @@
         }) %>
         <div class="flex flex-column gap-3">
           <g-test-case-subject>
-            <g-add-color-scale-button palette="palette" debug>
+            <g-add-color-scale-button palette="palette" show-warnings>
               <button>Add Random</button>
             </g-add-color-scale-button>
             <g-palette id="palette">
@@ -60,7 +60,7 @@
         }) %>
         <div class="flex flex-column gap-3">
           <g-test-case-subject>
-            <g-add-color-scale-button palette="palette-<%= algorithm %>" link-algorithm="<%= algorithm %>" debug>
+            <g-add-color-scale-button palette="palette-<%= algorithm %>" link-algorithm="<%= algorithm %>" show-warnings >
               <button>Add <%= algorithm %></button>
             </g-add-color-scale-button>
             <g-palette id="palette-<%= algorithm %>">

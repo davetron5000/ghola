@@ -1,5 +1,4 @@
 import BaseDerivation from "./BaseDerivation"
-import chroma from "chroma-js"
 
 export default class BrightnessDerivation extends BaseDerivation {
   derive(hexCode, options={}) {
@@ -15,25 +14,22 @@ export default class BrightnessDerivation extends BaseDerivation {
   }
 
   darken(hexCode,darken) {
-    const chromaColor = chroma(hexCode)
-    const [h, s, l] = chromaColor.hsl()
+    const [h,s,l] = this.hsl(hexCode)
 
     const distance = l
     const percent = darken / 100
     const decrease = distance * percent
     const newL = l - decrease
-    return chroma.hsl(h,s,newL).hex()
-
+    return this.hexCode(h,s,newL)
   }
 
   brighten(hexCode,brighten) {
-    const chromaColor = chroma(hexCode)
-    const [h, s, l] = chromaColor.hsl()
+    const [h,s,l] = this.hsl(hexCode)
 
-    const distance = 1 - l
+    const distance = 100 - l
     const percent = brighten / 100
     const increase = distance * percent
     const newL = l + increase
-    return chroma.hsl(h,s,newL).hex()
+    return this.hexCode(h,s,newL)
   }
 }

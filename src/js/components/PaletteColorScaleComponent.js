@@ -70,12 +70,12 @@ class RemoveButtons extends SpecialButtons {
 }
 
 export default class PaletteColorComponent extends BaseCustomElement {
-
+  static tagName = "g-palette-color-scale"
   static observedAttributes = [
     "primary",
     "linked-to-primary",
     "scale-algorithm",
-    "debug",
+    "show-warnings",
   ]
 
   constructor() {
@@ -85,14 +85,6 @@ export default class PaletteColorComponent extends BaseCustomElement {
     this.unlinkButtons = new UnlinkButtons(this)
     this.removeButtons = new RemoveButtons(this)
 
-  }
-
-  connectedCallback() {
-    this.render()
-  }
-
-  disconnectedCallback() {
-    this.disconnected = true
   }
 
   primaryChangedCallback({newValue}) {
@@ -111,9 +103,6 @@ export default class PaletteColorComponent extends BaseCustomElement {
   }
 
   render() {
-    if (this.disconnected) {
-      return
-    }
     this._configureButtons()
     this._configureLink()
     this._configureScale()
@@ -222,10 +211,5 @@ export default class PaletteColorComponent extends BaseCustomElement {
     return Array.from(this.querySelectorAll(ColorSwatchComponent.tagName)).map( (element) => {
       return element.hexCode
     })
-  }
-
-  static tagName = "g-palette-color-scale"
-  static define() {
-    customElements.define(this.tagName, PaletteColorComponent)
   }
 }

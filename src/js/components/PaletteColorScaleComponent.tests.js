@@ -86,13 +86,13 @@ testCase("primary-color", ({setup,teardown,test,subject,assert,assertEqual}) => 
 
       assertEqual("Purple",$paletteColor.colorName, "Color name should reflect the value in the color name field")
       assert(!$paletteColor.colorNameUserOverride, "Color name is not user defined when using the default")
-      assertEqual("#140826",$paletteColor.colorScale[0],"The first color in the scale when using exp should be the darkest")
-      assertEqual("#28104c",$paletteColor.colorScale[1],"The first color in the scale when using exp should be the darker")
-      assertEqual("#3c1971",$paletteColor.colorScale[2],"The first color in the scale when using exp should be the dark")
-      assertEqual("#6429bd",$paletteColor.colorScale[3],"The first color in the scale when using exp should be the base")
-      assertEqual("#905edc",$paletteColor.colorScale[4],"The first color in the scale when using exp should be the bright")
-      assertEqual("#c0a3eb",$paletteColor.colorScale[5],"The first color in the scale when using exp should be the brighter")
-      assertEqual("#efe8fa",$paletteColor.colorScale[6],"The first color in the scale when using exp should be the brightest")
+      assertEqual("#140826",$paletteColor.colorScale[0].toUpperCase(),"The first color in the scale when using exp should be the darkest")
+      assertEqual("#28104C",$paletteColor.colorScale[1].toUpperCase(),"The second color in the scale when using exp should be the darker")
+      assertEqual("#3C1971",$paletteColor.colorScale[2].toUpperCase(),"The third color in the scale when using exp should be the dark")
+      assertEqual("#6429BD",$paletteColor.colorScale[3].toUpperCase(),"The fourth color in the scale when using exp should be the base")
+      assertEqual("#905EDC",$paletteColor.colorScale[4].toUpperCase(),"The fifth color in the scale when using exp should be the bright")
+      assertEqual("#C0A3EB",$paletteColor.colorScale[5].toUpperCase(),"The sixth color in the scale when using exp should be the brighter")
+      assertEqual("#EFE8FA",$paletteColor.colorScale[6].toUpperCase(),"The seventh color in the scale when using exp should be the brightest")
       assertEqual($paletteColor.querySelectorAll("g-color-swatch")[3],$paletteColor.baseColorSwatch,"Base color swatch should be the middle one")
     }
   )
@@ -276,14 +276,14 @@ testCase("linked-to-primary", ({setup,teardown,test,confidenceCheck,subject,asse
       assert($paletteColor.getAttributeNames().indexOf("linked-to-primary") == -1,"linked-to-primary attribute should've been removed")
       assert($paletteColor.baseColorSwatch.getAttributeNames().indexOf("derived-from") == -1,"derived-from should've been removed")
       assert($paletteColor.baseColorSwatch.getAttributeNames().indexOf("derivation-algorithm") == -1,"derivation-algorithm should've been removed")
-      assertEqual("#82bd29",$paletteColor.baseColorSwatch.getAttribute("hex-code"),"hex-code shoud've been set on the base color")
+      assertEqual("#82BD29",$paletteColor.baseColorSwatch.getAttribute("hex-code"),"hex-code shoud've been set on the base color")
       $paletteColor.baseColorSwatch.querySelectorAll("input[type=color]").forEach( (input) => {
         assert(input.getAttributeNames().indexOf("disabled") == -1,`Input should not have disabled set: ${input.outerHTML}`)
       })
 
       $primary.baseColorSwatch.querySelector("input[type=color]").value = "#111111"
       $primary.baseColorSwatch.querySelector("input[type=color]").dispatchEvent(new Event("change"))
-      assertEqual("#82bd29",$paletteColor.baseColorSwatch.getAttribute("hex-code"),"hex-code shoud've been set on the base color")
+      assertEqual("#82BD29",$paletteColor.baseColorSwatch.getAttribute("hex-code"),"hex-code shoud've been set on the base color")
       assertEqual("#82bd29",$paletteColor.baseColorSwatch.querySelector("input[type=color]").value,"input value shoud've been set on the base color")
     }
   )
