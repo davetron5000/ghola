@@ -9,20 +9,29 @@
   --mg-ff-mono: Courier, monospace;
 }
 
-input::-webkit-color-swatch-wrapper {
+input[type="color"] {
+  -webkit-appearance: none;
+  border: none;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+  border: none;
   margin: 0;
   padding: 0;
   border-radius: 0;
 }
 
-input::-webkit-color-swatch,
-input::-moz-color-swatch {
+input[type="color"]::-webkit-color-swatch,
+input[type="color"]::-moz-color-swatch {
   border: none;
   border-top-width: 0;
   border-bottom-width: 0;
   border-left-width: 0;
   border-right-width: 0;
-  border-radius: 0;
+  border-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }
 input[type=color] {
   border-top-width: 0;
@@ -69,9 +78,3 @@ g-test-case summary p {
   line-height: var(--mg-lh-copy);
 }
 
-g-color-name label:has(input[data-user-override]) [data-overridden] {
-  visibility: visible;
-}
-g-color-name label:not(:has(input[data-user-override])) [data-overridden] {
-  visibility: hidden;
-}

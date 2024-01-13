@@ -1,10 +1,41 @@
+g-palette {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mg-sp-4);
+}
+g-palette[compact] {
+  gap: var(--mg-sp-1);
+}
+
+g-palette-color-scale {
+  display: flex;
+  justify-content: center;
+  gap: var(--mg-sp-3);
+}
+
+g-palette[compact] g-palette-color-scale {
+  align-items: center;
+}
+
+g-palette[compact] g-palette-color-scale nav {
+  display: none;
+}
+
 g-palette-color-scale g-color-swatch {
   border-width: 1px;
   border-style: solid;
   border-color: var(--mg-gray-light);
-  border-radius: 0;
   padding: var(--mg-sp-1);
   border-radius: var(--mg-bw-1);
+}
+
+
+g-palette[compact] g-palette-color-scale g-color-swatch {
+  border-width: 0;
+  border-style: none;
+  border-radius: 0;
+  padding: 0;
+  border-radius: 0;
 }
 
 g-palette-color-scale g-color-swatch:has(input) {
@@ -20,6 +51,7 @@ g-palette-color-scale g-color-swatch:has(input:disabled) {
 
 g-palette-color-scale g-color-swatch input,
 g-palette-color-scale g-color-swatch [data-color] {
+  display: block;
   width: calc(2 * var(--mg-sp-5));
   height: calc(2 * var(--mg-sp-5));
 }
@@ -29,4 +61,48 @@ g-palette-color-scale g-color-swatch input {
 
 g-palette-color-scale g-color-swatch input:disabled {
   cursor: not-allowed;
+}
+
+g-palette[compact] g-palette-color-scale g-color-swatch input,
+g-palette[compact] g-palette-color-scale g-color-swatch [data-color] {
+  height: calc(2 * var(--mg-sp-3));
+}
+
+g-palette-color-scale g-color-swatch label,
+g-palette-color-scale g-color-swatch [data-hexcode] {
+  display: block;
+  margin-top: var(--mg-sp-3);
+  text-align: center;
+  font-weight: 300;
+  font-size: var(--mg-fs-1);
+}
+g-palette[compact] g-palette-color-scale g-color-swatch label,
+g-palette[compact] g-palette-color-scale g-color-swatch [data-hexcode],
+g-palette[compact] g-palette-color-scale g-color-swatch [data-secondary] {
+  display: none;
+}
+
+g-color-name label:has(input[data-user-override]) [data-overridden] {
+  visibility: visible;
+}
+g-color-name label:not(:has(input[data-user-override])) [data-overridden] {
+  visibility: hidden;
+}
+
+g-palette-color-scale g-color-name input {
+  font-size: var(--mg-fs-3);
+  padding: var(--mg-sp-2);
+}
+g-palette[compact] g-palette-color-scale g-color-name input {
+  font-size: var(--mg-fs-2);
+  padding: var(--mg-sp-1);
+}
+g-palette g-palette-color-scale g-color-name label {
+  margin-bottom: var(--mg-sp-3);
+}
+g-palette[compact] g-palette-color-scale g-color-name label {
+  margin-bottom: 0;
+}
+g-palette[compact] g-palette-color-scale g-color-name label span {
+  display: none;
 }
