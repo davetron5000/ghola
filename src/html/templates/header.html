@@ -13,18 +13,7 @@
       <% if (typeof(subtitle) === "string") { %>
         <h3 class="ma-0 ph-3 pb-3 f-4 ttu tracked fw-4"><%= subtitle %></h3>
       <% } %>
-      <% if ( (typeof(main) === "boolean") && main) { %>
-      <div class="bg-white bb bc-gray-dark black flex f-2">
-        <nav class="bg-gray-lightest flex items-baseline pa-3 gap-3 w-100">
-          <h3 class="fw-7 ma-0">Download this palette:</h3>
-          <a id="download-css"             href="#" class="fw-3 blue-dark">CSS Variables</a>
-          <a id="download-melange"         href="#" class="fw-3 blue-dark">MelangeCSS Variables</a>
-          <a id="download-melange-config"  href="#" class="fw-3 blue-dark">MelangeCSS Configuration</a>
-          <a id="download-tailwind"        href="#" class="fw-3 blue-dark">Tailwind</a>
-          <a id="download-csv"             href="#" class="fw-3 blue-dark">Good 'Ole CSV</a>
-        </nav>
-      </div>
-      <% } else if ( (typeof(components) === "boolean") && components) { %>
+      <% if ( (typeof(components) === "boolean") && components) { %>
       <div class="bg-white bb bc-gray-dark black flex f-2">
         <nav class="bg-gray-lightest flex items-baseline pa-3 gap-3 w-100">
           <a class="f-3 blue-dark" href="/components/index.html">&larr; Components Home</a>

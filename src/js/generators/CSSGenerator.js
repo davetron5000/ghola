@@ -22,7 +22,7 @@ export default class CSSGenerator extends Generator {
   }
 
   _variableName(name,color,index,_array) {
-        return `  --${name.toLowerCase()}-${index+1}: ${color.hexCode}; /* ${color.name} */`
+        return `  --${name.toLowerCase()}-${index+1}: ${color};`
   }
 
 }

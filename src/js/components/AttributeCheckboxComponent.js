@@ -19,7 +19,7 @@ export default class AttributeCheckboxComponent extends BaseCustomElement {
   elementChangedCallback({newValue}) {
     if (newValue) {
       this.element = document.getElementById(newValue)
-      if (this.isConnected && !element) {
+      if (this.isConnected && !this.element) {
         this.logger.warn("No such element in the document with id '%s'",newValue)
       }
     }

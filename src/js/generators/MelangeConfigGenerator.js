@@ -15,7 +15,7 @@ export default class MelangeConfigGenerator extends Generator {
         js.push("")
       },
       onColor: (name,color,index,array) => {
-        js.push(`    "${color.hexCode}",`)
+        js.push(`    "${color}",`)
       },
       reverse: true,
     })
@@ -30,6 +30,6 @@ export default class MelangeConfigGenerator extends Generator {
     const shadeName = this.constructor.shadeNames[adjustedIndex]
     const normalizedName = name.toLowerCase()
     const recognized = this.constructor.melanageRecognizedColors.indexOf(normalizedName) != -1
-    return `${ recognized ? '' : "  /* WARNING: this name is not recognized by Melange */\n"}  --mg-${normalizedName}${shadeName}: ${color.hexCode}; /* ${color.name} */`
+    return `${ recognized ? '' : "  /* WARNING: this name is not recognized by Melange */\n"}  --mg-${normalizedName}${shadeName}: ${color};`
   }
 }
