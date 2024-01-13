@@ -21,29 +21,29 @@ export default class TailwindGenerator extends Generator {
       },
       onColor: (name,color,index,array) => {
         if (index == 0) {
-          js.push(`    100: "${color.hexCode}",`)
-          js.push(`    200: "${color.hexCode}",`)
+          js.push(`    100: "${color}",`)
+          js.push(`    200: "${color}",`)
         }
         else if (index == (array.length-1) ) {
-          js.push(`    800: "${color.hexCode}",`)
-          js.push(`    900: "${color.hexCode}",`)
+          js.push(`    800: "${color}",`)
+          js.push(`    900: "${color}",`)
         }
         else {
           if (array.length == 5) {
             if (index == 1) {
-              js.push(`    300: "${color.hexCode}",`)
-              js.push(`    400: "${color.hexCode}",`)
+              js.push(`    300: "${color}",`)
+              js.push(`    400: "${color}",`)
             }
             else if (index == (array.length-2)) {
-              js.push(`    600: "${color.hexCode}",`)
-              js.push(`    700: "${color.hexCode}",`)
+              js.push(`    600: "${color}",`)
+              js.push(`    700: "${color}",`)
             }
             else {
-              js.push(`    500: "${color.hexCode}",`)
+              js.push(`    500: "${color}",`)
             }
           }
           else {
-            js.push(`    ${index+2}00: "${color.hexCode}",`)
+            js.push(`    ${index+2}00: "${color}",`)
           }
         }
       },

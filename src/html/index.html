@@ -4,95 +4,117 @@
     <%- include("./templates/header.html", { main: true } ) %>
     <main>
       <article data-palette class="flex flex-column gap-4">
-        <div class="flex bb bg-gray-lighter gap-2">
-          <div class="flex items-center bg-white-ish gap-3 ph-3 br inner-shadow-1">
-            <g-attribute-checkbox element="palette" attribute-name="compact">
-              <label for="compact" class="flex items-center gap-2">
-                <input type="checkbox" name="compact" id="compact">
-                <span class="f-1">
-                  Compact View
-                </span>
-              </label>
-            </g-attribute-checkbox>
-          </div>
-          <nav class="flex items-center pv-2 gap-2 ph-2">
-            <div class="f-3 fw-5" style="transform: translateY(-1px);">Add Linked Color:</div>
-            <g-add-color-scale-button link-algorithm="complement" palette="palette" show-warnings>
-              <button class="shadow-button f-2 br-left-3 br-1 flex items-center gap-1">
-                <span class="mb-half">
-                  Complement<span class="sr-only"> of Primary</span>
-                </span>
-                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="complement">
-                  <div data-color class="h-2 w-2"></div>
-                </g-color-swatch>
-              </button>
-            </g-add-color-scale-button>
-            <g-add-color-scale-button link-algorithm="split-complement" palette="palette">
-              <button class="shadow-button f-2 br-1 flex items-center gap-1">
-                <span class="mb-half">
-                  Split Complements<span class="sr-only"> of Primary</span>
-                </span>
-                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="split-complement-lower">
-                  <div data-color class="h-2 w-2"></div>
-                </g-color-swatch>
-                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="split-complement-upper">
-                  <div data-color class="h-2 w-2"></div>
-                </g-color-swatch>
-              </button>
-            </g-add-color-scale-button>
-            <g-add-color-scale-button link-algorithm="analogous" palette="palette">
-              <button class="shadow-button f-2 br-1 flex items-center gap-1">
-                <span class="mb-half">
-                  Analogous<span class="sr-only"> of Primary</span>
-                </span>
-                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="analogous-lower">
-                  <div data-color class="h-2 w-2"></div>
-                </g-color-swatch>
-                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="analogous-upper">
-                  <div data-color class="h-2 w-2"></div>
-                </g-color-swatch>
-              </button>
-            </g-add-color-scale-button>
-            <g-add-color-scale-button link-algorithm="triad" palette="palette">
-              <button class="shadow-button f-2 br-1 br-right-3 flex items-center gap-1">
-                <span class="mb-half">
-                  Triads<span class="sr-only"> of Primary</span>
-                </span>
-                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="triad-lower">
-                  <div data-color class="h-2 w-2"></div>
-                </g-color-swatch>
-                <g-color-swatch derived-from="primary-base-color" derivation-algorithm="triad-upper">
-                  <div data-color class="h-2 w-2"></div>
-                </g-color-swatch>
-              </button>
-            </g-add-color-scale-button>
-            <div class="bl">
-              <g-add-color-scale-button palette="palette">
-                <button class="shadow-button f-3 fw-4 br-3 flex items-center gap-2 ml-2">
-                  <span>
-                    Add Unlinked Color
+        <div>
+          <div class="flex bb bg-gray-lighter gap-2">
+            <div class="flex items-center bg-white-ish gap-3 ph-3 br inner-shadow-1">
+              <g-attribute-checkbox element="palette" attribute-name="compact">
+                <label for="compact" class="flex items-center gap-2">
+                  <input type="checkbox" name="compact" id="compact">
+                  <span class="f-1">
+                    Compact View
                   </span>
-                  <span aria-role="none" class="flex flex-column gap-0">
-                    <span class="flex">
-                      <span class="h-1 w-1 bg-blue"></span>
-                      <span class="h-1 w-1 bg-gray"></span>
-                      <span class="h-1 w-1 bg-red"></span>
-                    </span>
-                    <span class="flex">
-                      <span class="h-1 w-1 bg-purple"></span>
-                      <span class="h-1 w-1 bg-green"></span>
-                      <span class="h-1 w-1 bg-orange"></span>
-                    </span>
-                    <span class="flex">
-                      <span class="h-1 w-1 bg-yellow"></span>
-                      <span class="h-1 w-1 bg-red"></span>
-                      <span class="h-1 w-1 bg-black"></span>
-                    </span>
+                </label>
+              </g-attribute-checkbox>
+            </div>
+            <nav class="flex items-center pv-2 gap-2 ph-2">
+              <div class="f-3 fw-5" style="transform: translateY(-1px);">Add Linked Color:</div>
+              <g-add-color-scale-button link-algorithm="complement" palette="palette" show-warnings>
+                <button class="shadow-button f-2 br-left-3 br-1 flex items-center gap-1">
+                  <span class="mb-half">
+                    Complement<span class="sr-only"> of Primary</span>
                   </span>
+                  <g-color-swatch derived-from="primary-base-color" derivation-algorithm="complement">
+                    <div data-color class="h-2 w-2"></div>
+                  </g-color-swatch>
                 </button>
               </g-add-color-scale-button>
-            </div>
-          </nav>
+              <g-add-color-scale-button link-algorithm="split-complement" palette="palette">
+                <button class="shadow-button f-2 br-1 flex items-center gap-1">
+                  <span class="mb-half">
+                    Split Complements<span class="sr-only"> of Primary</span>
+                  </span>
+                  <g-color-swatch derived-from="primary-base-color" derivation-algorithm="split-complement-lower">
+                    <div data-color class="h-2 w-2"></div>
+                  </g-color-swatch>
+                  <g-color-swatch derived-from="primary-base-color" derivation-algorithm="split-complement-upper">
+                    <div data-color class="h-2 w-2"></div>
+                  </g-color-swatch>
+                </button>
+              </g-add-color-scale-button>
+              <g-add-color-scale-button link-algorithm="analogous" palette="palette">
+                <button class="shadow-button f-2 br-1 flex items-center gap-1">
+                  <span class="mb-half">
+                    Analogous<span class="sr-only"> of Primary</span>
+                  </span>
+                  <g-color-swatch derived-from="primary-base-color" derivation-algorithm="analogous-lower">
+                    <div data-color class="h-2 w-2"></div>
+                  </g-color-swatch>
+                  <g-color-swatch derived-from="primary-base-color" derivation-algorithm="analogous-upper">
+                    <div data-color class="h-2 w-2"></div>
+                  </g-color-swatch>
+                </button>
+              </g-add-color-scale-button>
+              <g-add-color-scale-button link-algorithm="triad" palette="palette">
+                <button class="shadow-button f-2 br-1 br-right-3 flex items-center gap-1">
+                  <span class="mb-half">
+                    Triads<span class="sr-only"> of Primary</span>
+                  </span>
+                  <g-color-swatch derived-from="primary-base-color" derivation-algorithm="triad-lower">
+                    <div data-color class="h-2 w-2"></div>
+                  </g-color-swatch>
+                  <g-color-swatch derived-from="primary-base-color" derivation-algorithm="triad-upper">
+                    <div data-color class="h-2 w-2"></div>
+                  </g-color-swatch>
+                </button>
+              </g-add-color-scale-button>
+              <div class="bl">
+                <g-add-color-scale-button palette="palette">
+                  <button class="shadow-button f-3 fw-4 br-3 flex items-center gap-2 ml-2">
+                    <span>
+                      Add Unlinked Color
+                    </span>
+                    <span aria-role="none" class="flex flex-column gap-0">
+                      <span class="flex">
+                        <span class="h-1 w-1 bg-blue"></span>
+                        <span class="h-1 w-1 bg-gray"></span>
+                        <span class="h-1 w-1 bg-red"></span>
+                      </span>
+                      <span class="flex">
+                        <span class="h-1 w-1 bg-purple"></span>
+                        <span class="h-1 w-1 bg-green"></span>
+                        <span class="h-1 w-1 bg-orange"></span>
+                      </span>
+                      <span class="flex">
+                        <span class="h-1 w-1 bg-yellow"></span>
+                        <span class="h-1 w-1 bg-red"></span>
+                        <span class="h-1 w-1 bg-black"></span>
+                      </span>
+                    </span>
+                  </button>
+                </g-add-color-scale-button>
+              </div>
+            </nav>
+          </div>
+          <div class="bg-white bb bc-gray-dark black flex f-2">
+            <nav class="bg-gray-lightest flex items-baseline pa-3 gap-3 w-100">
+              <h3 class="fw-7 ma-0">Download this palette:</h3>
+              <g-download-palette generator="css" palette="palette">
+                <a id="download-css"             href="#" class="fw-3 blue-dark">CSS Variables</a>
+              </g-download-palette>
+              <g-download-palette generator="melange" palette="palette">
+                <a id="download-melange"         href="#" class="fw-3 blue-dark">MelangeCSS Variables</a>
+              </g-download-palette>
+              <g-download-palette generator="melange-config" palette="palette">
+                <a id="download-melange-config"  href="#" class="fw-3 blue-dark">MelangeCSS Configuration</a>
+              </g-download-palette>
+              <g-download-palette generator="tailwind" palette="palette">
+                <a id="download-tailwind"        href="#" class="fw-3 blue-dark">Tailwind</a>
+              </g-download-palette>
+              <g-download-palette generator="csv" palette="palette">
+                <a id="download-csv"             href="#" class="fw-3 blue-dark">Good 'Ole CSV</a>
+              </g-download-palette>
+            </nav>
+          </div>
         </div>
         <g-palette id="palette" xcompact>
           <g-palette-color-scale primary show-warnings  scale-algorithm="exponential">

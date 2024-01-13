@@ -2,14 +2,13 @@ import Generator from "./Generator"
 export default class CSVGenerator extends Generator {
   blob() {
     const csv = [
-      [ "Color Category", "Color Name", "Hex" ].join(","),
+      [ "Color Category", "Hex" ].join(","),
     ]
     this._eachColor({
       onColor: (name,color) => {
         csv.push([
           name.toString().replaceAll(/['\",]/g,"-"),
-          color.name.toString().replaceAll(/['\",]/g,"-"),
-          color.hexCode,
+          color,
         ].join(","))
       }
     })
