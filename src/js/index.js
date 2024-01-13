@@ -1,13 +1,15 @@
-import ElementSourceComponent       from "./brutaldom/components/ElementSourceComponent"
-import ColorSwatchComponent         from "./components/ColorSwatchComponent"
-import ColorNameComponent           from "./components/ColorNameComponent"
-import PaletteColorScaleComponent   from "./components/PaletteColorScaleComponent"
 import AddColorScaleButtonComponent from "./components/AddColorScaleButtonComponent"
+import AttributeCheckboxComponent   from "./components/AttributeCheckboxComponent"
+import ColorNameComponent           from "./components/ColorNameComponent"
+import ColorSwatchComponent         from "./components/ColorSwatchComponent"
+import ElementSourceComponent       from "./brutaldom/components/ElementSourceComponent"
+import PaletteColorScaleComponent   from "./components/PaletteColorScaleComponent"
 
 document.addEventListener("DOMContentLoaded", () => {
-  ColorSwatchComponent.define()
-  ColorNameComponent.define()
-  PaletteColorScaleComponent.define()
-  ElementSourceComponent.define()
   AddColorScaleButtonComponent.define()
+  AttributeCheckboxComponent.define()
+  ColorNameComponent.define()
+  ColorSwatchComponent.define()
+  ElementSourceComponent.define()
+  PaletteColorScaleComponent.define()
 })

@@ -22,7 +22,7 @@ export default class ColorSwatchComponent extends BaseCustomElement {
     }
     this.onDerivedElementChangeCallback = (event) => {
       if (event.target != this.derivedFromElement) {
-        this.logger.warn("Got an eevent from not our derived")
+        this.logger.warn("Got an event from not our derived")
       }
       this._deriveHexCodeFromSwatch(event.target)
     }

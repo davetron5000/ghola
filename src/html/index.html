@@ -1,17 +1,19 @@
 <%- include("./templates/head.html", { description: "Palette Generator for Developers", title: "Ghola - Palette Generator for Developers" }) %>
   </head>
-  <body class="ff-sans bg-gray-lightest black-ish">
+  <body class="ff-sans bg-white black">
     <%- include("./templates/header.html", { main: true } ) %>
     <main>
       <article data-palette class="flex flex-column gap-4">
         <div class="flex bb bg-gray-lighter gap-2">
           <div class="flex items-center bg-white-ish gap-3 ph-3 br inner-shadow-1">
-            <label for="compact" class="flex items-center gap-2">
-              <input type="checkbox" name="compact" id="compact">
-              <span class="f-1">
-                Compact View
-              </span>
-            </label>
+            <g-attribute-checkbox element="palette" attribute-name="compact">
+              <label for="compact" class="flex items-center gap-2">
+                <input type="checkbox" name="compact" id="compact">
+                <span class="f-1">
+                  Compact View
+                </span>
+              </label>
+            </g-attribute-checkbox>
           </div>
           <nav class="flex items-center pv-2 gap-2 ph-2">
             <div class="f-3 fw-5" style="transform: translateY(-1px);">Add Linked Color:</div>
@@ -92,12 +94,12 @@
             </div>
           </nav>
         </div>
-        <g-palette id="palette" class="flex flex-column gap-4">
-          <g-palette-color-scale class="flex justify-center gap-3" primary show-warnings  scale-algorithm="exponential">
+        <g-palette id="palette" xcompact>
+          <g-palette-color-scale primary show-warnings  scale-algorithm="exponential">
             <div class="flex flex-column justify-between">
               <g-color-name color-swatch="primary-base-color">
-                <label class="flex flex-column gap-1 mb-3">
-                  <input type="text" class="f-3 ba br-2 bg-white-ish black bc-gray pa-2 ff-sans inner-shadow-1">
+                <label class="flex flex-column gap-1">
+                  <input type="text" class="ba br-2 bg-white-ish black bc-gray ff-sans inner-shadow-1">
                   <span>Color Name <span data-overridden class="i f-1 ttl gray-dark">(Overridden)</span> </span>
                 </label>
               </g-color-name>
@@ -109,31 +111,38 @@
                   Remove
                 </button>
                 <button data-unlink class="shadow-button f-1 br-1 br-bottom-3 w-100">
-                  Unlink from Primary
+                  Unlink
                 </button>
               </nav>
             </div>
             <div class="flex justify-center gap-1">
               <g-color-swatch>
-                <%- include("templates/g-color-swatch.html") %>
+                <div data-color></div>
+                <div data-hexcode><code></code></div>
               </g-color-swatch>
               <g-color-swatch>
-                <%- include("templates/g-color-swatch.html") %>
+                <div data-color></div>
+                <div data-hexcode><code></code></div>
               </g-color-swatch>
               <g-color-swatch>
-                <%- include("templates/g-color-swatch.html") %>
+                <div data-color></div>
+                <div data-hexcode><code></code></div>
               </g-color-swatch>
               <g-color-swatch hex-code="#600080" id="primary-base-color">
-                <%- include("templates/g-color-swatch.html", { id: "primary-base-color", editable: true, secondaryLabel: "Primary" } ) %>
+                <input type="color" id="primary-base-color">
+                <label for="primary-base-color"><code></code></label>
               </g-color-swatch>
               <g-color-swatch>
-                <%- include("templates/g-color-swatch.html") %>
+                <div data-color></div>
+                <div data-hexcode><code></code></div>
               </g-color-swatch>
               <g-color-swatch>
-                <%- include("templates/g-color-swatch.html") %>
+                <div data-color></div>
+                <div data-hexcode><code></code></div>
               </g-color-swatch>
               <g-color-swatch>
-                <%- include("templates/g-color-swatch.html") %>
+                <div data-color></div>
+                <div data-hexcode><code></code></div>
               </g-color-swatch>
             </div>
           </g-palette-color-scale>

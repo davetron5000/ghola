@@ -11,18 +11,18 @@ if (inputDisabled) {
   <% if (!renderInput) { %>
     <div data-color></div>
   <% } else { %>
-    <input type="color" class="pointer" id="<%= id %>-input" <%= inputDisabled ? 'disabled' : '' %>>
+    <input type="color" id="<%= id %>-input" <%= inputDisabled ? 'disabled' : '' %>>
   <% } %>
-  <div class="nowrap f-2 fw-3 ttl">
-    <%- typeof(secondaryLabel) === "string" ? secondaryLabel : "&nbsp;" %>
-  </div>
   <% if (!renderInput) { %>
-    <div data-hexcode class="flex flex-columnn gap-2">
-      <code class="fw-3 f-1 ff-mono"></code>
+    <div data-hexcode>
+      <code xclass="fw-3 f-1 ff-mono"></code>
     </div>
   <% } else { %>
-    <label for="<%= id %>-input" class="flex flex-columnn gap-2">
-      <code class="fw-3 f-1 ff-mono"></code>
+    <label for="<%= id %>-input">
+      <code xclass="fw-3 f-1 ff-mono"></code>
     </label>
+  <div class="nowrap f-2 fw-3 ttl" data-secondary>
+    <%- typeof(secondaryLabel) === "string" ? secondaryLabel : "&nbsp;" %>
+  </div>
   <% } %>
 </div>
