@@ -1,8 +1,9 @@
 import BaseCustomElement from "../brutaldom/BaseCustomElement"
 
-import ColorNameComponent from "./ColorNameComponent"
+import ColorNameComponent   from "./ColorNameComponent"
 import ColorSwatchComponent from "./ColorSwatchComponent"
-import ColorScale from "../color-scales/ColorScale"
+import ColorScale           from "../color-scales/ColorScale"
+import Color                from "../Color"
 
 class SpecialButtons {
   constructor(parentElement, selector, clickListener) {
@@ -85,6 +86,12 @@ export default class PaletteColorComponent extends BaseCustomElement {
     this.unlinkButtons = new UnlinkButtons(this)
     this.removeButtons = new RemoveButtons(this)
 
+    this.baseColorChangedEventHandler = (event) => {
+      if (!this.linkedPrimaryAlgorithm) {
+        this.dispatchEvent(new CustomEvent("base-color-changed", { cancelable: false, bubbles: true }))
+      }
+    }
+
   }
 
   primaryChangedCallback({newValue}) {
@@ -156,6 +163,7 @@ export default class PaletteColorComponent extends BaseCustomElement {
         }
       }
     })
+    this.baseColorSwatch.addEventListener("hex-code-change",this.baseColorChangedEventHandler)
   }
 
   _configureButtons() {
@@ -203,13 +211,67 @@ export default class PaletteColorComponent extends BaseCustomElement {
     }
   }
 
+  overrideColorName(newName) {
+    const colorName = this.querySelector(ColorNameComponent.tagName)
+    if (colorName) {
+      return colorName.overrideColorName(newName)
+    }
+    else {
+      return null
+    }
+  }
+
   get colorNameUserOverride() {
     const colorName = this.querySelector(ColorNameComponent.tagName)
     return colorName && colorName.userOverride
   }
+
   get colorScale() {
     return Array.from(this.querySelectorAll(ColorSwatchComponent.tagName)).map( (element) => {
       return element.hexCode
     })
+  }
+
+  static cloneAndAppend(paletteElement,{linkAlgorithm=false,hexCode=null}={}) {
+    const primary = paletteElement.querySelector(this.tagName + "[primary]")
+    if (!primary) {
+      this.logger.warn("Palette has no primary color scale, so there is no reference to duplicate when adding a new scale")
+      return
+    }
+    if (linkAlgorithm && paletteElement.querySelector(this.tagName + `[linked-to-primary='${linkAlgorithm}']`)) {
+      return
+    }
+    const newScale = primary.cloneNode(true)
+    newScale.removeAttribute("primary")
+    newScale.baseColorSwatch.removeAttribute("id") // force the scale to generate one
+    if (linkAlgorithm) {
+      newScale.baseColorSwatch.querySelectorAll("input[type=color]").forEach( (input) => {
+        input.setAttribute("disabled",true)
+      })
+    }
+    newScale.swatches.forEach( (swatch) => swatch.removeAttribute("derived-from") )
+
+    paletteElement.appendChild(newScale)
+
+    if (linkAlgorithm) {
+      newScale.baseColorSwatch.removeAttribute("hex-code")
+      newScale.setAttribute("linked-to-primary",linkAlgorithm)
+    }
+    else {
+      if (hexCode) {
+        newScale.baseColorSwatch.setAttribute("hex-code", hexCode)
+      }
+      else {
+        newScale.baseColorSwatch.setAttribute("hex-code", Color.random().hexCode())
+      }
+    }
+
+    newScale.querySelectorAll(ColorNameComponent.tagName).forEach( (colorName) => {
+      if (colorName.getAttribute("color-swatch") == primary.baseColorSwatch.id) {
+        colorName.setAttribute("color-swatch",newScale.baseColorSwatch.id)
+        colorName.restoreDefaultColorName()
+      }
+    })
+    return newScale
   }
 }

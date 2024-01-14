@@ -1,7 +1,6 @@
 import BaseCustomElement          from "../brutaldom/BaseCustomElement"
 import PaletteColorScaleComponent from "./PaletteColorScaleComponent"
 import ColorNameComponent         from "./ColorNameComponent"
-import Color                      from "../Color"
 
 export default class AddColorScaleButtonComponent extends BaseCustomElement {
 
@@ -56,44 +55,22 @@ export default class AddColorScaleButtonComponent extends BaseCustomElement {
     }
   }
 
+  static nameToAlgo = {
+    "complement": [ "complement" ],
+    "split-complement": [ "split-complement-lower", "split-complement-upper" ],
+    "analogous": [ "analogous-lower", "analogous-upper" ],
+    "triad": [ "triad-lower", "triad-upper" ],
+  }
+
   addColorScales() {
     if (!this.palette) {
       return
     }
-    const primary = this.palette.querySelector(PaletteColorScaleComponent.tagName + "[primary]")
-    if (!primary) {
-      this.logger.warn("Palette has no primary color scale, so there is no reference to duplicate when adding a new scale")
-      return
-    }
     if (this.algorithmName) {
-      const nameToAlgo = {
-        "complement": [ "complement" ],
-        "split-complement": [ "split-complement-lower", "split-complement-upper" ],
-        "analogous": [ "analogous-lower", "analogous-upper" ],
-        "triad": [ "triad-lower", "triad-upper" ],
-      }
-      if (nameToAlgo[this.algorithmName]) {
-        const algos = nameToAlgo[this.algorithmName]
+      const algos = this.constructor.nameToAlgo[this.algorithmName]
+      if (algos) {
         algos.forEach( (algorithm) => {
-
-          if (this.palette.querySelector(primary.tagName + `[linked-to-primary='${algorithm}']`)) {
-            return
-          }
-          const newScale = primary.cloneNode(true)
-          newScale.removeAttribute("primary")
-          newScale.baseColorSwatch.removeAttribute("id") // force the scale to generate one
-          newScale.baseColorSwatch.querySelectorAll("input[type=color]").forEach( (input) => {
-            input.setAttribute("disabled",true)
-          })
-          newScale.swatches.forEach( (swatch) => swatch.removeAttribute("derived-from") )
-          this.palette.appendChild(newScale)
-          newScale.baseColorSwatch.removeAttribute("hex-code")
-          newScale.setAttribute("linked-to-primary",algorithm)
-          newScale.querySelectorAll(ColorNameComponent.tagName).forEach( (colorName) => {
-            if (colorName.getAttribute("color-swatch") == primary.baseColorSwatch.id) {
-              colorName.setAttribute("color-swatch",newScale.baseColorSwatch.id)
-            }
-          })
+          PaletteColorScaleComponent.cloneAndAppend(this.palette,{linkAlgorithm: algorithm})
         })
       }
       else {
@@ -101,17 +78,7 @@ export default class AddColorScaleButtonComponent extends BaseCustomElement {
       }
     }
     else {
-      const newScale = primary.cloneNode(true)
-      newScale.removeAttribute("primary")
-      newScale.baseColorSwatch.removeAttribute("id") // force the scale to generate one
-      newScale.swatches.forEach( (swatch) => swatch.removeAttribute("derived-from") )
-      this.palette.appendChild(newScale)
-      newScale.baseColorSwatch.setAttribute("hex-code", Color.random().hexCode())
-      newScale.querySelectorAll(ColorNameComponent.tagName).forEach( (colorName) => {
-        if (colorName.getAttribute("color-swatch") == primary.baseColorSwatch.id) {
-          colorName.setAttribute("color-swatch",newScale.baseColorSwatch.id)
-        }
-      })
+      PaletteColorScaleComponent.cloneAndAppend(this.palette)
     }
   }
 }

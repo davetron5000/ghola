@@ -234,6 +234,48 @@
           </g-element-source>
         </div>
       <%- include("../templates/test-case-end.html") %>
+      <%- include("../templates/test-case-start.html", {
+        id: "color-changed-event",
+        title: "When the base color changes, an event is fired",
+        open: false,
+              description: "To know when the underlying base color changes, the <code>base-color-changed</code> event can be subscribed to",
+        }) %>
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-palette-color-scale derive-color-scale="exponential" class="flex flex-column gap-2" id="color-changed-event-component" show-warnings >
+              <button data-preview> Preview </button>
+              <button data-remove> Remove </button>
+              <button data-unlink> Unlink from Primary </button>
+              <div class="flex">
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" disabled></label>
+                </g-color-swatch>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" disabled></label>
+                </g-color-swatch>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" disabled></label>
+                </g-color-swatch>
+                <g-color-swatch hex-code="#6429bd">
+                  <label class="flex flex-column"><input type="color"></label>
+                </g-color-swatch>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" disabled></label>
+                </g-color-swatch>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" disabled></label>
+                </g-color-swatch>
+                <g-color-swatch>
+                  <label class="flex flex-column"><input type="color" disabled></label>
+                </g-color-swatch>
+              </div>
+            </g-palette-color-scale>
+          </g-test-case-subject>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+        </div>
+      <%- include("../templates/test-case-end.html") %>
     </main>
   </body>
 </html>

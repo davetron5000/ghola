@@ -185,7 +185,7 @@ export default class ColorSwatchComponent extends BaseCustomElement {
   get hexCodeChangedEventName() { return this.constructor.HEX_CODE_CHANGE_EVENT_NAME }
 
   _dispatchHexcodeChanged() {
-    this.dispatchEvent(new CustomEvent(this.hexCodeChangedEventName))
+    this.dispatchEvent(new CustomEvent(this.hexCodeChangedEventName, { cancelable: false, bubbles: true }))
   }
 
 

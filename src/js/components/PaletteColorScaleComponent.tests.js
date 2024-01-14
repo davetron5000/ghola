@@ -355,3 +355,23 @@ testCase("unlinked-color", ({setup,teardown,test,subject,assert,assertEqual}) =>
     }
   )
 })
+
+testCase("color-changed-event", ({setup,teardown,test,subject,assert,assertEqual}) => {
+  setup(setupBasedOnFirstChild)
+  teardown(teardownAdded)
+
+  test("when the base color is changed, an event id fired",
+    ({ $paletteColor }) => {
+      let receivedEvent = null
+      $paletteColor.addEventListener("base-color-changed", (event) => {
+        receivedEvent = event
+      })
+
+      $paletteColor.baseColorSwatch.forTesting.dispatchHexCodeChanged()
+
+      assert(receivedEvent,"Event should've been fired")
+      assert(receivedEvent.bubbles,"Event should bubble")
+
+    }
+  )
+})
