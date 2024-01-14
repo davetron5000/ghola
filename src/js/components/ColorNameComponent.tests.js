@@ -9,27 +9,30 @@ import {
 import ColorSwatchComponent from "./ColorSwatchComponent"
 import ColorNameComponent from "./ColorNameComponent"
 
-testCase("name-derived-from-color-input", ({setup,teardown,test,subject,assert,assertEqual}) => {
-  setup( ({require,clone}) => {
-    const $colorName = clone(subject.querySelector(ColorNameComponent.tagName),"text input")
-    const $swatch = clone(subject.querySelector(ColorSwatchComponent.tagName),"text input")
-    const $input = require($colorName.querySelector("input[type=text]"),"text input")
+const basicSetup = ({require,clone,subject}) => {
+  const $colorName = clone(subject.querySelector(ColorNameComponent.tagName),"text input")
+  const $swatch = clone(subject.querySelector(ColorSwatchComponent.tagName),"text input")
+  const $input = require($colorName.querySelector("input[type=text]"),"text input")
 
-    $swatch.id = `test-case-${$swatch.id}`
-    $colorName.id = `test-case${$colorName.id}`
+  $swatch.id = `test-case-${$swatch.id}`
+  $colorName.id = `test-case${$colorName.id}`
 
-    document.body.appendChild($colorName)
-    document.body.appendChild($swatch)
+  document.body.appendChild($colorName)
+  document.body.appendChild($swatch)
 
-    $colorName.setAttribute("color-swatch",$swatch.id)
+  $colorName.setAttribute("color-swatch",$swatch.id)
 
     return { $colorName, $input, $swatch }
-  })
+}
 
-  teardown( ({$colorName, input,$swatch}) => {
-    document.body.removeChild($colorName, input)
-    document.body.removeChild($swatch)
-  })
+const basicTeardown = ({$colorName,$swatch}) => {
+  document.body.removeChild($colorName)
+  document.body.removeChild($swatch)
+}
+
+testCase("name-derived-from-color-input", ({setup,teardown,test,subject,assert,assertEqual}) => {
+  setup(basicSetup)
+  teardown(basicTeardown)
 
   test("by default, the input's value is the broad category name of the color",
     ({$colorName,$input,$swatch}) => {
@@ -89,6 +92,20 @@ testCase("name-derived-from-color-input", ({setup,teardown,test,subject,assert,a
 
       assertEqual("Green",$input.value,"<input>'s value should revert to the element's default")
       assert(!$input.dataset.userOverride,"<input> should not have data-user-override set")
+    }
+  )
+})
+testCase("name-override-via-attribute-color-input", ({setup,teardown,test,subject,assert,assertEqual}) => {
+  setup(basicSetup)
+  teardown(basicTeardown)
+  test("the value should be the overridden value from the attribute",
+    ({$colorName,$input,$swatch}) => {
+      $swatch.setAttribute("hex-code","#ff0000")
+      $swatch.forTesting.dispatchHexCodeChanged()
+      $colorName.overrideColorName("Puce")
+
+      assertEqual("Puce",$input.value,"<input>'s value should what was provided in the attribute")
+      assert($input.dataset.userOverride,"<input> should have data-user-override set to allow detection of this situation")
     }
   )
 })

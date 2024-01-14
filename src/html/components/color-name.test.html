@@ -29,6 +29,34 @@
           </g-element-source>
         </div>
       <%- include("../templates/test-case-end.html") %>
+      <%- include("../templates/test-case-start.html", {
+        id: "name-override-via-attribute-color-input",
+        title: "Name can be overridden progammatically",
+        description: "This allows code to set the overridden value without knowing how that is managed internally",
+        }) %>
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-color-name color-swatch="basis-swatch-2" show-warnings id="color-name-basis-swatch-2">
+              <input type="text" class="ba br-2 bg-white-ish bc-gray-dark pa-1 ff-sans">
+            </g-color-name>
+            <g-color-swatch id="basis-swatch-2" hex-code="#000000">
+              <label class="flex flex-column gap-2">
+                <input type="color" class="h-5 w-5">
+              </label>
+            </g-color-swatch>
+          </g-test-case-subject>
+          <button id="override">Override it!</button>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+          <script>
+            document.getElementById("override").addEventListener("click", (event) => {
+              event.preventDefault()
+              document.getElementById("color-name-basis-swatch-2").overrideColorName("Bleorgh Blue!")
+            })
+          </script>
+        </div>
+      <%- include("../templates/test-case-end.html") %>
     </main>
   </body>
 </html>

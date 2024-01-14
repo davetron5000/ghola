@@ -97,6 +97,7 @@ export default class ColorNameComponent extends BaseCustomElement {
     }
 
   }
+
   get userOverride() {
     const input = this._input()
     if (input) {
@@ -106,6 +107,23 @@ export default class ColorNameComponent extends BaseCustomElement {
       return false
     }
   }
+
+  overrideColorName(newName) {
+    const input = this._input()
+    if (input) {
+      input.dataset.userOverride = true
+      input.value = newName
+    }
+  }
+  restoreDefaultColorName() {
+    const input = this._input()
+    if (input) {
+      delete input.dataset.userOverride
+      input.value = ""
+      this.render()
+    }
+  }
+
 
   _name(hexCode) {
     const [hue,saturation,l] = Color.fromHexCode(hexCode).hsl()

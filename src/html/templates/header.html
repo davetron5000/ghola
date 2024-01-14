@@ -1,18 +1,23 @@
     <header class="bg-black-ish gray-lightest">
-      <h1 class="ma-0 mh-3 pt-3 f-6 ttu tracked flex items-center gap-3">
-        Ghola
-        <span class="h-3 w-3 bg-red"></span>
-        <span class="h-3 w-3 bg-orange"></span>
-        <span class="h-3 w-3 bg-yellow"></span>
-        <span class="h-3 w-3 bg-green"></span>
-        <span class="h-3 w-3 bg-blue"></span>
-        <span class="h-3 w-3 bg-purple"></span>
-        <span class="h-3 w-3 bg-gray"></span>
-      </h1>
-      <h2 class="ma-0 mh-3 pb-3 f-5">Palette Generator for Developers</h2>
-      <% if (typeof(subtitle) === "string") { %>
-        <h3 class="ma-0 ph-3 pb-3 f-4 ttu tracked fw-4"><%= subtitle %></h3>
-      <% } %>
+      <div class="flex items-center justify-between">
+        <div>
+        <h1 class="ma-0 mh-3 pt-3 f-6 ttu tracked flex items-center gap-3">
+          Ghola
+          <span class="h-3 w-3 bg-red"></span>
+          <span class="h-3 w-3 bg-orange"></span>
+          <span class="h-3 w-3 bg-yellow"></span>
+          <span class="h-3 w-3 bg-green"></span>
+          <span class="h-3 w-3 bg-blue"></span>
+          <span class="h-3 w-3 bg-purple"></span>
+          <span class="h-3 w-3 bg-gray"></span>
+        </h1>
+        <h2 class="ma-0 mh-3 pb-3 f-5">Palette Generator for Developers</h2>
+        <% if (typeof(subtitle) === "string") { %>
+          <h3 class="ma-0 ph-3 pb-3 f-4 ttu tracked fw-4"><%= subtitle %></h3>
+        <% } %>
+        </div>
+        <a href="/about.html" class="blue-light f-3 mr-3">About</a>
+      </div>
       <% if ( (typeof(components) === "boolean") && components) { %>
       <div class="bg-white bb bc-gray-dark black flex f-2">
         <nav class="bg-gray-lightest flex items-baseline pa-3 gap-3 w-100">

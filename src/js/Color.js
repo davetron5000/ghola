@@ -1,10 +1,18 @@
 import colorConvert from "color-convert"
-export default class Color {
+
+import NotValidHexCode from "./NotValidHexCode"
+
+class Color {
 
   static HEX_REGEXP = new RegExp("^(#)?([a-fA-F0-9]{6})$")
 
   static fromHexCode(hexCode) {
-    return new Color(hexCode)
+    if (hexCode) {
+      return new Color(hexCode)
+    }
+    else {
+      return null
+    }
   }
 
   static fromHSL(h,s,l) {
@@ -25,12 +33,13 @@ export default class Color {
 
   constructor(hexCodeAsString) {
     if (!hexCodeAsString) {
-      throw `Color must be given a hex code`
+      throw new TypeError("Color must be given a hex code")
     }
-    const [matches, _hash, hexCode] = hexCodeAsString.match(Color.HEX_REGEXP)
+    const matches = hexCodeAsString.match(Color.HEX_REGEXP)
     if (!matches) {
-      throw `'${hexCodeAsString}' is not a valid hex code`
+      throw new NotValidHexCode(hexCodeAsString)
     }
+    const [_matches, _hash, hexCode] = matches
     this.hex = `#${hexCode}`.toUpperCase()
   }
 
@@ -42,3 +51,4 @@ export default class Color {
     return this.hex
   }
 }
+export default Color

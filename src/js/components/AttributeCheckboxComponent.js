@@ -50,6 +50,13 @@ export default class AttributeCheckboxComponent extends BaseCustomElement {
 
   }
 
+  check() {
+    if (this.checkbox) {
+      this.checkbox.checked = true
+      this.render()
+    }
+  }
+
   get checkbox() {
     const checkboxes = this.querySelectorAll("input[type=checkbox]")
     if (checkboxes.length == 0) {
