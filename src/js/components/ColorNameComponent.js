@@ -29,9 +29,11 @@ export default class ColorNameComponent extends BaseCustomElement {
       const value = event.target.value
       if (value && String(value).trim() != "") {
         event.target.dataset.userOverride = true
+        this.dispatchEvent(new CustomEvent("name-change", { cancelable: false, bubbles: true }))
       }
       else {
         delete event.target.dataset.userOverride
+        this.dispatchEvent(new CustomEvent("name-cleared", { cancelable: false, bubbles: true }))
       }
       this.render()
     }

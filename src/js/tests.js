@@ -6,6 +6,7 @@ import "./components/ColorSwatchComponent.tests.js"
 import "./components/ColorNameComponent.tests.js"
 import "./components/PaletteColorScaleComponent.tests.js"
 import "./components/AddColorScaleButtonComponent.tests.js"
+import "./components/PaletteComponent.tests.js"
 
 
 document.addEventListener("DOMContentLoaded", () => {

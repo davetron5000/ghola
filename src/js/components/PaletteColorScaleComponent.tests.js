@@ -128,7 +128,7 @@ testCase("primary-color", ({setup,teardown,test,subject,assert,assertEqual}) => 
       let previewCalled = false
       let detail = null
 
-      $paletteColor.addEventListener("preview", (event) => {
+      $paletteColor.addEventListener("preview-scale", (event) => {
         previewCalled = true 
         detail = event.detail
       })
@@ -231,48 +231,42 @@ testCase("linked-to-primary", ({setup,teardown,test,confidenceCheck,subject,asse
   test("The preview event is fired when the preview button is clicked",
     ({$paletteColor,$previewButton}) => {
       let previewCalled = false
-      $paletteColor.addEventListener("preview", (event) => previewCalled = true )
+      $paletteColor.addEventListener("preview-scale", (event) => previewCalled = true )
       $previewButton.dispatchEvent(new Event("click"))
 
       assert(previewCalled,"The event listener should've been called when the button was clicked")
     }
   )
-  test("The remove event is fired and the element is removed when the remove button is clicked",
+  test("The remove event is fired after the element is removed, when the remove button is clicked",
     ({$paletteColor,$removeButton}) => {
-      let removeCalled = false
+      let eventReceived = false
+      let childExists = null
       const parent = $paletteColor.parentElement
       const id = $paletteColor.id
 
-      $paletteColor.addEventListener("remove", (event) => removeCalled = true )
-      $removeButton.dispatchEvent(new Event("click"))
-
-      assert(removeCalled,"The event listener should've been called when the button was clicked")
-      assert(!parent.children.namedItem(id),"The element should've been removed")
-    }
-  )
-  test("The remove event is fired but the element not removed when the remove button is clicked but the handler preventsDefault()",
-    ({$paletteColor,$removeButton}) => {
-      let removeCalled = false
-      const parent = $paletteColor.parentElement
-      const id = $paletteColor.id
-
-      $paletteColor.addEventListener("remove", (event) => {
-        event.preventDefault()
-        removeCalled = true 
+      $paletteColor.addEventListener("remove-scale", (event) => {
+        eventReceived = true 
+        childExists = !!parent.children.namedItem(id)
       })
       $removeButton.dispatchEvent(new Event("click"))
 
-      assert(removeCalled,"The event listener should've been called when the button was clicked")
-      assert(parent.children.namedItem(id),"The element should still be there")
+      assert(eventReceived,"The event listener should've been called when the button was clicked")
+      assert(!childExists,"Removal should've been called before the event handler")
+      assert(!parent.children.namedItem(id),"The element should've been removed")
     }
   )
   test("The unlink event is fired when unlink is clicked and the derivation attributes from the base swatch are removed, but it's hex-code is preserved and any inputs inside are made editable",
     ({$paletteColor,$unlinkButton,$primary}) => {
-      let unlinkCalled = false
-      $paletteColor.addEventListener("unlink", (event) => unlinkCalled = true )
+      let eventReceived = null
+      let stillLinkedToPrimary = null
+      $paletteColor.addEventListener("unlink-from-primary", (event) => {
+        eventReceived = true
+        stillLinkedToPrimary = $paletteColor.getAttributeNames().indexOf("linked-to-primary") != -1
+      })
       $unlinkButton.dispatchEvent(new Event("click"))
 
-      assert(unlinkCalled,"The event listener should've been called when the button was clicked")
+      assert(eventReceived,"The event listener should've been called when the button was clicked")
+      assert(!stillLinkedToPrimary,"Unlinking should've occured before the handler was called")
       assert($paletteColor.getAttributeNames().indexOf("linked-to-primary") == -1,"linked-to-primary attribute should've been removed")
       assert($paletteColor.baseColorSwatch.getAttributeNames().indexOf("derived-from") == -1,"derived-from should've been removed")
       assert($paletteColor.baseColorSwatch.getAttributeNames().indexOf("derivation-algorithm") == -1,"derivation-algorithm should've been removed")
@@ -285,21 +279,6 @@ testCase("linked-to-primary", ({setup,teardown,test,confidenceCheck,subject,asse
       $primary.baseColorSwatch.querySelector("input[type=color]").dispatchEvent(new Event("change"))
       assertEqual("#82BD29",$paletteColor.baseColorSwatch.getAttribute("hex-code"),"hex-code shoud've been set on the base color")
       assertEqual("#82bd29",$paletteColor.baseColorSwatch.querySelector("input[type=color]").value,"input value shoud've been set on the base color")
-    }
-  )
-  test("The unlink event is fired but there are no changes if default was prevented",
-    ({$paletteColor,$unlinkButton}) => {
-      let unlinkCalled = false
-      $paletteColor.addEventListener("unlink", (event) => {
-        event.preventDefault()
-        unlinkCalled = true 
-      })
-      $unlinkButton.dispatchEvent(new Event("click"))
-
-      assert(unlinkCalled,"The event listener should've been called when the button was clicked")
-      assert($paletteColor.getAttribute("linked-to-primary") !== null,`linked-to-primary attribute should not been removed`)
-      assert($paletteColor.baseColorSwatch.getAttribute("derived-from"),"derived-from should've been preserved")
-      assert($paletteColor.baseColorSwatch.getAttribute("derivation-algorithm"),"derivation-algorithm should've been preserved")
     }
   )
 })
@@ -320,7 +299,7 @@ testCase("unlinked-color", ({setup,teardown,test,subject,assert,assertEqual}) =>
   test("The preview event is fired when the preview button is clicked",
     ({$paletteColor,$previewButton}) => {
       let previewCalled = false
-      $paletteColor.addEventListener("preview", (event) => previewCalled = true )
+      $paletteColor.addEventListener("preview-scale", (event) => previewCalled = true )
       $previewButton.dispatchEvent(new Event("click"))
 
       assert(previewCalled,"The event listener should've been called when the button was clicked")
@@ -331,27 +310,11 @@ testCase("unlinked-color", ({setup,teardown,test,subject,assert,assertEqual}) =>
       let removeCalled = false
       const parent = $paletteColor.parentElement
       const id = $paletteColor.id
-      $paletteColor.addEventListener("remove", (event) => removeCalled = true )
+      $paletteColor.addEventListener("remove-scale", (event) => removeCalled = true )
       $removeButton.dispatchEvent(new Event("click"))
 
       assert(removeCalled,"The event listener should've been called when the button was clicked")
       assert(!parent.children.namedItem(id),"The element should've been removed")
-    }
-  )
-  test("The remove event is fired but the element not removed when the remove button is clicked but the handler preventsDefault()",
-    ({$paletteColor,$removeButton}) => {
-      let removeCalled = false
-      const parent = $paletteColor.parentElement
-      const id = $paletteColor.id
-
-      $paletteColor.addEventListener("remove", (event) => {
-        event.preventDefault()
-        removeCalled = true 
-      })
-      $removeButton.dispatchEvent(new Event("click"))
-
-      assert(removeCalled,"The event listener should've been called when the button was clicked")
-      assert(parent.children.namedItem(id),"The element should still be there")
     }
   )
 })

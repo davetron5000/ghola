@@ -36,7 +36,7 @@ class PreviewButtons extends SpecialButtons {
         colorScale: parentElement.colorScale,
         baseColor: parentElement.baseColorSwatch.hexCode,
       }
-      this.dispatchEvent("preview", detail)
+      this.dispatchEvent("preview-scale", detail)
     })
   }
 }
@@ -44,17 +44,15 @@ class PreviewButtons extends SpecialButtons {
 class UnlinkButtons extends SpecialButtons  {
   constructor(parentElement) {
     super(parentElement,"[data-unlink]",() => {
-      const defaultNotPrevented = this.dispatchEvent("unlink")
-      if (defaultNotPrevented) {
-        parentElement.removeAttribute("linked-to-primary")
-        if (parentElement.baseColorSwatch) {
-          parentElement.baseColorSwatch.removeAttribute("derived-from")
-          parentElement.baseColorSwatch.removeAttribute("derivation-algorithm")
-          parentElement.baseColorSwatch.querySelectorAll("input[type=color][disabled]").forEach( (input) => {
-            input.removeAttribute("disabled")
-          })
-        }
+      parentElement.removeAttribute("linked-to-primary")
+      if (parentElement.baseColorSwatch) {
+        parentElement.baseColorSwatch.removeAttribute("derived-from")
+        parentElement.baseColorSwatch.removeAttribute("derivation-algorithm")
+        parentElement.baseColorSwatch.querySelectorAll("input[type=color][disabled]").forEach( (input) => {
+          input.removeAttribute("disabled")
+        })
       }
+      this.dispatchEvent("unlink-from-primary")
     })
   }
 }
@@ -62,10 +60,8 @@ class UnlinkButtons extends SpecialButtons  {
 class RemoveButtons extends SpecialButtons {
   constructor(parentElement) {
     super(parentElement,"[data-remove]",() => {
-      const defaultNotPrevented = this.dispatchEvent("remove")
-      if (defaultNotPrevented) {
-        parentElement.parentElement.removeChild(parentElement)
-      }
+      parentElement.parentElement.removeChild(parentElement)
+      this.dispatchEvent("remove-scale")
     })
   }
 }
@@ -214,10 +210,13 @@ export default class PaletteColorComponent extends BaseCustomElement {
   overrideColorName(newName) {
     const colorName = this.querySelector(ColorNameComponent.tagName)
     if (colorName) {
-      return colorName.overrideColorName(newName)
+      colorName.overrideColorName(newName)
     }
-    else {
-      return null
+  }
+  restoreDefaultColorName() {
+    const colorName = this.querySelector(ColorNameComponent.tagName)
+    if (colorName) {
+      colorName.restoreDefaultColorName()
     }
   }
 
@@ -230,48 +229,5 @@ export default class PaletteColorComponent extends BaseCustomElement {
     return Array.from(this.querySelectorAll(ColorSwatchComponent.tagName)).map( (element) => {
       return element.hexCode
     })
-  }
-
-  static cloneAndAppend(paletteElement,{linkAlgorithm=false,hexCode=null}={}) {
-    const primary = paletteElement.querySelector(this.tagName + "[primary]")
-    if (!primary) {
-      this.logger.warn("Palette has no primary color scale, so there is no reference to duplicate when adding a new scale")
-      return
-    }
-    if (linkAlgorithm && paletteElement.querySelector(this.tagName + `[linked-to-primary='${linkAlgorithm}']`)) {
-      return
-    }
-    const newScale = primary.cloneNode(true)
-    newScale.removeAttribute("primary")
-    newScale.baseColorSwatch.removeAttribute("id") // force the scale to generate one
-    if (linkAlgorithm) {
-      newScale.baseColorSwatch.querySelectorAll("input[type=color]").forEach( (input) => {
-        input.setAttribute("disabled",true)
-      })
-    }
-    newScale.swatches.forEach( (swatch) => swatch.removeAttribute("derived-from") )
-
-    paletteElement.appendChild(newScale)
-
-    if (linkAlgorithm) {
-      newScale.baseColorSwatch.removeAttribute("hex-code")
-      newScale.setAttribute("linked-to-primary",linkAlgorithm)
-    }
-    else {
-      if (hexCode) {
-        newScale.baseColorSwatch.setAttribute("hex-code", hexCode)
-      }
-      else {
-        newScale.baseColorSwatch.setAttribute("hex-code", Color.random().hexCode())
-      }
-    }
-
-    newScale.querySelectorAll(ColorNameComponent.tagName).forEach( (colorName) => {
-      if (colorName.getAttribute("color-swatch") == primary.baseColorSwatch.id) {
-        colorName.setAttribute("color-swatch",newScale.baseColorSwatch.id)
-        colorName.restoreDefaultColorName()
-      }
-    })
-    return newScale
   }
 }

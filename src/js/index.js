@@ -5,9 +5,11 @@ import ColorSwatchComponent         from "./components/ColorSwatchComponent"
 import DownloadPaletteComponent     from "./components/DownloadPaletteComponent"
 import ElementSourceComponent       from "./brutaldom/components/ElementSourceComponent"
 import PaletteColorScaleComponent   from "./components/PaletteColorScaleComponent"
+import PaletteComponent             from "./components/PaletteComponent"
 
-import Color from "./Color"
-import NotValidHexCode from "./NotValidHexCode"
+import PaletteUI from "./PaletteUI"
+import PushState from "./PushState"
+
 
 document.addEventListener("DOMContentLoaded", () => {
   AddColorScaleButtonComponent.define()
@@ -17,46 +19,19 @@ document.addEventListener("DOMContentLoaded", () => {
   DownloadPaletteComponent.define()
   ElementSourceComponent.define()
   PaletteColorScaleComponent.define()
+  PaletteComponent.define()
 
-  const url = new URL(window.location);
-  if (url.searchParams.get("compact") == "true") {
-    document.querySelectorAll(`${AttributeCheckboxComponent.tagName}[attribute-name='compact']`).forEach( (checkbox) => {
-      checkbox.check()
-    })
-  }
-  const primaryColor = url.searchParams.get("primaryColor")
-  if (primaryColor) {
-    const [hex,userSuppliedName] = primaryColor.split(/:/)
-    const color = Color.fromHexCode(hex)
-    document.querySelectorAll(`${PaletteColorScaleComponent.tagName}[primary]`).forEach( (element) => {
-      element.baseColorSwatch.setAttribute("hex-code",color.hexCode())
-      if (userSuppliedName) {
-        element.overrideColorName(userSuppliedName)
+  const pushState = new PushState()
+
+  const paletteComponent = document.querySelector("g-palette")
+  if (paletteComponent) {
+    const paletteUI = new PaletteUI(pushState)
+    paletteUI.build()
+
+    window.addEventListener("popstate", (event) => {
+      if (event.state && event.state.url) {
+        window.location = event.state.url
       }
     })
-    const palette = document.querySelector("g-palette")
-    const otherColors = url.searchParams.get("otherColors")
-    if (palette && otherColors) {
-      otherColors.split(/,/).forEach( (colorAndName) => {
-        const [hexOrAlgorithm,userSuppliedName] = colorAndName.split(/:/)
-        let newScale = null
-        try {
-          const color = Color.fromHexCode(hexOrAlgorithm)
-          newScale = PaletteColorScaleComponent.cloneAndAppend(palette,{ hexCode: color.hexCode() })
-        }
-        catch (e) {
-          if (e instanceof NotValidHexCode) {
-            const algorithm = hexOrAlgorithm
-            newScale = PaletteColorScaleComponent.cloneAndAppend(palette,{ linkAlgorithm: algorithm })
-          }
-          else {
-            throw e
-          }
-        }
-        if (userSuppliedName) {
-          newScale.overrideColorName(userSuppliedName)
-        }
-      })
-    }
   }
 })

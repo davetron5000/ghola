@@ -1,6 +1,7 @@
 import BaseCustomElement          from "../brutaldom/BaseCustomElement"
 import PaletteColorScaleComponent from "./PaletteColorScaleComponent"
 import ColorNameComponent         from "./ColorNameComponent"
+import Color from "../Color"
 
 export default class AddColorScaleButtonComponent extends BaseCustomElement {
 
@@ -27,6 +28,29 @@ export default class AddColorScaleButtonComponent extends BaseCustomElement {
     this.paletteId = newValue
   }
 
+  get palette() {
+    let palette
+    if (this.paletteId) {
+      palette = document.getElementById(this.paletteId)
+      if (!palette) {
+        if (this.isConnected) {
+          this.logger.warn("No element with id '%s' found in document",this.paletteId)
+        }
+      }
+      else if (palette.tagName.toLowerCase() != "g-palette") {
+        this.logger.warn("Element with id '%s' is not a g-palette, but a %s",this.paletteId,palette.tagName)
+      }
+    }
+    else {
+      const palettes = document.querySelectorAll("g-palette")
+      if (palettes.length > 1) {
+        this.logger.warn("More than one g-palette found in document - behavior is not defined in this case")
+      }
+      palette = palettes[0]
+    }
+    return palette
+  }
+
   render() {
     const buttons = this.querySelectorAll("button")
     if (buttons.length == 0)  {
@@ -35,24 +59,6 @@ export default class AddColorScaleButtonComponent extends BaseCustomElement {
     buttons.forEach( (button) => {
       button.addEventListener("click", this.addScaleClickListener)
     })
-    if (this.paletteId) {
-      this.palette = document.getElementById(this.paletteId)
-      if (!this.palette) {
-        if (this.isConnected) {
-          this.logger.warn("No element with id '%s' found in document",this.paletteId)
-        }
-      }
-      else if (this.palette.tagName.toLowerCase() != "g-palette") {
-        this.logger.warn("Element with id '%s' is not a g-palette, but a %s",this.paletteId,this.palette.tagName)
-      }
-    }
-    else {
-      const palettes = document.querySelectorAll("g-palette")
-      if (palettes.length > 1) {
-        this.logger.warn("More than one g-palette found in document - behavior is not defined in this case")
-      }
-      this.palette = palettes[0]
-    }
   }
 
   static nameToAlgo = {
@@ -70,7 +76,7 @@ export default class AddColorScaleButtonComponent extends BaseCustomElement {
       const algos = this.constructor.nameToAlgo[this.algorithmName]
       if (algos) {
         algos.forEach( (algorithm) => {
-          PaletteColorScaleComponent.cloneAndAppend(this.palette,{linkAlgorithm: algorithm})
+          this.palette.addScale({linkAlgorithm:algorithm})
         })
       }
       else {
@@ -78,7 +84,7 @@ export default class AddColorScaleButtonComponent extends BaseCustomElement {
       }
     }
     else {
-      PaletteColorScaleComponent.cloneAndAppend(this.palette)
+      this.palette.addScale({hexCode: Color.random().hexCode()})
     }
   }
 }

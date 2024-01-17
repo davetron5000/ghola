@@ -6,9 +6,19 @@ class Color {
 
   static HEX_REGEXP = new RegExp("^(#)?([a-fA-F0-9]{6})$")
 
-  static fromHexCode(hexCode) {
+  static fromHexCode(hexCode, {onError = "throw" } = {}) {
     if (hexCode) {
-      return new Color(hexCode)
+      try {
+        return new Color(hexCode)
+      }
+      catch (e) {
+        if (e instanceof Error) {
+          if (onError == "return") {
+            return null
+          }
+        }
+        throw e
+      }
     }
     else {
       return null
