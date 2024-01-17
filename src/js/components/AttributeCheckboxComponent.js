@@ -56,6 +56,12 @@ export default class AttributeCheckboxComponent extends BaseCustomElement {
       this.render()
     }
   }
+  uncheck() {
+    if (this.checkbox) {
+      this.checkbox.checked = false
+      this.render()
+    }
+  }
 
   get checkbox() {
     const checkboxes = this.querySelectorAll("input[type=checkbox]")
@@ -67,6 +73,10 @@ export default class AttributeCheckboxComponent extends BaseCustomElement {
       this.logger.warn("More than one checkbox found - behavior is not defined")
     }
     return checkboxes[0]
+  }
+
+  get checked() {
+    return this.checkbox && this.checkbox.checked
   }
 
 }

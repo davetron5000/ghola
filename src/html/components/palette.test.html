@@ -1,0 +1,92 @@
+<%- include("../templates/head.html", { description: "Tests for the palette component", title: "Ghola - Palette Component Tests", tests: true }) %>
+</head>
+  <body class="ff-sans bg-white black-ish">
+    <%- include("../templates/header.html", { subtitle: "Test of the palette", components: true }) %>
+    <main class="pa-3">
+      <h3>Test Cases for <code>g-palette</code></h3>
+      <%- include("../templates/test-case-start.html", {
+        id: "palette-events",
+        title: "The palette adapts child events to something useful",
+        description: "The palette listens for the events of its children and adapts them to higher-level events consumable outside the palette component",
+        }) %>
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-palette id="palette-events">
+              <g-palette-color-scale primary show-warnings  scale-algorithm="exponential">
+                <g-color-name color-swatch="primary-base-color">
+                  <label>
+                    <input type="text">
+                  </label>
+                </g-color-name>
+                <nav>
+                  <button data-preview>Preview</button>
+                  <button data-remove>Remove</button>
+                  <button data-unlink>Unlink</button>
+                </nav>
+                <div class="flex justify-center gap-1">
+                  <g-color-swatch>
+                    <div data-color></div>
+                  </g-color-swatch>
+                  <g-color-swatch hex-code="#600080" id="primary-base-color">
+                    <input type="color">
+                  </g-color-swatch>
+                  <g-color-swatch>
+                    <div data-color></div>
+                  </g-color-swatch>
+                </div>
+              </g-palette-color-scale>
+              <g-palette-color-scale linked-to-primary="complement" show-warnings  scale-algorithm="exponential">
+                <g-color-name color-swatch="linked-to-primary">
+                  <label>
+                    <input type="text">
+                  </label>
+                </g-color-name>
+                <nav>
+                  <button data-preview>Preview</button>
+                  <button data-remove>Remove</button>
+                  <button data-unlink>Unlink</button>
+                </nav>
+                <div class="flex justify-center gap-1">
+                  <g-color-swatch>
+                    <div data-color></div>
+                  </g-color-swatch>
+                  <g-color-swatch id="linked-to-primary">
+                    <input type="color" disabled>
+                  </g-color-swatch>
+                  <g-color-swatch>
+                    <div data-color></div>
+                  </g-color-swatch>
+                </div>
+              </g-palette-color-scale>
+              <g-palette-color-scale show-warnings  scale-algorithm="exponential">
+                <g-color-name color-swatch="unlinked-color">
+                  <label><input type="text"></label>
+                </g-color-name>
+                <nav>
+                  <button data-preview>Preview</button>
+                  <button data-remove>Remove</button>
+                  <button data-unlink>Unlink</button>
+                </nav>
+                <div class="flex justify-center gap-1">
+                  <g-color-swatch>
+                    <div data-color></div>
+                  </g-color-swatch>
+                  <g-color-swatch hex-code="#881123" id="unlinked-color">
+                    <input type="color">
+                  </g-color-swatch>
+                  <g-color-swatch>
+                    <div data-color></div>
+                  </g-color-swatch>
+                </div>
+              </g-palette-color-scale>
+            </g-palette>
+          </g-test-case-subject>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+        </div>
+      <%- include("../templates/test-case-end.html") %>
+    </main>
+  </body>
+</html>
+
