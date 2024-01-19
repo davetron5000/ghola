@@ -5,9 +5,9 @@ export default class CSVGenerator extends Generator {
       [ "Color Category", "Hex" ].join(","),
     ]
     this._eachColor({
-      onColor: (name,color) => {
+      onColor: (name,color,index) => {
         csv.push([
-          name.toString().replaceAll(/['\",]/g,"-"),
+          name.toString().replaceAll(/['\",]/g,"-") + "-" + (index+1),
           color,
         ].join(","))
       }

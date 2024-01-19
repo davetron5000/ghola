@@ -6,4 +6,5 @@ export default class ComplementaryDerivation extends BaseDerivation {
     const newH = (h + 180) % 360
     return this.hexCode(newH,s,l)
   }
+  get humanName() { return "Complement" }
 }

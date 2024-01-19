@@ -8,12 +8,13 @@ import {
 
 import Color from "../Color"
 
-const singleDerviedSetup = ({subject,clone,require}) => {
+const singleDerivedSetup = ({subject,clone,require}) => {
   const $derived = clone(subject.children[0],"children[0]")
   const $main   = clone(subject.children[1],"children[1]")
 
   const $derivedInput = require($derived.querySelector("input[type=color]"),"derived input")
   const $derivedLabel = require($derived.querySelector("label code"),"derived label's code")
+  const $derivedLinkContext = $derived.querySelector("[data-link-context]")
 
   document.body.appendChild($main)
   document.body.appendChild($derived)
@@ -27,17 +28,18 @@ const singleDerviedSetup = ({subject,clone,require}) => {
     $derivedLabel,
     $main,
     $derived,
+    $derivedLinkContext,
   }
 }
-const singleDerviedTeardown = ({$main,$derived}) =>  {
+const singleDerivedTeardown = ({$main,$derived}) =>  {
   document.body.removeChild($main)
   document.body.removeChild($derived)
 }
 
 
 testCase("derived-brighter-linear", ({setup,teardown,test,subject,assert,assertEqual}) => {
-  setup( singleDerviedSetup )
-  teardown( singleDerviedTeardown )
+  setup( singleDerivedSetup )
+  teardown( singleDerivedTeardown )
 
   test("manipulating the main causes the others to derive values",
     ({$main,$derived,$derivedInput,$derivedLabel}) => {
@@ -49,8 +51,8 @@ testCase("derived-brighter-linear", ({setup,teardown,test,subject,assert,assertE
   )
 })
 testCase("derived-darker-linear", ({setup,teardown,test,subject,assert,assertEqual}) => {
-  setup( singleDerviedSetup )
-  teardown( singleDerviedTeardown )
+  setup( singleDerivedSetup )
+  teardown( singleDerivedTeardown )
 
   test("manipulating the main causes the others to derive values",
     ({$main,$derived,$derivedInput,$derivedLabel}) => {
@@ -62,15 +64,20 @@ testCase("derived-darker-linear", ({setup,teardown,test,subject,assert,assertEqu
   )
 })
 
-testCase("derived-complement", ({setup,teardown,test,subject,assert,assertEqual}) => {
-  setup( singleDerviedSetup )
-  teardown( singleDerviedTeardown )
-  test("manipulating the main causes the other to derive the derivedary value",
-    ({$main,$derived,$derivedInput,$derivedLabel}) => {
+testCase("derived-complement", ({setup,teardown,test,subject,assert,assertEqual,confidenceCheck}) => {
+  setup( singleDerivedSetup )
+  teardown( singleDerivedTeardown )
+  confidenceCheck( ({$derivedLinkContext}) => {
+    assert($derivedLinkContext,"derivedLinkContext is required")
+  })
+  test("manipulating the main causes the other to derive the complementary value",
+    ({$main,$derived,$derivedInput,$derivedLabel,$derivedLinkContext}) => {
       $main.setAttribute("hex-code","#334488")
+
 
       assertEqual("#887733",$derivedInput.value, "Value should be derived via derived algorithm")
       assertEqual("#887733",$derivedLabel.textContent,"Value should be derived via derived algorithm")
+      assertEqual("Complement",$derivedLinkContext.textContent)
     }
   )
 })
@@ -80,10 +87,12 @@ const lowerUpperSetup = ({subject,clone,require}) => {
   const $main  = clone(subject.children[1],"children[1]")
   const $upper = clone(subject.children[2],"children[2]")
 
-  const $lowerInput = require($lower.querySelector("input[type=color]"),"lower input")
-  const $lowerLabel = require($lower.querySelector("label code"),"lower label's code")
-  const $upperInput = require($upper.querySelector("input[type=color]"),"upper input")
-  const $upperLabel = require($upper.querySelector("label code"),"upper label's code")
+  const $lowerInput       = require($lower.querySelector("input[type=color]"),"lower input")
+  const $lowerLabel       = require($lower.querySelector("label code"),"lower label's code")
+  const $lowerLinkContext = require($lower.querySelector("[data-link-context]"),"lower' link context")
+  const $upperInput       = require($upper.querySelector("input[type=color]"),"upper input")
+  const $upperLabel       = require($upper.querySelector("label code"),"upper label's code")
+  const $upperLinkContext = require($upper.querySelector("[data-link-context]"),"upper's link context")
 
   document.body.appendChild($lower)
   document.body.appendChild($main)
@@ -99,10 +108,12 @@ const lowerUpperSetup = ({subject,clone,require}) => {
     $lower,
     $lowerInput,
     $lowerLabel,
+    $lowerLinkContext,
     $main,
     $upper,
     $upperInput,
     $upperLabel,
+    $upperLinkContext,
   }
 }
 
@@ -117,13 +128,15 @@ testCase("derived-split-complement", ({setup,teardown,test,subject,assert,assert
   teardown( lowerUpperTeardown )
 
   test("manipulating the main causes the other to derive the complementary value",
-    ({$main,$upperInput,$upperLabel,$lowerInput,$lowerLabel}) => {
+    ({$main,$upperInput,$upperLabel,$upperLinkContext,$lowerInput,$lowerLabel,$lowerLinkContext}) => {
       $main.setAttribute("hex-code","#334488")
 
       assertEqual("#6E8833",$lowerInput.value.toUpperCase(), "Value should be derived via split complement lower algorithm")
       assertEqual("#6E8833",$lowerLabel.textContent.toUpperCase(),"Value should be derived via split complement lower algorithm")
       assertEqual("#884D33",$upperInput.value.toUpperCase(), "Value should be derived via split complement upper algorithm")
       assertEqual("#884D33",$upperLabel.textContent.toUpperCase(),"Value should be derived via split complement upper algorithm")
+      assertEqual("Split Complement",$upperLinkContext.textContent)
+      assertEqual("Split Complement",$lowerLinkContext.textContent)
     }
   )
 })
@@ -133,13 +146,15 @@ testCase("derived-analogous", ({setup,teardown,test,subject,assert,assertEqual})
   teardown( lowerUpperTeardown )
 
   test("manipulating the main causes the others to derive analogous values",
-    ({$main,$upperInput,$upperLabel,$lowerInput,$lowerLabel}) => {
+    ({$main,$upperInput,$upperLabel,$upperLinkContext,$lowerInput,$lowerLabel,$lowerLinkContext}) => {
       $main.setAttribute("hex-code","#334488")
 
       assertEqual("#4D3388",$lowerInput.value.toUpperCase(), "Value should be derived via analogous lower algorithm")
       assertEqual("#4D3388",$lowerLabel.textContent.toUpperCase(),"Value should be derived via analogous lower algorithm")
       assertEqual("#336E88",$upperInput.value.toUpperCase(), "Value should be derived via analogous upper algorithm")
       assertEqual("#336E88",$upperLabel.textContent.toUpperCase(),"Value should be derived via analogous upper algorithm")
+      assertEqual("Analogous",$upperLinkContext.textContent)
+      assertEqual("Analogous",$lowerLinkContext.textContent)
     }
   )
 })
@@ -149,13 +164,15 @@ testCase("derived-triad", ({setup,teardown,test,subject,assert,assertEqual}) => 
   teardown( lowerUpperTeardown )
 
   test("manipulating the main causes the others to derive triad values",
-    ({$main,$upperInput,$upperLabel,$lowerInput,$lowerLabel}) => {
+    ({$main,$upperInput,$upperLabel,$upperLinkContext,$lowerInput,$lowerLabel,$lowerLinkContext}) => {
       $main.setAttribute("hex-code","#334488")
 
       assertEqual("#448833",$lowerInput.value, "Value should be derived via triad lower algorithm")
       assertEqual("#448833",$lowerLabel.textContent,"Value should be derived via triad lower algorithm")
       assertEqual("#883344",$upperInput.value, "Value should be derived via triad upper algorithm")
       assertEqual("#883344",$upperLabel.textContent,"Value should be derived via triad upper algorithm")
+      assertEqual("Triad",$upperLinkContext.textContent)
+      assertEqual("Triad",$lowerLinkContext.textContent)
     }
   )
 
@@ -166,18 +183,20 @@ testCase("derived-disconnected", ({setup,teardown,test,subject,assert,assertEqua
   setup( lowerUpperSetup )
   teardown( lowerUpperTeardown )
 
-  test("disconnecting one from the main stops responding to events",
-    ({$main,$upper, $upperInput,$lowerInput}) => {
+  test("disconnecting one from the main stops updating and reverts the context to the default",
+    ({$main,$upper,$upperInput,$upperLabel,$upperLinkContext,$lowerInput,$lowerLabel,$lowerLinkContext}) => {
+      $upper.setAttribute("default-link-context","Rando")
       $upper.setAttribute("show-warnings","upper")
       $upper.removeAttribute("derived-from")
       $upper.removeAttribute("derivation-algorithm")
       $upperInput.value = "#123456"
       $upperInput.dispatchEvent(new Event("change"))
       $main.setAttribute("hex-code","#334488")
-      console.log($upper)
 
       assertEqual("#448833",$lowerInput.value, "Value should be derived via triad lower algorithm")
       assertEqual("#123456",$upperInput.value, "Value should NOT be derived via triad upper algorithm")
+      assertEqual("Rando",$upperLinkContext.textContent,"Swatch that's disconnected should show the default context")
+      assertEqual("Triad",$lowerLinkContext.textContent,"Swatch that's not disconnected should show the derived context")
     }
   )
 
@@ -185,19 +204,16 @@ testCase("derived-disconnected", ({setup,teardown,test,subject,assert,assertEqua
 })
 
 testCase("base-case", ({setup,teardown,test,subject,assert,assertEqual}) => {
-  setup( () => {
-    const component = subject.children[0].cloneNode(true)
-    const $input = component.querySelector("input[type=color]")
-    const $label = component.querySelector("label")
+  setup( ({clone,require}) => {
 
-    if (!$input) { 
-      throw "No <input[type=color]>"
-    }
-    if (!$label) {
-      throw "No <label>"
-    }
+    const component = clone(subject.children[0],"first child")
+
+    const $input       = require(component.querySelector("input[type=color]"))
+    const $label       = require(component.querySelector("label"))
+    const $linkContext = require(component.querySelector("[data-link-context]"))
+
     document.body.appendChild(component)
-    return {component,$input,$label}
+    return {component,$input,$label,$linkContext}
   })
   teardown( ({component,}) => {
     document.body.removeChild(component)
@@ -222,6 +238,12 @@ testCase("base-case", ({setup,teardown,test,subject,assert,assertEqual}) => {
     const $code = $label.querySelector("code")
     assert($code,`Expected a <code> inside the label: ${$label.outerHTML}`)
     assertEqual($code.textContent,value,"<code> should have textContent set to the input's label")
+  })
+  test("when link-context default is given, that is used if there is no other link context",
+    ({component,$linkContext}) => {
+    component.setAttribute("default-link-context","Primary")
+
+    assertEqual("Primary",$linkContext.textContent,"link context should show the overridden value")
   })
 })
 

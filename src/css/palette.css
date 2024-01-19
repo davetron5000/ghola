@@ -27,6 +27,10 @@ g-palette-color-scale g-color-swatch {
   border-color: var(--mg-gray-light);
   padding: var(--mg-sp-1);
   border-radius: var(--mg-bw-1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--mg-sp-2);
 }
 
 
@@ -55,6 +59,15 @@ g-palette-color-scale g-color-swatch [data-color] {
   width: calc(2 * var(--mg-sp-5));
   height: calc(2 * var(--mg-sp-5));
 }
+
+@media screen and (max-width: 80em) {
+  g-palette-color-scale g-color-swatch input,
+  g-palette-color-scale g-color-swatch [data-color] {
+    width: calc(2 * var(--mg-sp-4));
+    height: calc(2 * var(--mg-sp-4));
+  }
+}
+
 g-palette-color-scale g-color-swatch input {
   cursor: pointer;
 }
@@ -71,12 +84,22 @@ g-palette[compact] g-palette-color-scale g-color-swatch [data-color] {
 g-palette-color-scale g-color-swatch label,
 g-palette-color-scale g-color-swatch [data-hexcode] {
   display: block;
-  margin-top: var(--mg-sp-3);
   text-align: center;
   font-weight: 300;
   font-size: var(--mg-fs-1);
 }
+
+@media screen and (max-width: 80em) {
+  g-palette g-palette-color-scale g-color-swatch [data-link-context] {
+    max-width: calc(2 * var(--mg-sp-4));
+    width: 100%;
+    white-space: nowrap;
+    overflow-x: scroll;
+  }
+}
+
 g-palette[compact] g-palette-color-scale g-color-swatch label,
+g-palette[compact] g-palette-color-scale g-color-swatch [data-link-context],
 g-palette[compact] g-palette-color-scale g-color-swatch [data-hexcode],
 g-palette[compact] g-palette-color-scale g-color-swatch [data-secondary] {
   display: none;
@@ -99,6 +122,19 @@ g-palette[compact] g-palette-color-scale g-color-name input {
 }
 g-palette g-palette-color-scale g-color-name label {
   margin-bottom: var(--mg-sp-3);
+}
+@media screen and (max-width: 80em) {
+  g-palette-color-scale g-color-name input {
+    font-size: var(--mg-fs-2);
+    padding: var(--mg-sp-1);
+  }
+  g-palette[compact] g-palette-color-scale g-color-name input {
+    font-size: var(--mg-fs-1);
+    padding: calc(0.5 * var(--mg-sp-1));
+  }
+  g-palette g-palette-color-scale g-color-name label {
+    margin-bottom: var(--mg-sp-2);
+  }
 }
 g-palette[compact] g-palette-color-scale g-color-name label {
   margin-bottom: 0;

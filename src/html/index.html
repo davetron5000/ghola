@@ -122,7 +122,7 @@
               <g-color-name color-swatch="primary-base-color">
                 <label class="flex flex-column gap-1">
                   <input type="text" class="ba br-2 bg-white-ish black bc-gray ff-sans inner-shadow-1">
-                  <span>Color Name <span data-overridden class="i f-1 ttl gray-dark">(Overridden)</span> </span>
+                  <span class="f-2">Color Name <span data-overridden class="i f-1 ttl gray-dark">(Overridden)</span> </span>
                 </label>
               </g-color-name>
               <nav class="flex flex-column gap-1">
@@ -150,8 +150,9 @@
                 <div data-color></div>
                 <div data-hexcode><code></code></div>
               </g-color-swatch>
-              <g-color-swatch hex-code="#600080" id="primary-base-color">
+              <g-color-swatch hex-code="#600080" id="primary-base-color" default-link-context="Primary">
                 <input type="color" id="primary-base-color">
+                <div data-link-context class="tc fw-6 tracked-tight ttl f-1"></div>
                 <label for="primary-base-color"><code></code></label>
               </g-color-swatch>
               <g-color-swatch>
@@ -171,6 +172,176 @@
         </g-palette>
       </article>
     </main>
+    <dialog id="preview-dialog" xopen
+            class="bn br-2 shadow-dark-4 pos-absolute top-1 left-1 bottom-1 right-1 pa-0"
+            style="width: 90vw; height: 90vh;">
+    <g-preview class="flex flex-column items-stretch">
+      <header class="bb pb-3 bg-white black">
+        <button data-close class="pos-absolute right-2 top-2 shadow-button shadow-button--red br-3 f-1 ttl fw-4">&times; Close</button>
+        <h1 class="sr-only">Preview</h1>
+        <div class="flex justify-center items-center gap-3 w-100 pt-3">
+          <g-preview-color-selection preview-text="preview-text" id="preview-color-selection">
+            <form class="flex flex-column gap-2">
+              <div data-background class="flex items-center gap-2 justify-center">
+                <div class="fw-7 w-5 tr">Background:</div>
+                <div class="flex items-center gap-2 justify-center">
+                  <%- include("templates/preview-swatch.html", { name: "background-color", hexCode: "#000000" }) %>
+                  <%- include("templates/preview-swatch.html", { name: "background-color" } ) %>
+                  <%- include("templates/preview-swatch.html", { name: "background-color" } ) %>
+                  <%- include("templates/preview-swatch.html", { name: "background-color" } ) %>
+                  <%- include("templates/preview-swatch.html", { name: "background-color" } ) %>
+                  <%- include("templates/preview-swatch.html", { name: "background-color" } ) %>
+                  <%- include("templates/preview-swatch.html", { name: "background-color" } ) %>
+                  <%- include("templates/preview-swatch.html", { name: "background-color" } ) %>
+                  <%- include("templates/preview-swatch.html", { hexCode: "#FFFFFF", name: "background-color" }) %>
+                </div>
+              </div>
+              <div data-text class="flex items-center gap-2 justify-center">
+                <div class="fw-7 w-5 tr">Text:</div>
+                <%- include("templates/preview-swatch.html", { hexCode: "#000000", name: "text-color" }) %>
+                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
+                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
+                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
+                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
+                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
+                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
+                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
+                <%- include("templates/preview-swatch.html", { hexCode: "#FFFFFF", name: "text-color" }) %>
+              </div>
+            </form>
+          </g-preview-color-selection>
+          <g-preview-colors-contrast 
+            preview-color-selection="preview-color-selection"
+            class="f-2 ba br-1 bc-gray-darker pa-3 flex flex-column gap-2 items-center justify-center">
+            <a class="hover-tdu tdn f-3 blue-dark" href="https://www.w3.org/TR/WCAG21/#contrast-minimum">WCAG Contrast</a>
+            <div class="f-4 fw-6" data-ratio>
+              4.5
+            </div>
+            <div data-rating>
+              <span data-minimum class="dn">&check; Mininum</span>
+              <span data-enhanced class="dn">&check;&check; Enhanced</span>
+              <span data-insufficient class="dn">&times; Insufficient </span>
+            </div>
+          </g-preview-colors-contrast>
+        </div>
+        <p class="tc mh-auto measure lh-copy f-1 i">
+          Exceprt from <cite><a class="blue-dark" href="https://www.gutenberg.org/cache/epub/164/pg164.txt">20,000 Leagues Under the Sea</a></cite>, by Jules Verne.
+        </p>
+      </header>
+      <g-preview-text class="overflow-y-scroll ph-3 pos-relative" id="preview-text">
+        <button data-full-screen class="pos-absolute right-2 top-2 shadow-button br-3 f-1 ttl fw-4">&#x26F6; Full Screen</button>
+        <button data-exit-full-screen class="pos-absolute right-2 top-2 shadow-button shadow-button--red br-3 f-1 ttl fw-4">&times; Exit Full Screen</button>
+        <h2 class="tc tracked f-5">Part One</h2>
+        <h3 class="tc f-4"> Chapter I: A Shifting Reef</h3>
+        <p class="p mh-auto indent-2">
+          The year 1866 was signalised by a remarkable incident, a mysterious and
+          puzzling phenomenon, which doubtless no one has yet forgotten. Not to
+          mention rumours which agitated the maritime population and excited the
+          public mind, even in the interior of continents, seafaring men were
+          particularly excited. Merchants, common sailors, captains of vessels,
+          skippers, both of Europe and America, naval officers of all countries,
+          and the Governments of several states on the two continents, were
+          deeply interested in the matter.
+        </p>
+        <p class="p mh-auto">
+          For some time past, vessels had been met by “an enormous thing,” a long
+          object, spindle-shaped, occasionally phosphorescent, and infinitely
+          larger and more rapid in its movements than a whale.
+        </p>
+        <p class="p mh-auto">
+          The facts relating to this apparition (entered in various log-books)
+          agreed in most respects as to the shape of the object or creature in
+          question, the untiring rapidity of its movements, its surprising power
+          of locomotion, and the peculiar life with which it seemed endowed. If
+          it was a cetacean, it surpassed in size all those hitherto classified
+          in science. Taking into consideration the mean of observations made at
+          divers times,—rejecting the timid estimate of those who assigned to
+          this object a length of two hundred feet, equally with the exaggerated
+          opinions which set it down as a mile in width and three in length,—we
+          might fairly conclude that this mysterious being surpassed greatly all
+          dimensions admitted by the ichthyologists of the day, if it existed at
+          all. And that it <em>did</em> exist was an undeniable fact; and, with that
+          tendency which disposes the human mind in favour of the marvellous, we
+          can understand the excitement produced in the entire world by this
+          supernatural apparition. As to classing it in the list of fables, the
+          idea was out of the question.
+        </p>
+        <h3 class="f-4 tc">Chapter II: Pro and Con</h3>
+        <p class="p mh-auto indent-2">
+          At the period when these events took place, I had just returned from a
+          scientific research in the disagreeable territory of Nebraska, in the
+          United States. In virtue of my office as Assistant Professor in the
+          Museum of Natural History in Paris, the French Government had attached
+          me to that expedition. After six months in Nebraska, I arrived in New
+          York towards the end of March, laden with a precious collection. My
+          departure for France was fixed for the first days in May. Meanwhile, I
+          was occupying myself in classifying my mineralogical, botanical, and
+          zoological riches, when the accident happened to the <em>Scotia</em>.
+        </p>
+        <p class="p mh-auto">
+          I was perfectly up in the subject which was the question of the day.
+          How could I be otherwise? I had read and re-read all the American and
+          European papers without being any nearer a conclusion. This mystery
+          puzzled me. Under the impossibility of forming an opinion, I jumped
+          from one extreme to the other. That there really was something could
+          not be doubted, and the incredulous were invited to put their finger on
+          the wound of the <em>Scotia</em>.
+        </p>
+        <p class="p mh-auto">
+
+          On my arrival at New York the question was at its height. The
+          hypothesis of the floating island, and the unapproachable sandbank,
+          supported by minds little competent to form a judgment, was abandoned.
+          And, indeed, unless this shoal had a machine in its stomach, how could
+          it change its position with such astonishing rapidity?
+        </p>
+        <p class="p mh-auto">
+          From the same cause, the idea of a floating hull of an enormous wreck
+          was given up.
+        </p>
+        <h2 class="tc f-5 tracked"> Part Two </h2>
+        <h3 class="tc f-4">Chapter I: The Indian Ocean</h3>
+        <p class="p mh-auto indent-2">
+          We now come to the second part of our journey under the sea. The first
+          ended with the moving scene in the coral cemetery which left such a
+          deep impression on my mind. Thus, in the midst of this great sea,
+          Captain Nemo’s life was passing, even to his grave, which he had
+          prepared in one of its deepest abysses. There, not one of the ocean’s
+          monsters could trouble the last sleep of the crew of the <em>Nautilus</em>, of
+          those friends riveted to each other in death as in life. “Nor any man,
+          either,” had added the Captain. Still the same fierce, implacable
+          defiance towards human society!
+        </p>
+        <p class="p mh-auto">
+
+          I could no longer content myself with the theory which satisfied
+          Conseil.
+
+        </p>
+        <p class="p mh-auto">
+          That worthy fellow persisted in seeing in the Commander of the
+          <em>Nautilus</em> one of those unknown <em>savants</em> who return mankind contempt
+          for indifference. For him, he was a misunderstood genius who, tired of
+          earth’s deceptions, had taken refuge in this inaccessible medium, where
+          he might follow his instincts freely. To my mind, this explains but one
+          side of Captain Nemo’s character. Indeed, the mystery of that last
+          night during which we had been chained in prison, the sleep, and the
+          precaution so violently taken by the Captain of snatching from my eyes
+          the glass I had raised to sweep the horizon, the mortal wound of the
+          man, due to an unaccountable shock of the <em>Nautilus</em>, all put me on a
+          new track. No; Captain Nemo was not satisfied with shunning man. His
+          formidable apparatus not only suited his instinct of freedom, but
+          perhaps also the design of some terrible retaliation.
+        </p>
+      </g-preview-text>
+    </g-preview>
+    </dialog>
+    <footer class="mt-4 pt-3 pb-5 bg-black white">
+      <p class="p mh-auto">
+        Ghola is Copyright &copy; 2024 by David Bryant Copeland.  It was created <a class="green-light" href="https://declare-ai.org/1.0.0/none.html
+">without any assistance from any generative AI</a>.
+      </p>
+    </footer>
   </body>
 </html>
 

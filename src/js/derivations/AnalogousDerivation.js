@@ -7,6 +7,7 @@ class AnalogousUpperDerivation extends BaseDerivation {
 
     return this.hexCode(newH,s,l)
   }
+  get humanName() { return "Analogous" }
 }
 
 class AnalogousLowerDerivation extends BaseDerivation {
@@ -16,6 +17,7 @@ class AnalogousLowerDerivation extends BaseDerivation {
 
     return this.hexCode(newH,s,l)
   }
+  get humanName() { return "Analogous" }
 }
 export {
   AnalogousLowerDerivation,

@@ -1,4 +1,4 @@
-@import "melange-css/melange.css";
+@import "melange-css/melange-no_dark_mode-no_breakpoints.css";
 @import "./shadow-button.css";
 @import "./g-element-source.css";
 @import "./palette.css";
@@ -7,6 +7,21 @@
   --mg-ff-sans: 'Helvetica Neue', Inter, Roboto, 'Nimbus Sans', sans-serif;
   --mg-ff-serif: 'Baskerville', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
   --mg-ff-mono: Courier, monospace;
+}
+
+@media screen and (max-width: 80em) {
+  /** On smaller than ideal, bump all font sizes down one */
+  :root {
+    --mg-fs-1: 0.765rem;
+    --mg-fs-2: 0.875rem;
+    --mg-fs-3: 1rem;
+    --mg-fs-4: 1.25rem;
+    --mg-fs-5: 1.5rem;
+    --mg-fs-6: 2.25rem;
+    --mg-fs-7: 3rem;
+    --mg-fs-8: 4.25rem;
+    --mg-fs-9: 5rem;
+  }
 }
 
 input[type="color"] {
@@ -57,10 +72,6 @@ input:disabled.pointer {
   box-shadow: inset 0 0 10px var(--mg-gray-light);
 }
 
-.w-15 {
-  width: 15%;
-}
-
 g-test-case summary h4 {
   display: inline-block;
   margin-left: 0;
@@ -78,3 +89,17 @@ g-test-case summary p {
   line-height: var(--mg-lh-copy);
 }
 
+
+::backdrop {
+  background-color: black;
+  opacity: 0.2;
+}
+
+.shadow-button-shadow {
+  transform: translateX(-1px) translateY(-1px);
+  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
+}
+
+.shadow-dark-4 {
+  box-shadow: 2px 2px 16px 8px rgba( 0, 0, 0, 0.5 );
+}

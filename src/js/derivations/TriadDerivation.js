@@ -7,6 +7,7 @@ class TriadUpperDerivation extends BaseDerivation {
 
     return this.hexCode(newH,s,l)
   }
+  get humanName() { return "Triad" }
 }
 
 class TriadLowerDerivation extends BaseDerivation {
@@ -16,6 +17,7 @@ class TriadLowerDerivation extends BaseDerivation {
 
     return this.hexCode(newH,s,l)
   }
+  get humanName() { return "Triad" }
 }
 export {
   TriadLowerDerivation,
