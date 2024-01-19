@@ -3,8 +3,10 @@
 set -e
 
 mv docs/CNAME .
+mv docs/take-1 .
 rm -rf docs/*
 mv CNAME docs/
+mv take-1 docs
 bin/build production docs
 rm -rf site/production
 

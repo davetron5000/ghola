@@ -21,6 +21,6 @@ if [ "${ENV}" = "dev" ] || [ "${ENV}" = "production" ]; then
   exit
 fi
 
-echo "usage: $0 [dev|production]"
+echo "usage: $0 [dev|production] [prod dir]"
 exit 1
 
