@@ -1,0 +1,47 @@
+<%- include("../templates/head.html", { description: "Tests for the preview text component", title: "Ghola - Preview Text Component Tests", tests: true }) %>
+</head>
+  <body class="ff-sans bg-white black-ish">
+    <%- include("../templates/header.html", { subtitle: "Test of preview text", components: true }) %>
+    <main class="pa-3">
+      <h3>Test Cases for <code>g-preview-text</code></h3>
+      <%- include("../templates/test-case-start.html", {
+        id: "preview-text-colors",
+        title: "Set text and background colors",
+        description: "The text and background colors can be set via attributes"
+        }) %>
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-preview-text class="db" background-color="#000000" text-color="#ffffff">
+              <h1>CHAPTER II</h1>
+              <h2>A NOVEL PROPOSAL OF CAPTAIN NEMO’S</h2>
+              <p class="p">
+                On the 28th of February, when at noon the _Nautilus_ came to the
+                surface of the sea, in 9° 4′ N. lat., there was land in sight about
+                eight miles to westward. The first thing I noticed was a range of
+                mountains about two thousand feet high, the shapes of which were most
+                capricious. On taking the bearings, I knew that we were nearing the
+                island of Ceylon, the pearl which hangs from the lobe of the Indian
+                Peninsula.
+              </p>
+              <p class="p">
+                Captain Nemo and his second appeared at this moment. The Captain
+                glanced at the map. Then turning to me, said:
+              </p>
+              <p class="p">
+                “The Island of Ceylon, noted for its pearl-fisheries. Would you like to
+                visit one of them, M. Aronnax?”
+              </p>
+              <p class="p">
+                “Certainly, Captain.”
+              </p>
+            </g-preview-text>
+          </g-test-case-subject>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+        </div>
+      <%- include("../templates/test-case-end.html") %>
+    </main>
+  </body>
+</html>
+
