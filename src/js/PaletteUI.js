@@ -2,16 +2,31 @@ import PaletteEntry from "./PaletteEntry"
 import AttributeCheckboxComponent   from "./components/AttributeCheckboxComponent"
 import PaletteColorScaleComponent   from "./components/PaletteColorScaleComponent"
 
-export default class PaletteUI {
-  constructor(pushState) {
-    this.pushState = pushState
+const throttle = function(f, delayMS) {
+  let timerFlag = null
 
-    if (!this.pushState) {
+  return (...args) => {
+    if (timerFlag === null) {
+      f(...args)
+      timerFlag = setTimeout(() => {
+        timerFlag = null
+      }, delayMS)
+    }
+  };
+}
+
+export default class PaletteUI {
+  constructor(saveableState) {
+    this.saveableState = saveableState
+
+    if (!this.saveableState) {
       throw "PushState is required"
     }
 
-    this.palette = this.pushState.loadPalette()
+    this.palette = this.saveableState.loadPalette()
+    this.throttledSavePalette = throttle(this.saveableState.savePalette.bind(this.saveableState),500)
   }
+
   build() {
     const paletteComponent = document.querySelector("g-palette")
     if (!paletteComponent) {
@@ -55,16 +70,17 @@ export default class PaletteUI {
       }
     })
     paletteComponent.addEventListener("palette-change", () => {
-      paletteUI.extractPalette()
-      this.pushState.savePalette(this.palette)
+      this.extractPalette()
+      this.throttledSavePalette(this.palette)
     })
     document.querySelectorAll(`${AttributeCheckboxComponent.tagName}[attribute-name='compact']`).forEach( (checkbox) => {
       checkbox.addEventListener("change",() => {
         this.palette.compact = checkbox.checked
-        this.pushState.savePalette(this.palette)
+        this.throttledSavePalette(this.palette)
       })
     })
   }
+
 
   extractPalette() {
     const paletteComponent = document.querySelector("g-palette")

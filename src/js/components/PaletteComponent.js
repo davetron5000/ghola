@@ -1,6 +1,7 @@
 import BaseCustomElement          from "../brutaldom/BaseCustomElement"
 import PaletteColorScaleComponent from "./PaletteColorScaleComponent"
 import ColorNameComponent         from "./ColorNameComponent"
+import PreviewComponent           from "./PreviewComponent"
 
 export default class PaletteComponent extends BaseCustomElement {
 
@@ -13,6 +14,23 @@ export default class PaletteComponent extends BaseCustomElement {
     super()
     this.colorChangeEventListener = (event) => {
       this.dispatchEvent(new CustomEvent("palette-change", { cancelable: false, bubbles: true }))
+    }
+    this.previewScaleEventListener = (event) => {
+      const dialog = document.getElementById("preview-dialog")
+      const preview = dialog.querySelector("g-preview")
+      if (preview && (preview instanceof PreviewComponent)) {
+        preview.colorScale = event.detail.colorScale
+      }
+      else {
+        console.warn("Expected the dialog to have a g-preview inside, but found %o",preview)
+      }
+      dialog.querySelectorAll("button[data-close]").forEach( (button) => {
+        button.addEventListener("click", (event) => {
+          event.preventDefault()
+          dialog.close()
+        })
+      })
+      dialog.showModal()
     }
   }
 
@@ -78,6 +96,7 @@ export default class PaletteComponent extends BaseCustomElement {
     const newScale = primary.cloneNode(true)
     newScale.removeAttribute("primary")
     newScale.baseColorSwatch.removeAttribute("id") // force the scale to generate one
+    newScale.baseColorSwatch.removeAttribute("default-link-context")
     if (linkAlgorithm) {
       newScale.baseColorSwatch.querySelectorAll("input[type=color]").forEach( (input) => {
         input.setAttribute("disabled",true)
@@ -117,6 +136,7 @@ export default class PaletteComponent extends BaseCustomElement {
     scale.addEventListener("remove-scale", this.colorChangeEventListener)
     scale.addEventListener("name-change", this.colorChangeEventListener)
     scale.addEventListener("name-cleared", this.colorChangeEventListener)
+    scale.addEventListener("preview-scale", this.previewScaleEventListener)
   }
 
 }

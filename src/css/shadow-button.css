@@ -21,6 +21,19 @@
   padding-top: var(--mg-sp-2);
   padding-bottom: var(--mg-sp-2);
 }
+@media screen and (max-width: 80em) {
+  .shadow-button {
+    padding-top: calc(0.5 * var(--mg-sp-1));
+    padding-bottom: calc(0.5 * var(--mg-sp-1));
+    font-size: var(--mg-fs-1);
+  }
+  .shadow-button.f-2,
+  .shadow-button.f-3 {
+    padding-top: var(--mg-sp-1);
+    padding-bottom: var(--mg-sp-1);
+    font-size: var(--mg-fs-1);
+  }
+}
 
 .shadow-button-dark {
   background-color: var(--mg-gray-dark);

@@ -11,6 +11,7 @@ export default class ColorSwatchComponent extends BaseCustomElement {
     "darken-by",
     "brighten-by",
     "show-warnings",
+    "default-link-context",
   ]
 
   static HEX_CODE_CHANGE_EVENT_NAME = "hex-code-change"
@@ -41,6 +42,10 @@ export default class ColorSwatchComponent extends BaseCustomElement {
     this.derivedFromId = newValue
   }
 
+  defaultLinkContextChangedCallback({newValue}) {
+    this.defaultLinkContext = newValue
+  }
+
   darkenByChangedCallback({newValue}) {
     this.darkenBy = newValue
     this._updateDerivationifNeeded({ whenHexCodeExists: true })
@@ -61,7 +66,7 @@ export default class ColorSwatchComponent extends BaseCustomElement {
     }
   }
 
-  static INPUT_SELECTOR      = "input[type=color]"
+  static INPUT_SELECTOR      = "input"
   static DATA_COLOR_SELECTOR = "[data-color]"
 
   _eachInput(f) {
@@ -124,6 +129,14 @@ export default class ColorSwatchComponent extends BaseCustomElement {
     if ( (numDataColors == 0) && (numInputs == 0) ) {
       this.logger.warn("There were no <input type=color> nor [data-color] elements found")
     }
+    this._eachLinkContext( (element) => {
+      if (this.defaultLinkContext) {
+        element.textContent = this.defaultLinkContext
+      }
+      else {
+        element.innerHTML = "&nbsp;" 
+      }
+    })
     if (this.derivedFromId) {
       this._updateDerivationifNeeded({ whenHexCodeExists: false })
     }
@@ -161,6 +174,10 @@ export default class ColorSwatchComponent extends BaseCustomElement {
     this.setAttribute("hex-code",hexCode)
   }
 
+  _eachLinkContext(f) {
+    this.querySelectorAll("[data-link-context]").forEach(f)
+  }
+
   get derivedFromElement() {
     return document.getElementById(this.derivedFromId)
   }
@@ -175,6 +192,7 @@ export default class ColorSwatchComponent extends BaseCustomElement {
         if ( (derivedFromElement.hexCode) && (whenHexCodeExists == hexCodeExists) ) {
           this._deriveHexCodeFrom(derivedFromElement.hexCode)
         }
+        this._eachLinkContext( (element) => element.textContent = this.derivationAlgorithm.humanName )
       }
       else {
         this.logger.warn("Derived element has id '%s', but this is a %s, not a %s",this.derivedFromId,derivedFromElement.tagName,this.constructor.tagName)

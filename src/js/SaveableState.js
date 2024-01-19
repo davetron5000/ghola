@@ -2,7 +2,7 @@ import Palette from "./Palette"
 import PaletteEntry from "./PaletteEntry"
 import Color from "./Color"
 
-export default class PushState {
+export default class SaveableState {
   constructor() {
     this.pushState(window.location.toString(), { setURL: false })
   }
@@ -78,7 +78,6 @@ export default class PushState {
 
   pushState(url, { setURL }) {
     const state = { url: url }
-    console.log("Initially Pushing %o",state)
     history.pushState(
       state,
       "",

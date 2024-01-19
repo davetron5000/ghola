@@ -19,6 +19,7 @@
               <label class="flex flex-column gap-2">
                 <input type="color" class="h-5 w-5">
               </label>
+              <div data-link-context></div>
             </g-color-swatch>
           </g-test-case-subject>
           <g-element-source element-id="base-case-subject" html="inner">
@@ -155,6 +156,7 @@
             <label>
               <input type="color" disabled>
               <code></code>
+              <div data-link-context></div>
             </label>
           </g-color-swatch>
           <g-color-swatch id="derived-from-complement" show-warnings  hex-code="#123456">
@@ -185,6 +187,7 @@
             <label>
               <input type="color" disabled>
               <code></code>
+              <div data-link-context></div>
             </label>
           </g-color-swatch>
           <g-color-swatch id="derived-from-split-complement" show-warnings  hex-code="#123456">
@@ -200,6 +203,7 @@
             <label>
               <input type="color" disabled>
               <code></code>
+              <div data-link-context></div>
             </label>
           </g-color-swatch>
         </g-test-case-subject>
@@ -224,6 +228,7 @@
             <label>
               <input type="color" disabled>
               <code></code>
+              <div data-link-context></div>
             </label>
           </g-color-swatch>
           <g-color-swatch id="derived-from-analogous" show-warnings hex-code="#123456">
@@ -239,6 +244,7 @@
             <label>
               <input type="color" disabled>
               <code></code>
+              <div data-link-context></div>
             </label>
           </g-color-swatch>
         </g-test-case-subject>
@@ -263,6 +269,7 @@
             <label>
               <input type="color" disabled>
               <code></code>
+              <div data-link-context></div>
             </label>
           </g-color-swatch>
           <g-color-swatch id="derived-from-triad" show-warnings hex-code="#123456">
@@ -278,6 +285,7 @@
             <label>
               <input type="color" disabled>
               <code></code>
+              <div data-link-context></div>
             </label>
           </g-color-swatch>
         </g-test-case-subject>
@@ -291,7 +299,7 @@
           <summary>
         <h4>Disconnected Derived Elements</h4>
         <p class="p">
-          When we set attributes to remove a derivation, the underlying events should stll be connected
+          When we set attributes to remove a derivation, the underlying events should not still be connected
         </p>
         </summary>
         <g-test-case-subject class="db">
@@ -302,6 +310,7 @@
             <label>
               <input type="color" disabled>
               <code></code>
+              <div data-link-context></div>
             </label>
           </g-color-swatch>
           <g-color-swatch id="derived-to-be-disconnected" show-warnings hex-code="#123456">
@@ -317,6 +326,7 @@
             <label>
               <input type="color" disabled>
               <code></code>
+              <div data-link-context></div>
             </label>
           </g-color-swatch>
         </g-test-case-subject>
