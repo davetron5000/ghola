@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charSet="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+    <meta name="description" content="About Ghola, the Palette Generator for Developers">
+    <meta content="About Ghola" name="og:title">
+    <meta content="website" name="og:type">
+    <meta content="https://ghola.dev/og-image.png" name="og:image">
+
+    <meta itemprop="ai-content-declaration:version" content="1.0.0-alpha1">
+    <meta itemprop="ai-content-declaration:level" content="none">
+
+    <title>
+      About Ghola
+    </title>
+    <link href="/css/styles.css" rel="stylesheet" />
+    <script src="/js/main.js"></script>
+    
+
+  </head>
+  <body class="ff-sans bg-white black">
+        <header class="bg-black-ish gray-lightest">
+      <div class="flex items-center justify-between">
+        <div>
+        <h1 class="ma-0 mh-3 pt-3 f-6 ttu tracked flex items-center gap-3">
+          <a href="/" class="tdn hover-tdu gray-lightest">
+          Ghola
+          </a>
+          <span class="h-3 w-3 bg-red"></span>
+          <span class="h-3 w-3 bg-orange"></span>
+          <span class="h-3 w-3 bg-yellow"></span>
+          <span class="h-3 w-3 bg-green"></span>
+          <span class="h-3 w-3 bg-blue"></span>
+          <span class="h-3 w-3 bg-purple"></span>
+          <span class="h-3 w-3 bg-gray"></span>
+        </h1>
+        <h2 class="ma-0 mh-3 pb-3 f-5">Palette Generator for Developers</h2>
+        
+        </div>
+        <a href="/about.html" class="blue-light f-3 mr-3">About</a>
+      </div>
+      
+    </header>
+
+    <main class="mh-auto">
+      <p class="p mh-auto f-3">
+        Ghola is a palette generator aimed at developers who need some reasonable colors for building an app or prototyping.  Ghola works great if you don't have a designer to choose the right shades, but you want something reasonable. Ghola is built using Web Components and no framework.
+      </p>
+      <p class="p mh-auto">
+        Ghola allows you to design a palette in two steps: 1) choose one or more base colors, and 2) see different shades of those colors, from very dark to very light.  The idea is that for any given base color, you will want lighter and darker shades for use.  Ghola provides three darker and three lighter shades, attempting to make sure that the darkest can be used instead of black and the lightest can be used instead of white.
+      </p>
+      <nav class="tc">
+        <ol class="pa-0 lst-none">
+          <li class="tc lh-copy">
+            <a class="blue" href="#howto">HOWTO use Ghola</a>
+          </li>
+          <li class="tc lh-copy">
+            <a class="blue" href="#built">How Ghola is built</a>
+          </li>
+          <li class="tc lh-copy">
+            <a class="blue" href="#what">What is a ghola?</a>
+          </li>
+        </ol>
+      </nav>
+      <hr>
+      <h3 class="f-4 tc" id="howto">HOWTO</h3>
+      <p class="p mh-auto">
+        By default, Ghola shows one color, and this is called the <em>primary</em> color.  This should be whatever is the most important color to what you are doing. Maybe it's your favorite color, or the so-called “brand” color.  Use the color picker to select this color, and you'll see three darker and three lighter shades, like so:
+      </p>
+      <div class="flex justify-center">
+      <figure class="ba pa-2 br-1 shadow-2">
+          <g-palette-color-scale primary show-warnings  scale-algorithm="exponential">
+            <div class="flex justify-center gap-1">
+              <g-color-swatch class="small">
+                <div data-color></div>
+                <div data-hexcode><code></code></div>
+              </g-color-swatch>
+              <g-color-swatch class="small">
+                <div data-color></div>
+                <div data-hexcode><code></code></div>
+              </g-color-swatch>
+              <g-color-swatch class="small">
+                <div data-color></div>
+                <div data-hexcode><code></code></div>
+              </g-color-swatch>
+              <g-color-swatch  class="small" hex-code="#47326e" default-link-context="Primary" id="favorite-color">
+                <input type="color" id="primary-base-color" disabled>
+                <div data-link-context class="tc fw-6 tracked-tight ttl f-1"></div>
+                <label for="primary-base-color"><code></code></label>
+              </g-color-swatch>
+              <g-color-swatch class="small">
+                <div data-color></div>
+                <div data-hexcode><code></code></div>
+              </g-color-swatch>
+              <g-color-swatch class="small">
+                <div data-color></div>
+                <div data-hexcode><code></code></div>
+              </g-color-swatch>
+              <g-color-swatch class="small">
+                <div data-color></div>
+                <div data-hexcode><code></code></div>
+              </g-color-swatch>
+            </div>
+          </g-palette-color-scale>
+          <figcaption class="lh-copy tc f-1 i mt-2">
+            A sample set of shades for a purple that I like.
+          </figcaption>
+      </figure>
+      </div>
+      <p class="p mh-auto">
+        You can preview them on some text to see how they look together and examine the contrast ratios of various combinations.  After that, you can add as many colors as you like and they will work the same way.
+      </p>
+      <h4 class="f-3 tc">Deriving from the Primary Color</h4>
+      <p class="p mh-auto">
+        Ghola has the concept of color deriving or linking: you can add the complement of the primary color and Ghola will compute that. The complement is the color opposite the chosen one on the color wheel. This is the complement of the color above: 
+        <g-color-swatch derived-from="favorite-color" derivation-algorithm="complement"><span class="dib w-4 br-pill" data-color>&nbsp;</span> (<span data-hexcode></span>)</g-color-swatch>. 
+        When you change your primary color, the linked complement will change to match.
+      </p>
+      <p class="p mh-auto">
+        You can also link split-complement
+        ( <g-color-swatch derived-from="favorite-color" derivation-algorithm="split-complement-lower"><span class="dib w-3 br-pill" data-color>&nbsp;</span> (<span data-hexcode></span>)</g-color-swatch>
+        <g-color-swatch derived-from="favorite-color" derivation-algorithm="split-complement-upper"><span class="dib w-3 br-pill" data-color>&nbsp;</span> (<span data-hexcode></span>)</g-color-swatch> ),
+        analogous
+        ( <g-color-swatch derived-from="favorite-color" derivation-algorithm="analogous-lower"><span class="dib w-3 br-pill" data-color>&nbsp;</span> (<span data-hexcode></span>)</g-color-swatch>
+        <g-color-swatch derived-from="favorite-color" derivation-algorithm="analogous-upper"><span class="dib w-3 br-pill" data-color>&nbsp;</span> (<span data-hexcode></span>)</g-color-swatch> ),
+        and triads
+        ( <g-color-swatch derived-from="favorite-color" derivation-algorithm="triad-lower"><span class="dib w-3 br-pill" data-color>&nbsp;</span> (<span data-hexcode></span>)</g-color-swatch>
+        <g-color-swatch derived-from="favorite-color" derivation-algorithm="triad-upper"><span class="dib w-3 br-pill" data-color>&nbsp;</span> (<span data-hexcode></span>)</g-color-swatch> )
+        of the primary color.  They can all be present and will update when you change the primary color.  This can allow you to find a color combination that works well. <a href="#" data-random-change class="blue-dark">Click here to randomize my color</a> and see how it works.
+      </p>
+      <script>
+        document.querySelectorAll("[data-random-change]").forEach( (element) => {
+          element.addEventListener("click", (event) => {
+            event.preventDefault()
+            const randomHex = "#" + 
+              ("0" + Math.floor(Math.random() * 256).toString(16)).slice(-2) +
+              ("0" + Math.floor(Math.random() * 256).toString(16)).slice(-2) +
+              ("0" + Math.floor(Math.random() * 256).toString(16)).slice(-2)
+            document.getElementById("favorite-color").setAttribute("hex-code",randomHex)
+          })
+        })
+      </script>
+      <h4 class="f-3 tc">Unlinked Colors</h4>
+      <p class="p mh-auto">
+        Of course, you can add unlinked colors that you can change as needed, and you can even unlink linked colors. If you like the complement, but want to change the primary, unlink the complement.
+      </p>
+      <p class="p mh-auto">
+        The color also has a system-designated name that you keep or change.  Mine is <g-color-name color-swatch="favorite-color"><input type="text" class="appearance-none bn" readonly></g-color-name>.
+      </p>
+      <p class="p mh-auto">
+        To change it, modify the value in the text field.  To restore the system-generated name, delete your custom name from the text field.  The name is relevant because you can export your palette to use in your app, and the names are used for that export.
+      </p>
+      <h4 class="f-3 tc">Sharing Your Palette</h4>
+      <p class="p mh-auto">
+        You can share your palette by downloading it as CSS, JavaScript, or CSV.  Ghola supports the following formats:
+      </p>
+      <ul class="pa-0 mh-auto measure f-1">
+        <li class="lh-copy">
+          <strong>CSS</strong> will export your palette as CSS variables.
+        </li>
+        <li class="lh-copy">
+          <strong>Melange CSS Variables</strong> will export CSS variables that can be used with my CSS library, <a href="https://melange-css.com" class="blue-dark">MelangeCSS</a>.  Melange uses particular names and the output will let you know what names are not supported.
+        </li>
+        <li class="lh-copy">
+          <strong>Melange Config</strong> will export JavaScript configuration that can be used to build a custom version of <a href="https://melange-css.com" class="blue-dark">MelangeCSS</a>.
+        </li>
+        <li class="lh-copy">
+          <strong>Tailwind</strong> will export JavaScript configuration to be used with TailwindCSS.
+        </li>
+        <li class="lh-copy">
+          <strong>CSV</strong> is the Internet's best and most scaleable format and is enterprise ready for any need.
+        </li>
+      </ul>
+      <p class="p mh-auto">
+        You can also share the current URL of your palette.
+        You will notice that the URL changes as you modify your palette. You can save that URL and come back to your exact same palette or share it with others.  Using the Back button should work if you make a mistake.
+      </p>
+      <div class="f-4 tc">&sect;</div>
+      <h3 class="f-4 tc" id="built">How is this built?</h3>
+      <p class="p mh-auto">
+        Ghola is built without any framework. It uses the Web Components API built into modern browsers.  It makes heavy use of custom elements and you can view the source of this page or others to see.  I will write more extensive blog posts about it, because I learned a lot about Web Components doing this.
+      </p>
+      <p class="p mh-auto">
+        The approach I took was to wrap regular elements in custom elements, and have those custom elements bestow behavior on the wrapped elements.  While the app will generate HTML and modify the DOM, it does not render everything.  The HTML file you downloaded when you first got here was from the server.
+      </p>
+      <p class="p mh-auto">
+        I can say that it was very nice to have very few dependencies during development and pretty much none to run the actual app!  I can be pretty confident that if I don't touch this for a year, it'll still work great and I can still add features to it then.
+      </p>
+      <p class="p mh-auto">
+        This isn't to say that Web Components is an amazing API free of trade-offs or complexity.  There were some bumps along the way, and any overview you have read about Web Components is probably oversimplifying what is required to actually use them.  But, it was still fun, and I liked it!  I feel like I can continue to meet my personal goal of never using React or the like on purpose.
+      </p>
+      <div class="f-4 tc">&sect;</div>
+      <h3 class="f-4 tc" id="what">What is a “ghola”?</h3>
+      <p class="p mh-auto">
+        A <em>ghola</em> is an artificial person from the <em>Dune</em> series of books.  They are constructed from the cells of a real person and—mostly—don't have any memories.  They are sort of like a clone.
+      </p>
+      <p class="p mh-auto">
+        This palette generator is like a very basic clone of a designer who has no experience or memories. It can produce some colors for you, but it's not the same as the real thing.  The name seemed apt.
+      </p>
+
+    </main>
+    <footer class="mt-4 pt-3 pb-5 bg-black white">
+      <p class="p mh-auto">
+        Ghola is Copyright &copy; 2024 by David Bryant Copeland.  It was created <a class="green-light" href="https://declare-ai.org/1.0.0/none.html
+">without any assistance from any generative AI</a>.
+      </p>
+    </footer>
+  </body>
+</html>
+

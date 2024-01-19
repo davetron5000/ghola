@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charSet="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+    <meta name="description" content="Tests for the color name component">
+    <meta content="Ghola - Color Name Component Tests" name="og:title">
+    <meta content="website" name="og:type">
+    <meta content="https://ghola.dev/og-image.png" name="og:image">
+
+    <meta itemprop="ai-content-declaration:version" content="1.0.0-alpha1">
+    <meta itemprop="ai-content-declaration:level" content="none">
+
+    <title>
+      Ghola - Color Name Component Tests
+    </title>
+    <link href="/css/styles.css" rel="stylesheet" />
+    <script src="/js/main.js"></script>
+    
+    <!-- tests must be included after main to ensure the components are defined -->
+      <script src="/js/tests.js"></script>
+    
+
+</head>
+  <body class="ff-sans bg-white black-ish">
+        <header class="bg-black-ish gray-lightest">
+      <div class="flex items-center justify-between">
+        <div>
+        <h1 class="ma-0 mh-3 pt-3 f-6 ttu tracked flex items-center gap-3">
+          <a href="/" class="tdn hover-tdu gray-lightest">
+          Ghola
+          </a>
+          <span class="h-3 w-3 bg-red"></span>
+          <span class="h-3 w-3 bg-orange"></span>
+          <span class="h-3 w-3 bg-yellow"></span>
+          <span class="h-3 w-3 bg-green"></span>
+          <span class="h-3 w-3 bg-blue"></span>
+          <span class="h-3 w-3 bg-purple"></span>
+          <span class="h-3 w-3 bg-gray"></span>
+        </h1>
+        <h2 class="ma-0 mh-3 pb-3 f-5">Palette Generator for Developers</h2>
+        
+          <h3 class="ma-0 ph-3 pb-3 f-4 ttu tracked fw-4">Test of color name</h3>
+        
+        </div>
+        <a href="/about.html" class="blue-light f-3 mr-3">About</a>
+      </div>
+      
+      <div class="bg-white bb bc-gray-dark black flex f-2">
+        <nav class="bg-gray-lightest flex items-baseline pa-3 gap-3 w-100">
+          <a class="f-3 blue-dark" href="/components/index.html">&larr; Components Home</a>
+        </nav>
+      </div>
+      
+    </header>
+
+    <main class="pa-3">
+      <nav class="flex gap-3">
+      <a class="blue-dark" href="color-name.html">View demo</a>
+      <a class="blue-dark" href="color-swatch.test.html">Depends on <code>g-color-swatch</code> Working</a>
+      </nav>
+      <h3>Test Cases for <code>g-color-name</code></h3>
+      <g-test-case id="name-derived-from-color-input" >
+  <details>
+    <summary>
+      <h4>Name can be overridden, but defaults to a broad categorization based on the hex code of the swatch (<code>name-derived-from-color-input</code>)</h4>
+      <p>
+        This allows the user to supply their own name for the color, but in absence of that, get a reasonable default
+      </p>
+    </summary>
+
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-color-name color-swatch="basis-swatch" show-warnings id="color-name-basis-swatch">
+              <input type="text" class="ba br-2 bg-white-ish bc-gray-dark pa-1 ff-sans">
+            </g-color-name>
+            <g-color-swatch id="basis-swatch" hex-code="#000000">
+              <label class="flex flex-column gap-2">
+                <input type="color" class="h-5 w-5">
+              </label>
+            </g-color-swatch>
+          </g-test-case-subject>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+        </div>
+        </details>
+</g-test-case>
+
+      <g-test-case id="name-override-via-method-color-input" >
+  <details>
+    <summary>
+      <h4>Name can be overridden progammatically (<code>name-override-via-method-color-input</code>)</h4>
+      <p>
+        This allows code to set the overridden value without knowing how that is managed internally
+      </p>
+    </summary>
+
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-color-name color-swatch="basis-swatch-2" show-warnings id="color-name-basis-swatch-2">
+              <input type="text" class="ba br-2 bg-white-ish bc-gray-dark pa-1 ff-sans">
+            </g-color-name>
+            <g-color-swatch id="basis-swatch-2" hex-code="#000000">
+              <label class="flex flex-column gap-2">
+                <input type="color" class="h-5 w-5">
+              </label>
+            </g-color-swatch>
+          </g-test-case-subject>
+          <button id="override">Override it!</button>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+          <script>
+            document.getElementById("override").addEventListener("click", (event) => {
+              event.preventDefault()
+              document.getElementById("color-name-basis-swatch-2").overrideColorName("Bleorgh Blue!")
+            })
+          </script>
+        </div>
+        </details>
+</g-test-case>
+
+    </main>
+  </body>
+</html>
+

@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charSet="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+    <meta name="description" content="Demo of the palette color component">
+    <meta content="Ghola - Palette Color Component" name="og:title">
+    <meta content="website" name="og:type">
+    <meta content="https://ghola.dev/og-image.png" name="og:image">
+
+    <meta itemprop="ai-content-declaration:version" content="1.0.0-alpha1">
+    <meta itemprop="ai-content-declaration:level" content="none">
+
+    <title>
+      Ghola - Palette Color Component
+    </title>
+    <link href="/css/styles.css" rel="stylesheet" />
+    <script src="/js/main.js"></script>
+    
+
+</head>
+  <body class="ff-sans bg-white black-ish">
+        <header class="bg-black-ish gray-lightest">
+      <div class="flex items-center justify-between">
+        <div>
+        <h1 class="ma-0 mh-3 pt-3 f-6 ttu tracked flex items-center gap-3">
+          <a href="/" class="tdn hover-tdu gray-lightest">
+          Ghola
+          </a>
+          <span class="h-3 w-3 bg-red"></span>
+          <span class="h-3 w-3 bg-orange"></span>
+          <span class="h-3 w-3 bg-yellow"></span>
+          <span class="h-3 w-3 bg-green"></span>
+          <span class="h-3 w-3 bg-blue"></span>
+          <span class="h-3 w-3 bg-purple"></span>
+          <span class="h-3 w-3 bg-gray"></span>
+        </h1>
+        <h2 class="ma-0 mh-3 pb-3 f-5">Palette Generator for Developers</h2>
+        
+          <h3 class="ma-0 ph-3 pb-3 f-4 ttu tracked fw-4">Demo of palette color</h3>
+        
+        </div>
+        <a href="/about.html" class="blue-light f-3 mr-3">About</a>
+      </div>
+      
+      <div class="bg-white bb bc-gray-dark black flex f-2">
+        <nav class="bg-gray-lightest flex items-baseline pa-3 gap-3 w-100">
+          <a class="f-3 blue-dark" href="/components/index.html">&larr; Components Home</a>
+        </nav>
+      </div>
+      
+    </header>
+
+    <main class="pa-3">
+      <a class="blue-dark" href="palette-color-scale.test.html">Run tests</a>
+      <p class="p">
+        The <code>g-palette-color</code> component represents one color with many shades in your palette. For example the chosen purple and then darker and lighter shades.  If it contains a <code>g-color-name</code>, it can expose the name and if the user has overridden the name.  If it contains one or more <code>g-color-swatch</code> elements, it can return an ordered list of the hexcodes.
+      </p>
+      <p class="p">
+        When you combine this with the <code>g-color-name</code>, <code>g-color-swatch</code> elements with derivations, you can createa color palette.
+      </p>
+      <h4>Example</h4>
+      <p class="p">
+        This shows how the scales can be connected—or not—to create a palette.
+      </p>
+      <div class="flex flex-column gap-4 pa-2 ba bc-gray">
+        <g-palette-color-scale show-warnings  class="flex gap-3" primary id="primary-palette-color" scale-algorithm="exponential">
+          <div class="flex flex-column justify-between">
+            <g-color-name color-swatch="primary-base-color">
+              <label class="flex flex-column gap-1 mb-3">
+                <input type="text" class="f-3 ba br-2 bg-white-ish black bc-gray pa-2 ff-sans">
+              </label>
+
+            </g-color-name>
+            <nav class="flex flex-column gap-1">
+              <button data-preview class="shadow-button f-2 br-1">
+                Preview
+              </button>
+              <button data-remove class="shadow-button br-1">
+                Remove
+              </button>
+              <button data-unlink class="shadow-button f-1 br-1">
+                Unlink from Primary
+              </button>
+              <button id="show-internals">
+                Show Internal API data
+              </button>
+              <script>
+                document.getElementById("show-internals").addEventListener("click", (event) => {
+                  const paletteColor = document.getElementById("primary-palette-color")
+                  alert(JSON.stringify({
+                    name: paletteColor.colorName,
+                    userOverride: !!paletteColor.colorNameUserOverride,
+                    scale: paletteColor.colorScale,
+                  }))
+                })
+              </script>
+            </nav>
+          </div>
+          <div class="flex pa-2 ba bc-gray">
+            <g-color-swatch>
+              <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
+            </g-color-swatch>
+            <g-color-swatch>
+              <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
+            </g-color-swatch>
+            <g-color-swatch id="primary-base-color" hex-code="#6429bd" show-warnings >
+              <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color">
+                <code></code>
+                <span class="f-1">Change this one</span>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch>
+              <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
+            </g-color-swatch>
+            <g-color-swatch>
+              <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
+            </g-color-swatch>
+          </div>
+        </g-palette-color-scale>
+        <g-palette-color-scale id="linked-to-primary-as-complement" show-warnings scale-algorithm="exponential" class="flex gap-3" linked-to-primary="complement">
+          <div class="flex flex-column justify-between">
+            <g-color-name color-swatch="primary-base-color">
+              <label class="flex flex-column gap-1 mb-3">
+                <input type="text" class="f-3 ba br-2 bg-white-ish black bc-gray pa-2 ff-sans">
+              </label>
+
+            </g-color-name>
+            <nav class="flex flex-column gap-1">
+              <button data-preview class="shadow-button f-2 br-1">
+                Preview
+              </button>
+              <button data-remove class="shadow-button br-1">
+                Remove
+              </button>
+              <button data-unlink class="shadow-button f-1 br-1">
+                Unlink from Primary
+              </button>
+            </nav>
+          </div>
+          <div class="flex pa-2 ba bc-gray">
+            <g-color-swatch>
+              <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
+            </g-color-swatch>
+            <g-color-swatch>
+              <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
+            </g-color-swatch>
+            <g-color-swatch show-warnings="complement-base">
+              <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
+            </g-color-swatch>
+            <g-color-swatch>
+              <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
+            </g-color-swatch>
+            <g-color-swatch>
+              <label class="flex flex-column items-center gap-2"><input class="w-5 h-5" type="color" disabled></label>
+            </g-color-swatch>
+          </div>
+        </g-palette-color-scale>
+      </div>
+      <h4>Edge Cases</h4>
+      <p class="p">
+        <code>show-warnings</code> can be set to cause console logs to generate when an edge case or obvious mis-use occurs.
+      </p>
+      <ul>
+        <li class="mb-3 flex items-start gap-2">
+          <p class="ma-0 lh-copy w-25">
+            <code>linked-to</code> is set, but there is no element with that id.
+          </p>
+          <g-element-source element-id="missing-linked-to-example" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+          <div class="ba bc-gray pa-1 flex flex-column items-center gap-2">
+            <div id="missing-linked-to-example" class="flex items-center gap-3 mb-3">
+              <g-palette-color linked-to="non-existent" id="linked-to-non-existent" show-warnings>
+              </g-palette-color>
+            </div>
+          </div>
+        </li>
+        <li class="mb-3 flex items-start gap-2">
+          <p class="ma-0 lh-copy w-25">
+            <code>linked-to-primary</code> is set, but there is no primary with that id.
+          </p>
+          <g-element-source element-id="missing-primary-linked-to-example" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+          <div class="ba bc-gray pa-1 flex flex-column items-center gap-2">
+            <div id="missing-primary-linked-to-example" class="flex items-center gap-3 mb-3">
+              <g-palette-color linked-to-primary id="linked-to-non-existent-primary" show-warnings >
+              </g-palette-color>
+              <g-palette-color>
+              </g-palette-color>
+            </div>
+          </div>
+        </li>
+        <li class="mb-3 flex items-start gap-2">
+          <p class="ma-0 lh-copy w-25">
+            <code>linked-to-primary</code> and <code>linked-to</code> are set, which results in undefined behavior.
+          </p>
+          <g-element-source element-id="both-primary-linked-to-example" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+          <div class="ba bc-gray pa-1 flex flex-column items-center gap-2">
+            <div id="both-primary-linked-to-example" class="flex items-center gap-3 mb-3">
+              <g-palette-color linked-to-primary linked-to="some-other" id="both-to-non-existent-primary" show-warnings>
+              </g-palette-color>
+              <g-palette-color primary>
+              </g-palette-color>
+              <g-palette-color id="some-other">
+              </g-palette-color>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>
+

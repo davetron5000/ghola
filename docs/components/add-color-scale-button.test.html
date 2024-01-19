@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charSet="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+    <meta name="description" content="Tests for the add color scale button component">
+    <meta content="Ghola - Add Color Scale Button Component Tests" name="og:title">
+    <meta content="website" name="og:type">
+    <meta content="https://ghola.dev/og-image.png" name="og:image">
+
+    <meta itemprop="ai-content-declaration:version" content="1.0.0-alpha1">
+    <meta itemprop="ai-content-declaration:level" content="none">
+
+    <title>
+      Ghola - Add Color Scale Button Component Tests
+    </title>
+    <link href="/css/styles.css" rel="stylesheet" />
+    <script src="/js/main.js"></script>
+    
+    <!-- tests must be included after main to ensure the components are defined -->
+      <script src="/js/tests.js"></script>
+    
+
+</head>
+  <body class="ff-sans bg-white black-ish">
+        <header class="bg-black-ish gray-lightest">
+      <div class="flex items-center justify-between">
+        <div>
+        <h1 class="ma-0 mh-3 pt-3 f-6 ttu tracked flex items-center gap-3">
+          <a href="/" class="tdn hover-tdu gray-lightest">
+          Ghola
+          </a>
+          <span class="h-3 w-3 bg-red"></span>
+          <span class="h-3 w-3 bg-orange"></span>
+          <span class="h-3 w-3 bg-yellow"></span>
+          <span class="h-3 w-3 bg-green"></span>
+          <span class="h-3 w-3 bg-blue"></span>
+          <span class="h-3 w-3 bg-purple"></span>
+          <span class="h-3 w-3 bg-gray"></span>
+        </h1>
+        <h2 class="ma-0 mh-3 pb-3 f-5">Palette Generator for Developers</h2>
+        
+          <h3 class="ma-0 ph-3 pb-3 f-4 ttu tracked fw-4">Test of add color scale button</h3>
+        
+        </div>
+        <a href="/about.html" class="blue-light f-3 mr-3">About</a>
+      </div>
+      
+      <div class="bg-white bb bc-gray-dark black flex f-2">
+        <nav class="bg-gray-lightest flex items-baseline pa-3 gap-3 w-100">
+          <a class="f-3 blue-dark" href="/components/index.html">&larr; Components Home</a>
+        </nav>
+      </div>
+      
+    </header>
+
+    <main class="pa-3">
+      <nav class="flex gap-3">
+      <a class="blue-dark" href="color-scale-button.html">View demo</a>
+      </nav>
+      <h3>Test Cases for <code>g-add-color-scale-button</code></h3>
+      <g-test-case id="add-color-scale-random" >
+  <details>
+    <summary>
+      <h4>Add unlinked color (<code>add-color-scale-random</code>)</h4>
+      <p>
+        A New <code>g-palette-color-scale</code> is added with a random hex code, unlinked to the primary
+      </p>
+    </summary>
+
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-add-color-scale-button palette="palette" show-warnings>
+              <button>Add Random</button>
+            </g-add-color-scale-button>
+            <g-palette id="palette">
+              <g-palette-color-scale primary class="flex" scale-algorithm="exponential">
+                <g-color-name color-swatch="add-color-scale-random-base">
+                  <input type="text">
+                </g-color-name>
+                <g-color-swatch class="flex flex-column items-center">
+                  <input type="color" disabled>
+                </g-color-swatch>
+                <g-color-swatch class="flex flex-column items-center" id="add-color-scale-random-base" hex-code="#8811ff">
+                  <input type="color">
+                </g-color-swatch>
+                <g-color-swatch class="flex flex-column items-center">
+                  <input type="color" disabled>
+                </g-color-swatch>
+              </g-palette-color-scale>
+              <g-palette-color-scale class="flex" scale-algorithm="linear" linked-to-primary="complement">
+                <g-color-swatch class="flex flex-column items-center">
+                  <input type="color" disabled>
+                </g-color-swatch>
+                <g-color-swatch class="flex flex-column items-center">
+                  <input type="color" disabled>
+                </g-color-swatch>
+                <g-color-swatch class="flex flex-column items-center">
+                  <input type="color" disabled>
+                </g-color-swatch>
+              </g-palette-color-scale>
+            </g-palette>
+          </g-test-case-subject>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+        </div>
+        </details>
+</g-test-case>
+
+      
+      <g-test-case id="add-color-scale-complement" >
+  <details>
+    <summary>
+      <h4>Add linked color via complement (<code>add-color-scale-complement</code>)</h4>
+      <p>
+        New <code>g-palette-color-scale</code> elements are added linked to the primary as complement
+      </p>
+    </summary>
+
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-add-color-scale-button palette="palette-complement" link-algorithm="complement" show-warnings >
+              <button>Add complement</button>
+            </g-add-color-scale-button>
+            <g-palette id="palette-complement">
+              <g-palette-color-scale primary class="flex" scale-algorithm="exponential">
+                <g-color-name color-swatch="add-color-scale-complement-base">
+                  <input type="text">
+                </g-color-name>
+                <g-color-swatch class="flex flex-column items-center">
+                  <input type="color" disabled>
+                </g-color-swatch>
+                <g-color-swatch class="flex flex-column items-center" hex-code="#8811ff" id="add-color-scale-complement-base">
+                  <input type="color">
+                </g-color-swatch>
+                <g-color-swatch class="flex flex-column items-center">
+                  <input type="color" disabled>
+                </g-color-swatch>
+              </g-palette-color-scale>
+            </g-palette>
+          </g-test-case-subject>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+        </div>
+        </details>
+</g-test-case>
+
+      
+      <g-test-case id="add-color-scale-split-complement" >
+  <details>
+    <summary>
+      <h4>Add linked color via split-complement (<code>add-color-scale-split-complement</code>)</h4>
+      <p>
+        New <code>g-palette-color-scale</code> elements are added linked to the primary as split-complement
+      </p>
+    </summary>
+
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-add-color-scale-button palette="palette-split-complement" link-algorithm="split-complement" show-warnings >
+              <button>Add split-complement</button>
+            </g-add-color-scale-button>
+            <g-palette id="palette-split-complement">
+              <g-palette-color-scale primary class="flex" scale-algorithm="exponential">
+                <g-color-name color-swatch="add-color-scale-split-complement-base">
+                  <input type="text">
+                </g-color-name>
+                <g-color-swatch class="flex flex-column items-center">
+                  <input type="color" disabled>
+                </g-color-swatch>
+                <g-color-swatch class="flex flex-column items-center" hex-code="#8811ff" id="add-color-scale-split-complement-base">
+                  <input type="color">
+                </g-color-swatch>
+                <g-color-swatch class="flex flex-column items-center">
+                  <input type="color" disabled>
+                </g-color-swatch>
+              </g-palette-color-scale>
+            </g-palette>
+          </g-test-case-subject>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+        </div>
+        </details>
+</g-test-case>
+
+      
+      <g-test-case id="add-color-scale-analogous" >
+  <details>
+    <summary>
+      <h4>Add linked color via analogous (<code>add-color-scale-analogous</code>)</h4>
+      <p>
+        New <code>g-palette-color-scale</code> elements are added linked to the primary as analogous
+      </p>
+    </summary>
+
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-add-color-scale-button palette="palette-analogous" link-algorithm="analogous" show-warnings >
+              <button>Add analogous</button>
+            </g-add-color-scale-button>
+            <g-palette id="palette-analogous">
+              <g-palette-color-scale primary class="flex" scale-algorithm="exponential">
+                <g-color-name color-swatch="add-color-scale-analogous-base">
+                  <input type="text">
+                </g-color-name>
+                <g-color-swatch class="flex flex-column items-center">
+                  <input type="color" disabled>
+                </g-color-swatch>
+                <g-color-swatch class="flex flex-column items-center" hex-code="#8811ff" id="add-color-scale-analogous-base">
+                  <input type="color">
+                </g-color-swatch>
+                <g-color-swatch class="flex flex-column items-center">
+                  <input type="color" disabled>
+                </g-color-swatch>
+              </g-palette-color-scale>
+            </g-palette>
+          </g-test-case-subject>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+        </div>
+        </details>
+</g-test-case>
+
+      
+      <g-test-case id="add-color-scale-triad" >
+  <details>
+    <summary>
+      <h4>Add linked color via triad (<code>add-color-scale-triad</code>)</h4>
+      <p>
+        New <code>g-palette-color-scale</code> elements are added linked to the primary as triad
+      </p>
+    </summary>
+
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-add-color-scale-button palette="palette-triad" link-algorithm="triad" show-warnings >
+              <button>Add triad</button>
+            </g-add-color-scale-button>
+            <g-palette id="palette-triad">
+              <g-palette-color-scale primary class="flex" scale-algorithm="exponential">
+                <g-color-name color-swatch="add-color-scale-triad-base">
+                  <input type="text">
+                </g-color-name>
+                <g-color-swatch class="flex flex-column items-center">
+                  <input type="color" disabled>
+                </g-color-swatch>
+                <g-color-swatch class="flex flex-column items-center" hex-code="#8811ff" id="add-color-scale-triad-base">
+                  <input type="color">
+                </g-color-swatch>
+                <g-color-swatch class="flex flex-column items-center">
+                  <input type="color" disabled>
+                </g-color-swatch>
+              </g-palette-color-scale>
+            </g-palette>
+          </g-test-case-subject>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+        </div>
+        </details>
+</g-test-case>
+
+      
+
+    </main>
+  </body>
+</html>
+

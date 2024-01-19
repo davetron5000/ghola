@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charSet="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+    <meta name="description" content="Tests for the palette component">
+    <meta content="Ghola - Palette Component Tests" name="og:title">
+    <meta content="website" name="og:type">
+    <meta content="https://ghola.dev/og-image.png" name="og:image">
+
+    <meta itemprop="ai-content-declaration:version" content="1.0.0-alpha1">
+    <meta itemprop="ai-content-declaration:level" content="none">
+
+    <title>
+      Ghola - Palette Component Tests
+    </title>
+    <link href="/css/styles.css" rel="stylesheet" />
+    <script src="/js/main.js"></script>
+    
+    <!-- tests must be included after main to ensure the components are defined -->
+      <script src="/js/tests.js"></script>
+    
+
+</head>
+  <body class="ff-sans bg-white black-ish">
+        <header class="bg-black-ish gray-lightest">
+      <div class="flex items-center justify-between">
+        <div>
+        <h1 class="ma-0 mh-3 pt-3 f-6 ttu tracked flex items-center gap-3">
+          <a href="/" class="tdn hover-tdu gray-lightest">
+          Ghola
+          </a>
+          <span class="h-3 w-3 bg-red"></span>
+          <span class="h-3 w-3 bg-orange"></span>
+          <span class="h-3 w-3 bg-yellow"></span>
+          <span class="h-3 w-3 bg-green"></span>
+          <span class="h-3 w-3 bg-blue"></span>
+          <span class="h-3 w-3 bg-purple"></span>
+          <span class="h-3 w-3 bg-gray"></span>
+        </h1>
+        <h2 class="ma-0 mh-3 pb-3 f-5">Palette Generator for Developers</h2>
+        
+          <h3 class="ma-0 ph-3 pb-3 f-4 ttu tracked fw-4">Test of the palette</h3>
+        
+        </div>
+        <a href="/about.html" class="blue-light f-3 mr-3">About</a>
+      </div>
+      
+      <div class="bg-white bb bc-gray-dark black flex f-2">
+        <nav class="bg-gray-lightest flex items-baseline pa-3 gap-3 w-100">
+          <a class="f-3 blue-dark" href="/components/index.html">&larr; Components Home</a>
+        </nav>
+      </div>
+      
+    </header>
+
+    <main class="pa-3">
+      <h3>Test Cases for <code>g-palette</code></h3>
+      <g-test-case id="palette-events" >
+  <details>
+    <summary>
+      <h4>The palette adapts child events to something useful (<code>palette-events</code>)</h4>
+      <p>
+        The palette listens for the events of its children and adapts them to higher-level events consumable outside the palette component
+      </p>
+    </summary>
+
+        <div class="flex flex-column gap-3">
+          <g-test-case-subject>
+            <g-palette id="palette-events">
+              <g-palette-color-scale primary show-warnings  scale-algorithm="exponential">
+                <g-color-name color-swatch="primary-base-color">
+                  <label>
+                    <input type="text">
+                  </label>
+                </g-color-name>
+                <nav>
+                  <button data-preview>Preview</button>
+                  <button data-remove>Remove</button>
+                  <button data-unlink>Unlink</button>
+                </nav>
+                <div class="flex justify-center gap-1">
+                  <g-color-swatch>
+                    <div data-color></div>
+                  </g-color-swatch>
+                  <g-color-swatch hex-code="#600080" id="primary-base-color">
+                    <input type="color">
+                  </g-color-swatch>
+                  <g-color-swatch>
+                    <div data-color></div>
+                  </g-color-swatch>
+                </div>
+              </g-palette-color-scale>
+              <g-palette-color-scale linked-to-primary="complement" show-warnings  scale-algorithm="exponential">
+                <g-color-name color-swatch="linked-to-primary">
+                  <label>
+                    <input type="text">
+                  </label>
+                </g-color-name>
+                <nav>
+                  <button data-preview>Preview</button>
+                  <button data-remove>Remove</button>
+                  <button data-unlink>Unlink</button>
+                </nav>
+                <div class="flex justify-center gap-1">
+                  <g-color-swatch>
+                    <div data-color></div>
+                  </g-color-swatch>
+                  <g-color-swatch id="linked-to-primary">
+                    <input type="color" disabled>
+                  </g-color-swatch>
+                  <g-color-swatch>
+                    <div data-color></div>
+                  </g-color-swatch>
+                </div>
+              </g-palette-color-scale>
+              <g-palette-color-scale show-warnings  scale-algorithm="exponential">
+                <g-color-name color-swatch="unlinked-color">
+                  <label><input type="text"></label>
+                </g-color-name>
+                <nav>
+                  <button data-preview>Preview</button>
+                  <button data-remove>Remove</button>
+                  <button data-unlink>Unlink</button>
+                </nav>
+                <div class="flex justify-center gap-1">
+                  <g-color-swatch>
+                    <div data-color></div>
+                  </g-color-swatch>
+                  <g-color-swatch hex-code="#881123" id="unlinked-color">
+                    <input type="color">
+                  </g-color-swatch>
+                  <g-color-swatch>
+                    <div data-color></div>
+                  </g-color-swatch>
+                </div>
+              </g-palette-color-scale>
+            </g-palette>
+          </g-test-case-subject>
+          <g-element-source element-sibling="g-test-case-subject" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+        </div>
+        </details>
+</g-test-case>
+
+    </main>
+  </body>
+</html>
+

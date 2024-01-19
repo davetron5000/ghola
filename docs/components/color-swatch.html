@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charSet="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+    <meta name="description" content="Demo of the color swatch component">
+    <meta content="Ghola - Color Swatch Component" name="og:title">
+    <meta content="website" name="og:type">
+    <meta content="https://ghola.dev/og-image.png" name="og:image">
+
+    <meta itemprop="ai-content-declaration:version" content="1.0.0-alpha1">
+    <meta itemprop="ai-content-declaration:level" content="none">
+
+    <title>
+      Ghola - Color Swatch Component
+    </title>
+    <link href="/css/styles.css" rel="stylesheet" />
+    <script src="/js/main.js"></script>
+    
+
+</head>
+  <body class="ff-sans bg-white black-ish">
+        <header class="bg-black-ish gray-lightest">
+      <div class="flex items-center justify-between">
+        <div>
+        <h1 class="ma-0 mh-3 pt-3 f-6 ttu tracked flex items-center gap-3">
+          <a href="/" class="tdn hover-tdu gray-lightest">
+          Ghola
+          </a>
+          <span class="h-3 w-3 bg-red"></span>
+          <span class="h-3 w-3 bg-orange"></span>
+          <span class="h-3 w-3 bg-yellow"></span>
+          <span class="h-3 w-3 bg-green"></span>
+          <span class="h-3 w-3 bg-blue"></span>
+          <span class="h-3 w-3 bg-purple"></span>
+          <span class="h-3 w-3 bg-gray"></span>
+        </h1>
+        <h2 class="ma-0 mh-3 pb-3 f-5">Palette Generator for Developers</h2>
+        
+          <h3 class="ma-0 ph-3 pb-3 f-4 ttu tracked fw-4">Demo of color swatch</h3>
+        
+        </div>
+        <a href="/about.html" class="blue-light f-3 mr-3">About</a>
+      </div>
+      
+      <div class="bg-white bb bc-gray-dark black flex f-2">
+        <nav class="bg-gray-lightest flex items-baseline pa-3 gap-3 w-100">
+          <a class="f-3 blue-dark" href="/components/index.html">&larr; Components Home</a>
+        </nav>
+      </div>
+      
+    </header>
+
+    <main class="pa-3">
+      <a class="blue-dark" href="color-swatch.test.html">Run tests</a>
+      <p class="p">
+        The <code>g-color-swatch</code> renders a color.  It can be editable and allows the user to choose the color, or it can simply show a color directly or one derived from another color.
+      </p>
+      <h4>Example - editable</h4>
+      <div class="flex items-start gap-3">
+        <div class="ba bc-gray pa-2">
+          <g-color-swatch hex-code="#990033" id="editable-demo">
+            <label>
+              <input type="color">
+            </label>
+          </g-color-swatch>
+        </div>
+        <g-element-source element-sibling="g-color-swatch">
+          <pre><code></code></pre>
+        </g-element-source>
+      </div>
+      <p class="p">
+        Here, the <code>input</code> is located and it's value is bound to <code>hex-code</code>.  The <code>label</code> will be filled in with the chose hexcode whenever <code>hex-code</code> changes.
+      </p>
+      <h5>Fancier</h5>
+      <div class="flex items-start gap-3">
+        <div class="ba bc-gray pa-2">
+          <g-color-swatch id="fancier" hex-code="#990033" class="db ba bc-black w-5 pa-2">
+            <label class="flex flex-column gap-2">
+              <input class="w-100 bn bw-0 pa-0 pointer h-5 db" type="color">
+              <code class="ff-mono"></code>
+            </label>
+            <input class="w-2 h-2" type="color" disabled>
+          </g-color-swatch>
+        </div>
+        <g-element-source element-sibling="g-color-swatch">
+          <pre><code></code></pre>
+        </g-element-source>
+      </div>
+      <h4>Example - non-editable</h4>
+      <div class="flex items-start gap-3">
+        <div class="ba bc-gray pa-2 flex flex-column gap-2">
+          <g-color-swatch id="disabled-swatch" hex-code="#990033">
+            <label>
+              <input type="color" disabled>
+            </label>
+          </g-color-swatch>
+          <button class="ph-3 pv-2 ba br-3 bc-gray-dark bg-white hover-bg-blue-lightest pointer blue-dark black-ish" id="change-hex-code-button">Change <code>hex-code</code> Attribute Randomly</button>
+          <script>
+            document.getElementById("change-hex-code-button").addEventListener("click", (event) => {
+              event.preventDefault()
+              const swatch = document.getElementById("disabled-swatch")
+              swatch.setAttribute("hex-code",`#${Math.floor(Math.random()*16777215).toString(16)}`)
+            })
+          </script>
+        </div>
+        <g-element-source element-sibling="g-color-swatch">
+          <pre><code></code></pre>
+        </g-element-source>
+      </div>
+      <p class="p">
+        Here, since the <code>input</code> is <code>disabled</code>, it's value is set to the <code>hex-code</code> and label set, too, but the control cannot be interacted with.
+      </p>
+      <h4>Example - derived</h4>
+      <div class="flex items-start gap-3">
+        <div data-example class="ba bc-gray pa-2 flex flex-column items-center">
+          <g-color-swatch derived-from="abcd" darken-by="50%" derivation-algorithm="brightness">
+            <label>
+              <input type="color" disabled>
+            </label>
+          </g-color-swatch>
+          <g-color-swatch id="abcd" hex-code="#99ff99">
+            <label>
+              <input type="color" class="pointer">
+            </label>
+          </g-color-swatch>
+          <g-color-swatch derived-from="abcd" brighten-by="50%" derivation-algorithm="brightness">
+            <label>
+              <input type="color" disabled>
+            </label>
+          </g-color-swatch>
+        </div>
+        <g-element-source element-sibling="div[data-example]">
+          <pre><code></code></pre>
+        </g-element-source>
+      </div>
+      <p class="p">
+        Here, the <code>input</code>'s value is derived based on the <code>g-color-swatch</code> with id <code>abcd</code>, darkened by 98%.  Negative values can brighten the color. When <code>abcd</code>'s value changes this will trigger changes to the other swatch.
+      </p>
+      <h5>Fancier</h5>
+      <div class="flex flex-column gap-3">
+        <div id="two-shades-example">
+          <div class="flex items-center">
+            <h6 class="f-2 ttl ff-mono tracked w-10 tr">99/75/50</h6>
+            <g-color-swatch class="w-5" derived-from="scale-1" darken-by="99%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="scale-1" darken-by="75%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="scale-1" darken-by="50%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" id="scale-1" hex-code="#99ff99">
+              <label>
+                <input class="h-5 w-100 pointer" type="color">
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="scale-1" brighten-by="50%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="scale-1" brighten-by="75%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="scale-1" brighten-by="99%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+          </div>
+          <div class="flex items-center">
+            <h6 class="f-2 ttl ff-mono tracked w-10 tr">90/70/30</h6>
+            <g-color-swatch class="w-5" derived-from="scale-1" darken-by="90%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="scale-1" darken-by="70%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="scale-1" darken-by="30%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="scale-1">
+              <label>
+                <input class="h-5 w-100" type="color">
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="scale-1" brighten-by="30%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="scale-1" brighten-by="70%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="scale-1" brighten-by="90%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+          </div>
+        </div>
+        <details>
+          <summary>Show Code</summary>
+          <g-element-source element-id="two-shades-example">
+            <pre><code></code></pre>
+          </g-element-source>
+        </details>
+      </div>
+      <h5>Even More Fancier</h5>
+      <div class="flex flex-column gap-3">
+        <p class="p">
+          This shows a basic color palette where you choose one color, and see different shades of that color, but then see a complementary color, itself with derived shades.
+        </p>
+        <div id="complement-shades-example">
+          <div class="flex items-center">
+            <h6 class="f-2 ttl tracked w-10 tr">Primary Color</h6>
+            <g-color-swatch class="w-5" derived-from="derive-complementary-from" darken-by="99%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="derive-complementary-from" darken-by="75%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="derive-complementary-from" darken-by="50%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" id="derive-complementary-from" hex-code="#99ff99">
+              <label>
+                <input class="h-5 w-100 pointer" type="color">
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="derive-complementary-from" brighten-by="50%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="derive-complementary-from" brighten-by="75%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="derive-complementary-from" brighten-by="99%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+          </div>
+          <div class="flex items-center">
+            <h6 class="f-2 ttl tracked w-10 tr">Complementary</h6>
+            <g-color-swatch class="w-5" derived-from="complementary-1" darken-by="99%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="complementary-1" darken-by="75%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="complementary-1" darken-by="50%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" id="complementary-1" derived-from="derive-complementary-from" derivation-algorithm="complement">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="complementary-1" brighten-by="50%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="complementary-1" brighten-by="75%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch class="w-5" derived-from="complementary-1" brighten-by="99%" derivation-algorithm="brightness">
+              <label>
+                <input class="h-5 w-100" type="color" disabled>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+          </div>
+        </div>
+        <details>
+          <summary>Show Code</summary>
+          <g-element-source element-id="complement-shades-example">
+            <pre><code></code></pre>
+          </g-element-source>
+        </details>
+      </div>
+      <h5>But Wait, There's <strong>More</strong> Fancier</h5>
+      <div class="flex flex-column gap-3">
+        <p class="p">
+          This shows a color and then derived complementary, split-complementary, analogous, and triad.
+        </p>
+        <div id="color-wheel-example">
+          <div class="flex items-center">
+            <div class="w-5"></div>
+            <g-color-swatch class="w-5" derived-from="more-fancier-base-color" derivation-algorithm="analogous-lower">
+              <label class="flex flex-column items-center gap-1">
+                <input class="h-5 w-100" type="color">
+                Analogous
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <div class="w-5"></div>
+            <g-color-swatch class="w-5" derived-from="more-fancier-base-color" derivation-algorithm="analogous-upper">
+              <label class="flex flex-column items-center gap-1">
+                <input class="h-5 w-100" type="color">
+                Analogous
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <div class="w-5"></div>
+          </div>
+          <div class="flex items-center">
+            <g-color-swatch class="w-5" derived-from="more-fancier-base-color" derivation-algorithm="triad-lower">
+              <label class="flex flex-column items-center gap-1">
+                <input class="h-5 w-100" type="color">
+                Triad
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <div class="w-5"></div>
+            <g-color-swatch class="w-5" id="more-fancier-base-color" hex-code="#61177c">
+              <label class="flex flex-column items-center gap-1">
+                <input class="h-5 w-100" type="color">
+                Base (Choose)
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <div class="w-5"></div>
+            <g-color-swatch class="w-5" derived-from="more-fancier-base-color" derivation-algorithm="triad-upper">
+              <label class="flex flex-column items-center gap-1">
+                <input class="h-5 w-100" type="color">
+                Triad
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+          </div>
+          <div class="flex items-center">
+            <div class="w-5"></div>
+            <g-color-swatch class="w-5" derived-from="more-fancier-base-color" derivation-algorithm="split-complement-lower">
+              <label class="flex flex-column items-center gap-1">
+                <input class="h-5 w-100" type="color">
+                <span class="tc">Split Complement</span>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <div class="w-5"></div>
+            <g-color-swatch class="w-5" derived-from="more-fancier-base-color" derivation-algorithm="split-complement-upper">
+              <label class="flex flex-column items-center gap-1">
+                <input class="h-5 w-100" type="color">
+                <span class="tc">Split Complement</span>
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <div class="w-5"></div>
+          </div>
+          <div class="flex items-center">
+            <div class="w-5"></div>
+            <div class="w-5"></div>
+            <g-color-swatch class="w-5" derived-from="more-fancier-base-color" derivation-algorithm="complement">
+              <label class="flex flex-column items-center gap-1">
+                <input class="h-5 w-100" type="color">
+                Complement
+                <code class="db"></code>
+              </label>
+            </g-color-swatch>
+            <div class="w-5"></div>
+            <div class="w-5"></div>
+          </div>
+        </div>
+        <details>
+          <summary>Show Code</summary>
+          <g-element-source element-id="color-wheel-example">
+            <pre><code></code></pre>
+          </g-element-source>
+        </details>
+      </div>
+      <h4>Example - derived to a non-<code>input</code></h4>
+      <p class="p">
+        The swatch's interior doesn't have to be an <code>input</code>.  To let the component know where to put the derived value, use <code>data-hexcode</code> for the label and <code>data-color</code> for the color (its <code>background-color</code> will be set).
+      </p>
+      <div class="flex items-start gap-3">
+        <div data-example class="ba bc-gray pa-2 flex flex-column items-center gap-2">
+          <g-color-swatch derived-from="derive-for-non-code" darken-by="50%" derivation-algorithm="brightness">
+            <div data-hexcode class="flex gap-2 items-center">
+              <div data-color class="h-3 w-3"></div>
+            </div>
+          </g-color-swatch>
+          <g-color-swatch id="derive-for-non-code" hex-code="#99ff99">
+            <label class="flex gap-2 items-center">
+              <input type="color" class="pointer">
+            </label>
+          </g-color-swatch>
+          <g-color-swatch derived-from="derive-for-non-code" brighten-by="50%" derivation-algorithm="brightness">
+            <div data-hexcode class="flex gap-2 items-center">
+              <div data-color class="h-3 w-3"></div>
+            </div>
+          </g-color-swatch>
+        </div>
+        <g-element-source element-sibling="div[data-example]">
+          <pre><code></code></pre>
+        </g-element-source>
+      </div>
+      <p class="p">
+        Here, the <code>input</code>'s value is derived based on the <code>g-color-swatch</code> with id <code>abcd</code>, darkened by 98%.  Negative values can brighten the color. When <code>abcd</code>'s value changes this will trigger changes to the other swatch.
+      </p>
+      <h4>Edge Cases</h4>
+      <p class="p">
+        There are obvious edge cases. The attribute <code>show-warnings</code> can be set and error cases or obvious mis-uses will generate warnings in the console.  <code>show-warnings</code> can be set as true, or given a string that will be part of the messages. Note that all warnings are buffered and then dumped when <code>show-warnings</code> goes from falsey to truthy.  This is to account for ordering when attributes are set. For example, if an attribute's value is wrong, but the browser has not parsed the <code>show-warnings</code> value yet, the message about the wrong value could be missed.
+      </p>
+      <ul>
+        <li class="mb-3 flex items-start gap-2">
+          <p class="ma-0 lh-copy w-25">
+            If there is no <code>input</code>, nothing is rendered.
+          </p>
+          <g-element-source element-id="missing-input">
+            <pre><code></code></pre>
+          </g-element-source>
+          <div class="ba bc-gray pa-2">
+            <aside class="f-1 i">View console and look for messages prefixed with <code>missing-input</code></aside>
+            <g-color-swatch hex-code="#456999" show-warnings  id="missing-input">
+              <label></label>
+            </g-color-swatch>
+          </div>
+        </li>
+        <li class="mb-3 flex items-start gap-2">
+          <p class="ma-0 lh-copy w-25">
+            If there are two <code>input</code>'s with <code>type=color</code>, both are affected the same way.
+          </p>
+          <g-element-source element-id="two-inputs">
+            <pre><code></code></pre>
+          </g-element-source>
+        <div class="ba bc-gray pa-2">
+          <g-color-swatch hex-code="#456999" show-warnings  id="two-inputs">
+            <div class="flex items-start gap-3">
+              <input class="h-3" type=color>
+              <input class="h-4" type=color>
+            </div>
+          </g-color-swatch>
+        </div>
+        </li>
+        <li class="mb-3 flex items-start gap-2">
+          <p class="ma-0 lh-copy w-25">
+            If the derivation algorithm is unknown, it is treated as blank and the value is linked directly.
+          </p>
+          <g-element-source element-id="bad-algo-2-container" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+          <div class="ba bc-gray pa-2 flex flex-column gap-2">
+            <aside class="f-1 i">View console and look for messages prefixed with <code>bad-algo-2</code></aside>
+            <div id="bad-algo-2-container">
+              <div class="flex items-center gap-2">
+                <g-color-swatch hex-code="#456999" id="bad-algo-1" show-warnings ="bad-algo-1">
+                  <input class="h-4" type="color">
+                </g-color-swatch>
+                <div class="f-1">&larr; Edit this one</div>
+              </div>
+              <div class="flex items-center gap-2">
+                <g-color-swatch hex-code="#456999" derived-from="bad-algo-1" derivation-algorithm="exp" show-warnings="bad-algo-2">
+                  <input class="h-3" type=color disabled>
+                </g-color-swatch>
+                <div class="f-1">This should reflect the exact value since the algorithm is invalid</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="mb-3 flex items-start gap-2">
+          <p class="ma-0 lh-copy w-25">
+            If an <code>input</code> is not <code>disabled</code>, but the <code>derived-from</code> is set, the behavior is undefined.
+          </p>
+          <g-element-source element-id="derivation-error-container" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+          <div class="ba bc-gray pa-2 flex flex-column gap-2">
+            <aside class="f-1 i">View console and look for messages prefixed with <code>editable-derivation</code></aside>
+            <div id="derivation-error-container">
+              <g-color-swatch hex-code="#456999" id="derivation-error">
+                <label class="flex flex-column items-center gap-1">
+                  <span>Other is derived from this</span>
+                  <input type=color>
+                  <code></code>
+                </label>
+              </g-color-swatch>
+              <g-color-swatch hex-code="#456999" derived-from="derivation-error" show-warnings ="editable-derivation">
+                <label class="flex flex-column items-center gap-1">
+                  <span>This is derived from other, but (mistakenly) editable</span>
+                  <input type=color>
+                  <code></code>
+                </label>
+              </g-color-swatch>
+            </div>
+          </div>
+        </li>
+        <li class="mb-3 flex items-start gap-2">
+          <p class="ma-0 lh-copy w-25">
+            If <code>derived-from</code> is set, but <code>darken-by</code> is not specified, the other element's hex code is used directly, unchanged.
+          </p>
+          <g-element-source element-id="derivation-no-darken-container" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+          <div id="derivation-no-darken-container" class="ba bc-gray pa-2 flex flex-column gap-2">
+            <g-color-swatch hex-code="#456999" id="derivation-no-darken">
+              <label class="flex flex-column items-center gap-1">
+                <input type=color>
+                <code></code>
+              </label>
+            </g-color-swatch>
+            <g-color-swatch derived-from="derivation-no-darken" show-warnings="disabled-derivation">
+              <label class="flex flex-column items-center gap-1">
+                <input type=color disabled>
+                <code></code>
+              </label>
+            </g-color-swatch>
+          </div>
+        </li>
+        <li class="mb-3 flex items-start gap-2">
+          <p class="ma-0 lh-copy w-25">
+            If <code>derived-from</code> references a non-existent element, no behavior will be changed.
+          </p>
+          <g-element-source element-id="no-derivation-container" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+          <div class="ba bc-gray pa-2 flex flex-column gap-2">
+            <aside class="f-1 i">View console and look for messages prefixed with <code>non-existent-derivation</code></aside>
+            <div id="no-derivation-container">
+              <g-color-swatch hex-code="#456999">
+                <label class="flex flex-column items-center gap-1">
+                  <input type=color>
+                  <code></code>
+                </label>
+              </g-color-swatch>
+              <g-color-swatch derived-from="non-existent" show-warnings="non-existent-derivation">
+                <label class="flex flex-column items-center gap-1">
+                  <input type=color disabled>
+                  <code></code>
+                </label>
+              </g-color-swatch>
+            </div>
+          </div>
+        </li>
+        <li class="mb-3 flex items-start gap-2">
+          <p class="ma-0 lh-copy w-25">
+            The <code>label</code> must either 1) contain the <code>input</code> and <strong>not</strong> set <code>for</code> or 2) not contain the <code>input</code>, and set <code>for</code> to the <code>input</code>'s <code>id</code>.
+          </p>
+          <g-element-source element-id="label-cases" html="inner">
+            <pre><code></code></pre>
+          </g-element-source>
+          <div class="ba bc-gray pa-2 flex flex-column gap-2">
+            <aside class="f-1 i">View console and look for messages prefixed with <code>orphaned-label</code></aside>
+            <div id="label-cases">
+              <g-color-swatch hex-code="#456999" class="flex flex-column items-center gap-2" show-warnings ="orphaned-label">
+                <label class="flex flex-column items-center gap-1">
+                  <span>This label wraps the input</span>
+                  <input type=color id="multi-label">
+                  <code></code>
+                </label>
+                <label class="dib ba bc-purple pa-1" for="multi-label">
+                  <span>This label references the input</span>
+                </label>
+                <label class="dib ba bc-green-dark pa-1">
+                  <span>This label doesn't reference anything</span>
+                </label>
+                <label class="dib ba bc-green-dark pa-1" for="outside">
+                  <span>This label references an input outside the element</span>
+                </label>
+                <label class="dib ba bc-green-dark pa-1" for="inside">
+                  <span>This label references a non-color input inside the element</span>
+                </label>
+                <div class="pa-2 flex flex-column items-center">
+                  <input type="text" id="inside">
+                </div>
+              </g-color-swatch>
+              <div class="pa-2 flex flex-column items-center">
+                <input type="color" id="outside">
+                <span>This input is not inside the element</span>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>
+
