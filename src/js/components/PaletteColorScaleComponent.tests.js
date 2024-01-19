@@ -1,8 +1,4 @@
 import {
-  test,
-  assertEqual,
-  assertNotEqual,
-  assert,
   testCase,
 } from "../brutaldom/testing"
 

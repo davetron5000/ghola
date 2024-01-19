@@ -1,8 +1,4 @@
 import {
-  test,
-  assertEqual,
-  assertNotEqual,
-  assert,
   testCase,
 } from "../brutaldom/testing"
 
@@ -50,7 +46,7 @@ testCase("derived-brighter-linear", ({setup,teardown,test,subject,assert,assertE
     }
   )
 })
-testCase("derived-darker-linear", ({setup,teardown,test,subject,assert,assertEqual}) => {
+testCase("derived-darker-linear", ({setup,teardown,test,assert,assertEqual}) => {
   setup( singleDerivedSetup )
   teardown( singleDerivedTeardown )
 
@@ -64,7 +60,7 @@ testCase("derived-darker-linear", ({setup,teardown,test,subject,assert,assertEqu
   )
 })
 
-testCase("derived-complement", ({setup,teardown,test,subject,assert,assertEqual,confidenceCheck}) => {
+testCase("derived-complement", ({setup,teardown,test,assert,assertEqual,confidenceCheck}) => {
   setup( singleDerivedSetup )
   teardown( singleDerivedTeardown )
   confidenceCheck( ({$derivedLinkContext}) => {
@@ -123,7 +119,7 @@ const lowerUpperTeardown = ({$lower,$main,$upper}) => {
   document.body.removeChild($upper)
 }
 
-testCase("derived-split-complement", ({setup,teardown,test,subject,assert,assertEqual}) => {
+testCase("derived-split-complement", ({setup,teardown,test,assert,assertEqual}) => {
   setup( lowerUpperSetup )
   teardown( lowerUpperTeardown )
 
@@ -141,7 +137,7 @@ testCase("derived-split-complement", ({setup,teardown,test,subject,assert,assert
   )
 })
 
-testCase("derived-analogous", ({setup,teardown,test,subject,assert,assertEqual}) => {
+testCase("derived-analogous", ({setup,teardown,test,assert,assertEqual}) => {
   setup( lowerUpperSetup )
   teardown( lowerUpperTeardown )
 
@@ -313,7 +309,7 @@ testCase("multiple", ({setup,teardown,test,subject,assert,assertEqual,assertNotE
         assertEqual(value,input.value,`Input's value should've been the one the user entered: ${input.outerHTML}`)
       })
       $otherInputs.forEach( (input) => {
-        assertNotEqual(value,input.value,`Non-color input's value should not have been the user's value: ${input.outerHTML}`)
+        assertEqual(value,input.value,`Non-color input's value should be set as well`)
       })
       $labels.forEach( (label) => {
         const labelForOtherInput = otherInputIds.indexOf(label.htmlFor) != -1
@@ -328,14 +324,14 @@ testCase("multiple", ({setup,teardown,test,subject,assert,assertEqual,assertNotE
       })
     }
   )
-  test("the hex-code attribute will apply to all color inputs and related labels",
+  test("the hex-code attribute will apply to all inputs and related labels",
     ({component,$inputs,$otherInputs,$labels,otherInputIds}) => {
       const hexCode = component.getAttribute("hex-code")
       $inputs.forEach( (input) => {
         assertEqual(hexCode,input.value,"Color input's value should've been set to the hex-code")
       })
       $otherInputs.forEach( (input) => {
-        assertNotEqual(hexCode,input.value,"Non-color input's value should not have been set to the hex-code")
+        assertEqual(hexCode,input.value,"Non-color input's value should be set as well")
       })
       $labels.forEach( (label) => {
         const labelForOtherInput = otherInputIds.indexOf(label.htmlFor) != -1

@@ -4,15 +4,15 @@
     <%- include("../templates/header.html", { subtitle: "Components" }) %>
     <main class="pa-3">
       <p class="p">
-        The pages here demo the components in isolation and can run the components' tests.
+        The pages here lead to tests for the components and demos, if there are any.
       </p>
       <table class="collapse">
         <thead>
           <tr>
-            <th class="tl pa-1 bb br">Component</th>
-            <th class="tl pa-1 bb br">Purpose</th>
-            <th class="tl pa-1 bb br">Demo</th>
-            <th class="tl pa-1 bb">Test</th>
+            <th class="tl f-3 pa-1 bb br">Component</th>
+            <th class="tl f-3 pa-1 bb br">Purpose</th>
+            <th class="tl f-3 pa-1 bb br">Test</th>
+            <th class="tl f-3 pa-1 bb br">Demo</th>
           </tr>
         </thead>
         <tbody>
@@ -20,6 +20,7 @@
                       {
                         name: "color-swatch",
                         description: "Renders a color swatch, possibly with its value derived from another, or possibly editable",
+                        hasDemo: true,
                       }
                      )
           %>
@@ -27,20 +28,23 @@
                       {
                         name: "color-name",
                         description: "Shows a system-provided name for a color, but allows the user to override it.",
+                        hasDemo: true,
                       }
                      )
           %>
           <%- include("../templates/component-tr.html",
                       {
                         name: "palette-color-scale",
-                        description: "Wraps <code>g-color-palette</code> elements and a <code>g-color-name</code> element to show different versions of a base color to be used in a larger palette."
+                        description: "Wraps <code>g-color-palette</code> elements and a <code>g-color-name</code> element to show different versions of a base color to be used in a larger palette.",
+                        hasDemo: true,
                       }
                      )
           %>
           <%- include("../templates/component-tr.html",
                       {
                         name: "add-color-scale-button",
-                        description: "Wraps one or more buttons that, when clicked, will add a new <code>g-palette-color-scale</code> to the given palette."
+                        description: "Wraps one or more buttons that, when clicked, will add a new <code>g-palette-color-scale</code> to the given palette.",
+                        hasDemo: false,
                       }
                      )
           %>
@@ -48,6 +52,7 @@
                       {
                         name: "palette",
                         description: "Wraps the color scales to provide access to the palette",
+                        hasDemo: false,
                       }
                      )
           %>
@@ -55,6 +60,7 @@
                       {
                         name: "preview-text",
                         description: "Wraps the text used for previewing a seletion of colors",
+                        hasDemo: false,
                       }
                      )
           %>

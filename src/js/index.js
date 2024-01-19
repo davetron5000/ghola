@@ -12,7 +12,6 @@ import PreviewComponent               from "./components/PreviewComponent"
 import PreviewTextComponent           from "./components/PreviewTextComponent"
 
 import PaletteUI from "./PaletteUI"
-import SaveableState from "./SaveableState"
 
 document.addEventListener("DOMContentLoaded", () => {
   AddColorScaleButtonComponent.define()
@@ -28,10 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
   PreviewTextComponent.define()
   PreviewColorSelectionComponent.define()
 
-  const saveableState = new SaveableState()
-
   const paletteComponent = document.querySelector("g-palette")
   if (paletteComponent) {
+    const saveableState = paletteComponent.saveableState
+    console.log(saveableState)
+    saveableState.start()
     const paletteUI = new PaletteUI(saveableState)
     paletteUI.build()
 

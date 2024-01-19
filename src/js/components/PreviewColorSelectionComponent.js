@@ -4,30 +4,9 @@ export default class PreviewColorSelectionComponent extends BaseCustomElement {
 
   static tagName = "g-preview-color-selection"
   static observedAttributes = [
-    "preview-text",
     "color-scale",
     "show-warnings",
   ]
-
-  constructor() {
-    super()
-    this.colorSelectedEventListener = (event) => {
-      const previewText = document.getElementById(this.previewTextId)
-      if (previewText) {
-        if (event.target.checked) {
-          previewText.setAttribute(event.target.name,event.target.value)
-        }
-      }
-      this.dispatchEvent(new CustomEvent("colors-change"))
-    }
-  }
-
-  previewTextChangedCallback({newValue,oldValue}) {
-    this.previewTextId = newValue
-    if (newValue != oldValue) {
-      this.dispatchEvent(new CustomEvent("colors-change"))
-    }
-  }
 
   colorScaleChangedCallback({newValue}) {
     let scale = (newValue || "").split(/,/)
@@ -38,9 +17,6 @@ export default class PreviewColorSelectionComponent extends BaseCustomElement {
   }
 
   render() {
-    this.querySelectorAll("input[type=radio]").forEach( (element) => {
-      element.addEventListener("change",this.colorSelectedEventListener)
-    })
     if (!this.colorScale) {
       return
     }
@@ -66,16 +42,15 @@ export default class PreviewColorSelectionComponent extends BaseCustomElement {
       const selector = `input[type=radio][name='text-color'][value='${this.colorScale[0]}']`
       const defaultTextColor = this.querySelector(selector)
       if (defaultTextColor) {
-        defaultTextColor.checked = true
-        this.dispatchEvent(new CustomEvent("colors-change"))
+        defaultTextColor.click()
+
       }
     }
     if (this.querySelectorAll("input[type=radio][name='background-color']:checked").length == 0) {
       const selector = `input[type=radio][name='background-color'][value='${this.colorScale[this.colorScale.length - 1]}']`
-      const defaultTextColor = this.querySelector(selector)
-      if (defaultTextColor) {
-        defaultTextColor.checked = true
-        this.dispatchEvent(new CustomEvent("colors-change"))
+      const defaultBackgroundColor = this.querySelector(selector)
+      if (defaultBackgroundColor) {
+        defaultBackgroundColor.click()
       }
     }
   }

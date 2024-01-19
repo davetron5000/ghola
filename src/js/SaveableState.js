@@ -3,7 +3,7 @@ import PaletteEntry from "./PaletteEntry"
 import Color from "./Color"
 
 export default class SaveableState {
-  constructor() {
+  start() {
     this.pushState(window.location.toString(), { setURL: false })
   }
 

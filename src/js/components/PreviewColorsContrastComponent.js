@@ -5,35 +5,47 @@ export default class PreviewColorsContrastComponent extends BaseCustomElement {
 
   static tagName = "g-preview-colors-contrast"
   static observedAttributes = [
-    "preview-color-selection",
     "show-warnings",
+    "background-color",
+    "text-color",
+    "form",
   ]
 
-  previewColorSelectionChangedCallback({newValue}) {
-    this.previewColorSelectionId = newValue
+  formChangedCallback({newValue}) {
+    this.formName = newValue
+  }
+
+  backgroundColorChangedCallback({newValue}) {
+    this.backgroundColor = newValue ? new Color(newValue) : null
+  }
+
+  textColorChangedCallback({newValue}) {
+    this.textColor = newValue ? new Color(newValue) : null
   }
 
   constructor() {
     super()
-    this.colorSelectionColorsChangeListener = (event) => {
-      const colorRadioText = event.target.querySelector("input[name='text-color']:checked")
-      const colorRadioBackground = event.target.querySelector("input[name='background-color']:checked")
-      if (colorRadioText && colorRadioBackground) {
-        this.colorText = new Color(colorRadioText.value)
-        this.colorBackground = new Color(colorRadioBackground.value)
-        this.render()
-      }
+    this.formElementChangeListener = (event) => {
+      this._updateColors(event.target)
     }
   }
 
+  get form() {
+    if (!this.formName) {
+      return null
+    }
+    return document.querySelector(`form[name='${this.formName}']`)
+  }
+
   render() {
-    const previewColorSelection = document.getElementById(this.previewColorSelectionId)
-    if (!previewColorSelection) {
+    if (!this.form) {
       return
     }
-    previewColorSelection.addEventListener("colors-change", this.colorSelectionColorsChangeListener)
-    if (this.colorText && this.colorBackground) {
-      const contrast = Math.floor(this.colorText.contrast(this.colorBackground) * 100) / 100
+    Array.from(this.form.elements).forEach( (element) => {
+      element.addEventListener("change",this.formElementChangeListener)
+    })
+    if (this.textColor && this.backgroundColor) {
+      const contrast = Math.floor(this.textColor.contrast(this.backgroundColor) * 100) / 100
       this.querySelectorAll("[data-ratio]").forEach( (element) => {
         element.textContent = contrast
       })
@@ -61,6 +73,15 @@ export default class PreviewColorsContrastComponent extends BaseCustomElement {
           element.style.display = "none"
         }
       })
+    }
+  }
+  _updateColors(formElement) {
+    if (formElement.name == "text-color") {
+      this.setAttribute("text-color",formElement.value)
+    }
+    else if (formElement.name == "background-color") {
+      this.setAttribute("background-color",formElement.value)
+      this.render()
     }
   }
 }

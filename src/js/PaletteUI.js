@@ -38,11 +38,6 @@ export default class PaletteUI {
         checkbox.check()
       })
     }
-    document.querySelectorAll(`${PaletteColorScaleComponent.tagName}`).forEach( (element) => {
-      if (!element.isPrimary) {
-        element.parentElement.removeChild(element)
-      }
-    })
     document.querySelectorAll(`${AttributeCheckboxComponent.tagName}[attribute-name='compact']`).forEach( (checkbox) => {
       if (this.palette.compact) {
         checkbox.check()
