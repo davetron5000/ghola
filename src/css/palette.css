@@ -59,6 +59,11 @@ g-palette-color-scale g-color-swatch [data-color] {
   width: calc(2 * var(--mg-sp-5));
   height: calc(2 * var(--mg-sp-5));
 }
+g-color-swatch.small input,
+g-color-swatch.small [data-color] {
+  width: calc(var(--mg-sp-5));
+  height: calc(var(--mg-sp-5));
+}
 
 @media screen and (max-width: 80em) {
   g-palette-color-scale g-color-swatch input,

@@ -3,7 +3,7 @@
   <body class="ff-sans bg-white black">
     <%- include("./templates/header.html", { main: true } ) %>
     <main>
-      <article data-palette class="flex flex-column gap-4">
+      <article class="flex flex-column gap-4">
         <div>
           <div class="flex bb bg-gray-lighter gap-2">
             <div class="flex items-center bg-white-ish gap-3 ph-3 br inner-shadow-1">
@@ -116,7 +116,7 @@
             </nav>
           </div>
         </div>
-        <g-palette id="palette">
+        <g-palette id="palette" save-state>
           <g-palette-color-scale primary show-warnings  scale-algorithm="exponential">
             <div class="flex flex-column justify-between">
               <g-color-name color-swatch="primary-base-color">
@@ -180,8 +180,8 @@
         <button data-close class="pos-absolute right-2 top-2 shadow-button shadow-button--red br-3 f-1 ttl fw-4">&times; Close</button>
         <h1 class="sr-only">Preview</h1>
         <div class="flex justify-center items-center gap-3 w-100 pt-3">
-          <g-preview-color-selection preview-text="preview-text" id="preview-color-selection">
-            <form class="flex flex-column gap-2">
+          <g-preview-color-selection>
+            <form name="preview-colors" class="flex flex-column gap-2">
               <div data-background class="flex items-center gap-2 justify-center">
                 <div class="fw-7 w-5 tr">Background:</div>
                 <div class="flex items-center gap-2 justify-center">
@@ -210,8 +210,8 @@
               </div>
             </form>
           </g-preview-color-selection>
-          <g-preview-colors-contrast 
-            preview-color-selection="preview-color-selection"
+          <g-preview-colors-contrast
+            form="preview-colors"
             class="f-2 ba br-1 bc-gray-darker pa-3 flex flex-column gap-2 items-center justify-center">
             <a class="hover-tdu tdn f-3 blue-dark" href="https://www.w3.org/TR/WCAG21/#contrast-minimum">WCAG Contrast</a>
             <div class="f-4 fw-6" data-ratio>
@@ -228,7 +228,7 @@
           Exceprt from <cite><a class="blue-dark" href="https://www.gutenberg.org/cache/epub/164/pg164.txt">20,000 Leagues Under the Sea</a></cite>, by Jules Verne.
         </p>
       </header>
-      <g-preview-text class="overflow-y-scroll ph-3 pos-relative" id="preview-text">
+      <g-preview-text class="overflow-y-scroll ph-3 pos-relative" form="preview-colors">
         <button data-full-screen class="pos-absolute right-2 top-2 shadow-button br-3 f-1 ttl fw-4">&#x26F6; Full Screen</button>
         <button data-exit-full-screen class="pos-absolute right-2 top-2 shadow-button shadow-button--red br-3 f-1 ttl fw-4">&times; Exit Full Screen</button>
         <h2 class="tc tracked f-5">Part One</h2>
