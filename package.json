@@ -1,7 +1,7 @@
 {
-  "name": "tleilax",
+  "name": "Ghola",
   "version": "1.0.0",
-  "description": "Template for basic static site",
+  "description": "Palette Generator for Developers",
   "main": "index.js",
   "author": "David Bryant Copeland",
   "license": "SEE LICENSE IN LICENSE.txt",
