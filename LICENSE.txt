@@ -1,4 +1,4 @@
-tleilax Copyright (C) (2023) (David Copeland) ("Licensor")
+Ghola Copyright (C) (2023) (David Copeland) ("Licensor")
 
 Hippocratic License Version Number: 2.1.
 
