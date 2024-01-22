@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "color-convert": "^2.0.1",
-    "html-prettify": "^1.0.7",
     "melange-css": "^1.0.0-beta6"
   }
 }
