@@ -2,9 +2,7 @@
 
 set -e
 
-mv docs/CNAME .
-rm -rf docs/*
-mv CNAME docs/
-bin/build production docs
+rm -rf docs/take-1/*
+bin/build production docs/take-1
 rm -rf site/production
 
