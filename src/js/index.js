@@ -27,10 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
   PreviewTextComponent.define()
   PreviewColorSelectionComponent.define()
 
-  const paletteComponent = document.querySelector("g-palette")
+  const paletteComponent = document.querySelector(PaletteComponent.tagName)
   if (paletteComponent) {
     const saveableState = paletteComponent.saveableState
-    console.log(saveableState)
     saveableState.start()
     const paletteUI = new PaletteUI(saveableState)
     paletteUI.build()

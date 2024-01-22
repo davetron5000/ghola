@@ -14,8 +14,6 @@ export default class ColorSwatchComponent extends BaseCustomElement {
     "default-link-context",
   ]
 
-  static HEX_CODE_CHANGE_EVENT_NAME = "hex-code-change"
-
   constructor() {
     super()
     this.onInputChangeCallback = (event) => {
@@ -66,16 +64,13 @@ export default class ColorSwatchComponent extends BaseCustomElement {
     }
   }
 
-  static INPUT_SELECTOR      = "input"
-  static DATA_COLOR_SELECTOR = "[data-color]"
-
   _eachInput(f) {
-    const elements = this.querySelectorAll(this.constructor.INPUT_SELECTOR)
+    const elements = this.querySelectorAll("input")
     elements.forEach(f)
     return elements.length
   }
   _eachDataColor(f) {
-    const elements = this.querySelectorAll(this.constructor.DATA_COLOR_SELECTOR)
+    const elements = this.querySelectorAll("[data-color]")
     elements.forEach(f)
     return elements.length
   }
@@ -200,7 +195,7 @@ export default class ColorSwatchComponent extends BaseCustomElement {
     }
   }
 
-  get hexCodeChangedEventName() { return this.constructor.HEX_CODE_CHANGE_EVENT_NAME }
+  get hexCodeChangedEventName() { return "hex-code-change" }
 
   _dispatchHexcodeChanged() {
     this.dispatchEvent(new CustomEvent(this.hexCodeChangedEventName, { cancelable: false, bubbles: true }))
