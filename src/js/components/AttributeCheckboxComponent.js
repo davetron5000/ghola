@@ -6,7 +6,7 @@ export default class AttributeCheckboxComponent extends BaseCustomElement {
   static observedAttributes = [
     "element",
     "attribute-name",
-    "debug",
+    "show-warnings",
   ]
 
   constructor() {
