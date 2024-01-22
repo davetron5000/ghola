@@ -7,16 +7,9 @@ export default class ColorName {
     if (!(color instanceof Color)) {
       throw `wtf: ${typeof(color)}`
     }
-    this.name     = this._bringIntoAtLeastTheFriggin80sFFS(GetColorName(color.toString()))
+    this.name     = new ColorCategory(color).toString()
     this.category = new ColorCategory(color)
   }
   toString() { return this.name }
-
-  _bringIntoAtLeastTheFriggin80sFFS(colorName) {
-    if (colorName.toLowerCase() == "flesh") {
-      return "peach"
-    }
-    return colorName
-  }
 
 }

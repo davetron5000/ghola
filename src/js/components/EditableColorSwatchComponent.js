@@ -32,14 +32,12 @@ class EditableColorSwatchComponent extends HTMLElement {
 
   afterAppendTemplate({locator}) {
     this.$element.addEventListener("submit", (event) =>  event.preventDefault() )
-    this.$colorName = locator.$e("g-color-name")
 
     this.$hexCode = locator.$e("g-hex-code")
 
     this.$input = Input.wrap(locator.$e("input[type=color]"))
-    this.$input.onChange( (event) => this.$colorName.updateColor(Color.fromString(event.detail)) )
     this.$input.onChange( (event) => this.$hexCode.updateColor(Color.fromString(event.detail)) )
-    this.$input.onChange( (event) => this.dispatchHexCodeChanged(Color.fromString(event.detail)), { debounce: 20 } )
+    this.$input.onChange( (event) => this.dispatchHexCodeChanged(Color.fromString(event.detail)))
 
     this.$inputLabel = locator.$e("label")
   }
@@ -63,12 +61,10 @@ class EditableColorSwatchComponent extends HTMLElement {
     if (this.color) {
       this.$input.setAttribute("value",this.color.toString())
       this.$hexCode.updateColor(this.color)
-      this.$colorName.updateColor(this.color)
     }
     else {
       this.$input.removeAttribute("value")
       this.$hexCode.clearColor()
-      this.$colorName.clearColor()
     }
     if (this.description) {
       const id = HTMLId.fromString(this.description, { prefix: "color-swatch" })
@@ -82,7 +78,6 @@ class EditableColorSwatchComponent extends HTMLElement {
       this.$inputLabel.textContent = ""
     }
     if (this.compact) {
-      this.$colorName.hide()
       this.$hexCode.hide()
       this.$input.classList.remove("h-5")
       this.$input.classList.add("h-4")
@@ -90,7 +85,6 @@ class EditableColorSwatchComponent extends HTMLElement {
       this.$element.classList.add("bn","pa-0")
     }
     else {
-      this.$colorName.show()
       this.$hexCode.show()
       this.$input.classList.remove("h-4")
       this.$input.classList.add("h-5")

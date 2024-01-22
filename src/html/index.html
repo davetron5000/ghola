@@ -23,16 +23,10 @@
         <slot name="code"></slot>
       </code>
     </template>
-    <template id="g-color-name">
-      <div class="ttu f-1 gray-darker fw-5 nowrap tl mt-2 ph-2 lh-solid h-2-lines flex items-end">
-        <slot name="name"></slot>
-      </div>
-    </template>
     <template id="g-editable-color-swatch">
       <form class="bg-white w-5 flex flex-column justify-center ba bc-gray-dark pa-1">
         <label class="ma-0 pa-0 sr-only"></label>
         <input class="w-100 bn bw-0 pa-0 pointer h-5 db" type="color" />
-        <g-color-name></g-color-name>
         <g-hex-code></g-hex-code>
       </form>
     </template>

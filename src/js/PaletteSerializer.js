@@ -171,7 +171,6 @@ export default class PaletteSerializer {
     this.window = window
 
     this.window.addEventListener("popstate", (event) => {
-      console.log("POPSTATE…ALL RIGHT! %o",event)
       if (event.state) {
         this.replace(PaletteState.fromState(event.state))
       }
