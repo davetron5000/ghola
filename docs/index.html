@@ -3,7 +3,7 @@
   <head>
     <meta charSet="utf-8" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <meta name="description" content="Palette Generator for Developers">
     <meta content="Ghola - Palette Generator for Developers" name="og:title">
@@ -40,7 +40,13 @@
         <h2 class="ma-0 mh-3 pb-3 f-5">Palette Generator for Developers</h2>
         
         </div>
-        <a href="/about.html" class="blue-light f-3 mr-3">About</a>
+        <nav class="mh-3 flex items-baseline gap-2">
+          <a href="https://github.com/davetron5000/ghola" class="blue-lighter f-2">Source</a>
+          <span role="none">&middot;</span>
+          <a href="/components/index.html" class="blue-lighter f-2">Components</a>
+          <span role="none">&middot;</span>
+          <a href="/about.html" class="blue-lighter f-3">About</a>
+        </nav>
       </div>
       
     </header>
@@ -60,7 +66,7 @@
               </g-attribute-checkbox>
             </div>
             <nav class="flex items-center pv-2 gap-2 ph-2">
-              <div class="f-3 fw-5" style="transform: translateY(-1px);">Add Linked Color:</div>
+              <div class="f-3 fw-5 match-shadow-transform-y">Add Linked Color:</div>
               <g-add-color-scale-button link-algorithm="complement" palette="palette" show-warnings>
                 <button class="shadow-button f-2 br-left-3 br-1 flex items-center gap-1">
                   <span class="mb-half">
@@ -116,7 +122,7 @@
                     <span>
                       Add Unlinked Color
                     </span>
-                    <span aria-role="none" class="flex flex-column gap-0">
+                    <span role="none" class="flex flex-column gap-0">
                       <span class="flex">
                         <span class="h-1 w-1 bg-blue"></span>
                         <span class="h-1 w-1 bg-gray"></span>
@@ -215,9 +221,8 @@
         </g-palette>
       </article>
     </main>
-    <dialog id="preview-dialog" xopen
-            class="bn br-2 shadow-dark-4 pos-absolute top-1 left-1 bottom-1 right-1 pa-0"
-            style="width: 90vw; height: 90vh;">
+    <dialog id="preview-dialog"
+            class="bn br-2 shadow-dark-4 h-90vh w-90vw pos-absolute top-1 left-1 bottom-1 right-1 pa-0">
     <g-preview class="flex flex-column items-stretch">
       <header class="bb pb-3 bg-white black">
         <button data-close class="pos-absolute right-2 top-2 shadow-button shadow-button--red br-3 f-1 ttl fw-4">&times; Close</button>
@@ -225,31 +230,103 @@
         <div class="flex justify-center items-center gap-3 w-100 pt-3">
           <g-preview-color-selection>
             <form name="preview-colors" class="flex flex-column gap-2">
+              <div data-text class="flex items-center gap-2 justify-center">
+                <div class="fw-7 w-5 tr">Text:</div>
+                <label class="db tc pointer pa-1 ba bc-black br-2">
+  <g-color-swatch class="db" hex-code='#000000'>
+    <input type="radio" name="text-color" class="appearance-none db" />
+    <div class="h-3 w-4" data-color></div>
+    <div data-hexcode>
+      <code class="f-1 fw-3"></code>
+    </div>
+  </g-color-swatch>
+</label>
+
+                <label class="db tc pointer pa-1 ba bc-black br-2">
+  <g-color-swatch class="db" hex-code="#123456">
+    <input type="radio" name="text-color" class="appearance-none db" />
+    <div class="h-3 w-4" data-color></div>
+    <div data-hexcode>
+      <code class="f-1 fw-3"></code>
+    </div>
+  </g-color-swatch>
+</label>
+
+                <label class="db tc pointer pa-1 ba bc-black br-2">
+  <g-color-swatch class="db" hex-code="#123456">
+    <input type="radio" name="text-color" class="appearance-none db" />
+    <div class="h-3 w-4" data-color></div>
+    <div data-hexcode>
+      <code class="f-1 fw-3"></code>
+    </div>
+  </g-color-swatch>
+</label>
+
+                <label class="db tc pointer pa-1 ba bc-black br-2">
+  <g-color-swatch class="db" hex-code="#123456">
+    <input type="radio" name="text-color" class="appearance-none db" />
+    <div class="h-3 w-4" data-color></div>
+    <div data-hexcode>
+      <code class="f-1 fw-3"></code>
+    </div>
+  </g-color-swatch>
+</label>
+
+                <label class="db tc pointer pa-1 ba bc-black br-2">
+  <g-color-swatch class="db" hex-code="#123456">
+    <input type="radio" name="text-color" class="appearance-none db" />
+    <div class="h-3 w-4" data-color></div>
+    <div data-hexcode>
+      <code class="f-1 fw-3"></code>
+    </div>
+  </g-color-swatch>
+</label>
+
+                <label class="db tc pointer pa-1 ba bc-black br-2">
+  <g-color-swatch class="db" hex-code="#123456">
+    <input type="radio" name="text-color" class="appearance-none db" />
+    <div class="h-3 w-4" data-color></div>
+    <div data-hexcode>
+      <code class="f-1 fw-3"></code>
+    </div>
+  </g-color-swatch>
+</label>
+
+                <label class="db tc pointer pa-1 ba bc-black br-2">
+  <g-color-swatch class="db" hex-code="#123456">
+    <input type="radio" name="text-color" class="appearance-none db" />
+    <div class="h-3 w-4" data-color></div>
+    <div data-hexcode>
+      <code class="f-1 fw-3"></code>
+    </div>
+  </g-color-swatch>
+</label>
+
+                <label class="db tc pointer pa-1 ba bc-black br-2">
+  <g-color-swatch class="db" hex-code="#123456">
+    <input type="radio" name="text-color" class="appearance-none db" />
+    <div class="h-3 w-4" data-color></div>
+    <div data-hexcode>
+      <code class="f-1 fw-3"></code>
+    </div>
+  </g-color-swatch>
+</label>
+
+                <label class="db tc pointer pa-1 ba bc-black br-2">
+  <g-color-swatch class="db" hex-code='#FFFFFF'>
+    <input type="radio" name="text-color" class="appearance-none db" />
+    <div class="h-3 w-4" data-color></div>
+    <div data-hexcode>
+      <code class="f-1 fw-3"></code>
+    </div>
+  </g-color-swatch>
+</label>
+
+              </div>
               <div data-background class="flex items-center gap-2 justify-center">
                 <div class="fw-7 w-5 tr">Background:</div>
                 <div class="flex items-center gap-2 justify-center">
-                  <style>
-dialog label:has(input[type=radio]) {
-  border-style: solid;
-  transform: translateX(-1px) translateY(-1px);
-  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-  background-color: var(--mg-white);
-  color: var(--mg-black);
-}
-dialog label:has(input[type=radio]):hover {
-  background-color: var(--mg-gray-lighter);
-}
-
-dialog label:has(input[type=radio]:checked) {
-  border-style: dotted;
-  transform: none;
-  box-shadow: none;
-  background-color: var(--mg-black);
-  color: var(--mg-white);
-}
-
-</style>
-<label class="db tc pointer pa-1 ba bc-black br-2">
+                  <label class="db tc pointer pa-1 ba bc-black br-2">
   <g-color-swatch class="db" hex-code='#000000'>
     <input type="radio" name="background-color" class="appearance-none db" />
     <div class="h-3 w-4" data-color></div>
@@ -259,28 +336,7 @@ dialog label:has(input[type=radio]:checked) {
   </g-color-swatch>
 </label>
 
-                  <style>
-dialog label:has(input[type=radio]) {
-  border-style: solid;
-  transform: translateX(-1px) translateY(-1px);
-  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-  background-color: var(--mg-white);
-  color: var(--mg-black);
-}
-dialog label:has(input[type=radio]):hover {
-  background-color: var(--mg-gray-lighter);
-}
-
-dialog label:has(input[type=radio]:checked) {
-  border-style: dotted;
-  transform: none;
-  box-shadow: none;
-  background-color: var(--mg-black);
-  color: var(--mg-white);
-}
-
-</style>
-<label class="db tc pointer pa-1 ba bc-black br-2">
+                  <label class="db tc pointer pa-1 ba bc-black br-2">
   <g-color-swatch class="db" hex-code="#123456">
     <input type="radio" name="background-color" class="appearance-none db" />
     <div class="h-3 w-4" data-color></div>
@@ -290,28 +346,7 @@ dialog label:has(input[type=radio]:checked) {
   </g-color-swatch>
 </label>
 
-                  <style>
-dialog label:has(input[type=radio]) {
-  border-style: solid;
-  transform: translateX(-1px) translateY(-1px);
-  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-  background-color: var(--mg-white);
-  color: var(--mg-black);
-}
-dialog label:has(input[type=radio]):hover {
-  background-color: var(--mg-gray-lighter);
-}
-
-dialog label:has(input[type=radio]:checked) {
-  border-style: dotted;
-  transform: none;
-  box-shadow: none;
-  background-color: var(--mg-black);
-  color: var(--mg-white);
-}
-
-</style>
-<label class="db tc pointer pa-1 ba bc-black br-2">
+                  <label class="db tc pointer pa-1 ba bc-black br-2">
   <g-color-swatch class="db" hex-code="#123456">
     <input type="radio" name="background-color" class="appearance-none db" />
     <div class="h-3 w-4" data-color></div>
@@ -321,28 +356,7 @@ dialog label:has(input[type=radio]:checked) {
   </g-color-swatch>
 </label>
 
-                  <style>
-dialog label:has(input[type=radio]) {
-  border-style: solid;
-  transform: translateX(-1px) translateY(-1px);
-  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-  background-color: var(--mg-white);
-  color: var(--mg-black);
-}
-dialog label:has(input[type=radio]):hover {
-  background-color: var(--mg-gray-lighter);
-}
-
-dialog label:has(input[type=radio]:checked) {
-  border-style: dotted;
-  transform: none;
-  box-shadow: none;
-  background-color: var(--mg-black);
-  color: var(--mg-white);
-}
-
-</style>
-<label class="db tc pointer pa-1 ba bc-black br-2">
+                  <label class="db tc pointer pa-1 ba bc-black br-2">
   <g-color-swatch class="db" hex-code="#123456">
     <input type="radio" name="background-color" class="appearance-none db" />
     <div class="h-3 w-4" data-color></div>
@@ -352,28 +366,7 @@ dialog label:has(input[type=radio]:checked) {
   </g-color-swatch>
 </label>
 
-                  <style>
-dialog label:has(input[type=radio]) {
-  border-style: solid;
-  transform: translateX(-1px) translateY(-1px);
-  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-  background-color: var(--mg-white);
-  color: var(--mg-black);
-}
-dialog label:has(input[type=radio]):hover {
-  background-color: var(--mg-gray-lighter);
-}
-
-dialog label:has(input[type=radio]:checked) {
-  border-style: dotted;
-  transform: none;
-  box-shadow: none;
-  background-color: var(--mg-black);
-  color: var(--mg-white);
-}
-
-</style>
-<label class="db tc pointer pa-1 ba bc-black br-2">
+                  <label class="db tc pointer pa-1 ba bc-black br-2">
   <g-color-swatch class="db" hex-code="#123456">
     <input type="radio" name="background-color" class="appearance-none db" />
     <div class="h-3 w-4" data-color></div>
@@ -383,28 +376,7 @@ dialog label:has(input[type=radio]:checked) {
   </g-color-swatch>
 </label>
 
-                  <style>
-dialog label:has(input[type=radio]) {
-  border-style: solid;
-  transform: translateX(-1px) translateY(-1px);
-  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-  background-color: var(--mg-white);
-  color: var(--mg-black);
-}
-dialog label:has(input[type=radio]):hover {
-  background-color: var(--mg-gray-lighter);
-}
-
-dialog label:has(input[type=radio]:checked) {
-  border-style: dotted;
-  transform: none;
-  box-shadow: none;
-  background-color: var(--mg-black);
-  color: var(--mg-white);
-}
-
-</style>
-<label class="db tc pointer pa-1 ba bc-black br-2">
+                  <label class="db tc pointer pa-1 ba bc-black br-2">
   <g-color-swatch class="db" hex-code="#123456">
     <input type="radio" name="background-color" class="appearance-none db" />
     <div class="h-3 w-4" data-color></div>
@@ -414,28 +386,7 @@ dialog label:has(input[type=radio]:checked) {
   </g-color-swatch>
 </label>
 
-                  <style>
-dialog label:has(input[type=radio]) {
-  border-style: solid;
-  transform: translateX(-1px) translateY(-1px);
-  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-  background-color: var(--mg-white);
-  color: var(--mg-black);
-}
-dialog label:has(input[type=radio]):hover {
-  background-color: var(--mg-gray-lighter);
-}
-
-dialog label:has(input[type=radio]:checked) {
-  border-style: dotted;
-  transform: none;
-  box-shadow: none;
-  background-color: var(--mg-black);
-  color: var(--mg-white);
-}
-
-</style>
-<label class="db tc pointer pa-1 ba bc-black br-2">
+                  <label class="db tc pointer pa-1 ba bc-black br-2">
   <g-color-swatch class="db" hex-code="#123456">
     <input type="radio" name="background-color" class="appearance-none db" />
     <div class="h-3 w-4" data-color></div>
@@ -445,28 +396,7 @@ dialog label:has(input[type=radio]:checked) {
   </g-color-swatch>
 </label>
 
-                  <style>
-dialog label:has(input[type=radio]) {
-  border-style: solid;
-  transform: translateX(-1px) translateY(-1px);
-  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-  background-color: var(--mg-white);
-  color: var(--mg-black);
-}
-dialog label:has(input[type=radio]):hover {
-  background-color: var(--mg-gray-lighter);
-}
-
-dialog label:has(input[type=radio]:checked) {
-  border-style: dotted;
-  transform: none;
-  box-shadow: none;
-  background-color: var(--mg-black);
-  color: var(--mg-white);
-}
-
-</style>
-<label class="db tc pointer pa-1 ba bc-black br-2">
+                  <label class="db tc pointer pa-1 ba bc-black br-2">
   <g-color-swatch class="db" hex-code="#123456">
     <input type="radio" name="background-color" class="appearance-none db" />
     <div class="h-3 w-4" data-color></div>
@@ -476,28 +406,7 @@ dialog label:has(input[type=radio]:checked) {
   </g-color-swatch>
 </label>
 
-                  <style>
-dialog label:has(input[type=radio]) {
-  border-style: solid;
-  transform: translateX(-1px) translateY(-1px);
-  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-  background-color: var(--mg-white);
-  color: var(--mg-black);
-}
-dialog label:has(input[type=radio]):hover {
-  background-color: var(--mg-gray-lighter);
-}
-
-dialog label:has(input[type=radio]:checked) {
-  border-style: dotted;
-  transform: none;
-  box-shadow: none;
-  background-color: var(--mg-black);
-  color: var(--mg-white);
-}
-
-</style>
-<label class="db tc pointer pa-1 ba bc-black br-2">
+                  <label class="db tc pointer pa-1 ba bc-black br-2">
   <g-color-swatch class="db" hex-code='#FFFFFF'>
     <input type="radio" name="background-color" class="appearance-none db" />
     <div class="h-3 w-4" data-color></div>
@@ -508,288 +417,6 @@ dialog label:has(input[type=radio]:checked) {
 </label>
 
                 </div>
-              </div>
-              <div data-text class="flex items-center gap-2 justify-center">
-                <div class="fw-7 w-5 tr">Text:</div>
-                <style>
-dialog label:has(input[type=radio]) {
-  border-style: solid;
-  transform: translateX(-1px) translateY(-1px);
-  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-  background-color: var(--mg-white);
-  color: var(--mg-black);
-}
-dialog label:has(input[type=radio]):hover {
-  background-color: var(--mg-gray-lighter);
-}
-
-dialog label:has(input[type=radio]:checked) {
-  border-style: dotted;
-  transform: none;
-  box-shadow: none;
-  background-color: var(--mg-black);
-  color: var(--mg-white);
-}
-
-</style>
-<label class="db tc pointer pa-1 ba bc-black br-2">
-  <g-color-swatch class="db" hex-code='#000000'>
-    <input type="radio" name="text-color" class="appearance-none db" />
-    <div class="h-3 w-4" data-color></div>
-    <div data-hexcode>
-      <code class="f-1 fw-3"></code>
-    </div>
-  </g-color-swatch>
-</label>
-
-                <style>
-dialog label:has(input[type=radio]) {
-  border-style: solid;
-  transform: translateX(-1px) translateY(-1px);
-  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-  background-color: var(--mg-white);
-  color: var(--mg-black);
-}
-dialog label:has(input[type=radio]):hover {
-  background-color: var(--mg-gray-lighter);
-}
-
-dialog label:has(input[type=radio]:checked) {
-  border-style: dotted;
-  transform: none;
-  box-shadow: none;
-  background-color: var(--mg-black);
-  color: var(--mg-white);
-}
-
-</style>
-<label class="db tc pointer pa-1 ba bc-black br-2">
-  <g-color-swatch class="db" hex-code="#123456">
-    <input type="radio" name="text-color" class="appearance-none db" />
-    <div class="h-3 w-4" data-color></div>
-    <div data-hexcode>
-      <code class="f-1 fw-3"></code>
-    </div>
-  </g-color-swatch>
-</label>
-
-                <style>
-dialog label:has(input[type=radio]) {
-  border-style: solid;
-  transform: translateX(-1px) translateY(-1px);
-  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-  background-color: var(--mg-white);
-  color: var(--mg-black);
-}
-dialog label:has(input[type=radio]):hover {
-  background-color: var(--mg-gray-lighter);
-}
-
-dialog label:has(input[type=radio]:checked) {
-  border-style: dotted;
-  transform: none;
-  box-shadow: none;
-  background-color: var(--mg-black);
-  color: var(--mg-white);
-}
-
-</style>
-<label class="db tc pointer pa-1 ba bc-black br-2">
-  <g-color-swatch class="db" hex-code="#123456">
-    <input type="radio" name="text-color" class="appearance-none db" />
-    <div class="h-3 w-4" data-color></div>
-    <div data-hexcode>
-      <code class="f-1 fw-3"></code>
-    </div>
-  </g-color-swatch>
-</label>
-
-                <style>
-dialog label:has(input[type=radio]) {
-  border-style: solid;
-  transform: translateX(-1px) translateY(-1px);
-  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-  background-color: var(--mg-white);
-  color: var(--mg-black);
-}
-dialog label:has(input[type=radio]):hover {
-  background-color: var(--mg-gray-lighter);
-}
-
-dialog label:has(input[type=radio]:checked) {
-  border-style: dotted;
-  transform: none;
-  box-shadow: none;
-  background-color: var(--mg-black);
-  color: var(--mg-white);
-}
-
-</style>
-<label class="db tc pointer pa-1 ba bc-black br-2">
-  <g-color-swatch class="db" hex-code="#123456">
-    <input type="radio" name="text-color" class="appearance-none db" />
-    <div class="h-3 w-4" data-color></div>
-    <div data-hexcode>
-      <code class="f-1 fw-3"></code>
-    </div>
-  </g-color-swatch>
-</label>
-
-                <style>
-dialog label:has(input[type=radio]) {
-  border-style: solid;
-  transform: translateX(-1px) translateY(-1px);
-  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-  background-color: var(--mg-white);
-  color: var(--mg-black);
-}
-dialog label:has(input[type=radio]):hover {
-  background-color: var(--mg-gray-lighter);
-}
-
-dialog label:has(input[type=radio]:checked) {
-  border-style: dotted;
-  transform: none;
-  box-shadow: none;
-  background-color: var(--mg-black);
-  color: var(--mg-white);
-}
-
-</style>
-<label class="db tc pointer pa-1 ba bc-black br-2">
-  <g-color-swatch class="db" hex-code="#123456">
-    <input type="radio" name="text-color" class="appearance-none db" />
-    <div class="h-3 w-4" data-color></div>
-    <div data-hexcode>
-      <code class="f-1 fw-3"></code>
-    </div>
-  </g-color-swatch>
-</label>
-
-                <style>
-dialog label:has(input[type=radio]) {
-  border-style: solid;
-  transform: translateX(-1px) translateY(-1px);
-  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-  background-color: var(--mg-white);
-  color: var(--mg-black);
-}
-dialog label:has(input[type=radio]):hover {
-  background-color: var(--mg-gray-lighter);
-}
-
-dialog label:has(input[type=radio]:checked) {
-  border-style: dotted;
-  transform: none;
-  box-shadow: none;
-  background-color: var(--mg-black);
-  color: var(--mg-white);
-}
-
-</style>
-<label class="db tc pointer pa-1 ba bc-black br-2">
-  <g-color-swatch class="db" hex-code="#123456">
-    <input type="radio" name="text-color" class="appearance-none db" />
-    <div class="h-3 w-4" data-color></div>
-    <div data-hexcode>
-      <code class="f-1 fw-3"></code>
-    </div>
-  </g-color-swatch>
-</label>
-
-                <style>
-dialog label:has(input[type=radio]) {
-  border-style: solid;
-  transform: translateX(-1px) translateY(-1px);
-  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-  background-color: var(--mg-white);
-  color: var(--mg-black);
-}
-dialog label:has(input[type=radio]):hover {
-  background-color: var(--mg-gray-lighter);
-}
-
-dialog label:has(input[type=radio]:checked) {
-  border-style: dotted;
-  transform: none;
-  box-shadow: none;
-  background-color: var(--mg-black);
-  color: var(--mg-white);
-}
-
-</style>
-<label class="db tc pointer pa-1 ba bc-black br-2">
-  <g-color-swatch class="db" hex-code="#123456">
-    <input type="radio" name="text-color" class="appearance-none db" />
-    <div class="h-3 w-4" data-color></div>
-    <div data-hexcode>
-      <code class="f-1 fw-3"></code>
-    </div>
-  </g-color-swatch>
-</label>
-
-                <style>
-dialog label:has(input[type=radio]) {
-  border-style: solid;
-  transform: translateX(-1px) translateY(-1px);
-  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-  background-color: var(--mg-white);
-  color: var(--mg-black);
-}
-dialog label:has(input[type=radio]):hover {
-  background-color: var(--mg-gray-lighter);
-}
-
-dialog label:has(input[type=radio]:checked) {
-  border-style: dotted;
-  transform: none;
-  box-shadow: none;
-  background-color: var(--mg-black);
-  color: var(--mg-white);
-}
-
-</style>
-<label class="db tc pointer pa-1 ba bc-black br-2">
-  <g-color-swatch class="db" hex-code="#123456">
-    <input type="radio" name="text-color" class="appearance-none db" />
-    <div class="h-3 w-4" data-color></div>
-    <div data-hexcode>
-      <code class="f-1 fw-3"></code>
-    </div>
-  </g-color-swatch>
-</label>
-
-                <style>
-dialog label:has(input[type=radio]) {
-  border-style: solid;
-  transform: translateX(-1px) translateY(-1px);
-  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-  background-color: var(--mg-white);
-  color: var(--mg-black);
-}
-dialog label:has(input[type=radio]):hover {
-  background-color: var(--mg-gray-lighter);
-}
-
-dialog label:has(input[type=radio]:checked) {
-  border-style: dotted;
-  transform: none;
-  box-shadow: none;
-  background-color: var(--mg-black);
-  color: var(--mg-white);
-}
-
-</style>
-<label class="db tc pointer pa-1 ba bc-black br-2">
-  <g-color-swatch class="db" hex-code='#FFFFFF'>
-    <input type="radio" name="text-color" class="appearance-none db" />
-    <div class="h-3 w-4" data-color></div>
-    <div data-hexcode>
-      <code class="f-1 fw-3"></code>
-    </div>
-  </g-color-swatch>
-</label>
-
               </div>
             </form>
           </g-preview-color-selection>
