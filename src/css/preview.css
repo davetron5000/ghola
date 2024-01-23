@@ -1,0 +1,28 @@
+::backdrop {
+  background-color: black;
+  opacity: 0.2;
+}
+
+.shadow-dark-4 {
+  box-shadow: 2px 2px 16px 8px rgba( 0, 0, 0, 0.5 );
+}
+
+dialog label:has(input[type=radio]) {
+  border-style: solid;
+  transform: translateX(-1px) translateY(-1px);
+  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
+  background-color: var(--mg-white);
+  color: var(--mg-black);
+}
+dialog label:has(input[type=radio]):hover {
+  background-color: var(--mg-gray-lighter);
+}
+
+dialog label:has(input[type=radio]:checked) {
+  border-style: dotted;
+  transform: none;
+  box-shadow: none;
+  background-color: var(--mg-black);
+  color: var(--mg-white);
+}
+

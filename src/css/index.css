@@ -2,10 +2,12 @@
 @import "./shadow-button.css";
 @import "./g-element-source.css";
 @import "./palette.css";
+@import "./g-test-case.css";
+@import "./preview.css";
 
 :root {
-  --mg-ff-sans: 'Helvetica Neue', Inter, Roboto, 'Nimbus Sans', sans-serif;
-  --mg-ff-serif: 'Baskerville', Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
+  --mg-ff-sans: "Helvetica Neue", Inter, Roboto, "Nimbus Sans", sans-serif;
+  --mg-ff-serif: "Baskerville", Charter, "Bitstream Charter", "Sitka Text", Cambria, serif;
   --mg-ff-mono: Courier, monospace;
 }
 
@@ -24,6 +26,7 @@
   }
 }
 
+/* tame the color input */
 input[type="color"] {
   -webkit-appearance: none;
   border: none;
@@ -57,10 +60,14 @@ input[type=color] {
   padding: 0;
 }
 
+/* Make sure <code> uses the theme's monospace font */
 code {
   font-family: var(--mg-ff-mono);
 }
 
+/* Since some inputs will not be obviously inputs, 
+ * make sure disabled ones are clearly disabled
+ */
 input:disabled.pointer {
   cursor: not-allowed;
 }
@@ -68,38 +75,9 @@ input:disabled.pointer {
 .mb-half {
   margin-bottom: calc(var(--mg-sp-1) / 2);
 }
+
 .inner-shadow-1 {
   box-shadow: inset 0 0 10px var(--mg-gray-light);
 }
 
-g-test-case summary h4 {
-  display: inline-block;
-  margin-left: 0;
-  margin-right: 0;
-  margin-top: 0;
-  margin-bottom: var(--mg-sp-1);
-}
-g-test-case details {
-  margin-bottom: var(--mg-sp-3);
-}
-g-test-case summary p {
-  margin-left: var(--mg-sp-4);
-  margin-top: 0;
-  max-width: var(--mg-tw);
-  line-height: var(--mg-lh-copy);
-}
 
-
-::backdrop {
-  background-color: black;
-  opacity: 0.2;
-}
-
-.shadow-button-shadow {
-  transform: translateX(-1px) translateY(-1px);
-  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-}
-
-.shadow-dark-4 {
-  box-shadow: 2px 2px 16px 8px rgba( 0, 0, 0, 0.5 );
-}

@@ -1,24 +1,3 @@
-<style>
-dialog label:has(input[type=radio]) {
-  border-style: solid;
-  transform: translateX(-1px) translateY(-1px);
-  box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-  background-color: var(--mg-white);
-  color: var(--mg-black);
-}
-dialog label:has(input[type=radio]):hover {
-  background-color: var(--mg-gray-lighter);
-}
-
-dialog label:has(input[type=radio]:checked) {
-  border-style: dotted;
-  transform: none;
-  box-shadow: none;
-  background-color: var(--mg-black);
-  color: var(--mg-white);
-}
-
-</style>
 <label class="db tc pointer pa-1 ba bc-black br-2">
   <g-color-swatch class="db" <%- typeof(hexCode) === "string" ? "hex-code='" + hexCode + "'" : 'hex-code="#123456"' %>>
     <input type="radio" name="<%= name %>" class="appearance-none db" />

@@ -17,7 +17,7 @@
               </g-attribute-checkbox>
             </div>
             <nav class="flex items-center pv-2 gap-2 ph-2">
-              <div class="f-3 fw-5" style="transform: translateY(-1px);">Add Linked Color:</div>
+              <div class="f-3 fw-5 match-shadow-transform-y">Add Linked Color:</div>
               <g-add-color-scale-button link-algorithm="complement" palette="palette" show-warnings>
                 <button class="shadow-button f-2 br-left-3 br-1 flex items-center gap-1">
                   <span class="mb-half">
@@ -172,9 +172,8 @@
         </g-palette>
       </article>
     </main>
-    <dialog id="preview-dialog" xopen
-            class="bn br-2 shadow-dark-4 pos-absolute top-1 left-1 bottom-1 right-1 pa-0"
-            style="width: 90vw; height: 90vh;">
+    <dialog id="preview-dialog"
+            class="bn br-2 shadow-dark-4 h-90vh w-90vw pos-absolute top-1 left-1 bottom-1 right-1 pa-0">
     <g-preview class="flex flex-column items-stretch">
       <header class="bb pb-3 bg-white black">
         <button data-close class="pos-absolute right-2 top-2 shadow-button shadow-button--red br-3 f-1 ttl fw-4">&times; Close</button>
@@ -182,6 +181,18 @@
         <div class="flex justify-center items-center gap-3 w-100 pt-3">
           <g-preview-color-selection>
             <form name="preview-colors" class="flex flex-column gap-2">
+              <div data-text class="flex items-center gap-2 justify-center">
+                <div class="fw-7 w-5 tr">Text:</div>
+                <%- include("templates/preview-swatch.html", { hexCode: "#000000", name: "text-color" }) %>
+                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
+                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
+                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
+                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
+                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
+                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
+                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
+                <%- include("templates/preview-swatch.html", { hexCode: "#FFFFFF", name: "text-color" }) %>
+              </div>
               <div data-background class="flex items-center gap-2 justify-center">
                 <div class="fw-7 w-5 tr">Background:</div>
                 <div class="flex items-center gap-2 justify-center">
@@ -195,18 +206,6 @@
                   <%- include("templates/preview-swatch.html", { name: "background-color" } ) %>
                   <%- include("templates/preview-swatch.html", { hexCode: "#FFFFFF", name: "background-color" }) %>
                 </div>
-              </div>
-              <div data-text class="flex items-center gap-2 justify-center">
-                <div class="fw-7 w-5 tr">Text:</div>
-                <%- include("templates/preview-swatch.html", { hexCode: "#000000", name: "text-color" }) %>
-                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
-                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
-                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
-                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
-                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
-                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
-                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
-                <%- include("templates/preview-swatch.html", { hexCode: "#FFFFFF", name: "text-color" }) %>
               </div>
             </form>
           </g-preview-color-selection>
