@@ -105,7 +105,7 @@
         Of course, you can add unlinked colors that you can change as needed, and you can even unlink linked colors. If you like the complement, but want to change the primary, unlink the complement.
       </p>
       <p class="p mh-auto">
-        The color also has a system-designated name that you keep or change.  Mine is <g-color-name color-swatch="favorite-color"><input type="text" class="appearance-none bn" readonly></g-color-name>.
+        The color also has a system-designated name that you keep or change.  Mine is <g-color-name color-swatch="favorite-color"><input type="text" class="appearance-none bn" readonly></g-color-name> (note that this value changes if you clicked “Randomize my Color” :).
       </p>
       <p class="p mh-auto">
         To change it, modify the value in the text field.  To restore the system-generated name, delete your custom name from the text field.  The name is relevant because you can export your palette to use in your app, and the names are used for that export.
@@ -138,7 +138,7 @@
       <div class="f-4 tc">&sect;</div>
       <h3 class="f-4 tc" id="built">How is this built?</h3>
       <p class="p mh-auto">
-        Ghola is built without any framework. It uses the Web Components API built into modern browsers.  It makes heavy use of custom elements and you can view the source of this page or others to see.  I will write more extensive blog posts about it, because I learned a lot about Web Components doing this.
+        Ghola is built without any framework. It uses the Web Components API built into modern browsers.  It makes heavy use of custom elements and you can view the source of this page or others to see.  <a href="https://www.naildrivin5.com/blog/2024/01/24/web-components-in-earnest.html" class="blue-dark">I wrote an extensive blog post on how it works</a> if you want to check it out. It's kinda long, but tells you everything you need to know.  The <a href="https://github.com/davetron5000/ghola" class="blue-dark">source code</a> is also available for you to examine.
       </p>
       <p class="p mh-auto">
         The approach I took was to wrap regular elements in custom elements, and have those custom elements bestow behavior on the wrapped elements.  While the app will generate HTML and modify the DOM, it does not render everything.  The HTML file you downloaded when you first got here was from the server.
