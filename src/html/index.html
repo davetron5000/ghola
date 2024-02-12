@@ -5,8 +5,28 @@
     <main>
       <article class="flex flex-column gap-4">
         <div>
-          <div class="flex bb bg-gray-lighter gap-2">
-            <div class="flex items-center bg-white-ish gap-3 ph-3 br inner-shadow-1">
+          <div class="flex f-2">
+            <nav class="bg-gray-dark gray-lighter flex items-baseline pa-3 gap-3 w-100">
+              <h3 class="fw-7 ma-0 ttl tracked-tight">Download this palette:</h3>
+              <g-download-palette generator="css" palette="palette">
+                <a id="download-css"             href="#" class="fw-3 blue-lighter">CSS Variables</a>
+              </g-download-palette>
+              <g-download-palette generator="melange" palette="palette">
+                <a id="download-melange"         href="#" class="fw-3 blue-lighter">MelangeCSS Variables</a>
+              </g-download-palette>
+              <g-download-palette generator="melange-config" palette="palette">
+                <a id="download-melange-config"  href="#" class="fw-3 blue-lighter">MelangeCSS Configuration</a>
+              </g-download-palette>
+              <g-download-palette generator="tailwind" palette="palette">
+                <a id="download-tailwind"        href="#" class="fw-3 blue-lighter">Tailwind</a>
+              </g-download-palette>
+              <g-download-palette generator="csv" palette="palette">
+                <a id="download-csv"             href="#" class="fw-3 blue-lighter">Good 'Ole CSV</a>
+              </g-download-palette>
+            </nav>
+          </div>
+          <div class="flex">
+            <div class="flex items-center br bc-gray-light bg-white gap-3 ph-3">
               <g-attribute-checkbox element="palette" attribute-name="compact">
                 <label for="compact" class="flex items-center gap-2">
                   <input type="checkbox" name="compact" id="compact">
@@ -16,7 +36,7 @@
                 </label>
               </g-attribute-checkbox>
             </div>
-            <nav class="flex items-center pv-2 gap-2 ph-2">
+            <nav class="flex bg-gray-lighter flex-grow-1 bb bc-gray-light items-center pv-2 gap-2 ph-2">
               <div class="f-3 fw-5 match-shadow-transform-y ttl tracked-tight">Add Linked Color:</div>
               <g-add-color-scale-button link-algorithm="complement" palette="palette" show-warnings>
                 <button class="shadow-button f-2 br-left-3 br-1 flex items-center gap-1">
@@ -95,33 +115,13 @@
               </div>
             </nav>
           </div>
-          <div class="bg-white bb bc-gray-dark black flex f-2">
-            <nav class="bg-gray-lightest flex items-baseline pa-3 gap-3 w-100">
-              <h3 class="fw-7 ma-0 ttl tracked-tight">Download this palette:</h3>
-              <g-download-palette generator="css" palette="palette">
-                <a id="download-css"             href="#" class="fw-3 blue-dark">CSS Variables</a>
-              </g-download-palette>
-              <g-download-palette generator="melange" palette="palette">
-                <a id="download-melange"         href="#" class="fw-3 blue-dark">MelangeCSS Variables</a>
-              </g-download-palette>
-              <g-download-palette generator="melange-config" palette="palette">
-                <a id="download-melange-config"  href="#" class="fw-3 blue-dark">MelangeCSS Configuration</a>
-              </g-download-palette>
-              <g-download-palette generator="tailwind" palette="palette">
-                <a id="download-tailwind"        href="#" class="fw-3 blue-dark">Tailwind</a>
-              </g-download-palette>
-              <g-download-palette generator="csv" palette="palette">
-                <a id="download-csv"             href="#" class="fw-3 blue-dark">Good 'Ole CSV</a>
-              </g-download-palette>
-            </nav>
-          </div>
         </div>
         <g-palette id="palette" save-state>
           <g-palette-color-scale primary show-warnings  scale-algorithm="exponential">
             <div class="flex flex-column justify-between">
-              <g-color-name color-swatch="primary-base-color">
+              <g-color-name color-swatch="primary-base-color" class="pt-1">
                 <label class="flex flex-column gap-1">
-                  <input type="text" class="ba br-2 bg-white-ish black bc-gray ff-sans inner-shadow-1">
+                  <input type="text" class="ba fw-3 ff-mono br-2 bg-white-ish gray-dark bc-gray inner-shadow-1">
                   <span class="f-2 gray-dark ttl tracked-tight fw-6">Color Name <span data-overridden class="i f-1 ttl fw-4">(Overridden)</span> </span>
                 </label>
               </g-color-name>

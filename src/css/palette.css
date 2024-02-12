@@ -22,11 +22,8 @@ g-palette[compact] g-palette-color-scale nav {
 }
 
 g-palette-color-scale g-color-swatch {
-  border-width: 1px;
-  border-style: solid;
-  border-color: var(--mg-gray-light);
+  border-width: 0;
   padding: var(--mg-sp-1);
-  border-radius: var(--mg-bw-1);
   display: flex;
   flex-direction: column;
   justify-content: space-between;

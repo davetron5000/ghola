@@ -16,8 +16,8 @@
   cursor: pointer;
 
   background-color: var(--mg-gray-lightest);
-  color: var(--mg-gray-darker);
-  border-color: var(--mg-gray);
+  color: var(--mg-gray-dark);
+  border-color: var(--mg-gray-light);
 }
 
 .shadow-button.f-2,
@@ -48,8 +48,8 @@
 
 .shadow-button--red {
   background-color: var(--mg-red-lightest);
-  color: var(--mg-red-darker);
-  border-color: var(--mg-red-dark);
+  color: var(--mg-red-dark);
+  border-color: var(--mg-red-light);
 }
 
 .shadow-button.pv-3 {
