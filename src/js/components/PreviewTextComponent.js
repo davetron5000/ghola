@@ -16,32 +16,6 @@ export default class PreviewTextComponent extends BaseCustomElement {
 
   constructor() {
     super()
-    this.fullscreenListener = (event) => {
-      event.preventDefault()
-      this.requestFullscreen().then( () => {
-        this.querySelectorAll("button[data-exit-full-screen]").forEach( (element) => {
-          element.style.display = "inline"
-        })
-        this.querySelectorAll("button[data-full-screen]").forEach( (element) => {
-          element.style.display = "none"
-        })
-      }).catch( (e) => {
-        console.warn("Full screen rejected: %o",e)
-      })
-    }
-    this.exitFullscreenListener = (event) => {
-      event.preventDefault()
-      document.exitFullscreen().then( () => {
-        this.querySelectorAll("button[data-exit-full-screen]").forEach( (element) => {
-          element.style.display = "none"
-        })
-        this.querySelectorAll("button[data-full-screen]").forEach( (element) => {
-          element.style.display = "inline"
-        })
-      }).catch( (e) => {
-        console.warn("Exit Full screen rejected: %o",e)
-      })
-    }
     this.formElementChangeListener = (event) => {
       this._updateColors(event.target)
     }
@@ -80,14 +54,6 @@ export default class PreviewTextComponent extends BaseCustomElement {
     else {
       this.style.color = "currentColor"
     }
-    this.querySelectorAll("button[data-exit-full-screen]").forEach( (element) => {
-      element.addEventListener("click", this.exitFullscreenListener)
-      element.style.display = "none"
-    })
-    this.querySelectorAll("button[data-full-screen]").forEach( (element) => {
-      element.addEventListener("click", this.fullscreenListener)
-      element.style.display = "inline"
-    })
   }
   _updateColors(formElement) {
     if (formElement.name == "text-color") {

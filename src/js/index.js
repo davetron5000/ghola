@@ -10,6 +10,7 @@ import PreviewColorsContrastComponent from "./components/PreviewColorsContrastCo
 import PreviewColorSelectionComponent from "./components/PreviewColorSelectionComponent"
 import PreviewComponent               from "./components/PreviewComponent"
 import PreviewTextComponent           from "./components/PreviewTextComponent"
+import PreviewControlsComponent       from "./components/PreviewControlsComponent"
 
 import PaletteUI from "./PaletteUI"
 
@@ -25,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
   PreviewComponent.define()
   PreviewColorsContrastComponent.define()
   PreviewTextComponent.define()
+  PreviewControlsComponent.define()
   PreviewColorSelectionComponent.define()
 
   const paletteComponent = document.querySelector(PaletteComponent.tagName)

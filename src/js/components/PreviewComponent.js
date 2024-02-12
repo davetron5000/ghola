@@ -1,5 +1,7 @@
 import BaseCustomElement from "../brutaldom/BaseCustomElement"
 import PreviewColorSelectionComponent from "./PreviewColorSelectionComponent"
+import PreviewTextComponent from "./PreviewTextComponent"
+import PreviewControlsComponent from "./PreviewControlsComponent"
 
 export default class PreviewComponent extends BaseCustomElement {
 
@@ -26,9 +28,14 @@ export default class PreviewComponent extends BaseCustomElement {
     this.querySelectorAll(PreviewColorSelectionComponent.tagName).forEach( (element) => {
       element.setAttribute("color-scale",this.colorScale.join(","))
     })
-    this.querySelectorAll("g-preview-text").forEach( (element) => {
+    this.querySelectorAll(PreviewTextComponent.tagName).forEach( (element) => {
       element.setAttribute("background-color", this.colorScale[this.colorScale.length - 1])
       element.setAttribute("text-color", this.colorScale[0])
+    })
+    this.querySelectorAll(PreviewControlsComponent.tagName).forEach( (element) => {
+      element.setAttribute("background-color", this.colorScale[this.colorScale.length - 1])
+      element.setAttribute("text-color", this.colorScale[0])
+      element.setAttribute("color-scale",this.colorScale.join(","))
     })
   }
 }
