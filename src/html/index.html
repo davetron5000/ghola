@@ -10,14 +10,14 @@
               <g-attribute-checkbox element="palette" attribute-name="compact">
                 <label for="compact" class="flex items-center gap-2">
                   <input type="checkbox" name="compact" id="compact">
-                  <span class="f-1">
+                  <span class="f-1 ttl tracked-tight fw-6">
                     Compact View
                   </span>
                 </label>
               </g-attribute-checkbox>
             </div>
             <nav class="flex items-center pv-2 gap-2 ph-2">
-              <div class="f-3 fw-5 match-shadow-transform-y">Add Linked Color:</div>
+              <div class="f-3 fw-5 match-shadow-transform-y ttl tracked-tight">Add Linked Color:</div>
               <g-add-color-scale-button link-algorithm="complement" palette="palette" show-warnings>
                 <button class="shadow-button f-2 br-left-3 br-1 flex items-center gap-1">
                   <span class="mb-half">
@@ -97,7 +97,7 @@
           </div>
           <div class="bg-white bb bc-gray-dark black flex f-2">
             <nav class="bg-gray-lightest flex items-baseline pa-3 gap-3 w-100">
-              <h3 class="fw-7 ma-0">Download this palette:</h3>
+              <h3 class="fw-7 ma-0 ttl tracked-tight">Download this palette:</h3>
               <g-download-palette generator="css" palette="palette">
                 <a id="download-css"             href="#" class="fw-3 blue-dark">CSS Variables</a>
               </g-download-palette>
@@ -122,22 +122,28 @@
               <g-color-name color-swatch="primary-base-color">
                 <label class="flex flex-column gap-1">
                   <input type="text" class="ba br-2 bg-white-ish black bc-gray ff-sans inner-shadow-1">
-                  <span class="f-2">Color Name <span data-overridden class="i f-1 ttl gray-dark">(Overridden)</span> </span>
+                  <span class="f-2 gray-dark ttl tracked-tight fw-6">Color Name <span data-overridden class="i f-1 ttl fw-4">(Overridden)</span> </span>
                 </label>
               </g-color-name>
               <nav class="flex flex-column gap-1">
                 <button data-preview class="shadow-button f-2 br-1 br-top-3 w-100">
                   Preview
                 </button>
-                <button data-remove class="shadow-button shadow-button--red f-1 br-1 w-100">
+                <span class="flex items-center gap-1">
+                <button data-remove class="shadow-button shadow-button--red f-1 br-1 br-bl-3 w-100">
                   Remove
                 </button>
-                <button data-unlink class="shadow-button f-1 br-1 br-bottom-3 w-100">
+                <button data-unlink class="shadow-button f-1 br-1 br-br-3 w-100">
                   Unlink
                 </button>
+                </span>
               </nav>
             </div>
             <div class="flex justify-center gap-1">
+              <g-color-swatch>
+                <div data-color></div>
+                <div data-hexcode><code></code></div>
+              </g-color-swatch>
               <g-color-swatch>
                 <div data-color></div>
                 <div data-hexcode><code></code></div>
@@ -154,6 +160,10 @@
                 <input type="color" id="primary-base-color">
                 <div data-link-context class="tc fw-6 tracked-tight ttl f-1"></div>
                 <label for="primary-base-color"><code></code></label>
+              </g-color-swatch>
+              <g-color-swatch>
+                <div data-color></div>
+                <div data-hexcode><code></code></div>
               </g-color-swatch>
               <g-color-swatch>
                 <div data-color></div>
@@ -191,12 +201,16 @@
                 <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
                 <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
                 <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
+                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
+                <%- include("templates/preview-swatch.html", { name: "text-color" } ) %>
                 <%- include("templates/preview-swatch.html", { hexCode: "#FFFFFF", name: "text-color" }) %>
               </div>
               <div data-background class="flex items-center gap-2 justify-center">
                 <div class="fw-7 w-5 tr">Background:</div>
                 <div class="flex items-center gap-2 justify-center">
                   <%- include("templates/preview-swatch.html", { name: "background-color", hexCode: "#000000" }) %>
+                  <%- include("templates/preview-swatch.html", { name: "background-color" } ) %>
+                  <%- include("templates/preview-swatch.html", { name: "background-color" } ) %>
                   <%- include("templates/preview-swatch.html", { name: "background-color" } ) %>
                   <%- include("templates/preview-swatch.html", { name: "background-color" } ) %>
                   <%- include("templates/preview-swatch.html", { name: "background-color" } ) %>

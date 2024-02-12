@@ -30,7 +30,7 @@ g-palette-color-scale g-color-swatch {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: var(--mg-sp-2);
+  gap: var(--mg-sp-1);
 }
 
 
@@ -56,8 +56,8 @@ g-palette-color-scale g-color-swatch:has(input:disabled) {
 g-palette-color-scale g-color-swatch input,
 g-palette-color-scale g-color-swatch [data-color] {
   display: block;
-  width: calc(2 * var(--mg-sp-5));
-  height: calc(2 * var(--mg-sp-5));
+  width: calc(1.5 * var(--mg-sp-5));
+  height: calc(1.5 * var(--mg-sp-5));
 }
 g-color-swatch.small input,
 g-color-swatch.small [data-color] {

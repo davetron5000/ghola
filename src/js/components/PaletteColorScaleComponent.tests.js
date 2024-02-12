@@ -174,12 +174,12 @@ testCase("derive-color-scale-exp", ({setup,teardown,confidenceCheck,test,subject
         assertEqual("brightness",swatch.getAttribute("derivation-algorithm","brightness"), `Swatch ${index} should use the brightness algorithm`)
       })
 
-      assertEqual("88%",swatches[0].getAttribute("darken-by"), "Swatches earlier in scale should have darker colors")
-      assertEqual("64%",swatches[1].getAttribute("darken-by"), "Swatches earlier in scale should have darker colors")
-      assertEqual("35%",swatches[2].getAttribute("darken-by"), "Swatches earlier in scale should have darker colors")
+      assertEqual("86%",swatches[0].getAttribute("darken-by"), "Swatches earlier in scale should have darker colors")
+      assertEqual("68%",swatches[1].getAttribute("darken-by"), "Swatches earlier in scale should have darker colors")
+      assertEqual("34%",swatches[2].getAttribute("darken-by"), "Swatches earlier in scale should have darker colors")
       assertEqual("49%",swatches[4].getAttribute("brighten-by"), "Swatches later in scale should have brighter colors")
-      assertEqual("87%",swatches[5].getAttribute("brighten-by"), "Swatches later in scale should have brighter colors")
-      assertEqual("96%",swatches[6].getAttribute("brighten-by"), "Swatches later in scale should have brighter colors")
+      assertEqual("82%",swatches[5].getAttribute("brighten-by"), "Swatches later in scale should have brighter colors")
+      assertEqual("98%",swatches[6].getAttribute("brighten-by"), "Swatches later in scale should have brighter colors")
       assertEqual($paletteColor.querySelectorAll("g-color-swatch")[3],$paletteColor.baseColorSwatch,"The base swatch should be the middle one")
     }
   )

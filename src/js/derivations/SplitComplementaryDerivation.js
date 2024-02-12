@@ -12,7 +12,7 @@ class SplitComplementaryUpperDerivation extends BaseDerivation {
   derive(hexCode,options={}) {
     return this.analogousUpper.derive(this.complementary.derive(hexCode))
   }
-  get humanName() { return "Split Complement" }
+  get humanName() { return "Splt. Comp." }
 }
 
 class SplitComplementaryLowerDerivation extends BaseDerivation {
@@ -25,7 +25,7 @@ class SplitComplementaryLowerDerivation extends BaseDerivation {
   derive(hexCode,options={}) {
     return this.analogousLower.derive(this.complementary.derive(hexCode))
   }
-  get humanName() { return "Split Complement" }
+  get humanName() { return "Splt. Comp." }
 }
 export {
   SplitComplementaryLowerDerivation,

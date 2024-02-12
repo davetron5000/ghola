@@ -14,8 +14,8 @@ export default class ColorNameComponent extends BaseCustomElement {
     [ "Orange" , [ 21  , 41  ] ] ,
     [ "Yellow" , [ 41  , 74  ] ] ,
     [ "Green"  , [ 74  , 167 ] ] ,
-    [ "Blue"   , [ 167 , 259 ] ] ,
-    [ "Purple" , [ 259 , 333 ] ] ,
+    [ "Blue"   , [ 167 , 257 ] ] ,
+    [ "Purple" , [ 257 , 333 ] ] ,
     [ "Red"    , [ 333 , 360 ] ] ,
   ]
 

@@ -88,6 +88,9 @@ class Color {
   hsl() {
     return colorConvert.hex.hsl.raw(this.hex)
   }
+  lab() {
+    return colorConvert.hex.lab.raw(this.hex)
+  }
 
   hexCode() {
     return this.hex
