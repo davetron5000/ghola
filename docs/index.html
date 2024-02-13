@@ -54,19 +54,39 @@
     <main>
       <article class="flex flex-column gap-4">
         <div>
-          <div class="flex bb bg-gray-lighter gap-2">
-            <div class="flex items-center bg-white-ish gap-3 ph-3 br inner-shadow-1">
+          <div class="flex f-2">
+            <nav class="bg-gray-dark gray-lighter flex items-baseline pa-3 gap-3 w-100">
+              <h3 class="fw-7 ma-0 ttl tracked-tight">Download this palette:</h3>
+              <g-download-palette generator="css" palette="palette">
+                <a id="download-css"             href="#" class="fw-3 blue-lighter">CSS Variables</a>
+              </g-download-palette>
+              <g-download-palette generator="melange" palette="palette">
+                <a id="download-melange"         href="#" class="fw-3 blue-lighter">MelangeCSS Variables</a>
+              </g-download-palette>
+              <g-download-palette generator="melange-config" palette="palette">
+                <a id="download-melange-config"  href="#" class="fw-3 blue-lighter">MelangeCSS Configuration</a>
+              </g-download-palette>
+              <g-download-palette generator="tailwind" palette="palette">
+                <a id="download-tailwind"        href="#" class="fw-3 blue-lighter">Tailwind</a>
+              </g-download-palette>
+              <g-download-palette generator="csv" palette="palette">
+                <a id="download-csv"             href="#" class="fw-3 blue-lighter">Good 'Ole CSV</a>
+              </g-download-palette>
+            </nav>
+          </div>
+          <div class="flex">
+            <div class="flex items-center br bc-gray-light bg-white gap-3 ph-3">
               <g-attribute-checkbox element="palette" attribute-name="compact">
                 <label for="compact" class="flex items-center gap-2">
                   <input type="checkbox" name="compact" id="compact">
-                  <span class="f-1">
+                  <span class="f-1 ttl tracked-tight fw-6">
                     Compact View
                   </span>
                 </label>
               </g-attribute-checkbox>
             </div>
-            <nav class="flex items-center pv-2 gap-2 ph-2">
-              <div class="f-3 fw-5 match-shadow-transform-y">Add Linked Color:</div>
+            <nav class="flex bg-gray-lighter flex-grow-1 bb bc-gray-light items-center pv-2 gap-2 ph-2">
+              <div class="f-3 fw-5 match-shadow-transform-y ttl tracked-tight">Add Linked Color:</div>
               <g-add-color-scale-button link-algorithm="complement" palette="palette" show-warnings>
                 <button class="shadow-button f-2 br-left-3 br-1 flex items-center gap-1">
                   <span class="mb-half">
@@ -144,49 +164,35 @@
               </div>
             </nav>
           </div>
-          <div class="bg-white bb bc-gray-dark black flex f-2">
-            <nav class="bg-gray-lightest flex items-baseline pa-3 gap-3 w-100">
-              <h3 class="fw-7 ma-0">Download this palette:</h3>
-              <g-download-palette generator="css" palette="palette">
-                <a id="download-css"             href="#" class="fw-3 blue-dark">CSS Variables</a>
-              </g-download-palette>
-              <g-download-palette generator="melange" palette="palette">
-                <a id="download-melange"         href="#" class="fw-3 blue-dark">MelangeCSS Variables</a>
-              </g-download-palette>
-              <g-download-palette generator="melange-config" palette="palette">
-                <a id="download-melange-config"  href="#" class="fw-3 blue-dark">MelangeCSS Configuration</a>
-              </g-download-palette>
-              <g-download-palette generator="tailwind" palette="palette">
-                <a id="download-tailwind"        href="#" class="fw-3 blue-dark">Tailwind</a>
-              </g-download-palette>
-              <g-download-palette generator="csv" palette="palette">
-                <a id="download-csv"             href="#" class="fw-3 blue-dark">Good 'Ole CSV</a>
-              </g-download-palette>
-            </nav>
-          </div>
         </div>
         <g-palette id="palette" save-state>
           <g-palette-color-scale primary show-warnings  scale-algorithm="exponential">
             <div class="flex flex-column justify-between">
-              <g-color-name color-swatch="primary-base-color">
+              <g-color-name color-swatch="primary-base-color" class="pt-1">
                 <label class="flex flex-column gap-1">
-                  <input type="text" class="ba br-2 bg-white-ish black bc-gray ff-sans inner-shadow-1">
-                  <span class="f-2">Color Name <span data-overridden class="i f-1 ttl gray-dark">(Overridden)</span> </span>
+                  <input type="text" class="ba fw-3 ff-mono br-2 bg-white-ish gray-dark bc-gray inner-shadow-1">
+                  <span class="f-2 gray-dark ttl tracked-tight fw-6">Color Name <span data-overridden class="i f-1 ttl fw-4">(Overridden)</span> </span>
                 </label>
               </g-color-name>
               <nav class="flex flex-column gap-1">
                 <button data-preview class="shadow-button f-2 br-1 br-top-3 w-100">
                   Preview
                 </button>
-                <button data-remove class="shadow-button shadow-button--red f-1 br-1 w-100">
+                <span class="flex items-center gap-1">
+                <button data-remove class="shadow-button shadow-button--red f-1 br-1 br-bl-3 w-100">
                   Remove
                 </button>
-                <button data-unlink class="shadow-button f-1 br-1 br-bottom-3 w-100">
+                <button data-unlink class="shadow-button f-1 br-1 br-br-3 w-100">
                   Unlink
                 </button>
+                </span>
               </nav>
             </div>
             <div class="flex justify-center gap-1">
+              <g-color-swatch>
+                <div data-color></div>
+                <div data-hexcode><code></code></div>
+              </g-color-swatch>
               <g-color-swatch>
                 <div data-color></div>
                 <div data-hexcode><code></code></div>
@@ -203,6 +209,10 @@
                 <input type="color" id="primary-base-color">
                 <div data-link-context class="tc fw-6 tracked-tight ttl f-1"></div>
                 <label for="primary-base-color"><code></code></label>
+              </g-color-swatch>
+              <g-color-swatch>
+                <div data-color></div>
+                <div data-hexcode><code></code></div>
               </g-color-swatch>
               <g-color-swatch>
                 <div data-color></div>
@@ -234,6 +244,26 @@
                 <div class="fw-7 w-5 tr">Text:</div>
                 <label class="db tc pointer pa-1 ba bc-black br-2">
   <g-color-swatch class="db" hex-code='#000000'>
+    <input type="radio" name="text-color" class="appearance-none db" />
+    <div class="h-3 w-4" data-color></div>
+    <div data-hexcode>
+      <code class="f-1 fw-3"></code>
+    </div>
+  </g-color-swatch>
+</label>
+
+                <label class="db tc pointer pa-1 ba bc-black br-2">
+  <g-color-swatch class="db" hex-code="#123456">
+    <input type="radio" name="text-color" class="appearance-none db" />
+    <div class="h-3 w-4" data-color></div>
+    <div data-hexcode>
+      <code class="f-1 fw-3"></code>
+    </div>
+  </g-color-swatch>
+</label>
+
+                <label class="db tc pointer pa-1 ba bc-black br-2">
+  <g-color-swatch class="db" hex-code="#123456">
     <input type="radio" name="text-color" class="appearance-none db" />
     <div class="h-3 w-4" data-color></div>
     <div data-hexcode>
@@ -407,6 +437,26 @@
 </label>
 
                   <label class="db tc pointer pa-1 ba bc-black br-2">
+  <g-color-swatch class="db" hex-code="#123456">
+    <input type="radio" name="background-color" class="appearance-none db" />
+    <div class="h-3 w-4" data-color></div>
+    <div data-hexcode>
+      <code class="f-1 fw-3"></code>
+    </div>
+  </g-color-swatch>
+</label>
+
+                  <label class="db tc pointer pa-1 ba bc-black br-2">
+  <g-color-swatch class="db" hex-code="#123456">
+    <input type="radio" name="background-color" class="appearance-none db" />
+    <div class="h-3 w-4" data-color></div>
+    <div data-hexcode>
+      <code class="f-1 fw-3"></code>
+    </div>
+  </g-color-swatch>
+</label>
+
+                  <label class="db tc pointer pa-1 ba bc-black br-2">
   <g-color-swatch class="db" hex-code='#FFFFFF'>
     <input type="radio" name="background-color" class="appearance-none db" />
     <div class="h-3 w-4" data-color></div>
@@ -438,112 +488,120 @@
           Exceprt from <cite><a class="blue-dark" href="https://www.gutenberg.org/cache/epub/164/pg164.txt">20,000 Leagues Under the Sea</a></cite>, by Jules Verne.
         </p>
       </header>
-      <g-preview-text class="overflow-y-scroll ph-3 pos-relative" form="preview-colors">
-        <button data-full-screen class="pos-absolute right-2 top-2 shadow-button br-3 f-1 ttl fw-4">&#x26F6; Full Screen</button>
-        <button data-exit-full-screen class="pos-absolute right-2 top-2 shadow-button shadow-button--red br-3 f-1 ttl fw-4">&times; Exit Full Screen</button>
-        <h2 class="tc tracked f-5">Part One</h2>
-        <h3 class="tc f-4"> Chapter I: A Shifting Reef</h3>
-        <p class="p mh-auto indent-2">
-          The year 1866 was signalised by a remarkable incident, a mysterious and
-          puzzling phenomenon, which doubtless no one has yet forgotten. Not to
-          mention rumours which agitated the maritime population and excited the
-          public mind, even in the interior of continents, seafaring men were
-          particularly excited. Merchants, common sailors, captains of vessels,
-          skippers, both of Europe and America, naval officers of all countries,
-          and the Governments of several states on the two continents, were
-          deeply interested in the matter.
-        </p>
-        <p class="p mh-auto">
-          For some time past, vessels had been met by “an enormous thing,” a long
-          object, spindle-shaped, occasionally phosphorescent, and infinitely
-          larger and more rapid in its movements than a whale.
-        </p>
-        <p class="p mh-auto">
-          The facts relating to this apparition (entered in various log-books)
-          agreed in most respects as to the shape of the object or creature in
-          question, the untiring rapidity of its movements, its surprising power
-          of locomotion, and the peculiar life with which it seemed endowed. If
-          it was a cetacean, it surpassed in size all those hitherto classified
-          in science. Taking into consideration the mean of observations made at
-          divers times,—rejecting the timid estimate of those who assigned to
-          this object a length of two hundred feet, equally with the exaggerated
-          opinions which set it down as a mile in width and three in length,—we
-          might fairly conclude that this mysterious being surpassed greatly all
-          dimensions admitted by the ichthyologists of the day, if it existed at
-          all. And that it <em>did</em> exist was an undeniable fact; and, with that
-          tendency which disposes the human mind in favour of the marvellous, we
-          can understand the excitement produced in the entire world by this
-          supernatural apparition. As to classing it in the list of fables, the
-          idea was out of the question.
-        </p>
-        <h3 class="f-4 tc">Chapter II: Pro and Con</h3>
-        <p class="p mh-auto indent-2">
-          At the period when these events took place, I had just returned from a
-          scientific research in the disagreeable territory of Nebraska, in the
-          United States. In virtue of my office as Assistant Professor in the
-          Museum of Natural History in Paris, the French Government had attached
-          me to that expedition. After six months in Nebraska, I arrived in New
-          York towards the end of March, laden with a precious collection. My
-          departure for France was fixed for the first days in May. Meanwhile, I
-          was occupying myself in classifying my mineralogical, botanical, and
-          zoological riches, when the accident happened to the <em>Scotia</em>.
-        </p>
-        <p class="p mh-auto">
-          I was perfectly up in the subject which was the question of the day.
-          How could I be otherwise? I had read and re-read all the American and
-          European papers without being any nearer a conclusion. This mystery
-          puzzled me. Under the impossibility of forming an opinion, I jumped
-          from one extreme to the other. That there really was something could
-          not be doubted, and the incredulous were invited to put their finger on
-          the wound of the <em>Scotia</em>.
-        </p>
-        <p class="p mh-auto">
+      <div class="overflow-y-scroll pos-relative flex items-start">
+        <g-preview-text form="preview-colors" class="flex-grow-2 shadow-1">
+          <h2 class="tc tracked f-5">Part One</h2>
+          <h3 class="tc f-4"> Chapter I: A Shifting Reef</h3>
+          <p class="p mh-auto indent-2">
+            The year 1866 was signalised by a remarkable incident, a mysterious and
+            puzzling phenomenon, which doubtless no one has yet forgotten. Not to
+            mention rumours which agitated the maritime population and excited the
+            public mind, even in the interior of continents, seafaring men were
+            particularly excited. Merchants, common sailors, captains of vessels,
+            skippers, both of Europe and America, naval officers of all countries,
+            and the Governments of several states on the two continents, were
+            deeply interested in the matter.
+          </p>
+          <p class="p mh-auto">
+            For some time past, vessels had been met by “an enormous thing,” a long
+            object, spindle-shaped, occasionally phosphorescent, and infinitely
+            larger and more rapid in its movements than a whale.
+          </p>
+          <p class="p mh-auto">
+            The facts relating to this apparition (entered in various log-books)
+            agreed in most respects as to the shape of the object or creature in
+            question, the untiring rapidity of its movements, its surprising power
+            of locomotion, and the peculiar life with which it seemed endowed. If
+            it was a cetacean, it surpassed in size all those hitherto classified
+            in science. Taking into consideration the mean of observations made at
+            divers times,—rejecting the timid estimate of those who assigned to
+            this object a length of two hundred feet, equally with the exaggerated
+            opinions which set it down as a mile in width and three in length,—we
+            might fairly conclude that this mysterious being surpassed greatly all
+            dimensions admitted by the ichthyologists of the day, if it existed at
+            all. And that it <em>did</em> exist was an undeniable fact; and, with that
+            tendency which disposes the human mind in favour of the marvellous, we
+            can understand the excitement produced in the entire world by this
+            supernatural apparition. As to classing it in the list of fables, the
+            idea was out of the question.
+          </p>
+          <h3 class="f-4 tc">Chapter II: Pro and Con</h3>
+          <p class="p mh-auto indent-2">
+            At the period when these events took place, I had just returned from a
+            scientific research in the disagreeable territory of Nebraska, in the
+            United States. In virtue of my office as Assistant Professor in the
+            Museum of Natural History in Paris, the French Government had attached
+            me to that expedition. After six months in Nebraska, I arrived in New
+            York towards the end of March, laden with a precious collection. My
+            departure for France was fixed for the first days in May. Meanwhile, I
+            was occupying myself in classifying my mineralogical, botanical, and
+            zoological riches, when the accident happened to the <em>Scotia</em>.
+          </p>
+          <p class="p mh-auto">
+            I was perfectly up in the subject which was the question of the day.
+            How could I be otherwise? I had read and re-read all the American and
+            European papers without being any nearer a conclusion. This mystery
+            puzzled me. Under the impossibility of forming an opinion, I jumped
+            from one extreme to the other. That there really was something could
+            not be doubted, and the incredulous were invited to put their finger on
+            the wound of the <em>Scotia</em>.
+          </p>
+          <p class="p mh-auto">
 
-          On my arrival at New York the question was at its height. The
-          hypothesis of the floating island, and the unapproachable sandbank,
-          supported by minds little competent to form a judgment, was abandoned.
-          And, indeed, unless this shoal had a machine in its stomach, how could
-          it change its position with such astonishing rapidity?
-        </p>
-        <p class="p mh-auto">
-          From the same cause, the idea of a floating hull of an enormous wreck
-          was given up.
-        </p>
-        <h2 class="tc f-5 tracked"> Part Two </h2>
-        <h3 class="tc f-4">Chapter I: The Indian Ocean</h3>
-        <p class="p mh-auto indent-2">
-          We now come to the second part of our journey under the sea. The first
-          ended with the moving scene in the coral cemetery which left such a
-          deep impression on my mind. Thus, in the midst of this great sea,
-          Captain Nemo’s life was passing, even to his grave, which he had
-          prepared in one of its deepest abysses. There, not one of the ocean’s
-          monsters could trouble the last sleep of the crew of the <em>Nautilus</em>, of
-          those friends riveted to each other in death as in life. “Nor any man,
-          either,” had added the Captain. Still the same fierce, implacable
-          defiance towards human society!
-        </p>
-        <p class="p mh-auto">
+            On my arrival at New York the question was at its height. The
+            hypothesis of the floating island, and the unapproachable sandbank,
+            supported by minds little competent to form a judgment, was abandoned.
+            And, indeed, unless this shoal had a machine in its stomach, how could
+            it change its position with such astonishing rapidity?
+          </p>
+          <p class="p mh-auto">
+            From the same cause, the idea of a floating hull of an enormous wreck
+            was given up.
+          </p>
+          <h2 class="tc f-5 tracked"> Part Two </h2>
+          <h3 class="tc f-4">Chapter I: The Indian Ocean</h3>
+          <p class="p mh-auto indent-2">
+            We now come to the second part of our journey under the sea. The first
+            ended with the moving scene in the coral cemetery which left such a
+            deep impression on my mind. Thus, in the midst of this great sea,
+            Captain Nemo’s life was passing, even to his grave, which he had
+            prepared in one of its deepest abysses. There, not one of the ocean’s
+            monsters could trouble the last sleep of the crew of the <em>Nautilus</em>, of
+            those friends riveted to each other in death as in life. “Nor any man,
+            either,” had added the Captain. Still the same fierce, implacable
+            defiance towards human society!
+          </p>
+          <p class="p mh-auto">
 
-          I could no longer content myself with the theory which satisfied
-          Conseil.
+            I could no longer content myself with the theory which satisfied
+            Conseil.
 
-        </p>
-        <p class="p mh-auto">
-          That worthy fellow persisted in seeing in the Commander of the
-          <em>Nautilus</em> one of those unknown <em>savants</em> who return mankind contempt
-          for indifference. For him, he was a misunderstood genius who, tired of
-          earth’s deceptions, had taken refuge in this inaccessible medium, where
-          he might follow his instincts freely. To my mind, this explains but one
-          side of Captain Nemo’s character. Indeed, the mystery of that last
-          night during which we had been chained in prison, the sleep, and the
-          precaution so violently taken by the Captain of snatching from my eyes
-          the glass I had raised to sweep the horizon, the mortal wound of the
-          man, due to an unaccountable shock of the <em>Nautilus</em>, all put me on a
-          new track. No; Captain Nemo was not satisfied with shunning man. His
-          formidable apparatus not only suited his instinct of freedom, but
-          perhaps also the design of some terrible retaliation.
-        </p>
-      </g-preview-text>
+          </p>
+          <p class="p mh-auto">
+            That worthy fellow persisted in seeing in the Commander of the
+            <em>Nautilus</em> one of those unknown <em>savants</em> who return mankind contempt
+            for indifference. For him, he was a misunderstood genius who, tired of
+            earth’s deceptions, had taken refuge in this inaccessible medium, where
+            he might follow his instincts freely. To my mind, this explains but one
+            side of Captain Nemo’s character. Indeed, the mystery of that last
+            night during which we had been chained in prison, the sleep, and the
+            precaution so violently taken by the Captain of snatching from my eyes
+            the glass I had raised to sweep the horizon, the mortal wound of the
+            man, due to an unaccountable shock of the <em>Nautilus</em>, all put me on a
+            new track. No; Captain Nemo was not satisfied with shunning man. His
+            formidable apparatus not only suited his instinct of freedom, but
+            perhaps also the design of some terrible retaliation.
+          </p>
+        </g-preview-text>
+        <g-preview-controls form="preview-colors" class="pa-3 flex flex-column gap-3">
+          <fieldset class="dn flex-column gap-2 ba br-2 bc-gray-light pa-3">
+            <input type="text" class="br-1 ba ph-3 pv-2 f-2 b">
+            <button class="br-3 ba ph-3 pv-2 f-2 b">
+              Test Button
+            </button>
+          </fieldset>
+        </g-preview-controls>
+      </div>
     </g-preview>
     </dialog>
     <footer class="mt-4 pt-3 pb-5 bg-black white">
