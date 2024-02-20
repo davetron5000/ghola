@@ -41,7 +41,7 @@ g-palette[compact] g-palette-color-scale g-color-swatch {
 
 g-palette-color-scale g-color-swatch:has(input) {
   box-shadow: 1px 1px 2px 1px rgba( 80, 80, 80, 0.5 );
-  border-color: var(--mg-gray);
+  border-color: var(--mg-gray-500);
   border-radius: var(--mg-bw-2);
 }
 

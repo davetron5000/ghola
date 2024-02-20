@@ -1,7 +1,7 @@
 g-element-source pre {
   display: inline-block;
   background-color: var(--mg-black-ish);
-  color: var(--mg-green-lighter);
+  color: var(--mg-green-800);
   padding-left: var(--mg-sp-3);
   padding-right: var(--mg-sp-3);
   padding-top: var(--mg-sp-2);
@@ -14,7 +14,7 @@ g-element-source pre {
 @media (prefers-contrast: more) {
   g-element-source pre {
     font-size: var(--mg-fs-1);
-    color: var(--mg-green-lightest);
+    color: var(--mg-green-900);
     text-shadow: none;
   }
 }

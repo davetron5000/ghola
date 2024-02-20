@@ -15,7 +15,7 @@ dialog label:has(input[type=radio]) {
   color: var(--mg-black);
 }
 dialog label:has(input[type=radio]):hover {
-  background-color: var(--mg-gray-lighter);
+  background-color: var(--mg-gray-800);
 }
 
 dialog label:has(input[type=radio]:checked) {

@@ -14,25 +14,25 @@
 :root {
 
 
-  --mg-red-darkest: #180A09;
-  --mg-red-darker: #28110F;
-  --mg-red-dark: #51211D;
-  --mg-red-darkish: #883832;
-  --mg-red: #b84c43;
-  --mg-red-lightish: #D6948F;
-  --mg-red-light: #EBCBC8;
-  --mg-red-lighter: #F9EFEE;
-  --mg-red-lightest: #FEFBFB;
+  --mg-red-100: #180A09;
+  --mg-red-200: #28110F;
+  --mg-red-300: #51211D;
+  --mg-red-400: #883832;
+  --mg-red-500: #b84c43;
+  --mg-red-600: #D6948F;
+  --mg-red-700: #EBCBC8;
+  --mg-red-800: #F9EFEE;
+  --mg-red-900: #FEFBFB;
 
-  --mg-green-darkest: #001F0F;
-  --mg-green-darker: #00341A;
-  --mg-green-dark: #006733;
-  --mg-green-darkish: #00AE56;
-  --mg-green: #00eb74;
-  --mg-green-lightish: #5DFFAD;
-  --mg-green-light: #AFFFD7;
-  --mg-green-lighter: #E6FFF2;
-  --mg-green-lightest: #FAFFFC;
+  --mg-green-100: #001F0F;
+  --mg-green-200: #00341A;
+  --mg-green-300: #006733;
+  --mg-green-400: #00AE56;
+  --mg-green-500: #00eb74;
+  --mg-green-600: #5DFFAD;
+  --mg-green-700: #AFFFD7;
+  --mg-green-800: #E6FFF2;
+  --mg-green-900: #FAFFFC;
 }
 
 @media screen and (max-width: 80em) {
@@ -101,7 +101,7 @@ input:disabled.pointer {
 }
 
 .inner-shadow-1 {
-  box-shadow: inset 0 0 3px var(--mg-gray);
+  box-shadow: inset 0 0 3px var(--mg-gray-500);
 }
 
 

@@ -15,9 +15,9 @@
   text-align: center;
   cursor: pointer;
 
-  background-color: var(--mg-gray-lightest);
-  color: var(--mg-gray-dark);
-  border-color: var(--mg-gray-light);
+  background-color: var(--mg-gray-900);
+  color: var(--mg-gray-300);
+  border-color: var(--mg-gray-600);
 }
 
 .shadow-button.f-2,
@@ -39,17 +39,17 @@
   }
 }
 
-.shadow-button-dark {
-  background-color: var(--mg-gray-dark);
-  color: var(--mg-gray-lighter);
-  border-color: var(--mg-gray);
+.shadow-button-300 {
+  background-color: var(--mg-gray-300);
+  color: var(--mg-gray-800);
+  border-color: var(--mg-gray-500);
   box-shadow: 1px 1px 2px 1px rgba( 20, 20, 20, 0.5 );
 }
 
 .shadow-button--red {
-  background-color: var(--mg-red-lightest);
-  color: var(--mg-red-dark);
-  border-color: var(--mg-red-light);
+  background-color: var(--mg-red-900);
+  color: var(--mg-red-300);
+  border-color: var(--mg-red-700);
 }
 
 .shadow-button.pv-3 {
@@ -64,8 +64,8 @@
 .shadow-button:disabled {
   box-shadow: none;
   transform: none;
-  background: var(--mg-gray-light);
-  color: var(--mg-gray-lightest);
+  background: var(--mg-gray-700);
+  color: var(--mg-gray-900);
   border-color: transparent;
   cursor: not-allowed;
   font-style: italic;
