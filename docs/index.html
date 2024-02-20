@@ -22,30 +22,30 @@
 
   </head>
   <body class="ff-sans bg-white black">
-        <header class="bg-black-ish gray-lightest">
+        <header class="bg-black-ish gray-800">
       <div class="flex items-center justify-between">
         <div>
         <h1 class="ma-0 mh-3 pt-3 f-6 ttu tracked flex items-center gap-3">
-          <a href="/" class="tdn hover-tdu gray-lightest">
+          <a href="/" class="tdn hover-tdu gray-800">
           Ghola
           </a>
-          <span class="h-3 w-3 bg-red"></span>
-          <span class="h-3 w-3 bg-orange"></span>
-          <span class="h-3 w-3 bg-yellow"></span>
-          <span class="h-3 w-3 bg-green"></span>
-          <span class="h-3 w-3 bg-blue"></span>
-          <span class="h-3 w-3 bg-purple"></span>
-          <span class="h-3 w-3 bg-gray"></span>
+          <span class="h-3 w-3 bg-red-500"></span>
+          <span class="h-3 w-3 bg-orange-500"></span>
+          <span class="h-3 w-3 bg-yellow-500"></span>
+          <span class="h-3 w-3 bg-green-500"></span>
+          <span class="h-3 w-3 bg-blue-500"></span>
+          <span class="h-3 w-3 bg-purple-500"></span>
+          <span class="h-3 w-3 bg-gray-500"></span>
         </h1>
         <h2 class="ma-0 mh-3 pb-3 f-5">Palette Generator for Developers</h2>
         
         </div>
         <nav class="mh-3 flex items-baseline gap-2">
-          <a href="https://github.com/davetron5000/ghola" class="blue-lighter f-2">Source</a>
+          <a href="https://github.com/davetron5000/ghola" class="blue-700 f-2">Source</a>
           <span role="none">&middot;</span>
-          <a href="/components/index.html" class="blue-lighter f-2">Components</a>
+          <a href="/components/index.html" class="blue-700 f-2">Components</a>
           <span role="none">&middot;</span>
-          <a href="/about.html" class="blue-lighter f-3">About</a>
+          <a href="/about.html" class="blue-700 f-3">About</a>
         </nav>
       </div>
       
@@ -55,27 +55,27 @@
       <article class="flex flex-column gap-4">
         <div>
           <div class="flex f-2">
-            <nav class="bg-gray-dark gray-lighter flex items-baseline pa-3 gap-3 w-100">
+            <nav class="bg-gray-300 gray-700 flex items-baseline pa-3 gap-3 w-100">
               <h3 class="fw-7 ma-0 ttl tracked-tight">Download this palette:</h3>
               <g-download-palette generator="css" palette="palette">
-                <a id="download-css"             href="#" class="fw-3 blue-lighter">CSS Variables</a>
+                <a id="download-css"             href="#" class="fw-3 blue-700">CSS Variables</a>
               </g-download-palette>
               <g-download-palette generator="melange" palette="palette">
-                <a id="download-melange"         href="#" class="fw-3 blue-lighter">MelangeCSS Variables</a>
+                <a id="download-melange"         href="#" class="fw-3 blue-700">MelangeCSS Variables</a>
               </g-download-palette>
               <g-download-palette generator="melange-config" palette="palette">
-                <a id="download-melange-config"  href="#" class="fw-3 blue-lighter">MelangeCSS Configuration</a>
+                <a id="download-melange-config"  href="#" class="fw-3 blue-700">MelangeCSS Configuration</a>
               </g-download-palette>
               <g-download-palette generator="tailwind" palette="palette">
-                <a id="download-tailwind"        href="#" class="fw-3 blue-lighter">Tailwind</a>
+                <a id="download-tailwind"        href="#" class="fw-3 blue-700">Tailwind</a>
               </g-download-palette>
               <g-download-palette generator="csv" palette="palette">
-                <a id="download-csv"             href="#" class="fw-3 blue-lighter">Good 'Ole CSV</a>
+                <a id="download-csv"             href="#" class="fw-3 blue-700">Good 'Ole CSV</a>
               </g-download-palette>
             </nav>
           </div>
           <div class="flex">
-            <div class="flex items-center br bc-gray-light bg-white gap-3 ph-3">
+            <div class="flex items-center br bc-gray-600 bg-white gap-3 ph-3">
               <g-attribute-checkbox element="palette" attribute-name="compact">
                 <label for="compact" class="flex items-center gap-2">
                   <input type="checkbox" name="compact" id="compact">
@@ -85,7 +85,7 @@
                 </label>
               </g-attribute-checkbox>
             </div>
-            <nav class="flex bg-gray-lighter flex-grow-1 bb bc-gray-light items-center pv-2 gap-2 ph-2">
+            <nav class="flex bg-gray-700 flex-grow-1 bb bc-gray-light items-center pv-2 gap-2 ph-2">
               <div class="f-3 fw-5 match-shadow-transform-y ttl tracked-tight">Add Linked Color:</div>
               <g-add-color-scale-button link-algorithm="complement" palette="palette" show-warnings>
                 <button class="shadow-button f-2 br-left-3 br-1 flex items-center gap-1">
@@ -144,18 +144,18 @@
                     </span>
                     <span role="none" class="flex flex-column gap-0">
                       <span class="flex">
-                        <span class="h-1 w-1 bg-blue"></span>
-                        <span class="h-1 w-1 bg-gray"></span>
-                        <span class="h-1 w-1 bg-red"></span>
+                        <span class="h-1 w-1 bg-blue-500"></span>
+                        <span class="h-1 w-1 bg-gray-500"></span>
+                        <span class="h-1 w-1 bg-red-500"></span>
                       </span>
                       <span class="flex">
-                        <span class="h-1 w-1 bg-purple"></span>
-                        <span class="h-1 w-1 bg-green"></span>
-                        <span class="h-1 w-1 bg-orange"></span>
+                        <span class="h-1 w-1 bg-purple-500"></span>
+                        <span class="h-1 w-1 bg-green-500"></span>
+                        <span class="h-1 w-1 bg-orange-500"></span>
                       </span>
                       <span class="flex">
-                        <span class="h-1 w-1 bg-yellow"></span>
-                        <span class="h-1 w-1 bg-red"></span>
+                        <span class="h-1 w-1 bg-yellow-500"></span>
+                        <span class="h-1 w-1 bg-red-500"></span>
                         <span class="h-1 w-1 bg-black"></span>
                       </span>
                     </span>
@@ -170,8 +170,8 @@
             <div class="flex flex-column justify-between">
               <g-color-name color-swatch="primary-base-color" class="pt-1">
                 <label class="flex flex-column gap-1">
-                  <input type="text" class="ba fw-3 ff-mono br-2 bg-white-ish gray-dark bc-gray inner-shadow-1">
-                  <span class="f-2 gray-dark ttl tracked-tight fw-6">Color Name <span data-overridden class="i f-1 ttl fw-4">(Overridden)</span> </span>
+                  <input type="text" class="ba fw-3 ff-mono br-2 bg-white-ish gray-300 bc-gray-600 inner-shadow-1">
+                  <span class="f-2 gray-300 ttl tracked-tight fw-6">Color Name <span data-overridden class="i f-1 ttl fw-4">(Overridden)</span> </span>
                 </label>
               </g-color-name>
               <nav class="flex flex-column gap-1">
@@ -472,8 +472,8 @@
           </g-preview-color-selection>
           <g-preview-colors-contrast
             form="preview-colors"
-            class="f-2 ba br-1 bc-gray-darker pa-3 flex flex-column gap-2 items-center justify-center">
-            <a class="hover-tdu tdn f-3 blue-dark" href="https://www.w3.org/TR/WCAG21/#contrast-minimum">WCAG Contrast</a>
+            class="f-2 ba br-1 bc-gray-200 pa-3 flex flex-column gap-2 items-center justify-center">
+            <a class="hover-tdu tdn f-3 blue-300" href="https://www.w3.org/TR/WCAG21/#contrast-minimum">WCAG Contrast</a>
             <div class="f-4 fw-6" data-ratio>
               4.5
             </div>
@@ -485,7 +485,7 @@
           </g-preview-colors-contrast>
         </div>
         <p class="tc mh-auto measure lh-copy f-1 i">
-          Exceprt from <cite><a class="blue-dark" href="https://www.gutenberg.org/cache/epub/164/pg164.txt">20,000 Leagues Under the Sea</a></cite>, by Jules Verne.
+          Exceprt from <cite><a class="blue-300" href="https://www.gutenberg.org/cache/epub/164/pg164.txt">20,000 Leagues Under the Sea</a></cite>, by Jules Verne.
         </p>
       </header>
       <div class="overflow-y-scroll pos-relative flex items-start">
@@ -594,7 +594,7 @@
           </p>
         </g-preview-text>
         <g-preview-controls form="preview-colors" class="pa-3 flex flex-column gap-3">
-          <fieldset class="dn flex-column gap-2 ba br-2 bc-gray-light pa-3">
+          <fieldset class="dn flex-column gap-2 ba br-2 bc-gray-700 pa-3">
             <input type="text" class="br-1 ba ph-3 pv-2 f-2 b">
             <button class="br-3 ba ph-3 pv-2 f-2 b">
               Test Button
@@ -606,7 +606,7 @@
     </dialog>
     <footer class="mt-4 pt-3 pb-5 bg-black white">
       <p class="p mh-auto">
-        Ghola is Copyright &copy; 2024 by David Bryant Copeland.  It was created <a class="green-light" href="https://declare-ai.org/1.0.0/none.html
+        Ghola is Copyright &copy; 2024 by David Bryant Copeland.  It was created <a class="green-600" href="https://declare-ai.org/1.0.0/none.html
 ">without any assistance from any generative AI</a>.
       </p>
     </footer>
