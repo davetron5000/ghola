@@ -1,10 +1,12 @@
 <%- include("./templates/head.html", { description: "About Ghola, the Palette Generator for Developers", title: "About Ghola" }) %>
   </head>
   <body class="ff-sans bg-white black">
-    <%- include("./templates/header.html") %>
+    <%- include("./templates/header.html", { subtitle: "About Ghola" }) %>
     <main class="mh-auto">
-      <p class="p mh-auto f-3">
+      <p class="p mh-auto">
+        <span class="f-3">
         Ghola is a palette generator aimed at developers who need some reasonable colors for building an app or prototyping.  Ghola works great if you don't have a designer to choose the right shades, but you want something reasonable. Ghola is built using Web Components and no framework.
+        </span>
       </p>
       <p class="p mh-auto">
         Ghola allows you to design a palette in two steps: 1) choose one or more base colors, and 2) see different shades of those colors, from very dark to very light.  The idea is that for any given base color, you will want lighter and darker shades for use.  Ghola provides three darker and three lighter shades, attempting to make sure that the darkest can be used instead of black and the lightest can be used instead of white.
@@ -12,13 +14,13 @@
       <nav class="tc">
         <ol class="pa-0 lst-none">
           <li class="tc lh-copy">
-            <a class="blue" href="#howto">HOWTO use Ghola</a>
+            <a class="blue-500" href="#howto">HOWTO use Ghola</a>
           </li>
           <li class="tc lh-copy">
-            <a class="blue" href="#built">How Ghola is built</a>
+            <a class="blue-500" href="#built">How Ghola is built</a>
           </li>
           <li class="tc lh-copy">
-            <a class="blue" href="#what">What is a ghola?</a>
+            <a class="blue-500" href="#what">What is a ghola?</a>
           </li>
         </ol>
       </nav>
@@ -43,10 +45,18 @@
                 <div data-color></div>
                 <div data-hexcode><code></code></div>
               </g-color-swatch>
+              <g-color-swatch class="small">
+                <div data-color></div>
+                <div data-hexcode><code></code></div>
+              </g-color-swatch>
               <g-color-swatch  class="small" hex-code="#47326e" default-link-context="Primary" id="favorite-color">
                 <input type="color" id="primary-base-color" disabled>
                 <div data-link-context class="tc fw-6 tracked-tight ttl f-1"></div>
                 <label for="primary-base-color"><code></code></label>
+              </g-color-swatch>
+              <g-color-swatch class="small">
+                <div data-color></div>
+                <div data-hexcode><code></code></div>
               </g-color-swatch>
               <g-color-swatch class="small">
                 <div data-color></div>
@@ -138,7 +148,7 @@
       <div class="f-4 tc">&sect;</div>
       <h3 class="f-4 tc" id="built">How is this built?</h3>
       <p class="p mh-auto">
-        Ghola is built without any framework. It uses the Web Components API built into modern browsers.  It makes heavy use of custom elements and you can view the source of this page or others to see.  <a href="https://www.naildrivin5.com/blog/2024/01/24/web-components-in-earnest.html" class="blue-300">I wrote an extensive blog post on how it works</a> if you want to check it out. It's kinda long, but tells you everything you need to know.  The <a href="https://github.com/davetron5000/ghola" class="blue-300">source code</a> is also available for you to examine.
+        Ghola is built without any framework. It uses the Web Components API built into modern browsers.  It makes heavy use of custom elements and you can view the source of this page or others to see.  <a href="https://www.naildrivin5.com/blog/2024/01/24/web-components-in-earnest.html" class="blue-300">I wrote an extensive blog post on how it works</a> if you want to check it out. It's kinda long, but tells you everything you need to know.  The <a href="https://github.com/davetron5000/ghola" class="blue-300">source code</a> is also available for you to examine. You can also play around with <a href="/components/index.html" class="blue-300 f-2">the individual components</a> directly.
       </p>
       <p class="p mh-auto">
         The approach I took was to wrap regular elements in custom elements, and have those custom elements bestow behavior on the wrapped elements.  While the app will generate HTML and modify the DOM, it does not render everything.  The HTML file you downloaded when you first got here was from the server.

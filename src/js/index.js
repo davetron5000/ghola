@@ -11,12 +11,17 @@ import PreviewColorSelectionComponent from "./components/PreviewColorSelectionCo
 import PreviewComponent               from "./components/PreviewComponent"
 import PreviewTextComponent           from "./components/PreviewTextComponent"
 import PreviewControlsComponent       from "./components/PreviewControlsComponent"
+import BoxShadowComponent             from "./components/BoxShadowComponent"
+import BoxShadowFormComponent         from "./components/BoxShadowFormComponent"
+import XYInputComponent               from "./components/XYInputComponent"
 
 import PaletteUI from "./PaletteUI"
 
 document.addEventListener("DOMContentLoaded", () => {
   AddColorScaleButtonComponent.define()
   AttributeCheckboxComponent.define()
+  BoxShadowComponent.define()
+  BoxShadowFormComponent.define()
   ColorNameComponent.define()
   ColorSwatchComponent.define()
   DownloadPaletteComponent.define()
@@ -28,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
   PreviewTextComponent.define()
   PreviewControlsComponent.define()
   PreviewColorSelectionComponent.define()
+  XYInputComponent.define()
 
   const paletteComponent = document.querySelector(PaletteComponent.tagName)
   if (paletteComponent) {

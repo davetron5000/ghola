@@ -1,0 +1,212 @@
+<%- include("./templates/head.html", { description: "Box Shadow Desigin Tool", title: "Box Shadow Tool" }) %>
+  </head>
+  <body class="ff-sans bg-white black">
+    <%- include("./templates/header.html", { subtitle: "Box Shadow Tool" }) %>
+    <main class="mh-auto">
+      <g-box-shadow-form show-warnings linked-to="basis">
+      <form class="flex flex-column gap-3 items-center mv-4" id="form">
+        <g-xy-input aria-role="none" show-warnings="xy" x-min="-10" x-max="10" y-min="-10" y-max="10" x="1" y="1">
+        <div class="gap-2 items-center" style="display: grid; xgrid-auto-columns: 1fr; grid-template-areas: 'y g' '. x';">
+          <span style="grid-area: y">Y Offset <span class="dib w-3" data-y-value></span></span>
+          <div data-xy class="ba bc-black pos-relative" style="grid-area: g; height: 120px; display: grid; grid-auto-columns: 20px; grid-template-areas: 'a a a a a a';">
+            <div data-cursor class="pos-absolute bg-gray-800 br-100 ba bc-black flex items-center justify-center" style="pointer-events: none; width: 10px; height: 10px;"><div style="width: 2px; height: 2px; background: black;"></div></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+            <div style="pointer-events: none" class="ba bs-dotted bc-gray-400"></div>
+          </div>
+          <span class="tc" style="grid-area: x">X Offset <span data-x-value></span></span>
+        </div>
+        <label class="sr-only">
+          <span>
+          X Offset
+          </span>
+          <span>-10</span>
+          <input type="range" name="x" min="-10" max="10" step="1">
+          <span>10</span>
+        </label>
+        <label class="sr-only">
+          <span>
+          Y Offset
+          </span>
+          <span>-10</span>
+          <input type="range" name="y" min="-10" max="10" step="1">
+          <span>10</span>
+        </label>
+        </g-xy-input>
+        <label for="blur-radius" class="flex items-center gap-2">
+          <span>
+          Blur Radius
+          </span>
+          <span>1</span>
+          <input type="range" id="blur-radius" name="blur-radius" min="1" max="10" step="1">
+          <span>10</span>
+        </label>
+        <label for="spread-radius" class="flex items-center gap-2">
+          <span>
+          Spread Radius
+          </span>
+          <span>-10</span>
+          <input type="range" id="spread-radius" name="spread-radius" min="-10" max="10" step="1">
+          <span>10</span>
+        </label>
+        <label for="color" class="flex items-center gap-2">
+          <span>
+          Shadow Color
+          </span>
+          <div class="w-2 h-2 ba bc-black" style="background: #000"></div>
+          <input type="range" id="spread-radius" name="color" min="0" max="245" step="1">
+          <div class="w-2 h-2 ba bc-black" style="background: #FEFEFE"></div>
+        </label>
+        <label for="inset" class="flex items-center gap-2">
+          <span>
+            Inset
+          </span>
+          <input type="checkbox" name="inset" id="inset">
+        </label>
+      </form>
+      </g-box-shadow-form>
+      <div class="flex items-center justify-center gap-2 mv-4">
+        <div class="bc-gray-700 pa-4 ">
+          <g-box-shadow
+            offset-x="0"
+            offset-y="0"
+            blur-radius="4"
+            spread-radius="0"
+            color="128"
+            id="basis"
+            show-warnings>
+            <div class="w-5 h-5"></div>
+          </g-box-shadow>
+        </div>
+        <div class="bc-gray-700 pa-4 ">
+          <g-box-shadow
+            show-warnings="true"
+            derived-from="basis"
+            raise-by="2"
+            >
+            <div class="w-5 h-5"></div>
+          </g-box-shadow>
+        </div>
+        <div class="bc-gray-700 pa-4 ">
+          <g-box-shadow
+            show-warnings="true"
+            derived-from="basis"
+            raise-by="4"
+            >
+            <div class="w-5 h-5"></div>
+          </g-box-shadow>
+        </div>
+        <div class="bc-gray-700 pa-4 ">
+          <g-box-shadow
+            show-warnings="true"
+            derived-from="basis"
+            raise-by="8"
+            >
+            <div class="w-5 h-5"></div>
+          </g-box-shadow>
+        </div>
+        <div class="bc-gray-700 pa-4  hover-bc-white">
+          <g-box-shadow
+            show-warnings="true"
+            derived-from="basis"
+            raise-by="16"
+            >
+            <div class="w-5 h-5"></div>
+          </g-box-shadow>
+        </div>
+      </div>
+      <div class="flex items-center justify-center gap-2 mv-4">
+        <div class="bc-gray-700 pa-4 ">
+          <g-box-shadow
+            show-warnings="true"
+            derived-from="basis"
+            raise-by="1"
+            >
+            <div class="br-3 w-5 h-5"></div>
+          </g-box-shadow>
+        </div>
+        <div class="bc-gray-700 pa-4 ">
+          <g-box-shadow
+            show-warnings="true"
+            derived-from="basis"
+            raise-by="2"
+            >
+            <div class="br-3 w-5 h-5"></div>
+          </g-box-shadow>
+        </div>
+        <div class="bc-gray-700 pa-4 ">
+          <g-box-shadow
+            show-warnings="true"
+            derived-from="basis"
+            raise-by="4"
+            >
+            <div class="br-3 w-5 h-5"></div>
+          </g-box-shadow>
+        </div>
+        <div class="bc-gray-700 pa-4 ">
+          <g-box-shadow
+            show-warnings="true"
+            derived-from="basis"
+            raise-by="8"
+            >
+            <div class="br-3 w-5 h-5"></div>
+          </g-box-shadow>
+        </div>
+        <div class="bc-gray-700 pa-4  hover-bc-white">
+          <g-box-shadow
+            show-warnings="true"
+            derived-from="basis"
+            raise-by="16"
+            >
+            <div class="br-3 w-5 h-5"></div>
+          </g-box-shadow>
+        </div>
+      </div>
+    </main>
+    <footer class="mt-4 pt-3 pb-5 bg-black white">
+      <p class="p mh-auto">
+        Ghola is Copyright &copy; 2024 by David Bryant Copeland.  It was created <a class="green-600" href="https://declare-ai.org/1.0.0/none.html
+">without any assistance from any generative AI</a>.
+      </p>
+    </footer>
+  </body>
+</html>
+

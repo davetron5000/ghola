@@ -1,0 +1,82 @@
+.overflow-visible {
+  overflow: visible;
+}
+
+.overflow-scroll {
+  overflow: scroll;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-clip {
+  overflow: clip;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.hover-overflow-visible:hover {
+  overflow: visible;
+}
+
+.hover-overflow-scroll:hover {
+  overflow: scroll;
+}
+
+.hover-overflow-hidden:hover {
+  overflow: hidden;
+}
+
+.hover-overflow-clip:hover {
+  overflow: clip;
+}
+
+.hover-overflow-auto:hover {
+  overflow: auto;
+}
+
+@media screen and (min-width: 30em) {
+  .overflow-visible-ns {
+    overflow: visible;
+  }
+
+  .overflow-scroll-ns {
+    overflow: scroll;
+  }
+
+  .overflow-hidden-ns {
+    overflow: hidden;
+  }
+
+  .overflow-clip-ns {
+    overflow: clip;
+  }
+
+  .overflow-auto-ns {
+    overflow: auto;
+  }
+
+  .hover-overflow-visible-ns:hover {
+    overflow: visible;
+  }
+
+  .hover-overflow-scroll-ns:hover {
+    overflow: scroll;
+  }
+
+  .hover-overflow-hidden-ns:hover {
+    overflow: hidden;
+  }
+
+  .hover-overflow-clip-ns:hover {
+    overflow: clip;
+  }
+
+  .hover-overflow-auto-ns:hover {
+    overflow: auto;
+  }
+
+}

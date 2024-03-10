@@ -1,9 +1,10 @@
-@import "melange-css/melange-no_dark_mode-no_breakpoints.css";
+@import "melange-css/melange-thin.css";
 @import "./shadow-button.css";
 @import "./g-element-source.css";
 @import "./palette.css";
 @import "./g-test-case.css";
 @import "./preview.css";
+@import "./melange-customizations.css";
 
 :root {
   --mg-ff-sans: "Helvetica Neue", Inter, Roboto, "Nimbus Sans", sans-serif;

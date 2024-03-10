@@ -10,10 +10,11 @@
     "chokidar-cli": "^3.0.0",
     "ejs": "^3.1.9",
     "esbuild": "^0.19.5",
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "melange-cli": "^1.0.0-RC3"
   },
   "dependencies": {
     "color-convert": "^2.0.1",
-    "melange-css": "^1.0.0-RC1"
+    "melange-css": "^1.0.0-RC3"
   }
 }
