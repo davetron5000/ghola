@@ -2,6 +2,18 @@ import PaletteEntry from "./PaletteEntry"
 import AttributeCheckboxComponent   from "./components/AttributeCheckboxComponent"
 import PaletteColorScaleComponent   from "./components/PaletteColorScaleComponent"
 
+
+const debounce = (f, delayMS) => {
+  let timeout
+
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      f(...args)
+    }, delayMS);
+  }
+}
+
 const throttle = function(f, delayMS) {
   let timerFlag = null
 
@@ -24,7 +36,7 @@ export default class PaletteUI {
     }
 
     this.palette = this.saveableState.loadPalette()
-    this.throttledSavePalette = throttle(this.saveableState.savePalette.bind(this.saveableState),500)
+    this.throttledSavePalette = debounce(this.saveableState.savePalette.bind(this.saveableState),500)
   }
 
   build() {

@@ -1,4 +1,3 @@
-
 import BaseCustomElement from "../brutaldom/BaseCustomElement"
 
 export default class BoxShadowComponent extends BaseCustomElement {
@@ -165,7 +164,7 @@ export default class BoxShadowComponent extends BaseCustomElement {
   }
 
   _requireRawNumber(value,defaultValue=0) {
-    const parsedValue = parseInt(value)
+    const parsedValue = parseFloat(value)
     if (isNaN(parsedValue)) {
       this.logger.warn(`Value '${value}' is not a number and will be ignored`)
       return defaultValue

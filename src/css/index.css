@@ -4,7 +4,6 @@
 @import "./palette.css";
 @import "./g-test-case.css";
 @import "./preview.css";
-@import "./melange-customizations.css";
 
 :root {
   --mg-ff-sans: "Helvetica Neue", Inter, Roboto, "Nimbus Sans", sans-serif;
@@ -105,4 +104,50 @@ input:disabled.pointer {
   box-shadow: inset 0 0 3px var(--mg-gray-500);
 }
 
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.inset-shadow-1 {
+  box-shadow: rgb(97, 97, 97) 1px 1px 3px 0px inset
+}
+
+.inset-shadow-2 {
+  box-shadow: rgb(97, 97, 97) 1px 1px 4.65px 0px inset
+}
+
+.inset-shadow-3 {
+  box-shadow: rgb(97, 97, 97) 1px 1px 8.115px 0px inset
+}
+
+.inset-shadow-4 {
+  box-shadow: rgb(97, 97, 97) 1px 1px 15.3915px 0px inset
+}
+
+.inset-shadow-5 {
+  box-shadow: rgb(97, 97, 97) 1px 1px 30.67215px 0px inset
+}
+
+.grid-4x4 {
+  display: grid; 
+  grid-template-columns: auto auto auto auto; 
+  grid-template-rows:    auto auto auto auto; 
+  grid-template-areas: '. . . .'
+                       '. . . .'
+                       '. . . .'
+                       '. . . .'; 
+}
+
+g-xy-input [data-xy] {
+  grid-area: xy-control; 
+  width: calc(1.5 * var(--mg-sp-6));
+  height: calc(1.5 * var(--mg-sp-6));
+}
+
+.active-bg-green-600:active {
+  background-color: var(--mg-green-600);
+}
+.active-black-ish:active {
+  color: var(--mg-black-ish);
+}
 

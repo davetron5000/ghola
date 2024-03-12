@@ -1,7 +1,62 @@
-<%- include("./templates/head.html", { description: "Box Shadow Desigin Tool", title: "Box Shadow Tool" }) %>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charSet="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="description" content="Box Shadow Desigin Tool">
+    <meta content="Box Shadow Tool" name="og:title">
+    <meta content="website" name="og:type">
+    <meta content="https://ghola.dev/og-image.png" name="og:image">
+
+    <meta itemprop="ai-content-declaration:version" content="1.0.0-alpha1">
+    <meta itemprop="ai-content-declaration:level" content="none">
+
+    <title>
+      Box Shadow Tool
+    </title>
+    <link href="/css/styles.css" rel="stylesheet" />
+    <script src="/js/main.js"></script>
+    
+
   </head>
   <body class="ff-sans bg-white black">
-    <%- include("./templates/header.html", { subtitle: "Box Shadow Tool" }) %>
+        <header class="bg-black-ish gray-800">
+      <div class="flex items-center justify-between">
+        <div>
+        <h1 class="ma-0 mh-3 pt-3 f-6 ttu tracked flex items-center gap-3">
+          <a href="/" class="tdn hover-tdu gray-800">
+          Ghola
+          </a>
+          <span class="h-3 w-3 bg-red-500"></span>
+          <span class="h-3 w-3 bg-orange-500"></span>
+          <span class="h-3 w-3 bg-yellow-500"></span>
+          <span class="h-3 w-3 bg-green-500"></span>
+          <span class="h-3 w-3 bg-blue-500"></span>
+          <span class="h-3 w-3 bg-purple-500"></span>
+          <span class="h-3 w-3 bg-gray-500"></span>
+        </h1>
+        <h2 class="ma-0 mh-3 pb-3 f-5">Scale Generator for Developers</h2>
+        
+          <h3 class="ma-0 ph-3 pb-3 f-4 ttu tracked fw-4">Box Shadow Tool</h3>
+        
+        </div>
+        <nav class="mh-3 flex items-baseline gap-2">
+          <a href="/" class="blue-700 f-3">Palette</a>
+          <span role="none">&middot;</span>
+          <a href="/shadow.html" class="blue-700 f-3">Box Shadows</a>
+          <span role="none">&middot;</span>
+          <a href="/soon.html" class="blue-400 f-3">Text Glow</a>
+          <span role="none">&middot;</span>
+          <a href="https://github.com/davetron5000/ghola" class="blue-700 f-2">Source</a>
+          <span role="none">&middot;</span>
+          <a href="/about.html" class="blue-700 f-2">About</a>
+        </nav>
+      </div>
+      
+    </header>
+
     <main class="mh-auto">
       <g-box-shadow-form show-warnings id="form">
         <form class="flex justify-center items-start gap-3 pa-3">

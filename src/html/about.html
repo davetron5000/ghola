@@ -5,27 +5,20 @@
     <main class="mh-auto">
       <p class="p mh-auto">
         <span class="f-3">
-        Ghola is a palette generator aimed at developers who need some reasonable colors for building an app or prototyping.  Ghola works great if you don't have a designer to choose the right shades, but you want something reasonable. Ghola is built using Web Components and no framework.
+          Ghola is a <em>scale</em> generator aimed at developers.  It generates CSS along a scale of values, such a color palette or series of box shadows.  The idea is to provide some reasonable options for developers to use for building an app or prototyping. Ghola works great if you don't have a designer to choose the right styles or colors, but you want something reasonable. Ghola is built using Web Components and no framework.
         </span>
       </p>
+      <nav class="flex items-baseline justify-center gap-3 bb bc-gray-700 pb-3">
+        <a class="blue-500 f-3" href="#palette">Palette Generator</a>
+        <a class="blue-500 f-3" href="#box-shadow">Box Shadow Generator</a>
+        <a class="blue-500 f-3" href="#built">How is this built?</a>
+        <a class="blue-500 f-3" href="#what">What is a ghola?</a>
+      </nav>
+      <section>
+      <h3 id="palette" class="tc f-5">Palette Generator</h3>
       <p class="p mh-auto">
         Ghola allows you to design a palette in two steps: 1) choose one or more base colors, and 2) see different shades of those colors, from very dark to very light.  The idea is that for any given base color, you will want lighter and darker shades for use.  Ghola provides three darker and three lighter shades, attempting to make sure that the darkest can be used instead of black and the lightest can be used instead of white.
       </p>
-      <nav class="tc">
-        <ol class="pa-0 lst-none">
-          <li class="tc lh-copy">
-            <a class="blue-500" href="#howto">HOWTO use Ghola</a>
-          </li>
-          <li class="tc lh-copy">
-            <a class="blue-500" href="#built">How Ghola is built</a>
-          </li>
-          <li class="tc lh-copy">
-            <a class="blue-500" href="#what">What is a ghola?</a>
-          </li>
-        </ol>
-      </nav>
-      <hr>
-      <h3 class="f-4 tc" id="howto">HOWTO</h3>
       <p class="p mh-auto">
         By default, Ghola shows one color, and this is called the <em>primary</em> color.  This should be whatever is the most important color to what you are doing. Maybe it's your favorite color, or the so-called “brand” color.  Use the color picker to select this color, and you'll see three darker and three lighter shades, like so:
       </p>
@@ -145,8 +138,36 @@
         You can also share the current URL of your palette.
         You will notice that the URL changes as you modify your palette. You can save that URL and come back to your exact same palette or share it with others.  Using the Back button should work if you make a mistake.
       </p>
+      </section>
       <div class="f-4 tc">&sect;</div>
-      <h3 class="f-4 tc" id="built">How is this built?</h3>
+      <section>
+      <h3 id="box-shadow" class="tc f-5">Box Shadow Generator</h3>
+      <p class="p mh-auto">
+        Ghola allows you to create five box shadows, each “higher” than the previous.  This should give you a few options for creating depth in your design without having to make a lot of decisions. You can also create inset box-shadows to give inner depth.
+      </p>
+      <p class="p mh-auto">
+        Ghola assumes you are using a box shadow for depth, so you can only use a grayscale shadow.  You can control the spread, mblur, and offset of a base shadow, assumed to be the “lowest” in your app.  Four “higher” shadows will be generated.  You can change the gradient at which the “height” increases (or decreases, for inset shadows).
+      </p>
+      <div class="flex items-center justify-center gap-4 mb-4">
+        <div class="w-5 h-5 br-tl-3 shadow-1 ba bc-gray-700 bg-blue-900 flex items-center justify-center">
+          Lower
+        </div>
+        <div class="w-5 h-5 br-tr-3 shadow-3 ba bc-gray-700 bg-blue-900 flex items-center justify-center">
+          Higher
+        </div>
+      </div>
+      <div class="flex items-center justify-center gap-4 mb-4">
+        <div class="w-5 h-5 br-bl-3 inset-shadow-1 ba bc-gray-700 bg-purple-900 flex items-center justify-center">
+          Higher
+        </div>
+        <div class="w-5 h-5 br-br-3 inset-shadow-3 ba bc-gray-700 bg-purple-900 flex items-center justify-center">
+          Lower
+        </div>
+      </div>
+      </section>
+      <div class="f-4 tc">&sect;</div>
+      <section>
+      <h3 class="f-5 tc" id="built">How is this built?</h3>
       <p class="p mh-auto">
         Ghola is built without any framework. It uses the Web Components API built into modern browsers.  It makes heavy use of custom elements and you can view the source of this page or others to see.  <a href="https://www.naildrivin5.com/blog/2024/01/24/web-components-in-earnest.html" class="blue-300">I wrote an extensive blog post on how it works</a> if you want to check it out. It's kinda long, but tells you everything you need to know.  The <a href="https://github.com/davetron5000/ghola" class="blue-300">source code</a> is also available for you to examine. You can also play around with <a href="/components/index.html" class="blue-300 f-2">the individual components</a> directly.
       </p>
@@ -159,15 +180,17 @@
       <p class="p mh-auto">
         This isn't to say that Web Components is an amazing API free of trade-offs or complexity.  There were some bumps along the way, and any overview you have read about Web Components is probably oversimplifying what is required to actually use them.  But, it was still fun, and I liked it!  I feel like I can continue to meet my personal goal of never using React or the like on purpose.
       </p>
+      </section>
       <div class="f-4 tc">&sect;</div>
-      <h3 class="f-4 tc" id="what">What is a “ghola”?</h3>
-      <p class="p mh-auto">
-        A <em>ghola</em> is an artificial person from the <em>Dune</em> series of books.  They are constructed from the cells of a real person and—mostly—don't have any memories.  They are sort of like a clone.
-      </p>
-      <p class="p mh-auto">
-        This palette generator is like a very basic clone of a designer who has no experience or memories. It can produce some colors for you, but it's not the same as the real thing.  The name seemed apt.
-      </p>
-
+      <section>
+        <h3 class="f-5 tc" id="what">What is a “ghola”?</h3>
+        <p class="p mh-auto">
+          A <em>ghola</em> is an artificial person from the <em>Dune</em> series of books.  They are constructed from the cells of a real person and—mostly—don't have any memories.  They are sort of like a clone.
+        </p>
+        <p class="p mh-auto">
+          This palette generator is like a very basic clone of a designer who has no experience or memories. It can produce some colors for you, but it's not the same as the real thing.  The name seemed apt.
+        </p>
+      </section>
     </main>
     <footer class="mt-4 pt-3 pb-5 bg-black white">
       <p class="p mh-auto">

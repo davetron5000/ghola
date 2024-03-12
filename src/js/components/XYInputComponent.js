@@ -46,6 +46,12 @@ export default class XYInputComponent extends BaseCustomElement {
         this.mouseDown = false
       }
     }
+
+    this.mouseLeaveListener = (event) => {
+      this.style.cursor = this.cursorStyle
+      this.mouseDown = false
+    }
+
     this.mouseMoveListener = (event) => {
       if (this.mouseDown) {
         if (this.cursor) {
@@ -60,15 +66,20 @@ export default class XYInputComponent extends BaseCustomElement {
         const scaledX = percentOfWidth * this.numXValues
         const scaledY = percentOfHeight * this.numYValues
 
-        this.xValue = Math.floor( (scaledX + this.xMin) * 10 ) / 10
-        this.yValue = Math.floor( (scaledY + this.yMin) * 10 ) / 10
+        this.xValue = Math.floor( (scaledX + this.xMin) )
+        this.yValue = Math.floor( (scaledY + this.yMin) )
 
         this.querySelectorAll("[data-x-value").forEach( (element) => element.textContent = this.xValue )
         this.querySelectorAll("[data-y-value").forEach( (element) => element.textContent = this.yValue )
-        this.querySelectorAll("input[name='x']").forEach( (element) => element.value = this.xValue )
-        this.querySelectorAll("input[name='y']").forEach( (element) => element.value = this.yValue )
 
-        this.dispatchEvent(new CustomEvent("input", { detail: { x: this.xValue, y: this.yValue } }))
+        this.offsetXInputs.forEach( (element) => {
+          element.value = this.xValue 
+          element.dispatchEvent(new InputEvent("input",{ bubbles: true, cancelable: true }))
+        })
+        this.offsetYInputs.forEach( (element) => {
+          element.value = this.yValue 
+          element.dispatchEvent(new InputEvent("input",{ bubbles: true, cancelable: true }))
+        })
       }
     }
     this.xChangedListener = (event) => {
@@ -100,6 +111,12 @@ export default class XYInputComponent extends BaseCustomElement {
       this.logger.warn("Could not find [data-cursor]")
       return
     }
+
+    this.querySelectorAll("[data-x-min]").forEach( (e) => e.textContent = this.xMin )
+    this.querySelectorAll("[data-x-max]").forEach( (e) => e.textContent = this.xMax )
+    this.querySelectorAll("[data-y-min]").forEach( (e) => e.textContent = this.yMin )
+    this.querySelectorAll("[data-y-max]").forEach( (e) => e.textContent = this.yMax )
+
     if (
       this._requireIntValue("xMin") &&
       this._requireIntValue("xMax") &&
@@ -119,20 +136,34 @@ export default class XYInputComponent extends BaseCustomElement {
       xyControl.addEventListener("mousedown", this.mouseDownListener)
       xyControl.addEventListener("mouseup", this.mouseUpListener)
       xyControl.addEventListener("mousemove", this.mouseMoveListener)
+      xyControl.addEventListener("mouseleave", this.mouseLeaveListener)
 
-      this.querySelectorAll("input[name='x']").forEach( (element) => element.addEventListener("input",this.xChangedListener) )
-      this.querySelectorAll("input[name='y']").forEach( (element) => element.addEventListener("input",this.yChangedListener) )
+      this.offsetXInputs.forEach( (element) => {
+        element.addEventListener("input",this.xChangedListener) 
+        element.setAttribute("min",this.xMin)
+        element.setAttribute("max",this.xMax)
+      })
+
+      this.offsetYInputs.forEach( (element) => {
+        element.addEventListener("input",this.yChangedListener) 
+        element.setAttribute("min",this.yMin)
+        element.setAttribute("max",this.yMax)
+      })
 
     }
     else {
       xyControl.removeEventListener("mousedown", this.mouseDownListener)
       xyControl.removeEventListener("mouseup", this.mouseUpListener)
       xyControl.removeEventListener("mousemove", this.mouseMoveListener)
+      xyControl.removeEventListener("mousemove", this.mouseLeaveListener)
     }
   }
 
   get numXValues() { return this.xMax - this.xMin }
   get numYValues() { return this.yMax - this.yMin }
+
+  get offsetXInputs() { return this.querySelectorAll("input[name='offset-x']") }
+  get offsetYInputs() { return this.querySelectorAll("input[name='offset-y']") }
 
   _requireIntValue(attribute) {
     if (this[attribute] || this[attribute] == 0) {

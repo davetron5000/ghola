@@ -4,52 +4,42 @@ export default class BoxShadowFormComponent extends BaseCustomElement {
 
   static tagName = "g-box-shadow-form"
   static observedAttributes = [
-    "linked-to",
     "show-warnings",
   ]
 
-  linkedToChangedCallback({newValue}) {
-    this.linkedToElementId = newValue
-  }
-
   constructor() {
     super()
-    this.changeListener = (event) => {
-      const linkedElement = document.getElementById(this.linkedToElementId)
-      if (!linkedElement) {
-        this.logger.warn(`No element with id '${this.linkedToElementId}' found`)
-        return
-      }
-      if (event.target.type == "checkbox") {
-        if (event.target.checked) {
-          linkedElement.setAttribute(event.target.name,true)
-        }
-        else {
-          linkedElement.removeAttribute(event.target.name)
-        }
-      }
-      else if (event.detail && event.detail.x && event.detail.y) {
-        linkedElement.setAttribute("offset-x",event.detail.x)
-        linkedElement.setAttribute("offset-y",event.detail.y)
-      }
-      else {
-        linkedElement.setAttribute(event.target.name,event.target.value)
-      }
+    this.inputListener = (event) => {
+      this.dispatchEvent(new CustomEvent("change", { detail: event }))
     }
+    this.changeListeners = new Set()
   }
 
   render() {
+    this.eachElement( (element) => {
+      element.addEventListener("input", this.inputListener)
+    })
+  }
+
+  eachElement(f) {
     const form = this.querySelector("form")
     if (!form) {
       this.logger.warn("Could not find a form element")
       return
     }
 
-    Array.from(form.elements).forEach( (element) => {
-      element.addEventListener("input", this.changeListener)
-    })
-    this.querySelectorAll("g-xy-input").forEach( (element) => {
-      element.addEventListener("input", this.changeListener)
-    })
+    Array.from(form.elements).forEach( (element) => f(element) )
+    this.querySelectorAll("g-xy-input").forEach( (element) => f(element) )
+  }
+
+  linkElements(eventListener) {
+    this.addEventListener("change",eventListener)
+    if (!this.changeListeners.has(eventListener)) {
+      this.changeListeners.add(eventListener)
+      this.eachElement( (element) => {
+        eventListener(new CustomEvent("change",{ detail: { target: element }}))
+      })
+    }
+
   }
 }

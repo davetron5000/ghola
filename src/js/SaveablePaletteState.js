@@ -2,7 +2,7 @@ import Palette from "./Palette"
 import PaletteEntry from "./PaletteEntry"
 import Color from "./Color"
 
-export default class SaveableState {
+export default class SaveablePaletteState {
   start() {
     this.pushState(window.location.toString(), { setURL: false })
   }
@@ -18,6 +18,7 @@ export default class SaveableState {
       )
     }
     const otherColorsValue = palette.otherColors.map( (otherColor) => {
+      console.log(otherColor)
       let value = otherColor.hexCode || otherColor.algorithm
       if (otherColor.userSuppliedName) {
         value = value + ":" + otherColor.userSuppliedName

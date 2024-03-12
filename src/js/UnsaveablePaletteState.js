@@ -1,6 +1,6 @@
 import Palette from "./Palette"
 
-export default class UnsaveableState {
+export default class UnsaveablePaletteState {
   start() { }
   savePalette(palette) {
     this.palette = palette

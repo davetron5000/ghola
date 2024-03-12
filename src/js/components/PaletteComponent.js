@@ -2,8 +2,8 @@ import BaseCustomElement          from "../brutaldom/BaseCustomElement"
 import PaletteColorScaleComponent from "./PaletteColorScaleComponent"
 import ColorNameComponent         from "./ColorNameComponent"
 import PreviewComponent           from "./PreviewComponent"
-import SaveableState from "../SaveableState"
-import UnsaveableState from "../UnsaveableState"
+import SaveablePaletteState       from "../SaveablePaletteState"
+import UnsaveablePaletteState     from "../UnsaveablePaletteState"
 
 export default class PaletteComponent extends BaseCustomElement {
 
@@ -15,10 +15,10 @@ export default class PaletteComponent extends BaseCustomElement {
 
   saveStateChangedCallback({newValue}) {
     if (newValue || newValue === "") {
-      this._saveableState = new SaveableState()
+      this._saveableState = new SaveablePaletteState()
     }
     else {
-      this._saveableState = new UnsaveableState()
+      this._saveableState = new UnsaveablePaletteState()
     }
   }
 
@@ -28,7 +28,7 @@ export default class PaletteComponent extends BaseCustomElement {
 
   constructor() {
     super()
-    this._saveableState = new UnsaveableState()
+    this._saveableState = new UnsaveablePaletteState()
     this.colorChangeEventListener = (event) => {
       this.dispatchEvent(new CustomEvent("palette-change", { cancelable: false, bubbles: true }))
     }

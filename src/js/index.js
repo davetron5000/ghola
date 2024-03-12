@@ -2,6 +2,7 @@ import AddColorScaleButtonComponent   from "./components/AddColorScaleButtonComp
 import AttributeCheckboxComponent     from "./components/AttributeCheckboxComponent"
 import ColorNameComponent             from "./components/ColorNameComponent"
 import ColorSwatchComponent           from "./components/ColorSwatchComponent"
+import CopyCodeComponent              from "./components/CopyCodeComponent"
 import DownloadPaletteComponent       from "./components/DownloadPaletteComponent"
 import ElementSourceComponent         from "./brutaldom/components/ElementSourceComponent"
 import PaletteColorScaleComponent     from "./components/PaletteColorScaleComponent"
@@ -13,6 +14,7 @@ import PreviewTextComponent           from "./components/PreviewTextComponent"
 import PreviewControlsComponent       from "./components/PreviewControlsComponent"
 import BoxShadowComponent             from "./components/BoxShadowComponent"
 import BoxShadowFormComponent         from "./components/BoxShadowFormComponent"
+import BoxShadowScaleComponent        from "./components/BoxShadowScaleComponent"
 import XYInputComponent               from "./components/XYInputComponent"
 
 import PaletteUI from "./PaletteUI"
@@ -22,8 +24,10 @@ document.addEventListener("DOMContentLoaded", () => {
   AttributeCheckboxComponent.define()
   BoxShadowComponent.define()
   BoxShadowFormComponent.define()
+  BoxShadowScaleComponent.define()
   ColorNameComponent.define()
   ColorSwatchComponent.define()
+  CopyCodeComponent.define()
   DownloadPaletteComponent.define()
   ElementSourceComponent.define()
   PaletteColorScaleComponent.define()
