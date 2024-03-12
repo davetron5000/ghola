@@ -18,7 +18,6 @@ export default class SaveablePaletteState {
       )
     }
     const otherColorsValue = palette.otherColors.map( (otherColor) => {
-      console.log(otherColor)
       let value = otherColor.hexCode || otherColor.algorithm
       if (otherColor.userSuppliedName) {
         value = value + ":" + otherColor.userSuppliedName

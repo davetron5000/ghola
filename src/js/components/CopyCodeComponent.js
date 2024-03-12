@@ -24,7 +24,6 @@ export default class CopyCodeComponent extends BaseCustomElement {
       }
       const tmp = document.createElement("textarea")
       document.body.appendChild(tmp)
-      console.log(code.textContent)
 
       tmp.value = code.textContent
       tmp.focus()
@@ -57,7 +56,6 @@ export default class CopyCodeComponent extends BaseCustomElement {
 
 
   render() {
-    console.log("render")
     const button = this.querySelector("button")
     if (!button) {
       this.logger.warn("Could not find a button, so can't do anything")
