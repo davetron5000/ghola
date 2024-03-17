@@ -151,3 +151,56 @@ g-xy-input [data-xy] {
   color: var(--mg-black-ish);
 }
 
+g-box-shadow div {
+  width: calc(1.5* var(--mg-sp-5));
+  height: calc(1.5* var(--mg-sp-5));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+  font-size: var(--mg-fs-1);
+  color: var(--mg-gray-300);
+}
+
+div:has(g-box-shadow):nth-child(1) {
+  padding: var(--mg-sp-2);
+}
+div:has(g-box-shadow):nth-child(2) {
+  padding: calc(1.5 * var(--mg-sp-2));
+}
+
+div:has(g-box-shadow):nth-child(3) {
+  padding: var(--mg-sp-3);
+}
+div:has(g-box-shadow):nth-child(4) {
+  padding: calc(1.5 * var(--mg-sp-3));
+}
+
+div:has(g-box-shadow):nth-child(5) {
+  padding: var(--mg-sp-4);
+}
+div:has(g-box-shadow):nth-child(6) {
+  padding: calc(1.5 * var(--mg-sp-4));
+}
+
+#css {
+  width: 60%;
+}
+@media screen and (max-width: 36em) {
+  #css {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+  }
+}
+
+@media screen and (max-width: 36em) {
+  g-copy-code button {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: var(--mg-sp-2);
+    margin-bottom: var(--mg-sp-4);
+  }
+}

@@ -4,7 +4,7 @@
     <%- include("./templates/header.html", { subtitle: "Box Shadow Tool" }) %>
     <main class="mh-auto">
       <g-box-shadow-form show-warnings id="form">
-        <form class="flex justify-center items-start gap-3 pa-3">
+        <form class="flex flex-wrap justify-center items-start gap-3 pa-3">
           <g-xy-input aria-role="none" show-warnings="xy"
                                        x-min="-10"
                                        x-max="10"
@@ -105,58 +105,58 @@
         </form>
       </g-box-shadow-form>
       <g-box-shadow-scale class="flex flex-column items-center gap-3" show-warnings id="scale" form="form">
-        <div class="flex items-center justify-center gap-2 mv-2">
-          <div class="bc-gray-700 pa-4 ">
+        <div class="flex flex-wrap items-center justify-center mv-2">
+          <div class="bc-gray-700">
             <g-box-shadow
               id="basis"
               show-warnings>
-              <div class="w-5 h-5"></div>
+              <div class="">1</div>
             </g-box-shadow>
           </div>
-          <div class="bc-gray-700 pa-4 ">
+          <div class="bc-gray-700">
             <g-box-shadow
               show-warnings="true"
               derived-from="basis"
               >
-              <div class="w-5 h-5"></div>
+              <div class="">2</div>
             </g-box-shadow>
           </div>
-          <div class="bc-gray-700 pa-4 ">
+          <div class="bc-gray-700">
             <g-box-shadow
               show-warnings="true"
               derived-from="basis"
               >
-              <div class="w-5 h-5"></div>
+              <div class="">3</div>
             </g-box-shadow>
           </div>
-          <div class="bc-gray-700 pa-4 ">
+          <div class="bc-gray-700">
             <g-box-shadow
               show-warnings="true"
               derived-from="basis"
               >
-              <div class="w-5 h-5"></div>
+              <div class="">4</div>
             </g-box-shadow>
           </div>
-          <div class="bc-gray-700 pa-4  hover-bc-white">
+          <div class="bc-gray-700">
             <g-box-shadow
               show-warnings="true"
               derived-from="basis"
               >
-              <div class="w-5 h-5"></div>
+              <div class="">5</div>
             </g-box-shadow>
           </div>
-          <div class="bc-gray-700 pa-4  hover-bc-white">
+          <div class="bc-gray-700">
             <g-box-shadow
               show-warnings="true"
               derived-from="basis"
               >
-              <div class="w-5 h-5"></div>
+              <div class="">6</div>
             </g-box-shadow>
           </div>
         </div>
         <div class="w-100 dfr mh-auto">
           <div class="w-20 f-l">&nbsp;</div>
-        <code class="w-60 f-l ws-pre db bg-black br-3 pa-3 mb-3 green-500" id="css">
+        <code class="f-l overflow-x-scroll ws-pre db bg-black br-3 pa-3 mb-3 green-500" id="css">
         </code>
         <g-copy-code code="css" class="f-l ml-3">
           <button class="shadow-button f-2 br-3 ph-4 pv-2 flex gap-1 items-center justify-center">
