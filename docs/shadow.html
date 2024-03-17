@@ -22,10 +22,10 @@
 
   </head>
   <body class="ff-sans bg-white black">
-        <header class="bg-black-ish gray-800">
-      <div class="flex items-center justify-between">
+        <header class="bg-black-ish gray-800 pb-3">
+      <div class="flex flex-wrap items-center justify-between">
         <div>
-        <h1 class="ma-0 mh-3 pt-3 f-6 ttu tracked flex items-center gap-3">
+        <h1 class="mt-0 mb-2 mh-3 pt-3 f-6 ttu tracked flex flex-wrap items-center gap-3">
           <a href="/" class="tdn hover-tdu gray-800">
           Ghola
           </a>
@@ -37,12 +37,12 @@
           <span class="h-3 w-3 bg-purple-500"></span>
           <span class="h-3 w-3 bg-gray-500"></span>
         </h1>
-        <h2 class="ma-0 mh-3 pb-3 f-5">Scale Generator for Developers</h2>
+        <h2 class="ma-0 mh-3 f-5">Scale Generator for Developers</h2>
         
-          <h3 class="ma-0 ph-3 pb-3 f-4 ttu tracked fw-4">Box Shadow Tool</h3>
+          <h3 class="ma-0 mt-2 ph-3 pb-3 f-4 fw-4">Box Shadow Tool</h3>
         
         </div>
-        <nav class="mh-3 flex items-baseline gap-2">
+        <nav class="ma-3 flex flex-wrap items-baseline gap-2">
           <a href="/" class="blue-700 f-3">Palette</a>
           <span role="none">&middot;</span>
           <a href="/shadow.html" class="blue-700 f-3">Box Shadows</a>
@@ -59,7 +59,7 @@
 
     <main class="mh-auto">
       <g-box-shadow-form show-warnings id="form">
-        <form class="flex justify-center items-start gap-3 pa-3">
+        <form class="flex flex-wrap justify-center items-start gap-3 pa-3">
           <g-xy-input aria-role="none" show-warnings="xy"
                                        x-min="-10"
                                        x-max="10"
@@ -160,58 +160,58 @@
         </form>
       </g-box-shadow-form>
       <g-box-shadow-scale class="flex flex-column items-center gap-3" show-warnings id="scale" form="form">
-        <div class="flex items-center justify-center gap-2 mv-2">
-          <div class="bc-gray-700 pa-4 ">
+        <div class="flex flex-wrap items-center justify-center mv-2">
+          <div class="bc-gray-700">
             <g-box-shadow
               id="basis"
               show-warnings>
-              <div class="w-5 h-5"></div>
+              <div class="">1</div>
             </g-box-shadow>
           </div>
-          <div class="bc-gray-700 pa-4 ">
+          <div class="bc-gray-700">
             <g-box-shadow
               show-warnings="true"
               derived-from="basis"
               >
-              <div class="w-5 h-5"></div>
+              <div class="">2</div>
             </g-box-shadow>
           </div>
-          <div class="bc-gray-700 pa-4 ">
+          <div class="bc-gray-700">
             <g-box-shadow
               show-warnings="true"
               derived-from="basis"
               >
-              <div class="w-5 h-5"></div>
+              <div class="">3</div>
             </g-box-shadow>
           </div>
-          <div class="bc-gray-700 pa-4 ">
+          <div class="bc-gray-700">
             <g-box-shadow
               show-warnings="true"
               derived-from="basis"
               >
-              <div class="w-5 h-5"></div>
+              <div class="">4</div>
             </g-box-shadow>
           </div>
-          <div class="bc-gray-700 pa-4  hover-bc-white">
+          <div class="bc-gray-700">
             <g-box-shadow
               show-warnings="true"
               derived-from="basis"
               >
-              <div class="w-5 h-5"></div>
+              <div class="">5</div>
             </g-box-shadow>
           </div>
-          <div class="bc-gray-700 pa-4  hover-bc-white">
+          <div class="bc-gray-700">
             <g-box-shadow
               show-warnings="true"
               derived-from="basis"
               >
-              <div class="w-5 h-5"></div>
+              <div class="">6</div>
             </g-box-shadow>
           </div>
         </div>
         <div class="w-100 dfr mh-auto">
           <div class="w-20 f-l">&nbsp;</div>
-        <code class="w-60 f-l ws-pre db bg-black br-3 pa-3 mb-3 green-500" id="css">
+        <code class="f-l overflow-x-scroll ws-pre db bg-black br-3 pa-3 mb-3 green-500" id="css">
         </code>
         <g-copy-code code="css" class="f-l ml-3">
           <button class="shadow-button f-2 br-3 ph-4 pv-2 flex gap-1 items-center justify-center">
