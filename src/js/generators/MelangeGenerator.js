@@ -49,6 +49,6 @@ export default class MelangeGenerator extends CSSGenerator {
     const shadeName = shadeNames[index]
     const normalizedName = name.toLowerCase()
     const recognized = this.constructor.melanageRecognizedColors.indexOf(normalizedName) != -1
-    return `${ recognized ? '' : "  /* WARNING: this name is not recognized by Melange */\n"}  --mg-${normalizedName}${shadeName}: ${color};`
+    return `${ recognized ? '' : "  /* WARNING: this name is not recognized by Melange */\n"}  --${normalizedName}${shadeName}: ${color};`
   }
 }
